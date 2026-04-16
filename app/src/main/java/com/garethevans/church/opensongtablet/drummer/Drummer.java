@@ -32,9 +32,10 @@ public class Drummer {
     private DrumSection sectionBeforeFill = DrumSection.MAIN;
     private DrumSection nextSectionAfterFill = null; // New variable
     private boolean crashOnNextBar = false;
-    private String drummerStyle="Standard";
+    private String drummerStyle="Acoustic";
     private final String drum_kit_acoustic;
     private final String drum_kit_cajon;
+    private final String drum_kit_percussion;
 
     // The map currently being read by the playback loop
     private Map<String, int[]> activeMap;
@@ -44,6 +45,7 @@ public class Drummer {
         mainActivityInterface = (MainActivityInterface) c;
         drum_kit_acoustic = c.getString(R.string.drum_kit_acoustic);
         drum_kit_cajon = c.getString(R.string.drum_kit_cajon);
+        drum_kit_percussion = c.getString(R.string.drum_kit_percussion);
     }
 
     public void setIsRunning(boolean isRunning) {
@@ -76,11 +78,9 @@ public class Drummer {
 
     private void playCountInSound(String partName) {
         DrumSoundManager soundManager = mainActivityInterface.getDrumViewModel().getDrumSoundManager();
-        String cajonPrefix = getDrummerStyle().equals("Cajon") ? "Cajon_" : "";
-
         if (soundManager != null) {
             // Trigger the specific sample
-            soundManager.playDrum(cajonPrefix+partName, 100);
+            soundManager.playDrum(getCajonPrefixIfNeeded()+partName, 100);
         }
     }
 
@@ -170,7 +170,7 @@ public class Drummer {
     private void playActivePattern(int stepInBar) {
         if (activeMap == null) return;
 
-        String cajonPrefix = getDrummerStyle().equals("Cajon") ? "Cajon_" : "";
+        String cajonPrefix = getCajonPrefixIfNeeded();
 
         for (Map.Entry<String, int[]> entry : activeMap.entrySet()) {
             int velocity = entry.getValue()[stepInBar];
@@ -248,25 +248,33 @@ public class Drummer {
 
     public String getDrummerStyle() {
         if (drummerStyle==null || drummerStyle.isEmpty()) {
-            drummerStyle = "Standard";
+            drummerStyle = "Acoustic";
         }
         return drummerStyle;
     }
 
     public void setDrummerStyle(String drummerStyle) {
-        this.drummerStyle = drummerStyle;
+        if (drummerStyle==null || drummerStyle.isEmpty()) {
+            this.drummerStyle = "Acoustic";
+        } else {
+            this.drummerStyle = drummerStyle;
+        }
     }
 
     public String getDrummerStyleForSongXML(String drummerStyle) {
-        if (drummerStyle.equals(drum_kit_cajon) || drummerStyle.equals("Cajon")) {
-            return "Cajon";
+        if (drummerStyle==null || drummerStyle.isEmpty()) {
+            return "Acoustic";
+        } else if (drummerStyle.equals(drum_kit_cajon) || drummerStyle.equals("Cajon") || drummerStyle.equals(drum_kit_percussion) || drummerStyle.equals("Percussion")) {
+            return "Percussion";
         } else {
-            return "Standard";
+            return "Acoustic";
         }
     }
     public String getDrummerStyleFromXML(String drummerStyle) {
-        if (drummerStyle.equals("Cajon")) {
-            return drum_kit_cajon;
+        if (drummerStyle==null || drummerStyle.isEmpty()) {
+            return drum_kit_acoustic;
+        } else if (drummerStyle.equals(drum_kit_cajon) || drummerStyle.equals("Cajon") || drummerStyle.equals(drum_kit_percussion) || drummerStyle.equals("Percussion")) {
+            return drum_kit_percussion;
         } else {
             return drum_kit_acoustic;
         }
@@ -331,13 +339,18 @@ public class Drummer {
     public void saveDrummerFile(String filename) {
         // Reassign the file to the current one
         mainActivityInterface.getDrumViewModel().setDrumPatternJson(mainActivityInterface.getDrumViewModel().getCurrentPattern().getValue());
-        Uri uri = mainActivityInterface.getStorageAccess().getUriForItem("Drummer","",filename);
-        mainActivityInterface.getStorageAccess().lollipopCreateFileForOutputStream(true,uri,null,"Drummer","",filename);
+
+        //Uri uri = mainActivityInterface.getStorageAccess().getUriForItem("Drummer","",filename);
+        //mainActivityInterface.getStorageAccess().lollipopCreateFileForOutputStream(true,uri,null,"Drummer","",filename);
         String gsonString = MainActivity.gson.toJson(mainActivityInterface.getDrumViewModel().getCurrentPattern().getValue());
-        mainActivityInterface.getStorageAccess().writeFileFromString(gsonString,mainActivityInterface.getStorageAccess().getOutputStream(uri));
+        //mainActivityInterface.getStorageAccess().writeFileFromString(gsonString,mainActivityInterface.getStorageAccess().getOutputStream(uri));
+        mainActivityInterface.getStorageAccess().writeFileFromString("Drummer","",filename,gsonString, false);
     }
 
     public String getNiceNameFromFilename(String filename) {
+        if (filename==null) {
+            filename = "";
+        }
         String niceName = filename.replace(".json","");
         String timeSig = "";
         String[] parts = niceName.split("_");
@@ -375,5 +388,17 @@ public class Drummer {
     public String getNiceNameFromBasics(String name, String timeSig) {
         timeSig = timeSig==null ? "" : " (" + timeSig + ")";
         return name + timeSig;
+    }
+
+    public String getCajonPrefixIfNeeded() {
+        // The asset filenames need Cajon_ at the start if we are using the percussion kit
+        if (drummerStyle==null || drummerStyle.isEmpty()) {
+            drummerStyle = "Acoustic";
+        }
+        if (drummerStyle.equals("Acoustic") || drummerStyle.equals("Standard")) {
+            return "";
+        } else {
+            return "Cajon_";
+        }
     }
 }

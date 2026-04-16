@@ -10,8 +10,10 @@
     <string name="abc_popup_width">ポップアップの幅</string>
     <string name="abc_popup_width_info">画面幅に対するポップアップ ウィンドウの幅のパーセンテージ</string>
     <string name="abc_transpose_to_song">曲のキーに自動移調</string>
-    <string name="abc_transpose_to_song_info">Se una chiave è impostata nella canzone e nella notazione abc, l\'app proverà a regolare l\'output della notazione abc in modo che corrisponda alla chiave della canzone.</string>
+    <string name="abc_transpose_to_song_info">曲とabc記譜の両方にキーが設定されている場合、アプリはabc記譜の出力を調整して曲の調に合わせて調整しようとします。</string>
     <string name="about">約</string>
+    <string name="keyboard_smart_ribbon">キーボードスマートリボン</string>
+    <string name="keyboard_smart_ribbon_info">歌詞を編集する際、画面上のキーボードの上にスマートリボンが表示され、歌詞に様々なセクションを追加するためのショートカットが提供されます。キーが設定されている場合は、よく使われるコードも表示されます。</string>
     <string name="about_description">アプリ情報、ヘルプ、ユーザーガイドなど。</string>
     <string name="acceleration">加速度</string>
     <string name="accent">訛り</string>
@@ -232,7 +234,7 @@
     <string name="column_force">段区切りを手動で上書きする</string>
     <string name="column_force_info" tools:ignore="TypographyDashes">曲の新しいページ コード (!--) を使用して、自動スケーリング時に新しい列区切りを強制します</string>
     <string name="column_force_insert">段区切りを挿入</string>
-    <string name="coming_soon">近日公開予定...</string>
+    <string name="coming_soon">近日公開予定…</string>
     <string name="comment">コメント</string>
     <string name="comment_background">コメントの背景</string>
     <string name="commentline_scale">コメントテキストを拡大縮小</string>
@@ -371,6 +373,7 @@
     <string name="drum_kit">ドラムキット</string>
     <string name="drum_kit_acoustic">アコースティックキット</string>
     <string name="drum_kit_cajon">カホン</string>
+    <string name="drum_kit_percussion">パーカッションキット</string>
     <string name="drum_ride">乗る</string>
     <string name="drum_ride_bell">ベルに乗る</string>
     <string name="drum_rim_shot">リムショット</string>
@@ -389,6 +392,7 @@
     <string name="drummer_assign_error">ドラマーを曲に割り当てる前に、まずドラマーファイルを保存する必要があります</string>
     <string name="drummer_assign_info">このドラマーを現在の曲に割り当てる</string>
     <string name="drummer_fill">ドラマーフィル</string>
+    <string name="drummer_kit">ドラマーキット</string>
     <string name="drummer_main">メインビート</string>
     <string name="drummer_main_fill">メインフィル</string>
     <string name="drummer_not_valid">曲を編集して有効なテンポと拍子を設定してください</string>
@@ -847,6 +851,11 @@
     <string name="openchords_info">OpenChordsとフォルダーを同期します。  これにより、JustChords などの他のアプリが OpenSongApp と同期できるようになります</string>
     <string name="openchords_link">フォルダーのリンクを共有する</string>
     <string name="openchords_link_info">フォルダーが既に OpenChords サーバーにアップロードされている場合は、他のユーザーが使用できるリンクを共有できます。</string>
+    <string name="openchords_not_owner">これは他のユーザーが共有したフォルダです</string>
+    <string name="openchords_owner">このフォルダの所有者はあなたです</string>
+    <string name="openchords_readonly">このフォルダは読み取り専用としてマークされています</string>
+    <string name="openchords_readonly_switch">読み取り専用</string>
+    <string name="openchords_readonly_switch_info">このリンクを使用する他のユーザー向けに、このフォルダの設定を変更します。</string>
     <string name="opensong_media">オーディオ録音は /OpenSong/Media/ に保存されます。</string>
     <string name="optional">オプション</string>
     <string name="order">注文</string>
@@ -1446,8 +1455,12 @@
     <string name="web_server_info">OpenSongApp以外のユーザーは、このデバイスと同じネットワーク上にいる必要があります(ホットスポットを使用することもできます)。 次に、このWebアドレスを開いて曲を表示する必要があります。</string>
     <string name="web_server_navigation">手動ナビゲーション</string>
     <string name="web_server_navigation_info">オンにすると、ユーザーは曲リストまたは現在のセットに表示されている曲を手動で選択できます。 オフにすると、ユーザーは現在ロードされている曲のみを表示できます</string>
+    <string name="web_server_port">ポート番号</string>
+    <string name="web_server_port_info">一部のブラウザやWi-Fiルーターは特定のポート番号をブロックします。あなたや他のユーザーが以下のリンクからウェブページを表示できない場合は、ポート番号を変更してみてください。</string>
     <string name="web_view_desktop">デスクトップサイトをリクエストする</string>
     <string name="web_view_desktop_info">これにより、曲のレイアウトが改善され、Webサイトがモバイルアプリのインストールを強制しようとするのを回避できます</string>
+    <string name="webserver_messages">ウェブサーバーメッセージ</string>
+    <string name="webserver_messages_info">接続されたデバイスにメッセージを送信する</string>
     <string name="website">Webサイト</string>
     <string name="welcome">OpenSongAppへようこそ</string>
     <string name="where">どこ</string>

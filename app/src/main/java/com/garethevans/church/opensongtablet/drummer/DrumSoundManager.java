@@ -6,7 +6,11 @@ import android.content.res.AssetManager;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.os.Build;
 import android.util.Log;
+
+import androidx.annotation.RequiresApi;
+import androidx.webkit.internal.ApiFeature;
 
 import com.garethevans.church.opensongtablet.R;
 import com.garethevans.church.opensongtablet.interfaces.MainActivityInterface;
@@ -50,7 +54,10 @@ public class DrumSoundManager {
     public void determineSampleRate(Context context) {
         AudioManager myAudioMgr = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         String sampleRateStr = myAudioMgr.getProperty(AudioManager.PROPERTY_OUTPUT_SAMPLE_RATE);
-        int defaultSampleRate = Integer.parseInt(sampleRateStr);
+        int defaultSampleRate = 44100;
+        if (sampleRateStr != null) {
+            defaultSampleRate = Integer.parseInt(sampleRateStr);
+        }
         String framesPerBurstStr = myAudioMgr.getProperty(AudioManager.PROPERTY_OUTPUT_FRAMES_PER_BUFFER);
         int defaultFramesPerBurst = Integer.parseInt(framesPerBurstStr);
         if (defaultSampleRate==48000) {
@@ -62,16 +69,34 @@ public class DrumSoundManager {
 
     public void initialiseDrumSounds(Context context) {
         // Inside initialiseDrumSounds or the constructor
-        AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                .setUsage(AudioAttributes.USAGE_GAME) // GAME or ASSISTANCE_SONIFICATION
-                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION) // CRITICAL for low latency
-                .setFlags(AudioAttributes.FLAG_LOW_LATENCY) // Hints to the system to prioritize speed
-                .build();
+        AudioAttributes audioAttributes = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            audioAttributes = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION) // GAME or ASSISTANCE_SONIFICATION
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION) // CRITICAL for low latency
+                    .setFlags(AudioAttributes.FLAG_LOW_LATENCY) // Hints to the system to prioritize speed
+                    .build();
 
-        soundPool = new SoundPool.Builder()
-                .setMaxStreams(32)
-                .setAudioAttributes(audioAttributes)
-                .build();
+            soundPool = new SoundPool.Builder()
+                    .setMaxStreams(32)
+                    .setAudioAttributes(audioAttributes)
+                    .build();
+
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            audioAttributes = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION) // GAME or ASSISTANCE_SONIFICATION
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION) // CRITICAL for low latency
+                    .build();
+
+            soundPool = new SoundPool.Builder()
+                    .setMaxStreams(32)
+                    .setAudioAttributes(audioAttributes)
+                    .build();
+
+        } else {
+            soundPool = new SoundPool(32, AudioManager.STREAM_MUSIC, 0);
+        }
+
 
         setupLoadListener();
 
@@ -102,7 +127,8 @@ public class DrumSoundManager {
     private void loadDrumSamples(Context context) {
         DrumKit kit;
 
-        if (mainActivityInterface.getDrumViewModel().getDrummer().getDrummerStyle().equals("Cajon")) {
+        if (mainActivityInterface.getDrumViewModel().getDrummer().getDrummerStyle().equals("Cajon") ||
+            mainActivityInterface.getDrumViewModel().getDrummer().getDrummerStyle().equals("Percussion")) {
             kit = cajonKit;
         } else {
             kit = drumKit;

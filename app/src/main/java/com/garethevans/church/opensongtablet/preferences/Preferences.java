@@ -432,6 +432,7 @@ public class Preferences extends Activity {
     // inlineSetTextSize                float       The text size for the inline set (def:14f)
     // inlineSetTextSizePresenter       float       The text size for the inline set for Presenter mode (def:14f)
     // intentAlreadyDealtWith           boolean     A note of if we have dealt with the intent to avoid multiple calls.  Reset to false on destroy (def: false)
+    // keyboardSmartRibbon              boolean     A smart ribbon above the on screen keyboard when editing song lyrics (boolean: true)
     // language                         String      The locale set in the menu (def:en)
     // largePopups                      boolean     Should the drop down exposed popups be big (def:true)
     // lastUsedVersion                  int         The app version number the last time the app ran (def:0)
@@ -700,6 +701,7 @@ public class Preferences extends Activity {
     // voiceLiveOverrideChannel         boolean     Should VoiceLive MIDI messages always use the MIDI channel preference regardless of the MIDI message channel sent (def:true)
     // voiceLiveSendKey                 boolean     Should the VoiceLive key message be sent by default (def:false)
     // webViewDesktop                   boolean     Should a desktop site be requested for UG online import (def:false)
+    // webServerMessage1-5              String      Saved webServer messages that we can edit and send to connected webServer clients (def:"")
     // whichSetCategory                 String      Which set category are we browsing (category___setname) (def:c.getString(R.string.mainfoldername))
     // whichMode                        String      Which app mode - Stage, Performance, Presentation (def:Performance)
     //

@@ -32,15 +32,18 @@ import java.util.Enumeration;
 
 public class WebServer {
 
+    @SuppressWarnings({"unused","FieldCanBeLocal"})
     private final String TAG = "WebServer";
     private final Context c;
     private final MainActivityInterface mainActivityInterface;
-    private final KtorServer ktorServer;
     private String abcJSFromAsset;
     private boolean runWebServer;
     private boolean allowWebNavigation;
+    private String webServerPort;
     private WebServerFragment webServerFragment;
     private String ipAddress;
+    private String webServerMessage1, webServerMessage2, webServerMessage3, webServerMessage4,
+            webServerMessage5, webServerMessageTemp;
 
     // The strings used in the JavaScript and Ktor to identify what we want
     private final String hostsong="hostsong", songmenu="songmenu", setmenu = "setmenu", manualsong="song";
@@ -48,7 +51,6 @@ public class WebServer {
     public WebServer(Context c) {
         this.c = c;
         this.mainActivityInterface = (MainActivityInterface) c;
-        ktorServer = new KtorServer(c,8080);
         abcJSFromAsset = "";
         try {
             InputStream inputStream = c.getAssets().open("ABC/abcjs-basic-min.js");
@@ -63,10 +65,19 @@ public class WebServer {
     public void getUpdatedPreferences() {
         runWebServer = mainActivityInterface.getPreferences().getMyPreferenceBoolean("runWebServer",false);
         allowWebNavigation = mainActivityInterface.getPreferences().getMyPreferenceBoolean("allowWebNavigation",false);
-        // If we have WIFI permissions, we can go ahead and get the required info and start the server if needed automatically
+        webServerPort = mainActivityInterface.getPreferences().getMyPreferenceString("webServerPort","8080");
+        // If we have Wi-Fi permissions, we can go ahead and get the required info and start the server if needed automatically
         if (mainActivityInterface.getAppPermissions().hasWebServerPermission()) {
             callRunWebServer();
         }
+
+        // webServerMessage1-5/Temp are used to send messages to connected clients
+        webServerMessage1 = mainActivityInterface.getPreferences().getMyPreferenceString("webServerMessage1","");
+        webServerMessage2 = mainActivityInterface.getPreferences().getMyPreferenceString("webServerMessage2","");
+        webServerMessage3 = mainActivityInterface.getPreferences().getMyPreferenceString("webServerMessage3","");
+        webServerMessage4 = mainActivityInterface.getPreferences().getMyPreferenceString("webServerMessage4","");
+        webServerMessage5 = mainActivityInterface.getPreferences().getMyPreferenceString("webServerMessage5","");
+        webServerMessageTemp = mainActivityInterface.getPreferences().getMyPreferenceString("webServerMessageTemp","");
     }
 
     // Keep a reference for the webServerFragment
@@ -77,11 +88,11 @@ public class WebServer {
     public void callRunWebServer() {
         getIP();
         try {
-            if (runWebServer && ktorServer!=null) {
-                ktorServer.start();
+            if (runWebServer) {
+                KtorServer.INSTANCE.start(c, Integer.parseInt(webServerPort));
 
-            } else if (ktorServer!=null) {
-                ktorServer.stop();
+            } else {
+                KtorServer.INSTANCE.stopServerExternal();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,8 +101,9 @@ public class WebServer {
 
     public void stopWebServer() {
         try {
+            Log.d(TAG,"stopWebServer()");
             ipAddress = null;
-            ktorServer.stop();
+            KtorServer.INSTANCE.stopServerExternal();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -213,7 +225,7 @@ public class WebServer {
     public Bitmap getIPQRCode() {
         QRCodeWriter writer = new QRCodeWriter();
         try {
-            BitMatrix bitMatrix = writer.encode("http://"+getIP()+":8080/", BarcodeFormat.QR_CODE, 800, 800);
+            BitMatrix bitMatrix = writer.encode("http://"+getIP()+":"+webServerPort+"/", BarcodeFormat.QR_CODE, 800, 800);
 
             int w = bitMatrix.getWidth();
             int h = bitMatrix.getHeight();
@@ -261,28 +273,27 @@ public class WebServer {
 
     // Used for debug in Performance Fragment
     public void runKtorTemp() {
-        Log.d(TAG,"runKtor()");
         // This changes if we are using the host song or the user choice
         Song songForHTML = mainActivityInterface.getSong();
         mainActivityInterface.getProcessSong().processSongIntoSections(songForHTML,false);
 
         String newSplashPage = CreateHTML.getSplashHTML(c,songForHTML,ipAddress);
-        mainActivityInterface.getStorageAccess().doStringWriteToFile("Settings","","newSplashPage.html", newSplashPage);
+        mainActivityInterface.getStorageAccess().writeFileFromString("Settings","","newSplashPage.html", newSplashPage, false);
 
         String newWebPage = CreateHTML.getSongHTML(c,songForHTML,ipAddress,true,true, getPreviousAndNextSongForArrows(songForHTML));
-        mainActivityInterface.getStorageAccess().doStringWriteToFile("Settings","","newWebPage.html", newWebPage);
+        mainActivityInterface.getStorageAccess().writeFileFromString("Settings","","newWebPage.html", newWebPage, false);
 
         String songMenuPage = CreateHTML.getSongMenuHTML(c,songForHTML,ipAddress,true, getPreviousAndNextSongForArrows(songForHTML));
-        mainActivityInterface.getStorageAccess().doStringWriteToFile("Settings","","songMenuPage.html", songMenuPage);
+        mainActivityInterface.getStorageAccess().writeFileFromString("Settings","","songMenuPage.html", songMenuPage, false);
 
         String setMenuPage = CreateHTML.getSetMenuHTML(c,songForHTML,ipAddress,true, getPreviousAndNextSongForArrows(songForHTML));
-        mainActivityInterface.getStorageAccess().doStringWriteToFile("Settings","","setMenuPage.html", setMenuPage);
+        mainActivityInterface.getStorageAccess().writeFileFromString("Settings","","setMenuPage.html", setMenuPage, false);
     }
 
     // Called when we load a song to push a refresh to connected web clients
     public void updateKtor() {
-        if (ktorServer!=null && runWebServer) {
-            ktorServer.pushRefresh();
+        if (runWebServer) {
+            KtorServer.INSTANCE.pushRefresh();
         }
     }
 
@@ -439,6 +450,76 @@ public class WebServer {
             }
         } catch (Exception e) {
             return c.getString(R.string.error) + "\n";
+        }
+
+    }
+
+    public String getPortNumber() {
+        return webServerPort;
+    }
+    public void setPortNumber(String webServerPort) {
+        this.webServerPort = webServerPort;
+        mainActivityInterface.getPreferences().setMyPreferenceString("webServerPort",webServerPort);
+        // Stop the server and start it again
+        KtorServer.INSTANCE.start(c, Integer.parseInt(webServerPort));
+    }
+
+    /**
+     * Get the string saved to the webServerMessage1-5/Temp
+     * @param messageNumber - the number of the message (1-5).  If 0, then send webServerMessageTemp
+     * @return the message String
+     */
+    public String getWebServerMessage(int messageNumber) {
+        switch (messageNumber) {
+            case 1:
+                return webServerMessage1;
+            case 2:
+                return webServerMessage2;
+            case 3:
+                return webServerMessage3;
+            case 4:
+                return webServerMessage4;
+            case 5:
+                return webServerMessage5;
+            default:
+                return webServerMessageTemp;
+        }
+    }
+    /**
+     * Get the string saved to the webServerMessage1-5/Temp
+     * @param messageNumber - the number of the message (1-5).  If 0, then webServerMessageTemp
+     * @param message - the message to save to the preference
+     */
+    public void setWebServerMessage(int messageNumber, String message) {
+        String prefString = "webServerMessage"+message;
+        switch (messageNumber) {
+            case 1:
+                webServerMessage1 = message;
+                break;
+            case 2:
+                webServerMessage2 = message;
+                break;
+            case 3:
+                webServerMessage3 = message;
+                break;
+            case 4:
+                webServerMessage4 = message;
+                break;
+            case 5:
+                webServerMessage5 = message;
+                break;
+            default:
+                webServerMessageTemp = message;
+                prefString = "webServerMessageTemp";
+                break;
+        }
+        mainActivityInterface.getPreferences().setMyPreferenceString(prefString,message);
+    }
+    public void sendWebServerMessage(int message) {
+        try {
+            KtorServer.INSTANCE.pushPreferenceMessage(message, mainActivityInterface);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

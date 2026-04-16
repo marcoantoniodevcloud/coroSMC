@@ -1,5 +1,6 @@
 package com.garethevans.church.opensongtablet.export;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -39,8 +40,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Locale;
+import java.util.Objects;
 
 public class ExportFragment extends Fragment {
 
@@ -547,8 +548,8 @@ public class ExportFragment extends Fragment {
             if (textSet || includeSongs || setPDF) {
                 if (textSet) {
                     mainActivityInterface.getStorageAccess().updateFileActivityLog(TAG+" doExportSet doStringWriteToFile Export/"+setToExport+".txt with: "+setData[1]);
-                    mainActivityInterface.getStorageAccess().doStringWriteToFile(
-                            "Export", "", setToExport + ".txt", setData[1]);
+                    mainActivityInterface.getStorageAccess().writeFileFromString(
+                            "Export", "", setToExport + ".txt", setData[1], false);
                     if (textSet) {
                         uris.add(mainActivityInterface.getStorageAccess().getUriForItem("Export", "", setToExport + ".txt"));
                         if (!mimeTypes.contains("text/plain")) {
@@ -607,7 +608,7 @@ public class ExportFragment extends Fragment {
                             mainActivityInterface.getStorageAccess().lollipopCreateFileForOutputStream(true,uri,null,"Export","",song.getFilename());
                             float fileSize = mainActivityInterface.getStorageAccess().getFileSizeFromUri(uri);
                             mainActivityInterface.getProcessSong().getXML(song);
-                            mainActivityInterface.getStorageAccess().doStringWriteToFile("Export", "", song.getFilename(), song.getSongXML());
+                            mainActivityInterface.getStorageAccess().writeFileFromString("Export", "", song.getFilename(), song.getSongXML(), false);
                             if (includeSongs && fileSize>0) {
                                 uris.add(uri);
                             }
@@ -723,7 +724,7 @@ public class ExportFragment extends Fragment {
                             // Get the text from the file
                             String content = mainActivityInterface.getPrepareFormats().getSongAsOnSong(song);
                             mainActivityInterface.getStorageAccess().updateFileActivityLog(TAG+" doExportSet doStringWriteToFile Export/"+location[1]+".onsong with: "+content);
-                            if (mainActivityInterface.getStorageAccess().doStringWriteToFile("Export", "", location[1] + ".onsong", content)) {
+                            if (mainActivityInterface.getStorageAccess().writeFileFromString("Export", "", location[1] + ".onsong", content, false)) {
                                 uris.add(mainActivityInterface.getStorageAccess().getUriForItem("Export", "", location[1] + ".onsong"));
                                 if (!mimeTypes.contains("text/plain")) {
                                     mimeTypes.add("text/plain");
@@ -736,7 +737,7 @@ public class ExportFragment extends Fragment {
                             // Get the text from the file
                             String content = mainActivityInterface.getPrepareFormats().getSongAsChoPro(song);
                             mainActivityInterface.getStorageAccess().updateFileActivityLog(TAG+" doExportSet doStringWriteToFile Export/"+location[1]+".cho with: "+content);
-                            if (mainActivityInterface.getStorageAccess().doStringWriteToFile("Export", "", location[1] + ".cho", content)) {
+                            if (mainActivityInterface.getStorageAccess().writeFileFromString("Export", "", location[1] + ".cho", content, false)) {
                                 uris.add(mainActivityInterface.getStorageAccess().getUriForItem("Export", "", location[1] + ".cho"));
                                 if (!mimeTypes.contains("text/plain")) {
                                     mimeTypes.add("text/plain");
@@ -753,7 +754,7 @@ public class ExportFragment extends Fragment {
                             }
                             if (text) {
                                 mainActivityInterface.getStorageAccess().updateFileActivityLog(TAG + " doExportSet doStringWriteToFile Export/" + location[1] + ".txt with: " + content);
-                                if (mainActivityInterface.getStorageAccess().doStringWriteToFile("Export", "", location[1] + ".txt", content)) {
+                                if (mainActivityInterface.getStorageAccess().writeFileFromString("Export", "", location[1] + ".txt", content, false)) {
                                     uris.add(mainActivityInterface.getStorageAccess().getUriForItem("Export", "", location[1] + ".txt"));
                                     if (!mimeTypes.contains("text/plain")) {
                                         mimeTypes.add("text/plain");
@@ -800,7 +801,7 @@ public class ExportFragment extends Fragment {
         if (merged && !combinedSetText.toString().isEmpty()) {
             uri = mainActivityInterface.getStorageAccess().getUriForItem("Export","",merged_text_file_string+".txt");
             mainActivityInterface.getStorageAccess().lollipopCreateFileForOutputStream(true,uri,null,"Export","",merged_text_file_string+".txt");
-            mainActivityInterface.getStorageAccess().doStringWriteToFile("Export","",merged_text_file_string+".txt",combinedSetText.toString());
+            mainActivityInterface.getStorageAccess().writeFileFromString("Export","",merged_text_file_string+".txt",combinedSetText.toString(), false);
         }
         return uri;
     }
@@ -953,8 +954,8 @@ public class ExportFragment extends Fragment {
             if (onsong && isXML) {
                 String content = mainActivityInterface.getPrepareFormats().getSongAsOnSong(mainActivityInterface.getSong());
                 mainActivityInterface.getStorageAccess().updateFileActivityLog(TAG+" doExportSong doStringWriteToFile Export/"+filename+".onsong with: "+content);
-                if (mainActivityInterface.getStorageAccess().doStringWriteToFile("Export", "",
-                        filename + ".onsong", content)) {
+                if (mainActivityInterface.getStorageAccess().writeFileFromString("Export", "",
+                        filename + ".onsong", content, false)) {
                     uris.add(mainActivityInterface.getStorageAccess().getUriForItem("Export", "",
                             filename + ".onsong"));
                     if (!mimeTypes.contains("text/plain")) {
@@ -966,8 +967,8 @@ public class ExportFragment extends Fragment {
             if (chordPro && isXML) {
                 String content = mainActivityInterface.getPrepareFormats().getSongAsChoPro(mainActivityInterface.getSong());
                 mainActivityInterface.getStorageAccess().updateFileActivityLog(TAG+" doExportSong doStringWriteToFile Export/"+filename+".cho with: "+content);
-                if (mainActivityInterface.getStorageAccess().doStringWriteToFile("Export", "",
-                        filename + ".cho", content)) {
+                if (mainActivityInterface.getStorageAccess().writeFileFromString("Export", "",
+                        filename + ".cho", content, false)) {
                     uris.add(mainActivityInterface.getStorageAccess().getUriForItem("Export", "",
                             filename + ".cho"));
                     if (!mimeTypes.contains("text/plain")) {
@@ -978,8 +979,8 @@ public class ExportFragment extends Fragment {
 
             if (text && isXML) {
                 mainActivityInterface.getStorageAccess().updateFileActivityLog(TAG+" doExportSong doStringWriteToFile Export/"+filename+".txt with: "+textContent);
-                if (mainActivityInterface.getStorageAccess().doStringWriteToFile("Export", "",
-                        filename + ".txt", textContent)) {
+                if (mainActivityInterface.getStorageAccess().writeFileFromString("Export", "",
+                        filename + ".txt", textContent, false)) {
                     uris.add(mainActivityInterface.getStorageAccess().getUriForItem("Export", "",
                             filename + ".txt"));
                     if (!mimeTypes.contains("text/plain")) {
@@ -1011,6 +1012,7 @@ public class ExportFragment extends Fragment {
         // Don't delete - does something!
         Log.d(TAG,"makedirs:"+exportFolder.mkdirs());
         ArrayList<Uri> newUris = new ArrayList<>();
+        ArrayList<String> newFilenames = new ArrayList<>();
 
         // If we are exporting songs in text format, also add the merged one
         Uri mergedTextFile = createMergedTextFile();
@@ -1018,6 +1020,7 @@ public class ExportFragment extends Fragment {
             uris.add(mergedTextFile);
         }
 
+        String singleFileName = null;
         if (getContext()!=null) {
             for (Uri uri : uris) {
                 if (uri != null) {
@@ -1026,11 +1029,15 @@ public class ExportFragment extends Fragment {
                         // Get the file name after the OpenSong/Export/ bit
                         File file = getFileFromUri(uri, exportFolder);
                         if (file!=null) {
+                            if (singleFileName==null && uris.size()==1) {
+                                singleFileName = file.getName();
+                            }
                             OutputStream outputStream = new FileOutputStream(file);
                             // Don't delete - does something!
                             Log.d(TAG, "Copy:" + mainActivityInterface.getStorageAccess().copyFile(inputStream, outputStream));
                             Uri newUri = FileProvider.getUriForFile(getContext(), "com.garethevans.church.opensongtablet.fileprovider", file);
                             newUris.add(newUri);
+                            newFilenames.add(file.getName());
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -1047,16 +1054,56 @@ public class ExportFragment extends Fragment {
             intent = mainActivityInterface.getExportActions().setShareIntent(textContent, "*/*", null, newUris);
         }
         intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-        intent.putExtra(Intent.EXTRA_SUBJECT, app_name_string + " " +
-                exportType + ": " + shareTitle);
+
+        if (singleFileName!=null) {
+            intent.putExtra(Intent.EXTRA_SUBJECT, singleFileName);
+        } else {
+            intent.putExtra(Intent.EXTRA_SUBJECT, app_name_string + " " +
+                    exportType + ": " + shareTitle);
+        }
         if (setContent!=null && myView.exportTextAsMessage.getChecked()) {
             intent.putExtra(Intent.EXTRA_TEXT, setContent);
-        } else if (setContent == null){
+        } else if (setContent == null) {
             intent.putExtra(Intent.EXTRA_TEXT, textContent);
         }
 
+
+        if (newUris.size() > 1) {
+            intent.setAction(Intent.ACTION_SEND_MULTIPLE);
+            intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, newUris);
+        } else if (newUris.size() == 1) {
+            intent.setAction(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_STREAM, newUris.get(0));
+            if (newUris.get(0)!=null && newUris.get(0).getPath()!=null) {
+                intent.putExtra(Intent.EXTRA_TITLE, newFilenames.get(0));
+            }
+        }
+
+        // THE FIX: Explicitly grant permissions to every URI via ClipData
+        if (!newUris.isEmpty()) {
+            // Create ClipData with the first URI
+            ClipData clipData = ClipData.newRawUri(shareTitle, newUris.get(0));
+
+            // Add all other URIs in the list to the ClipData
+            for (int i = 1; i < newUris.size(); i++) {
+                clipData.addItem(new ClipData.Item(newUris.get(i)));
+            }
+
+            // Attach the ClipData to the intent.
+            // This is the "manifest" that Google Drive needs to start its UploadActivity.
+            intent.setClipData(clipData);
+        }
+
+
+        // This is the key for background services like Google Drive
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
         mainActivityInterface.getMainHandler().post(() -> {
-            startActivity(Intent.createChooser(intent, shareTitle));
+            // Create the Chooser
+            Intent chooser = Intent.createChooser(intent, shareTitle);
+            // IMPORTANT: The chooser also needs the flag to pass it down to the selected app
+            chooser.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            startActivity(chooser);
             myView.scrim.setVisibility(View.GONE);
             myView.progressText.setVisibility(View.GONE);
             myView.shareButton.setEnabled(true);

@@ -232,7 +232,7 @@
     <string name="column_force">Ručně přepište konce sloupců</string>
     <string name="column_force_info" tools:ignore="TypographyDashes">Použijte nový kód stránky (!--) ve skladbě k vynucení nového zalomení sloupce při automatickém škálování</string>
     <string name="column_force_insert">Vložit zalomení sloupce</string>
-    <string name="coming_soon">Brzy přijde...</string>
+    <string name="coming_soon">Brzy přijde…</string>
     <string name="comment">Komentář</string>
     <string name="comment_background">Komentář pozadí</string>
     <string name="commentline_scale">Měřítko text komentáře</string>
@@ -371,6 +371,7 @@
     <string name="drum_kit">Bicí souprava</string>
     <string name="drum_kit_acoustic">Akustická sada</string>
     <string name="drum_kit_cajon">Cajon</string>
+    <string name="drum_kit_percussion">Sada bicích nástrojů</string>
     <string name="drum_ride">Jízda</string>
     <string name="drum_ride_bell">Jízdní zvonek</string>
     <string name="drum_rim_shot">Rimshot</string>
@@ -389,6 +390,7 @@
     <string name="drummer_assign_error">Než přiřadíte bubeníka k skladbě, musíte nejprve uložit soubor s bubeníkem.</string>
     <string name="drummer_assign_info">Přiřadit tohoto bubeníka k aktuální skladbě</string>
     <string name="drummer_fill">Bubeník</string>
+    <string name="drummer_kit">Bubenícká sada</string>
     <string name="drummer_main">Hlavní rytmus</string>
     <string name="drummer_main_fill">Hlavní výplň</string>
     <string name="drummer_not_valid">Upravte prosím skladbu a nastavte platné tempo a taktové označení.</string>
@@ -621,6 +623,8 @@
     <string name="key">Klíč</string>
     <string name="key_original">Originální klíč</string>
     <string name="key_original_transpose">Transponujte skladbu zpět do původní tóniny</string>
+    <string name="keyboard_smart_ribbon">Inteligentní páska s klávesnicí</string>
+    <string name="keyboard_smart_ribbon_info">Při úpravě textu písně se nad klávesnicí na obrazovce zobrazí chytrý pás s klávesami, který nabízí zkratky pro přidání různých částí do textu. Pokud je nastavena i tónina, zobrazí se také běžně používané akordy.</string>
     <string name="keyword">Klíčové slovo</string>
     <string name="kit_kick">Kop</string>
     <string name="kit_snare">Očko</string>
@@ -847,6 +851,11 @@
     <string name="openchords_info">Gids Sinkroniseer se setkaly s OpenChords.  Dit laat ander toepassings soos JustChords toe om om met OpenSongApp te sinchroniseer</string>
     <string name="openchords_link">Deel skakel vir gids</string>
     <string name="openchords_link_info">Jak je \'n gids reeds na die OpenChords-bediener opgelaai, kan jy \'n skakel deel vir ander om te gebruik</string>
+    <string name="openchords_not_owner">Toto je složka sdílená jiným uživatelem</string>
+    <string name="openchords_owner">Vlastníte tuto složku</string>
+    <string name="openchords_readonly">Tato složka je označena jako pouze pro čtení.</string>
+    <string name="openchords_readonly_switch">Pouze pro čtení</string>
+    <string name="openchords_readonly_switch_info">Změnit nastavení této složky pro ostatní uživatele, kteří odkaz používají</string>
     <string name="opensong_media">Zvukové nahrávky se ukládají do /OpenSong/Media/</string>
     <string name="optional">Volitelný</string>
     <string name="order">Objednávka</string>
@@ -1446,8 +1455,12 @@
     <string name="web_server_info">Uživatelé bez OpenSongApp by měli být ve stejné síti jako toto zařízení (můžete také použít hotspot).  Poté by měli otevřít tuto webovou adresu a zobrazit skladbu.</string>
     <string name="web_server_navigation">Ruční navigace</string>
     <string name="web_server_navigation_info">Po zapnutí mohou uživatelé ručně vybrat libovolnou skladbu zobrazenou v seznamu skladeb nebo v aktuální sadě.  Když je vypnutý, uživatelé mohou zobrazit pouze aktuálně načtenou skladbu</string>
+    <string name="web_server_port">Číslo portu</string>
+    <string name="web_server_port_info">Některé prohlížeče a Wi-Fi routery blokují určitá čísla portů. Pokud vy nebo jiní lidé nemůžete zobrazit webovou stránku pomocí níže uvedeného odkazu, zkuste číslo portu změnit.</string>
     <string name="web_view_desktop">Vyžádejte si web pro počítače</string>
     <string name="web_view_desktop_info">To by mělo zlepšit rozložení skladeb a zabránit tomu, aby se vás web snažil donutit k instalaci jejich mobilní aplikace</string>
+    <string name="webserver_messages">Zprávy webového serveru</string>
+    <string name="webserver_messages_info">Odesílání zpráv na připojená zařízení</string>
     <string name="website">Webová stránka</string>
     <string name="welcome">Vítejte v OpenSongApp</string>
     <string name="where">Kde</string>

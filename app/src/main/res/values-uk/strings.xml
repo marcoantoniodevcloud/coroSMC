@@ -232,7 +232,7 @@
     <string name="column_force">Перевизначте розриви стовпців вручну</string>
     <string name="column_force_info" tools:ignore="TypographyDashes">Використовуйте новий код сторінки (!--) у пісні, щоб примусово створювати новий розрив стовпця під час автоматичного масштабування</string>
     <string name="column_force_insert">Вставити розрив стовпця</string>
-    <string name="coming_soon">Незабаром...</string>
+    <string name="coming_soon">Незабаром…</string>
     <string name="comment">Коментар</string>
     <string name="comment_background">Фон коментаря</string>
     <string name="commentline_scale">Розмір тексту коментаря</string>
@@ -371,6 +371,7 @@
     <string name="drum_kit">Ударна установка</string>
     <string name="drum_kit_acoustic">Акустичний комплект</string>
     <string name="drum_kit_cajon">Кахон</string>
+    <string name="drum_kit_percussion">Набір для ударних інструментів</string>
     <string name="drum_ride">Їзда</string>
     <string name="drum_ride_bell">Дзвінок для їзди</string>
     <string name="drum_rim_shot">Рімшот</string>
@@ -389,6 +390,7 @@
     <string name="drummer_assign_error">Перш ніж призначити барабанщика пісні, спочатку потрібно зберегти файл барабанщика</string>
     <string name="drummer_assign_info">Призначити цього барабанщика для поточної пісні</string>
     <string name="drummer_fill">Заповнення барабанщиком</string>
+    <string name="drummer_kit">Ударна установка</string>
     <string name="drummer_main">Основний ритм</string>
     <string name="drummer_main_fill">Основне заповнення</string>
     <string name="drummer_not_valid">Будь ласка, відредагуйте пісню та встановіть правильний темп і розмір</string>
@@ -621,6 +623,8 @@
     <string name="key">Тональність</string>
     <string name="key_original">Оригінальний ключ</string>
     <string name="key_original_transpose">Транспонування пісні назад у вихідний ключ</string>
+    <string name="keyboard_smart_ribbon">Розумна стрічка клавіатури</string>
+    <string name="keyboard_smart_ribbon_info">Під час редагування тексту пісні над екранною клавіатурою відображається смарт-стрічка, яка пропонує швидкі натискання клавіш для додавання різних розділів до тексту. Якщо також встановлено тональність, вона також відображатиме часто використовувані акорди.</string>
     <string name="keyword">Ключове слово</string>
     <string name="kit_kick">Удар ногою</string>
     <string name="kit_snare">Малий барабан</string>
@@ -847,6 +851,11 @@
     <string name="openchords_info">Синхронізувати папку з OpenChords.  Це дозволяє іншим програмам, таким як JustChords, синхронізуватися з OpenSongApp</string>
     <string name="openchords_link">Поділитися посиланням для папки</string>
     <string name="openchords_link_info">Якщо папку вже завантажено на сервер OpenChords, ви можете поділитися посиланням для інших</string>
+    <string name="openchords_not_owner">Це папка, до якої надано спільний доступ іншому користувачеві</string>
+    <string name="openchords_owner">Ви є власником цієї папки</string>
+    <string name="openchords_readonly">Цю папку позначено як папку лише для читання</string>
+    <string name="openchords_readonly_switch">Тільки для читання</string>
+    <string name="openchords_readonly_switch_info">Змінити налаштування цієї папки для інших користувачів, які використовують посилання</string>
     <string name="opensong_media">Аудіозаписи зберігаються в /OpenSong/Media/</string>
     <string name="optional">За бажанням</string>
     <string name="order">порядок</string>
@@ -1446,8 +1455,12 @@
     <string name="web_server_info">Користувачі, які не є OpenSongApp, повинні бути в тій же мережі, що і цей пристрій (ви також можете використовувати точку доступу).  Потім вони повинні відкрити цю веб-адресу, щоб переглянути пісню.</string>
     <string name="web_server_navigation">Ручна навігація</string>
     <string name="web_server_navigation_info">Коли ввімкнено, користувачі можуть вручну вибрати будь-яку пісню, яка відображається у вашому списку пісень або поточному наборі.  Коли вимкнено, користувачі зможуть переглядати лише вашу поточну завантажену пісню</string>
+    <string name="web_server_port">Номер порту</string>
+    <string name="web_server_port_info">Деякі браузери та маршрутизатори Wi-Fi блокують певні номери портів. Якщо ви або інші користувачі не можуть переглянути веб-сторінку за посиланням нижче, спробуйте змінити номер порту.</string>
     <string name="web_view_desktop">Запит на десктопний сайт</string>
     <string name="web_view_desktop_info">Це має покращити макет пісень і уникнути спроб веб-сайту змусити вас встановити їхній мобільний додаток</string>
+    <string name="webserver_messages">Повідомлення веб-сервера</string>
+    <string name="webserver_messages_info">Надсилання повідомлень на підключені пристрої</string>
     <string name="website">веб-сайт</string>
     <string name="welcome">Ласкаво просимо до OpenSongApp</string>
     <string name="where">Де</string>

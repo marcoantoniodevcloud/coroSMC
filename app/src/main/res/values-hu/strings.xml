@@ -232,7 +232,7 @@
     <string name="column_force">Oszloptörések manuális felülírása</string>
     <string name="column_force_info" tools:ignore="TypographyDashes">Használja az új oldalkódot (!--) a dalban, hogy új oszloptörést kényszerítsen ki az automatikus méretezés során</string>
     <string name="column_force_insert">Oszloptörés beszúrása</string>
-    <string name="coming_soon">Hamarosan jön...</string>
+    <string name="coming_soon">Hamarosan jön…</string>
     <string name="comment">Megjegyzés</string>
     <string name="comment_background">Megjegyzés háttér</string>
     <string name="commentline_scale">Scale a megjegyzés szövegét</string>
@@ -371,6 +371,7 @@
     <string name="drum_kit">Dobfelszerelés</string>
     <string name="drum_kit_acoustic">Akusztikus készlet</string>
     <string name="drum_kit_cajon">Cajon</string>
+    <string name="drum_kit_percussion">Ütőhangszer készlet</string>
     <string name="drum_ride">Lovagol</string>
     <string name="drum_ride_bell">Csengő</string>
     <string name="drum_rim_shot">Rim shot</string>
@@ -389,6 +390,7 @@
     <string name="drummer_assign_error">Mielőtt dobost rendelnél egy dalhoz, először mentened kell a dobos fájlját.</string>
     <string name="drummer_assign_info">Dobos hozzárendelése az aktuális dalhoz</string>
     <string name="drummer_fill">Dobos betöltés</string>
+    <string name="drummer_kit">Dobosfelszerelés</string>
     <string name="drummer_main">Fő ütem</string>
     <string name="drummer_main_fill">Fő kitöltés</string>
     <string name="drummer_not_valid">Kérlek, szerkeszd a dalt, és állíts be érvényes tempót és ütemjelzést.</string>
@@ -621,6 +623,8 @@
     <string name="key">Kulcs</string>
     <string name="key_original">Eredeti kulcs</string>
     <string name="key_original_transpose">Helyezze vissza a dalt az eredeti hangnemre</string>
+    <string name="keyboard_smart_ribbon">Intelligens billentyűzet menüszalag</string>
+    <string name="keyboard_smart_ribbon_info">Dalszöveg szerkesztésekor az intelligens menüszalag a képernyő-billentyűzet felett jelenik meg, és gyorsbillentyűket kínál a dalszöveghez különböző részek hozzáadásához. Ha hangnem is be van állítva, akkor a gyakran használt akkordokat is megjeleníti.</string>
     <string name="keyword">Kulcsszó</string>
     <string name="kit_kick">Rúgás</string>
     <string name="kit_snare">Csapda</string>
@@ -847,6 +851,11 @@
     <string name="openchords_info">Szinkronizálja a mappát az OpenChords-szal.  Ez lehetővé teszi, hogy más alkalmazások, például a JustChords szinkronizáljanak az OpenSongApp alkalmazással</string>
     <string name="openchords_link">Link megosztása a mappához</string>
     <string name="openchords_link_info">Ha egy mappa már fel van töltve az OpenChords szerverre, megoszthat egy hivatkozást mások számára</string>
+    <string name="openchords_not_owner">Ez egy másik felhasználó által megosztott mappa</string>
+    <string name="openchords_owner">Ön a mappa tulajdonosa</string>
+    <string name="openchords_readonly">Ez a mappa írásvédettként van megjelölve</string>
+    <string name="openchords_readonly_switch">Csak olvasható</string>
+    <string name="openchords_readonly_switch_info">Módosítsa a mappa beállításait a hivatkozást használó többi felhasználó számára</string>
     <string name="opensong_media">A hangfelvételek mentése az /OpenSong/Media/ mappába</string>
     <string name="optional">Választható</string>
     <string name="order">Rendelés</string>
@@ -1446,8 +1455,12 @@
     <string name="web_server_info">A nem OpenSongApp felhasználóknak ugyanazon a hálózaton kell lenniük, mint ez az eszköz (hotspotot is használhat).  Ezután meg kell nyitniuk ezt a webcímet a dal megtekintéséhez.</string>
     <string name="web_server_navigation">Kézi navigáció</string>
     <string name="web_server_navigation_info">Ha be van kapcsolva, a felhasználók manuálisan kiválaszthatják a dallistában vagy az aktuális készletben megjelenő dalokat.  Ha ki van kapcsolva, a felhasználók csak az aktuálisan betöltött dalt tekinthetik meg</string>
+    <string name="web_server_port">Portszám</string>
+    <string name="web_server_port_info">Néhány böngésző és Wi-Fi routerek blokkolnak bizonyos portszámokat. Ha Ön vagy mások nem tudják megtekinteni a weboldalt az alábbi linken keresztül, próbálja meg módosítani a portszámot.</string>
     <string name="web_view_desktop">Asztali webhely kérése</string>
     <string name="web_view_desktop_info">Ennek javítania kell a dalok elrendezését, és el kell kerülnie, hogy a webhely megpróbálja kényszeríteni a mobilalkalmazás telepítésére</string>
+    <string name="webserver_messages">Webszerver üzenetek</string>
+    <string name="webserver_messages_info">Üzenetküldés csatlakoztatott eszközökhöz</string>
     <string name="website">Weboldal</string>
     <string name="welcome">Üdvözli az OpenSongApp</string>
     <string name="where">Ahol</string>

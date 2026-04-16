@@ -2,7 +2,6 @@ package com.garethevans.church.opensongtablet.setmenu;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -95,6 +94,7 @@ public class SetMenuFragment extends Fragment {
     private void setupAdapter() {
         if (getContext()!=null && myView!=null) {
             setAdapter = new SetAdapter(getContext(), myView.myRecyclerView);
+            ;
             myView.myRecyclerView.post(() -> {
                 llm = new LinearLayoutManager(getContext());
                 llm.setOrientation(RecyclerView.VERTICAL);
@@ -118,6 +118,7 @@ public class SetMenuFragment extends Fragment {
                 setAdapter.removeItem(position, true);
 
                 Snackbar snackbar = Snackbar.make(myView.coordinatorLayout, set_item_removed_string, Snackbar.LENGTH_LONG);
+
                 snackbar.setAction(undo_string, view -> {
                     setAdapter.restoreItem(item, position);
                     myView.myRecyclerView.scrollToPosition(position);
@@ -129,8 +130,8 @@ public class SetMenuFragment extends Fragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    snackbar.setActionTextColor(Color.WHITE);
-                    snackbar.setTextColor(Color.WHITE);
+                    snackbar.setActionTextColor(mainActivityInterface.getPalette().textColor);
+                    snackbar.setTextColor(mainActivityInterface.getPalette().textColor);
                 }
                 snackbar.show();
             }
@@ -138,6 +139,7 @@ public class SetMenuFragment extends Fragment {
 
         ItemTouchHelper itemTouchhelper = new ItemTouchHelper(setListItemCallback);
         setAdapter.setTouchHelper(itemTouchhelper);
+        setAdapter.setSetListItemCallback(setListItemCallback);
         itemTouchhelper.attachToRecyclerView(myView.myRecyclerView);
     }
 
@@ -189,7 +191,6 @@ public class SetMenuFragment extends Fragment {
             }
         }
     }
-
 
     public void changeVisibility(boolean visible) {
         if (myView!=null) {

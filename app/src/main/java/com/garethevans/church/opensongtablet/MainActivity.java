@@ -192,6 +192,7 @@ import com.garethevans.church.opensongtablet.variations.Variations;
 import com.garethevans.church.opensongtablet.voicelive.VoiceLive;
 import com.garethevans.church.opensongtablet.webserver.LocalWiFiHost;
 import com.garethevans.church.opensongtablet.webserver.WebServer;
+import com.garethevans.church.opensongtablet.webserver.WebServerMessagesBottomSheet;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -1463,14 +1464,24 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             if (navHostFragment != null) {
                 navController = navHostFragment.getNavController();
             }
+
+            if (navController == null && navHostFragment!=null) {
+                navController = navHostFragment.getNavController();
+            }
+
             // Passing each menu ID as a set of Ids because each
             // menu should be considered as top level destinations.
             appBarConfiguration = new AppBarConfiguration.Builder(R.id.bootUpFragment,
                     R.id.performanceFragment, R.id.presenterFragment)
                     .setOpenableLayout(myView.drawerLayout)
                     .build();
-            NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-            NavigationUI.setupWithNavController(myView.myToolbar, navController, appBarConfiguration);
+
+            try {
+                NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+                NavigationUI.setupWithNavController(myView.myToolbar, navController, appBarConfiguration);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             try {
                 TooltipCompat.setTooltipText(myView.drawerLayout, null);
@@ -1684,7 +1695,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
                         String newSongText = processSong.getXML(song);
                         // Save the song.  This also calls lollipopCreateFile with 'true' to deleting old
                         getStorageAccess().updateFileActivityLog(TAG + " updateFragment doStringWriteToFile Songs/" + song.getFolder() + "/" + song.getFilename() + " with: " + newSongText);
-                        if (getStorageAccess().doStringWriteToFile("Songs", song.getFolder(), song.getFilename(), newSongText)) {
+                        if (getStorageAccess().writeFileFromString("Songs", song.getFolder(), song.getFilename(), newSongText, false)) {
                             navigateToFragment(null, R.id.editSongFragment);
                         } else {
                             getShowToast().doIt(error);
@@ -3865,7 +3876,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
                     getSetActions().setUseThisLastModifiedDate(null);
 
                     String setString = getSetActions().getSetAsPreferenceString();
-                    result = getStorageAccess().doStringWriteToFile("Sets", "", currentSet.getSetCurrentLastName(), xml);
+                    result = getStorageAccess().writeFileFromString("Sets", "", currentSet.getSetCurrentLastName(), xml, false);
                     if (result) {
                         // Update the last edited version (current set already has this)
                         currentSet.setSetCurrentBeforeEdits(setString);
@@ -4526,6 +4537,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     }
 
     @Override
+    public void openWebServerMessages() {
+        WebServerMessagesBottomSheet webServerMessagesBottomSheet = new WebServerMessagesBottomSheet();
+        webServerMessagesBottomSheet.show(getSupportFragmentManager(), "webServerMessages");
+    }
+
+    @Override
     public LocalWiFiHost getLocalWiFiHost() {
         if (localWiFiHost == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             localWiFiHost = new LocalWiFiHost(this);
@@ -4990,16 +5007,22 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     @Override
     protected void onDestroy() {
         // If we were running a local Wi-Fi host, turn it off
-        getLocalWiFiHost().stopLocalWifi();
+        if (getLocalWiFiHost() != null) {
+            getLocalWiFiHost().stopLocalWifi();
+        }
 
         // If we were running a local webServer, turn it off
-        getWebServer().stopWebServer();
+        if (getWebServer()!=null) {
+            getWebServer().stopWebServer();
+        }
 
         // Clear any toasts
         getShowToast().kill();
 
         // Turn off nearby
-        getNearbyActions().getNearbyConnectionManagement().turnOffNearby();
+        if (getNearbyActions()!=null) {
+            getNearbyActions().getNearbyConnectionManagement().turnOffNearby();
+        }
 
         // Reset the dealt with intent
         try {
@@ -5009,17 +5032,23 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         }
 
         // If we had a bluetooth MIDI device, cancel the connection and unpair
-        getMidi().tryDisconnectBluetoothLE();
+        if (getMidi()!=null) {
+            getMidi().tryDisconnectBluetoothLE();
+        }
 
-        getMultiTrackPlayer().closeMultitrack();
+        if (getMultiTrackPlayer()!=null) {
+            getMultiTrackPlayer().closeMultitrack();
+        }
 
         // Clear out the export and received folders
         getStorageAccess().wipeFolder("Export", "");
         getStorageAccess().wipeFolder("Received", "");
 
         // If we were using the drummer, release the mediaPlayers
-        getDrumViewModel().stopAll();
-        getDrumViewModel().getDrumSoundManager().release();
+        if (getDrumViewModel()!=null) {
+            getDrumViewModel().stopAll();
+            getDrumViewModel().getDrumSoundManager().release();
+        }
 
         // Keep a reference to connections if needed as bundle
 

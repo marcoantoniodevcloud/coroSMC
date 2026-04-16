@@ -193,6 +193,15 @@ public class BootUpFragment extends Fragment {
 
                     mainActivityInterface.getStorageAccess().fixBadSongs();
 
+                    // Load in the setCurrent
+                    message = set_string;
+                    updateMessage();
+
+                    mainActivityInterface.getSetActions().parseCurrentSet();
+
+                    message = success;
+                    updateMessage();
+
                     if (needIndex) {
                         // Check for bad files
                         mainActivityInterface.getSongListBuildIndex().setIndexComplete(false);
@@ -219,15 +228,6 @@ public class BootUpFragment extends Fragment {
                     mainActivityInterface.getPreferences().setMyPreferenceInt("runssincebackup", runssincebackup + 1);
                     mainActivityInterface.getPreferences().setMyPreferenceInt("runssincebackupdismissed", runssincebackupdismissed + 1);
 
-                    // Load in the setCurrent
-                    message = set_string;
-                    updateMessage();
-
-                    mainActivityInterface.getSetActions().parseCurrentSet();
-
-                    message = success;
-                    updateMessage();
-
                     // Set up the Bluetooth adapter in the MIDI class if it exists
                     // This also disconnects any BLEMidi devices that were externally paired
                     if (mainActivityInterface.getAppPermissions().hasMidiScanPermissions()) {
@@ -240,6 +240,7 @@ public class BootUpFragment extends Fragment {
                         mainActivityInterface.showActionBar();
                         mainActivityInterface.updateMargins();
                     });
+
 
                 } else {
                     // There was a problem with the folders, so restart the app!

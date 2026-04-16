@@ -84,6 +84,22 @@ public class NearbySendPayloads {
         // Send as a payload
         sendToConnected(Payload.fromBytes(MainActivity.gson.toJson(nearbyJson).getBytes()));
     }
+    public void sendWebServerMessage(int which) {
+        NearbyJson nearbyJson = new NearbyJson();
+        nearbyJson.setWhat(nearbyActions.messageTag);
+        String message = mainActivityInterface.getWebServer().getWebServerMessage(which);
+        nearbyJson.setMessage(message);
+
+        // Show the message on this screen
+        if (nearbyActions.getNearbyReceivePayloads().getNearbyMessageSticky()) {
+            mainActivityInterface.showNearbyAlertPopUp(message);
+        } else {
+            mainActivityInterface.getShowToast().doIt(message);
+        }
+
+        // Send as a payload
+        sendToConnected(Payload.fromBytes(MainActivity.gson.toJson(nearbyJson).getBytes()));
+    }
 
     /* This deals with sending synchronisation requests and responses to a specific device
        These are our device requesting information from another device */
@@ -101,9 +117,8 @@ public class NearbySendPayloads {
         // Empty the export folder
         mainActivityInterface.getStorageAccess().wipeFolder("Export","");
         String jsonString = MainActivity.gson.toJson(nearbyJson);
+        mainActivityInterface.getStorageAccess().writeFileFromString("Export", "", filename, jsonString,false);
         Uri uri = mainActivityInterface.getStorageAccess().getUriForItem("Export", "", filename);
-        mainActivityInterface.getStorageAccess().lollipopCreateFileForOutputStream(true,uri,null,"Export","",filename);
-        mainActivityInterface.getStorageAccess().doStringWriteToFile("Export", "", filename, jsonString);
         ParcelFileDescriptor pfd;
         try {
             pfd = new ParcelFileDescriptor(c.getContentResolver().openFileDescriptor(uri, "r"));
@@ -185,7 +200,7 @@ public class NearbySendPayloads {
         // Empty the export folder
         mainActivityInterface.getStorageAccess().wipeFolder("Export","");
         String jsonString = MainActivity.gson.toJson(nearbyJson);
-        mainActivityInterface.getStorageAccess().doStringWriteToFile("Export", "", nearbyActions.sharableObjectFile, jsonString);
+        mainActivityInterface.getStorageAccess().writeFileFromString("Export", "", nearbyActions.sharableObjectFile, jsonString, false);
         Uri uri = mainActivityInterface.getStorageAccess().getUriForItem("Export", "", nearbyActions.sharableObjectFile);
         ParcelFileDescriptor pfd;
         try {
@@ -237,9 +252,8 @@ public class NearbySendPayloads {
             // We need to package them up in a zip file and send them over
             // Empty the export folder
             mainActivityInterface.getStorageAccess().wipeFolder("Export","");
+            mainActivityInterface.getStorageAccess().makeSureFileIsRegistered("Export","",filename,true);
             Uri shareZip = mainActivityInterface.getStorageAccess().getUriForItem("Export", "", filename);
-            mainActivityInterface.getStorageAccess().lollipopCreateFileForOutputStream(true,
-                    shareZip, null, "Export", "", filename);
             ZipOutputStream zipOutputStream = null;
             try {
                 zipOutputStream = new ZipOutputStream(mainActivityInterface.getStorageAccess().getOutputStream(shareZip));
@@ -259,9 +273,7 @@ public class NearbySendPayloads {
                         Uri currentSetUri = mainActivityInterface.getStorageAccess().getUriForItem("Export", "", nearbyActions.currentSetFile);
                         // Empty the export folder
                         mainActivityInterface.getStorageAccess().wipeFolder("Export","");
-                        mainActivityInterface.getStorageAccess().lollipopCreateFileForOutputStream(true,
-                                currentSetUri, null, "Export", "", nearbyActions.currentSetFile);
-                        mainActivityInterface.getStorageAccess().doStringWriteToFile("Export", "", nearbyActions.currentSetFile, currentSetXML);
+                        mainActivityInterface.getStorageAccess().writeFileFromString("Export", "", nearbyActions.currentSetFile, currentSetXML, false);
                         mainActivityInterface.getStorageAccess().addItemToZip(zipOutputStream, "Export", "", nearbyActions.currentSetFile);
 
                     } else {
@@ -284,8 +296,7 @@ public class NearbySendPayloads {
                         // Empty the export folder
                         mainActivityInterface.getStorageAccess().wipeFolder("Export","");
                         Uri thisNonOSSongUri = mainActivityInterface.getStorageAccess().getUriForItem("Export","", newFilename);
-                        mainActivityInterface.getStorageAccess().lollipopCreateFileForOutputStream(true,thisNonOSSongUri,null,"Export","",newFilename);
-                        mainActivityInterface.getStorageAccess().doStringWriteToFile("Export","",newFilename,songJson);
+                        mainActivityInterface.getStorageAccess().writeFileFromString("Export","",newFilename,songJson, false);
                         mainActivityInterface.getStorageAccess().addItemToZip(zipOutputStream,"Export","",newFilename);
                     }
                 }

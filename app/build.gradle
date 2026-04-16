@@ -34,9 +34,16 @@ android {
         targetSdk = 36
         multiDexEnabled = true
         vectorDrawables.useSupportLibrary = true
-        versionCode = 435
-        versionName = '6.6.3'
+        versionCode = 443     // Also change in wear
+        versionName = '6.7.2' // Also change in wear
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+
+        // 1. Fetch the value.
+        // 2. Wrap it in escaped double-quotes so it is a valid Java String in BuildConfig.java
+        def gKey = localProps.getProperty('GOOGLE_FONTS_API_KEY') ?: ""
+        buildConfigField "String", "GOOGLE_FONTS_KEY", "\"${gKey}\""
+
         /*externalNativeBuild {
             cmake {
                 arguments "-DANDROID_STL=c++_shared"
@@ -120,6 +127,9 @@ repositories {
 
 dependencies {
     implementation 'androidx.test.ext:junit:1.3.0'
+
+    //withWearWearApp project(':wear')
+    //add("withWearWearApp", project(":wear"))
 
     // Only include wearable APK in the withWear flavor
     //withWearWearApp project(":wear")
@@ -205,13 +215,18 @@ dependencies {
 
     // 1. Ktor 2.3.x is the stable choice for Android
     implementation "io.ktor:ktor-server-core:2.3.12"
-    implementation "io.ktor:ktor-server-cio:2.3.12"
+    implementation "io.ktor:ktor-server-netty:2.3.12"
+    //implementation "io.ktor:ktor-server-cio:2.3.12"
     implementation "io.ktor:ktor-server-websockets:2.3.12"
+    implementation "org.slf4j:slf4j-android:1.7.36"
 
     // 2. Align Coroutines to a version compatible with Ktor 2.3.x
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
 
+    // This waits until flavors are evaluated before trying to link the wear app
+    configurations.maybeCreate("withWearWearApp")
+    add("withWearWearApp", project(":wear"))
 }
 
 kotlin {

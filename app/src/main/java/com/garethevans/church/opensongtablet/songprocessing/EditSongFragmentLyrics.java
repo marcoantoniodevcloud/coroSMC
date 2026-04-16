@@ -11,6 +11,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.widget.TextViewCompat;
 import androidx.exifinterface.media.ExifInterface;
 import androidx.fragment.app.Fragment;
 
@@ -341,84 +344,107 @@ public class EditSongFragmentLyrics extends Fragment {
     }
 
     private void showQuickBar() {
-        // Move the save button up
-        myView.imeBarScrollView.setBackgroundColor(mainActivityInterface.getPalette().surface);
-        myView.imeBarScrollView.setVisibility(View.VISIBLE);
-        myView.imeBar.removeAllViews();
-        editSongFragmentInterface.getSaveButton().setTranslationY((-mainActivityInterface.getDisplayDensity()*48)+12);
+        if (mainActivityInterface.getPreferences().getMyPreferenceBoolean("keyboardSmartRibbon",true)) {
+            // Move the save button up
+            myView.imeBarScrollView.setBackgroundColor(mainActivityInterface.getPalette().surface);
+            myView.imeBarScrollView.setVisibility(View.VISIBLE);
+            myView.imeBar.removeAllViews();
+            editSongFragmentInterface.getSaveButton().setTranslationY((-mainActivityInterface.getDisplayDensity() * 48) + 12);
 
-        // Build the quick bar as OpenSong or ChordPro
-        String[] strings;
-        String[] chordsInKey = mainActivityInterface.getTranspose().getChordsInKey(mainActivityInterface.getTempSong().getKey());
-        if (mainActivityInterface.getTempSong().getEditingAsChoPro()) {
-            // ChordPro options
-            strings = new String[]{"#[]","#[V]","#[P]","#[C]","#[B]","#[T]","{"+guitar_tab+"}"};
-        } else {
-            // OpenSong options
-            strings = new String[]{"[]","[V]","[P]","[C]","[B]","[T]","{"+guitar_tab+"}"};
-        }
-
-        // Add the song sections and fixed chords
-        ArrayList<String> bitsToAdd = new ArrayList<>(Arrays.asList(strings));
-        for (String chord : chordsInKey) {
-            if (chord!=null && !chord.trim().isEmpty()) {
-                bitsToAdd.add(mainActivityInterface.getTempSong().getEditingAsChoPro() ? "["+chord+"]" : chord+"  ");
+            // Build the quick bar as OpenSong or ChordPro
+            String[] strings;
+            String[] chordsInKey = mainActivityInterface.getTranspose().getChordsInKey(mainActivityInterface.getTempSong().getKey());
+            if (mainActivityInterface.getTempSong().getEditingAsChoPro()) {
+                // ChordPro options
+                strings = new String[]{"#[]", "#[V]", "#[P]", "#[C]", "#[B]", "#[T]", "{" + guitar_tab + "}"};
+            } else {
+                // OpenSong options
+                strings = new String[]{"[]", "[V]", "[P]", "[C]", "[B]", "[T]", "{" + guitar_tab + "}"};
             }
-        }
-        if (getContext()!=null) {
-            for (String string : bitsToAdd) {
-                MyMaterialSimpleTextView textView = new MyMaterialSimpleTextView(getContext());
-                textView.setTextColor(mainActivityInterface.getPalette().textColor);
-                Drawable drawable = AppCompatResources.getDrawable(getContext(), R.drawable.rounded_box);
-                if (drawable!=null) {
-                    DrawableCompat.setTint(drawable,mainActivityInterface.getPalette().secondary);
+
+            // Add the song sections and fixed chords
+            ArrayList<String> bitsToAdd = new ArrayList<>(Arrays.asList(strings));
+            for (String chord : chordsInKey) {
+                if (chord != null && !chord.trim().isEmpty()) {
+                    bitsToAdd.add(mainActivityInterface.getTempSong().getEditingAsChoPro() ? "[" + chord + "]" : chord + "  ");
                 }
-                textView.setBackground(drawable);
-                textView.setPadding(32,16,32,16);
-                LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT);
-                buttonParams.setMargins(8,0,8,0);
-                textView.setLayoutParams(buttonParams);
-                textView.setGravity(Gravity.CENTER);
-                textView.setText(string);
-                int moveCursorBy;
-                boolean addingChord;
-                if (string.equals("{"+guitar_tab+"}")) {
-                    string = "\n;e |--------|\n" +
-                            ";B |--------|\n" +
-                            ";G |--------|\n" +
-                            ";D |--------|\n" +
-                            ";A |--------|\n" +
-                            ";E |--------|";
-                    if (mainActivityInterface.getTempSong().getEditingAsChoPro()) {
-                        string = "{sot}" + string.replace(";","").replace(" ","") + "\n{eot}";
+            }
+            if (getContext() != null) {
+                for (String string : bitsToAdd) {
+                    MyMaterialSimpleTextView textView = new MyMaterialSimpleTextView(getContext());
+                    // 1. Force the TextView to be as wide as the text requires
+                    textView.setMinWidth(0);
+                    textView.setMinimumWidth(0);
+                    textView.setSingleLine(true);
+                    textView.setMinEms(2);
+                    textView.setHorizontallyScrolling(true); // Crucial: tells the view its "viewport" is wider than its visible area
+
+                    // 2. Explicitly set Wrap Content for the LayoutParams
+                    LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT, // This tells the LinearLayout "let the child decide its width"
+                            LinearLayout.LayoutParams.MATCH_PARENT
+                    );
+                    buttonParams.setMargins(8, 0, 8, 0);
+                    textView.setLayoutParams(buttonParams);
+                    textView.setPadding(32, 8, 32, 8);
+
+                    textView.setTextColor(mainActivityInterface.getPalette().textColor);
+                    Drawable drawable = AppCompatResources.getDrawable(getContext(), R.drawable.rounded_box);
+                    if (drawable != null) {
+                        DrawableCompat.setTint(drawable, mainActivityInterface.getPalette().secondary);
                     }
-                    moveCursorBy = string.length();
-                    addingChord = false;
-                } else if (string.startsWith("#")) {
-                    // ChordPro comment
-                    moveCursorBy = 2;
-                    addingChord = false;
-                } else if (mainActivityInterface.getTempSong().getEditingAsChoPro() && string.startsWith("[")) {
-                    // ChordPro chord
-                    moveCursorBy = string.length();
-                    addingChord = true;
-                } else if (!mainActivityInterface.getTempSong().getEditingAsChoPro() && !string.startsWith("[")) {
-                    // OpenSong chord
-                    moveCursorBy = string.length();
-                    addingChord = true;
-                } else {
-                    // Standard OpenSong section heading
-                    moveCursorBy = string.length()-1;
-                    addingChord = false;
+                    textView.setBackground(drawable);
+                    //textView.setPadding(32,8,32,8);
+                    //LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                    //        LinearLayout.LayoutParams.MATCH_PARENT);
+                    //buttonParams.setMargins(8,0,8,0);
+                    //textView.setLayoutParams(buttonParams);
+                    textView.setGravity(Gravity.CENTER);
+                    //TextViewCompat.setAutoSizeTextTypeWithDefaults(textView, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+                    // Make the text wider to force the box
+                    //string = "     " + string  + "     ";
+                    textView.setText(string);
+                    //string = string.trim();
+                    int moveCursorBy;
+                    boolean addingChord;
+                    if (string.equals("{" + guitar_tab + "}")) {
+                        string = "\n;e |--------|\n" +
+                                ";B |--------|\n" +
+                                ";G |--------|\n" +
+                                ";D |--------|\n" +
+                                ";A |--------|\n" +
+                                ";E |--------|";
+                        if (mainActivityInterface.getTempSong().getEditingAsChoPro()) {
+                            string = "{sot}" + string.replace(";", "").replace(" ", "") + "\n{eot}";
+                        }
+                        moveCursorBy = string.length();
+                        addingChord = false;
+                    } else if (string.startsWith("#")) {
+                        // ChordPro comment
+                        moveCursorBy = 2;
+                        addingChord = false;
+                    } else if (mainActivityInterface.getTempSong().getEditingAsChoPro() && string.startsWith("[")) {
+                        // ChordPro chord
+                        moveCursorBy = string.length();
+                        addingChord = true;
+                    } else if (!mainActivityInterface.getTempSong().getEditingAsChoPro() && !string.startsWith("[")) {
+                        // OpenSong chord
+                        moveCursorBy = string.length();
+                        addingChord = true;
+                    } else {
+                        // Standard OpenSong section heading
+                        moveCursorBy = string.length() - 1;
+                        addingChord = false;
+                    }
+                    String finalString = string;
+                    textView.setOnClickListener(view -> {
+                        cursorPos = myView.lyrics.getSelectionStart();
+                        insertSection((addingChord ? "__CHORD__" : "") + finalString, moveCursorBy);
+                    });
+                    myView.imeBar.addView(textView);
                 }
-                String finalString = string;
-                textView.setOnClickListener(view -> {
-                    cursorPos = myView.lyrics.getSelectionStart();
-                    insertSection((addingChord ? "__CHORD__":"") + finalString,moveCursorBy);
-                });
-                myView.imeBar.addView(textView);
             }
+            myView.imeBar.invalidate();
         }
     }
 
@@ -501,18 +527,27 @@ public class EditSongFragmentLyrics extends Fragment {
             // This comes from the bottom sheet
             // Try to get the current text position
             String text = myView.lyrics.getText().toString();
-            if (text.length() > cursorPos && cursorPos != -1) {
+            if (text.length() >= cursorPos && cursorPos != -1) {
                 if (bitToAdd.startsWith("__CHORD__")) {
                     bitToAdd = bitToAdd.replace("__CHORD__","");
                     text = text.substring(0, cursorPos) + bitToAdd + "  " + text.substring(cursorPos);
                 } else {
-                    text = text.substring(0, cursorPos) + bitToAdd + "\n" + text.substring(cursorPos);
+                    if (bitToAdd.startsWith("[") && bitToAdd.endsWith("]")) {
+                        bitToAdd = "\n" + bitToAdd;
+                    }
+                    text = text.substring(0, cursorPos) + bitToAdd + text.substring(cursorPos);
                 }
                 myView.lyrics.setText(text);
             }
+            Log.d(TAG,"bitToAdd:"+bitToAdd+". moveCursorBy:"+moveCursorBy);
+            Log.d(TAG,"myView.lyrics.getText():"+myView.lyrics.getText());
+            Log.d(TAG,"myView.lyrics.getSelectionStart:"+myView.lyrics.getSelectionStart());
+            Log.d(TAG,"myView.lyrics.getSelectionEnd:"+myView.lyrics.getSelectionEnd());
+            Log.d(TAG,"myView.lyrics.getText().length():"+myView.lyrics.getText().length());
+            Log.d(TAG,"cursorPos:"+cursorPos+"  moverCursorBy:"+moveCursorBy);
+
             // Setting the position should open the keyboard
             myView.lyrics.requestFocus();
-            myView.lyrics.setSelection(cursorPos + moveCursorBy);
             // Also do this in 1 second time to allow for keyboard opening
             mainActivityInterface.getMainHandler().postDelayed(() -> {
                 if (myView!=null) {
@@ -523,6 +558,7 @@ public class EditSongFragmentLyrics extends Fragment {
             mainActivityInterface.getWindowFlags().showKeyboard();
             //manualScrollTo();
         } catch (Exception e) {
+            e.printStackTrace();
             mainActivityInterface.getStorageAccess().updateFileActivityLog(TAG+": \n"+e);
         }
     }

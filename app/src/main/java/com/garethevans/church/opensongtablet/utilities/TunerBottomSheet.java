@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -223,11 +224,13 @@ public class TunerBottomSheet extends BottomSheetCommon {
             @Override
             public void afterTextChanged(Editable s) {
                 // Get the int value
-                int value = Integer.parseInt(s.toString());
-                mainActivityInterface.getPreferences().setMyPreferenceInt("refAHz", value);
-                concertPitch = (float) value;
-                initialiseTuner();
-                checkMidiButtons();
+                if (s!=null && !s.toString().isEmpty()) {
+                    int value = Integer.parseInt(s.toString());
+                    mainActivityInterface.getPreferences().setMyPreferenceInt("refAHz", value);
+                    concertPitch = (float) value;
+                    initialiseTuner();
+                    checkMidiButtons();
+                }
             }
         });
 
@@ -254,9 +257,11 @@ public class TunerBottomSheet extends BottomSheetCommon {
                 // Get the int value
                 // Get rid of the text
                 String text = s.toString().replaceAll("[^0-9]", "");
-                int value = Integer.parseInt(text);
-                mainActivityInterface.getPreferences().setMyPreferenceInt("tunerCents", value);
-                getTunerCents(value);
+                if (!text.isEmpty()) {
+                    int value = Integer.parseInt(text);
+                    mainActivityInterface.getPreferences().setMyPreferenceInt("tunerCents", value);
+                    getTunerCents(value);
+                }
             }
         });
 
@@ -468,6 +473,16 @@ public class TunerBottomSheet extends BottomSheetCommon {
         }
 
         int SAMPLE_RATE = 44100;
+        try {
+            AudioManager myAudioMgr = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
+            String sampleRateStr = myAudioMgr.getProperty(AudioManager.PROPERTY_OUTPUT_SAMPLE_RATE);
+            if (sampleRateStr != null) {
+                SAMPLE_RATE = Integer.parseInt(sampleRateStr);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         int BUFFER_SIZE = 1024 * 16;
         int OVERLAP = 1024 * 2;
         audioDispatcher = AudioDispatcherFactory.fromDefaultMicrophone(SAMPLE_RATE, BUFFER_SIZE, OVERLAP);

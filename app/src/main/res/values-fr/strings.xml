@@ -232,7 +232,7 @@
     <string name="column_force">Remplacer manuellement les sauts de colonne</string>
     <string name="column_force_info" tools:ignore="TypographyDashes">Utilisez le nouveau code de page (!--) dans la chanson pour forcer un nouveau saut de colonne lors de la mise à l\'échelle automatique</string>
     <string name="column_force_insert">Insérer un saut de colonne</string>
-    <string name="coming_soon">Bientôt...</string>
+    <string name="coming_soon">Bientôt…</string>
     <string name="comment">Commentaire</string>
     <string name="comment_background">Fond des commentaires</string>
     <string name="commentline_scale">Taille du texte de commentaire</string>
@@ -371,6 +371,7 @@
     <string name="drum_kit">Batterie</string>
     <string name="drum_kit_acoustic">kit acoustique</string>
     <string name="drum_kit_cajon">Cajon</string>
+    <string name="drum_kit_percussion">Kit de percussion</string>
     <string name="drum_ride">Monter</string>
     <string name="drum_ride_bell">Cloche de balade</string>
     <string name="drum_rim_shot">Rimshot</string>
@@ -389,6 +390,7 @@
     <string name="drummer_assign_error">Avant d\'assigner un batteur à une chanson, vous devez d\'abord enregistrer le fichier du batteur.</string>
     <string name="drummer_assign_info">Attribuez ce batteur au morceau en cours.</string>
     <string name="drummer_fill">remplissage de batteur</string>
+    <string name="drummer_kit">Kit de batterie</string>
     <string name="drummer_main">Rythme principal</string>
     <string name="drummer_main_fill">Remplissage principal</string>
     <string name="drummer_not_valid">Veuillez modifier le morceau et définir un tempo et une signature rythmique valides.</string>
@@ -621,6 +623,8 @@
     <string name="key">Tonalité</string>
     <string name="key_original">Tonalaté d’origine</string>
     <string name="key_original_transpose">Transposer la chanson à la tonalité d’origine</string>
+    <string name="keyboard_smart_ribbon">Ruban intelligent du clavier</string>
+    <string name="keyboard_smart_ribbon_info">Lors de la modification des paroles d\'une chanson, le ruban intelligent s\'affiche au-dessus du clavier virtuel et propose des raccourcis pour ajouter différentes sections. Si une tonalité est définie, les accords fréquemment utilisés s\'affichent également.</string>
     <string name="keyword">Mot-clé</string>
     <string name="kit_kick">Coup</string>
     <string name="kit_snare">Piège</string>
@@ -847,6 +851,11 @@
     <string name="openchords_info">Synchronisez le dossier avec OpenChords.  Cela permet à d\'autres applications telles que JustChords de se synchroniser avec OpenSongApp</string>
     <string name="openchords_link">Partager le lien pour le dossier</string>
     <string name="openchords_link_info">Si un dossier a déjà été téléchargé sur le serveur OpenChords, vous pouvez partager un lien que d\'autres pourront utiliser</string>
+    <string name="openchords_not_owner">Il s\'agit d\'un dossier partagé par un autre utilisateur</string>
+    <string name="openchords_owner">Ce dossier vous appartient.</string>
+    <string name="openchords_readonly">Ce dossier est marqué comme étant en lecture seule.</string>
+    <string name="openchords_readonly_switch">Lecture seule</string>
+    <string name="openchords_readonly_switch_info">Modifiez les paramètres de ce dossier pour les autres utilisateurs qui utilisent le lien.</string>
     <string name="opensong_media">Les enregistrements audio sont enregistrés dans /OpenSong/Media/</string>
     <string name="optional">Optionnel</string>
     <string name="order">Commande</string>
@@ -1446,8 +1455,12 @@
     <string name="web_server_info">Les utilisateurs non OpenSongApp doivent être sur le même réseau que cet appareil (vous pouvez également utiliser un hotspot).  Ils doivent ensuite ouvrir cette adresse Web pour voir la chanson.</string>
     <string name="web_server_navigation">Navigation manuelle</string>
     <string name="web_server_navigation_info">Lorsqu’il est activé, les utilisateurs peuvent choisir manuellement n’importe quel morceau affiché dans votre liste de chansons ou votre ensemble actuel.  Lorsqu’il est désactivé, les utilisateurs ne peuvent afficher que votre morceau actuellement chargé</string>
+    <string name="web_server_port">Numéro de port</string>
+    <string name="web_server_port_info">Certains navigateurs et routeurs Wi-Fi bloquent certains numéros de port. Si vous, ou d\'autres personnes, ne parvenez pas à visualiser la page Web via le lien ci-dessous, essayez de modifier le numéro de port.</string>
     <string name="web_view_desktop">Demander un site de bureau</string>
     <string name="web_view_desktop_info">Cela devrait améliorer la mise en page des chansons et éviter que le site Web n’essaie de vous forcer à installer son application mobile</string>
+    <string name="webserver_messages">Messages du serveur Web</string>
+    <string name="webserver_messages_info">Envoyer des messages aux appareils connectés</string>
     <string name="website">Site Internet</string>
     <string name="welcome">Bienvenue sur OpenSongApp</string>
     <string name="where">Où</string>
