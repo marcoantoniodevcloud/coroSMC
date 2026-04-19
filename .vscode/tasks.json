@@ -1,0 +1,12 @@
+
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run Android Full",
+      "type": "shell",
+      "command": "adb logcat -c; .\\gradlew installMobileOnlyDebug; if ($?) { adb shell monkey -p com.garethevans.church.opensongtablet -c android.intent.category.LAUNCHER 1 }; Start-Sleep -Seconds 2; $appPid = adb shell pidof com.garethevans.church.opensongtablet; adb logcat --pid=$appPid",
+      "problemMatcher": []
+    }
+  ]
+}

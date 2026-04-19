@@ -33,7 +33,7 @@ public class MakePDF {
     private float headerScaling = 1f;
     private boolean forceSinglePage;
     private int headerHeight, headerWidth, scaledHeaderHeight, docWidth, docHeight, availableWidth, availableHeight, pageNum=1, totalPages=1;
-    private Paint linePaint, footerPaint;
+    private Paint linePaint, footerPaint, leftBarPaint;
     private int lineWidth;
     private PdfDocument pdfDocument;
     private PdfDocument.Page page;
@@ -153,6 +153,12 @@ public class MakePDF {
         linePaint.setStrokeWidth(lineWidth);
         linePaint.setAntiAlias(true);
 
+        // For the left side bar background
+        leftBarPaint = new Paint();
+        leftBarPaint.setColor(0xFFCC9D2C); // gold tone
+        leftBarPaint.setStyle(Paint.Style.FILL);
+        leftBarPaint.setAntiAlias(true);
+
         // For writing the footer
         footerPaint = new Paint();
         footerPaint.setColor(textColor);
@@ -206,6 +212,10 @@ public class MakePDF {
 
         // Set the background color
         pageCanvas.drawColor(mainActivityInterface.getMyThemeColors().getPdfBackgroundColor());
+
+        // Draw the left gold bar
+        int leftBarWidth = cmToPx(1.6f);
+        pageCanvas.drawRect(0, 0, leftBarWidth, docHeight, leftBarPaint);
     }
 
     // Headers and footers
@@ -323,7 +333,7 @@ public class MakePDF {
     }
 
     // The footer creation with OpenSongApp credit and page numbering if required
-    private void createFooter() {
+/*     private void createFooter() {
         // The OpenSongApp credit.  This is drawn after the rest of the page content has finished
         Rect bounds = new Rect();
         String string = "Prepared by OpenSongApp (<a href='https://www.opensongapp.com'>https://www.opensongapp.com</a>)";
@@ -345,7 +355,7 @@ public class MakePDF {
 
         // Draw a line
         drawHorizontalLine(docHeight-cmToPx(margin_cm)-cmToPx(footerHeight_cm)-linePos);
-    }
+    } */
     private void drawHorizontalLine(int y) {
         pageCanvas.drawLine(cmToPx(margin_cm), y, docWidth - cmToPx(margin_cm), y, linePaint);
     }
@@ -494,7 +504,7 @@ public class MakePDF {
             // Check we have available height remaining for this view.  If not, create a new page
             if ((isTheSet || !forcePDFSinglePage) && newHeight > spaceStillAvailable) {
                 // Add the footer and finish the page
-                createFooter();
+                //createFooter();
                 pdfDocument.finishPage(page);
                 pageNum++;
 
@@ -562,7 +572,7 @@ public class MakePDF {
         }
 
         // Add the footer to the last page and finish it
-        createFooter();
+        //createFooter();
         pdfDocument.finishPage(page);
 
         // Because there may be additional pages added (multiple files combined)
@@ -662,7 +672,7 @@ public class MakePDF {
         }
 
         // Add the footer to the last page and finish it
-        createFooter();
+        //createFooter();
         pdfDocument.finishPage(page);
 
         // Because there may be additional pages added (multiple files combined)
@@ -785,7 +795,7 @@ public class MakePDF {
         }
 
         // Add the footer to the last page and finish it
-        createFooter();
+        //createFooter();
         pdfDocument.finishPage(page);
 
         // Because there may be additional pages added (multiple files combined)

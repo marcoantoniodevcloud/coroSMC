@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Android App",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "echo Running Android...",
+      "preLaunchTask": "Run Android Full"
+    }
+  ]
+}
