@@ -594,9 +594,6 @@
     <string name="import_bulk">Több fájl</string>
     <string name="import_bulk_details">Az alkalmazás megpróbálja importálni az olvasható formátumú dalfájlokat egy \'Importált\' dalmappába.  Ezután szükség esetén áthelyezheti a dalokat más mappákba.</string>
     <string name="import_bulk_info">Több dalfájl kötegelt importálása</string>
-    <string name="import_bulk_showcase_choose">Kattintson ide több fájl kiválasztásához az Android fájlválasztóval</string>
-    <string name="import_bulk_showcase_found">Ezeket a fájlokat választotta importálni</string>
-    <string name="import_bulk_showcase_import">Kattintson ide a fájlok importálásához</string>
     <string name="import_download">Letöltés importálása</string>
     <string name="import_from_file">Importálás mentett fájlból</string>
     <string name="import_main">Dalok importálása vagy létrehozása</string>
@@ -726,7 +723,6 @@
     <string name="menu_set_info">Ezzel a gombbal megtekintheti és kezelheti készleteit</string>
     <string name="menu_settings">A menü beállításai</string>
     <string name="menu_settings_description">Módosítsa a dal/készlet menü beállításait</string>
-    <string name="menu_showcase_info">Nyissa meg a menüt a dalok és készletek megtekintéséhez és kezeléséhez</string>
     <string name="menu_song_info">Ezzel a gombbal megtekintheti és kezelheti dalait</string>
     <string name="menu_song_order">Hogyan kell a dalokat felsorolni a menüben?</string>
     <string name="merged_text_file">Egyesített szövegfájl</string>
@@ -1123,7 +1119,6 @@
     <string name="set_import">Beállításlista importálása</string>
     <string name="set_inline">Inline készlet</string>
     <string name="set_inline_info">Jelenítse meg a setlist listát a dal ablaka melletti képernyőn</string>
-    <string name="set_inline_showcase">Ez az inline készlet, amely lehetővé teszi a setlist megtekintését előadás közben.  A beállításokat a Beállítások / Kijelző / Inline készlet menüpontban módosíthatja.</string>
     <string name="set_is_empty">Nincsenek tárgyak a készletben</string>
     <string name="set_item_info">Megváltoztathatja a készletből betöltött dal mappáját/fájlnevét, és megváltoztathatja a dal megjelenítésének gombját is (ez szükség esetén elvégzi a dal ideiglenes átültetését az eszközön)</string>
     <string name="set_item_removed">A készletből eltávolított elem</string>

@@ -594,9 +594,6 @@
     <string name="import_bulk">බහු ගොනු</string>
     <string name="import_bulk_details">යෙදුම \'ආනයනය කළ\' ගීත ෆෝල්ඩරයකට කියවිය හැකි ආකෘතිවලින් ගීත ගොනු ආයාත කිරීමට උත්සාහ කරයි.  අවශ්‍ය නම් ඔබට ගීත වෙනත් ෆෝල්ඩර වෙත ගෙන යාමට තෝරා ගත හැක.</string>
     <string name="import_bulk_info">කණ්ඩායම් කිහිපයක් ගීත ගොනු ආයාත කරන්න</string>
-    <string name="import_bulk_showcase_choose">ඇන්ඩ්‍රොයිඩ් ගොනු පිකර් භාවිතයෙන් ගොනු කිහිපයක් තේරීමට මෙතන ක්ලික් කරන්න</string>
-    <string name="import_bulk_showcase_found">ඔබ ආයාත කිරීමට තෝරාගෙන ඇති ගොනු මේවාය</string>
-    <string name="import_bulk_showcase_import">මෙම ගොනු ආයාත කිරීමට උත්සාහ කිරීමට මෙතන ක්ලික් කරන්න</string>
     <string name="import_download">ආයාත බාගත කිරීම</string>
     <string name="import_from_file">සුරකින ලද ගොනුවකින් ආයාත කරන්න</string>
     <string name="import_main">ගීත ආයාත කරන්න හෝ සාදන්න</string>
@@ -726,7 +723,6 @@
     <string name="menu_set_info">ඔබගේ කට්ටල බැලීමට සහ කළමනාකරණය කිරීමට මෙම බොත්තම භාවිතා කරන්න</string>
     <string name="menu_settings">මෙනු සැකසුම්</string>
     <string name="menu_settings_description">ගීතය/සැකසුම් මෙනුව සඳහා සැකසුම් වෙනස් කරන්න</string>
-    <string name="menu_showcase_info">ඔබගේ ගීත සහ කට්ටල බැලීමට සහ කළමනාකරණය කිරීමට මෙනුව විවෘත කරන්න</string>
     <string name="menu_song_info">මෙම බොත්තම බැලීම භාවිතා කර ඔබගේ ගීත කළමනාකරණය කරන්න</string>
     <string name="menu_song_order">මෙනුවේ ගීත ලැයිස්තුගත කළ යුත්තේ කෙසේද?</string>
     <string name="merged_text_file">පෙළ ගොනුව ඒකාබද්ධ කරන ලදී</string>
@@ -1123,7 +1119,6 @@
     <string name="set_import">ආයාත කට්ටල ලැයිස්තුව</string>
     <string name="set_inline">පේළිගත කට්ටලය</string>
     <string name="set_inline_info">ගීත කවුළුව අසල තිරය මත කට්ටල ලැයිස්තුව පෙන්වන්න</string>
-    <string name="set_inline_showcase">ඔබ ක්‍රියා කරන අතරතුර කට්ටල ලැයිස්තුව බැලීමට ඉඩ දෙන පේළිගත කට්ටලය මෙයයි.  ඔබට සැකසීම් / සංදර්ශකය / පේළිගත කට්ටලය තුළ සැකසුම් වෙනස් කළ හැකිය.</string>
     <string name="set_is_empty">ඔබගේ කට්ටලයේ අයිතම කිසිවක් නොමැත</string>
     <string name="set_item_info">ඔබට කට්ටලයෙන් පටවා ඇති ගීතයේ ෆෝල්ඩරය/ගොනු නාමය වෙනස් කළ හැකි අතර ඔබට ගීත සංදර්ශකය සඳහා යතුරද වෙනස් කළ හැකිය (මෙය අවශ්‍ය නම් ඔබගේ උපාංගයේ ගීතය තාවකාලිකව මාරු කිරීම සිදු කරයි)</string>
     <string name="set_item_removed">අයිතමය කට්ටලයෙන් ඉවත් කරන ලදී</string>

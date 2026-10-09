@@ -22,8 +22,8 @@ public class SetMenuBottomSheet extends BottomSheetCommon {
 
     @SuppressWarnings({"FieldCanBeLocal","unused"})
     private static final String TAG = "SetMenuBottomSheet";
-    private String website_menu_set_string="", set_new_string="", deeplink_sets_string="",
-            deeplink_bible_string="", deeplink_custom_slide_string="";
+        private String website_menu_set_string="", set_new_string="", deeplink_sets_string="",
+            deeplink_custom_slide_string="";
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -56,7 +56,6 @@ public class SetMenuBottomSheet extends BottomSheetCommon {
             website_menu_set_string = getString(R.string.website_menu_set);
             set_new_string = getString(R.string.set_new);
             deeplink_sets_string = getString(R.string.deeplink_sets);
-            deeplink_bible_string = getString(R.string.deeplink_bible);
             deeplink_custom_slide_string = getString(R.string.deeplink_custom_slide);
         }
     }
@@ -77,10 +76,6 @@ public class SetMenuBottomSheet extends BottomSheetCommon {
         });
         myView.manageSet.setOnClickListener(v -> {
             mainActivityInterface.navigateToFragment(deeplink_sets_string,-1);
-            dismiss();
-        });
-        myView.addScripture.setOnClickListener(v -> {
-            mainActivityInterface.navigateToFragment(deeplink_bible_string,0);
             dismiss();
         });
         myView.addCustom.setOnClickListener(v -> {

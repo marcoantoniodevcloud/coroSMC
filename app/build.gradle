@@ -196,7 +196,6 @@ dependencies {
     // For better setting of images - DO NOT UPDATE UNTIL BUILT WITH SDK37
     annotationProcessor 'com.github.bumptech.glide:compiler:5.0.7'
     // For better setting of images - DO NOT UPDATE UNTIL BUILT WITH SDK37
-    implementation 'com.github.deano2390:MaterialShowcaseView:1.3.7'
     // To highlight new features in the app
     implementation 'com.vanniktech:android-image-cropper:4.7.0'
     // For image cropping/rotation

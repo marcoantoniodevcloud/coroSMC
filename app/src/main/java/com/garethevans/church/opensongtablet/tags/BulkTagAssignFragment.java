@@ -35,8 +35,7 @@ public class BulkTagAssignFragment extends Fragment {
     private SettingsTagManageBinding myView;
     private String folderSearchVal = "", artistSearchVal = "", keySearchVal = "", tagSearchVal = "",
             filterSearchVal = "", titleSearchVal = "", thisTag = "", tag_song_string="",
-            website_tags_string="", new_category_string="", tag_string="", filter_songs_string="",
-            tag_to_use_string="", tag_new_string="", tag_search_string="", rename_string="";
+            website_tags_string="", new_category_string="", tag_string="", rename_string="";
     private String[] key_choice_string={};
     private String currentTagName;
     private boolean songListSearchByFolder, songListSearchByArtist, songListSearchByKey,
@@ -81,8 +80,6 @@ public class BulkTagAssignFragment extends Fragment {
 
             setupListeners();
 
-            // Do the showcase for info
-            setupShowcase();
         });
     }
 
@@ -93,10 +90,6 @@ public class BulkTagAssignFragment extends Fragment {
             new_category_string = getString(R.string.new_category);
             tag_string = getString(R.string.tag);
             key_choice_string = getResources().getStringArray(R.array.key_choice);
-            filter_songs_string = getString(R.string.filter_songs);
-            tag_to_use_string = getString(R.string.tag_to_use);
-            tag_new_string = getString(R.string.tag_new);
-            tag_search_string = getString(R.string.tag_search);
             rename_string = getString(R.string.rename);
         }
     }
@@ -317,26 +310,6 @@ public class BulkTagAssignFragment extends Fragment {
         });
     }
 
-    private void setupShowcase() {
-        if (getActivity()!=null) {
-            mainActivityInterface.getMainHandler().post(() -> {
-                ArrayList<View> targets = new ArrayList<>();
-                targets.add(myView.filterButtons.getRoot());
-                targets.add(myView.thisTag);
-                targets.add(myView.addNewTag);
-                targets.add(myView.searchThisTag);
-
-                ArrayList<String> infos = new ArrayList<>();
-                infos.add(filter_songs_string);
-                infos.add(tag_to_use_string);
-                infos.add(tag_new_string);
-                infos.add(tag_search_string);
-
-                mainActivityInterface.getShowCase().sequenceShowCase(getActivity(), targets, null,
-                        infos, null, "bulkTagAssign");
-            });
-        }
-    }
     private void prepareResults() {
         if (tagSongListAdapter!=null) {
             tagSongListAdapter.updateSongsFound(myView.thisTag.getText().toString(),

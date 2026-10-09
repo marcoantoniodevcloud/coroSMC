@@ -594,9 +594,6 @@
     <string name="import_bulk">Múltiples archivos</string>
     <string name="import_bulk_details">La aplicación intentará importar archivos de canciones en formatos legibles a una carpeta de canciones \'Importadas\'.  A continuación, puede optar por mover canciones a otras carpetas si es necesario.</string>
     <string name="import_bulk_info">Importación por lotes de varios archivos de canciones</string>
-    <string name="import_bulk_showcase_choose">Haga clic aquí para seleccionar varios archivos usando el selector de archivos de Android</string>
-    <string name="import_bulk_showcase_found">Estos son los archivos que ha elegido importar</string>
-    <string name="import_bulk_showcase_import">Haga clic aquí para intentar importar estos archivos</string>
     <string name="import_download">Importar descarga</string>
     <string name="import_from_file">Importar desde un archivo guardado</string>
     <string name="import_main">Importar o crear canciones</string>
@@ -726,7 +723,6 @@
     <string name="menu_set_info">Use este botón para ver y administrar sus conjuntos</string>
     <string name="menu_settings">Configuración del menú</string>
     <string name="menu_settings_description">Cambiar la configuración de la canción/menú fijo</string>
-    <string name="menu_showcase_info">Abra el menú para ver y administrar sus canciones y conjuntos</string>
     <string name="menu_song_info">Usa este botón para ver y administrar tus canciones</string>
     <string name="menu_song_order">¿Cómo deben aparecer las canciones en el menú?</string>
     <string name="merged_text_file">Archivo de texto fusionado</string>
@@ -1123,7 +1119,6 @@
     <string name="set_import">Importar lista de canciones</string>
     <string name="set_inline">Conjunto en línea</string>
     <string name="set_inline_info">Mostrar la lista de canciones en la pantalla al lado de la ventana de la canción</string>
-    <string name="set_inline_showcase">Este es el set en línea que permite ver la lista de canciones mientras actúas.  Puede cambiar la configuración en Configuración / Pantalla / Conjunto en línea.</string>
     <string name="set_is_empty">No hay elementos en tu colección</string>
     <string name="set_item_info">Puede cambiar la carpeta / nombre de archivo de la canción cargada desde el conjunto y también puede cambiar la tecla para la visualización de la canción (esto realiza una transposición temporal de la canción en su dispositivo si es necesario)</string>
     <string name="set_item_removed">Objeto eliminado del conjunto</string>

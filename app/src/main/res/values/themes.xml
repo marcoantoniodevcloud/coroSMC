@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base Light Theme -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="AppTheme.Base" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Font -->
         <item name="fontFamily">@font/lato</item>
         <item name="android:fontFamily">@font/lato</item>
@@ -84,4 +84,5 @@
         <!-- Default dialog (for Nearby) -->
         <item name="alertDialogTheme">@style/MyAlertDialogTheme</item>
     </style>
+    <style name="AppTheme" parent="@style/AppTheme.Base" />
 </resources>

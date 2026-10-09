@@ -26,7 +26,6 @@ public class SetMenuFragment extends Fragment {
     private MenuSetsBinding myView;
     private LinearLayoutManager llm;
     private String deeplink_sets_manage_string="", save_changes_string="", overwrite_string="",
-            set_manage_click_string="", set_help_string="", set_manage_swipe_string="",
             set_item_removed_string="", undo_string="";
     private MainActivityInterface mainActivityInterface;
     private SetAdapter setAdapter;
@@ -42,7 +41,6 @@ public class SetMenuFragment extends Fragment {
         super.onResume();
         prepareStrings();
         setListeners();
-        runSetShowcase();
     }
 
 
@@ -83,9 +81,6 @@ public class SetMenuFragment extends Fragment {
             deeplink_sets_manage_string = getString(R.string.deeplink_sets_manage);
             save_changes_string = getString(R.string.save_changes);
             overwrite_string = getString(R.string.overwrite);
-            set_manage_click_string = getString(R.string.set_manage_click);
-            set_help_string = getString(R.string.set_help);
-            set_manage_swipe_string = getString(R.string.set_manage_swipe);
             set_item_removed_string = getString(R.string.set_item_removed);
             undo_string = getString(R.string.undo);
         }
@@ -179,20 +174,6 @@ public class SetMenuFragment extends Fragment {
                 super.onScrollStateChanged(recyclerView, newState);
             }
         }));
-    }
-
-    // Show the set showcase
-    public void runSetShowcase() {
-        if (getActivity()!=null) {
-            try {
-                String info = set_manage_click_string + "\n" + set_help_string +
-                        "\n" + set_manage_swipe_string;
-                myView.myRecyclerView.post(() -> mainActivityInterface.getShowCase().singleShowCase(getActivity(),
-                        myView.setTitle, null, info, true, "setFragment"));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     public void changeVisibility(boolean visible) {

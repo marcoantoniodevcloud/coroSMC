@@ -181,9 +181,7 @@ public class AlertInfoBottomSheet extends BottomSheetCommon {
         mainActivityInterface.refreshMenuItems();
         mainActivityInterface.getAlertChecks().setAlreadySeen(true);
 
-        // Check if we need to see the showcase for first use
         mainActivityInterface.getAlertChecks().setIsShowing(false);
-        mainActivityInterface.showTutorial("performanceView",null);
     }
 
     @Override

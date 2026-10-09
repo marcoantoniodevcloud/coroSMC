@@ -632,9 +632,6 @@ public class PerformanceGestures {
             case "chorddetection":
                 toggleChordDetection();
                 break;
-            case "bible":
-                bibleSettings();
-                break;
             case "audiorecorder":
                 audioRecorder();
                 break;
@@ -1391,11 +1388,6 @@ public class PerformanceGestures {
             }
             mainActivityInterface.getMidi().setMidiSendAuto(newPref);
         }
-    }
-
-    // Get the bible settings
-    public void bibleSettings() {
-        mainActivityInterface.navigateToFragment(c.getString(R.string.deeplink_bible),0);
     }
 
     // Sound level

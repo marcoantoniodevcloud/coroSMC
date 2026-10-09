@@ -96,8 +96,6 @@ public class SongSectionsFragment extends Fragment {
 
         showSongInfo();
 
-        mainActivityInterface.updateFragment("presenterFragment_showCase", null, null);
-
         return myView.getRoot();
     }
 
@@ -244,16 +242,6 @@ public class SongSectionsFragment extends Fragment {
     // From edited content via TextInputBottomSheet
     public void updateValue(String content) {
         mainActivityInterface.getPresenterSettings().getSongSectionsAdapter().setSectionEditedContent(content);
-    }
-
-    public void showTutorial(ArrayList<View> viewsToHighlight) {
-        // The presenter fragment has sent the main parent views
-        // Add these ones and showcase
-        if (myView != null) {
-            viewsToHighlight.add(myView.songInfo);
-            viewsToHighlight.add(myView.recyclerView);
-            mainActivityInterface.showTutorial("presenterSongs", viewsToHighlight);
-        }
     }
 
     private void doPlay() {

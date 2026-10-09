@@ -710,9 +710,6 @@
     <string name="import_bulk">Multiple files</string>
     <string name="import_bulk_details">The app will attempt to import song files in readable formats into a \'Imported\' song folder.  You can then choose to move songs into other folders if required.</string>
     <string name="import_bulk_info">Batch import multiple song files</string>
-    <string name="import_bulk_showcase_choose">Click here to select multiple files using the Android file picker</string>
-    <string name="import_bulk_showcase_found">These are the files that you have chosen to import</string>
-    <string name="import_bulk_showcase_import">Click here to attempt to import these files</string>
     <string name="import_download">Import download</string>
     <string name="import_from_file">Import from a saved file</string>
     <string name="import_main">Import or create songs</string>
@@ -900,7 +897,6 @@
     <string name="menu_set_info">Use this button to view and manage your sets</string>
     <string name="menu_settings">Menu settings</string>
     <string name="menu_settings_description">Change settings for the song/set menu</string>
-    <string name="menu_showcase_info">Open the menu to view and manage your songs and sets</string>
     <string name="menu_song_info">Use this button view and manage your songs</string>
     <string name="menu_song_order">How should songs be listed in the menu?</string>
     <string name="merged_text_file">Merged text file</string>
@@ -1318,7 +1314,6 @@
     <string name="set_import">Import setlist</string>
     <string name="set_inline">Inline set</string>
     <string name="set_inline_info">Show the setlist on the screen beside the song window</string>
-    <string name="set_inline_showcase">This is the inline set which allows a view of the setlist while you are performing.  You can change the settings in Settings / Display / Inline set.</string>
     <string name="set_is_empty">There are no items in your set</string>
     <string name="set_item_info">You can change the folder/filename of the song loaded from the set and you can also change the key for song display (this performs a temporary transpose of the song on your device if required)</string>
     <string name="set_item_removed">Item removed from set</string>

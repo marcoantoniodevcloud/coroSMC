@@ -17,7 +17,6 @@ import androidx.fragment.app.FragmentManager;
 import com.garethevans.church.opensongtablet.abcnotation.ABCNotation;
 import com.garethevans.church.opensongtablet.aeros.Aeros;
 import com.garethevans.church.opensongtablet.animation.CustomAnimation;
-import com.garethevans.church.opensongtablet.animation.ShowCase;
 import com.garethevans.church.opensongtablet.appdata.AlertChecks;
 import com.garethevans.church.opensongtablet.appdata.CheckInternet;
 import com.garethevans.church.opensongtablet.appdata.FixLocale;
@@ -25,7 +24,6 @@ import com.garethevans.church.opensongtablet.appdata.MyFonts;
 import com.garethevans.church.opensongtablet.appdata.VersionNumber;
 import com.garethevans.church.opensongtablet.autoscroll.Autoscroll;
 import com.garethevans.church.opensongtablet.beatbuddy.BeatBuddy;
-import com.garethevans.church.opensongtablet.bible.Bible;
 import com.garethevans.church.opensongtablet.ccli.CCLILog;
 import com.garethevans.church.opensongtablet.chords.ChordDirectory;
 import com.garethevans.church.opensongtablet.chords.ChordDisplayProcessing;
@@ -255,10 +253,6 @@ public interface MainActivityInterface {
     boolean getPerformanceValid();
     PerformanceFragment getPerformanceFragment();
 
-    // Showcase
-    ShowCase getShowCase();
-    void showTutorial(String what,ArrayList<View> viewsToHighlight);
-
     // File work
     StorageAccess getStorageAccess();
     void doSongLoad(String folder, String filename, boolean closeDrawer);
@@ -353,7 +347,6 @@ public interface MainActivityInterface {
     void stopScreenRecorder();
 
     // Custom slides
-    Bible getBible();
     CustomSlide getCustomSlide();
 
     // PDF stuff

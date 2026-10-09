@@ -256,9 +256,6 @@ public class PresenterFragment extends Fragment {
                 }
             }).attach();
 
-            // Show any showcase instructions required
-            showTutorial();
-
             tryToImportIntent();
         });
 
@@ -413,18 +410,6 @@ public class PresenterFragment extends Fragment {
             myView.showLogoSide.setChecked(true);
             displayInterface.checkDisplays();
         });
-    }
-
-    public void showTutorial() {
-        // Send these views to the song sections layout so we can highlight them
-        ArrayList<View> viewsToHighlight = new ArrayList<>();
-        viewsToHighlight.add(myView.showLogo);
-        viewsToHighlight.add(myView.blankScreen);
-        viewsToHighlight.add(myView.blackScreen);
-        viewsToHighlight.add(myView.panicBottom);
-        if (songSectionsFragment!=null) {
-            songSectionsFragment.showTutorial(viewsToHighlight);
-        }
     }
 
     private class MyCheckChangeListener implements CompoundButton.OnCheckedChangeListener {

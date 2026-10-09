@@ -33,9 +33,6 @@
     <!-- Piano on notes -->
     <color name="piano_on_color">#66AAFF</color>
 
-    <!--Showcase overlay colour-->
-    <color name="showcaseColor">#EE141B22</color>
-
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#888888</color>
 
     <!--Obviously named colours used as needed-->

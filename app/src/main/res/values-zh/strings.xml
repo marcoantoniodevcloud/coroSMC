@@ -594,9 +594,6 @@
     <string name="import_bulk">多个文件</string>
     <string name="import_bulk_details">该应用程序将尝试将可读格式的歌曲文件导入到“导入”歌曲文件夹中。 然后，如果需要，您可以选择将歌曲移动到其他文件夹中。</string>
     <string name="import_bulk_info">批量导入多个歌曲文件</string>
-    <string name="import_bulk_showcase_choose">单击此处使用 Android 文件选择器选择多个文件</string>
-    <string name="import_bulk_showcase_found">这些是您选择导入的文件</string>
-    <string name="import_bulk_showcase_import">单击此处尝试导入这些文件</string>
     <string name="import_download">导入下载</string>
     <string name="import_from_file">从保存的文件导入</string>
     <string name="import_main">导入或创建歌曲</string>
@@ -726,7 +723,6 @@
     <string name="menu_set_info">使用此按钮查看和管理您的学习集</string>
     <string name="menu_settings">菜单设置</string>
     <string name="menu_settings_description">更改歌曲/设置菜单的设置</string>
-    <string name="menu_showcase_info">打开菜单以查看和管理您的歌曲和曲目</string>
     <string name="menu_song_info">使用此按钮查看和管理您的歌曲</string>
     <string name="menu_song_order">歌曲应该如何在菜单中列出？</string>
     <string name="merged_text_file">合并的文本文件</string>
@@ -1123,7 +1119,6 @@
     <string name="set_import">导入歌单</string>
     <string name="set_inline">内联集</string>
     <string name="set_inline_info">在歌曲窗口旁边的屏幕上显示设置列表</string>
-    <string name="set_inline_showcase">这是内嵌式设置，允许您在表演时查看歌单。 您可以在设置/显示/内联设置中更改设置。</string>
     <string name="set_is_empty">您的套装中没有物品</string>
     <string name="set_item_info">您可以更改从集合加载的歌曲的文件夹/文件名，也可以更改歌曲显示的键（如果需要，这会在您的设备上临时转置歌曲）</string>
     <string name="set_item_removed">从集合中删除的项目</string>

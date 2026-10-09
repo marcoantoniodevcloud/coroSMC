@@ -15,8 +15,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.garethevans.church.opensongtablet.R;
-import com.garethevans.church.opensongtablet.bible.BibleGatewayBottomSheet;
-import com.garethevans.church.opensongtablet.bible.BibleOfflineBottomSheet;
 import com.garethevans.church.opensongtablet.customviews.ExposedDropDownArrayAdapter;
 import com.garethevans.church.opensongtablet.databinding.ModePresenterMediaBinding;
 import com.garethevans.church.opensongtablet.interfaces.MainActivityInterface;
@@ -54,7 +52,6 @@ public class MediaFragment extends Fragment {
 
         initialiseDropdowns();
 
-        setListeners();
         return myView.getRoot();
     }
 
@@ -140,17 +137,6 @@ public class MediaFragment extends Fragment {
             return View.GONE;
         }
     }
-    private void setListeners() {
-        myView.bibleOffline.setOnClickListener(view -> {
-            BibleOfflineBottomSheet bibleOfflineBottomSheet = new BibleOfflineBottomSheet();
-            bibleOfflineBottomSheet.show(mainActivityInterface.getMyFragmentManager(),"BibleOfflineBottomSheet");
-        });
-        myView.bibleOnline.setOnClickListener(view -> {
-            BibleGatewayBottomSheet bibleGatewayBottomSheet = new BibleGatewayBottomSheet();
-            bibleGatewayBottomSheet.show(mainActivityInterface.getMyFragmentManager(), "BibleGatewayBottomSheet");
-        });
-    }
-
     public void onSongLoad() {
         padKey = mainActivityInterface.getSong().getKey();
         padFile = mainActivityInterface.getSong().getPadfile();

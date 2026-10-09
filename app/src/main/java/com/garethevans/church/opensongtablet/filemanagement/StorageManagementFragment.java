@@ -27,12 +27,8 @@ public class StorageManagementFragment extends Fragment {
     @SuppressWarnings({"unused","FieldCanBeLocal"})
     private final String TAG = "StorageManagement";
     private MainActivityInterface mainActivityInterface;
-    private ArrayList<String> infos;
-    private ArrayList<View> views = new ArrayList<>();
-    private ArrayList<Boolean> rects = new ArrayList<>();
     private String currentSubDir, storage_manage_string="", website_storage_overview_string="",
-            root_string="", songs_string="", mainfoldername_string="", storage_reset_string="",
-            storage_main_string="";
+            root_string="", songs_string="", mainfoldername_string="";
     private String webAddress;
 
     @Override
@@ -70,8 +66,6 @@ public class StorageManagementFragment extends Fragment {
             root_string = getString(R.string.root);
             songs_string = getString(R.string.songs);
             mainfoldername_string = getString(R.string.mainfoldername);
-            storage_reset_string = getString(R.string.storage_reset);
-            storage_main_string = getString(R.string.storage_main);
         }
     }
     private void setUpThread() {
@@ -93,14 +87,6 @@ public class StorageManagementFragment extends Fragment {
                 mainActivityInterface.getWindowFlags().hideKeyboard();
             });
 
-            // Prepare the showcase
-            initialiseShowcaseArrays();
-            mainActivityInterface.getMainHandler().post(() -> {
-                prepareShowcaseViews();
-                if (getActivity()!=null) {
-                    mainActivityInterface.getShowCase().sequenceShowCase(getActivity(), views, null, infos, rects, "storageManagement");
-                }
-            });
         });
     }
 
@@ -133,21 +119,6 @@ public class StorageManagementFragment extends Fragment {
         }
     }
 
-
-    private void initialiseShowcaseArrays() {
-        views = new ArrayList<>();
-        infos = new ArrayList<>();
-        rects = new ArrayList<>();
-        infos.add(storage_reset_string);
-        rects.add(true);
-        infos.add(storage_main_string);
-        rects.add(true);
-    }
-
-    private void prepareShowcaseViews() {
-        views.add(myView.rootFolder);
-        views.add(myView.mainFolder);
-    }
 
     private void showActionDialog(boolean root, boolean songs, String folder) {
         currentSubDir = folder;

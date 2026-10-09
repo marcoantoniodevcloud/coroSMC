@@ -594,9 +594,6 @@
     <string name="import_bulk">Πολλαπλά αρχεία</string>
     <string name="import_bulk_details">Η εφαρμογή θα προσπαθήσει να εισαγάγει αρχεία τραγουδιών σε αναγνώσιμες μορφές σε ένα φάκελο τραγουδιών \'Εισαγωγή\'.  Στη συνέχεια, μπορείτε να επιλέξετε να μετακινήσετε τραγούδια σε άλλους φακέλους, εάν απαιτείται.</string>
     <string name="import_bulk_info">Μαζική εισαγωγή πολλών αρχείων τραγουδιών</string>
-    <string name="import_bulk_showcase_choose">Κάντε κλικ εδώ για να επιλέξετε πολλά αρχεία χρησιμοποιώντας τον επιλογέα αρχείων Android</string>
-    <string name="import_bulk_showcase_found">Αυτά είναι τα αρχεία που έχετε επιλέξει να εισαγάγετε</string>
-    <string name="import_bulk_showcase_import">Κάντε κλικ εδώ για να προσπαθήσετε να εισαγάγετε αυτά τα αρχεία</string>
     <string name="import_download">Εισαγωγή λήψης</string>
     <string name="import_from_file">Εισαγωγή από ένα αποθηκευμένο αρχείο</string>
     <string name="import_main">Εισαγωγή ή δημιουργία τραγουδιών</string>
@@ -726,7 +723,6 @@
     <string name="menu_set_info">Χρησιμοποιήστε αυτό το κουμπί για να δείτε και να διαχειριστείτε τα σύνολά σας</string>
     <string name="menu_settings">Ρυθμίσεις μενού</string>
     <string name="menu_settings_description">Αλλάξτε τις ρυθμίσεις για το μενού τραγουδιών/σετ</string>
-    <string name="menu_showcase_info">Ανοίξτε το μενού για να προβάλετε και να διαχειριστείτε τα τραγούδια και τα σύνολα σας</string>
     <string name="menu_song_info">Χρησιμοποιήστε αυτό το κουμπί προβολή και διαχείριση των τραγουδιών σας</string>
     <string name="menu_song_order">Πώς πρέπει να εμφανίζονται τα τραγούδια στο μενού;</string>
     <string name="merged_text_file">Συγχωνευμένο αρχείο κειμένου</string>
@@ -1123,7 +1119,6 @@
     <string name="set_import">Εισαγωγή λίστας συνόλου</string>
     <string name="set_inline">Ενσωματωμένο σετ</string>
     <string name="set_inline_info">Εμφάνιση του setlist στην οθόνη δίπλα στο παράθυρο τραγουδιών</string>
-    <string name="set_inline_showcase">Αυτό είναι το ενσωματωμένο σύνολο που επιτρέπει την προβολή του setlist ενώ παίζετε.  Μπορείτε να αλλάξετε τις ρυθμίσεις στις Ρυθμίσεις / Οθόνη / Ενσωματωμένο σύνολο.</string>
     <string name="set_is_empty">Δεν υπάρχουν στοιχεία στο σετ σας</string>
     <string name="set_item_info">Μπορείτε να αλλάξετε το όνομα φακέλου/αρχείου του τραγουδιού που φορτώθηκε από το σετ και μπορείτε επίσης να αλλάξετε το πλήκτρο για την εμφάνιση του τραγουδιού (αυτό εκτελεί προσωρινή αντιμετάθεση του τραγουδιού στη συσκευή σας, εάν απαιτείται)</string>
     <string name="set_item_removed">Στοιχείο που αφαιρέθηκε από το σετ</string>

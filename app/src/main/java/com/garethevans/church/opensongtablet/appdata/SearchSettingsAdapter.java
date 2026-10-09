@@ -10,8 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.garethevans.church.opensongtablet.R;
-import com.garethevans.church.opensongtablet.bible.BibleGatewayBottomSheet;
-import com.garethevans.church.opensongtablet.bible.BibleOfflineBottomSheet;
 import com.garethevans.church.opensongtablet.chords.ChordFingeringBottomSheet;
 import com.garethevans.church.opensongtablet.chords.TransposeBottomSheet;
 import com.garethevans.church.opensongtablet.interfaces.MainActivityInterface;
@@ -78,8 +76,6 @@ public class SearchSettingsAdapter extends RecyclerView.Adapter<SearchSettingsVi
         String bb = "BB"; // *
         String beatbuddy = "BeatBuddy"; // *
         String beats = c.getString(R.string.beats);
-        String bible = c.getString(R.string.bible);
-        String biblegateway = "BibleGateway"; // *
         String bigger = c.getString(R.string.bigger);
         String blank = c.getString(R.string.blank);
         String ble = "Ble"; // *
@@ -656,7 +652,7 @@ public class SearchSettingsAdapter extends RecyclerView.Adapter<SearchSettingsVi
 
                 // Manage your sets
                 new SettingItem(managesets,c.getString(R.string.set_manage_info),
-                        Arrays.asList(song,songs,set,sets,setlist,setlists,load,save,export,share,backup,osbs,restore,import_string,new_string,create,new_string,edit,rename,delete,bible,verse,chapter,scripture,note,custom,slide,image),
+                        Arrays.asList(song,songs,set,sets,setlist,setlists,load,save,export,share,backup,osbs,restore,import_string,new_string,create,new_string,edit,rename,delete,note,custom,slide,image),
                         c.getString(R.string.deeplink_sets),
                         settings+"/"+managesets),
 
@@ -689,30 +685,6 @@ public class SearchSettingsAdapter extends RecyclerView.Adapter<SearchSettingsVi
                         Arrays.asList(set,sets,setlist,setlists,delete,remove),
                         "action_setDelete",
                         settings+"/"+managesets+"/"+delete),
-
-                // Bible (add to set)
-                new SettingItem(bible + " ("+set+")",c.getString(R.string.bible_browse),
-                        Arrays.asList(set,sets,setlist,setlists,bible,scripture,verse,chapter,add,online,download,biblegateway),
-                        c.getString(R.string.deeplink_bible),
-                        settings+"/"+managesets+"/"+bible),
-
-                // Bible download
-                new SettingItem(download,c.getString(R.string.bible_download_for_offline),
-                        Arrays.asList(bible,scripture,verse,chapter,download),
-                        c.getString(R.string.deeplink_bible_download),
-                        settings+"/"+managesets+"/"+bible+"/"+download),
-
-                // Bible search offline
-                new SettingItem(bible,c.getString(R.string.bible_browse_offline),
-                        Arrays.asList(bible,scripture,verse,chapter,search),
-                        "bottomSheet_browseBibleOffline",
-                        settings+"/"+managesets+"/"+bible+"/"+c.getString(R.string.bible_browse)),
-
-                // Bible search BibleGateway
-                new SettingItem(bible,c.getString(R.string.search_biblegateway),
-                        Arrays.asList(bible,scripture,verse,chapter,search,biblegateway,online),
-                        "bottomSheet_browseBibleOnline",
-                        settings+"/"+managesets+"/"+bible+"/"+c.getString(R.string.bible_browse)),
 
                 // Custom slide
                 new SettingItem(c.getString(R.string.custom_slide) + " ("+set+")",c.getString(R.string.add_custom_slide),
@@ -1161,16 +1133,6 @@ public class SearchSettingsAdapter extends RecyclerView.Adapter<SearchSettingsVi
                 case "bottomSheet_duplicateSong":
                     mainActivityInterface.setWhattodo("duplicateSong");
                     mainActivityInterface.navigateToFragment(c.getString(R.string.deeplink_song_actions),0);
-                    break;
-                case "bottomSheet_browseBibleOffline":
-                    BibleOfflineBottomSheet bibleOfflineBottomSheet = new BibleOfflineBottomSheet();
-                    bibleOfflineBottomSheet.show(mainActivityInterface.getMyFragmentManager(),"bibleOffLineBottomSheet");
-                    mainActivityInterface.navHome();
-                    break;
-                case "bottomSheet_browseBibleOnline":
-                    BibleGatewayBottomSheet bibleGatewayBottomSheet = new BibleGatewayBottomSheet();
-                    bibleGatewayBottomSheet.show(mainActivityInterface.getMyFragmentManager(),"bibleGatewayBottomSheet");
-                    mainActivityInterface.navHome();
                     break;
                 case "bottomSheet_soundLevelMeter":
                     mainActivityInterface.navHome();

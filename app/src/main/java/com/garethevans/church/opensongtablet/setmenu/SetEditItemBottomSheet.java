@@ -187,8 +187,13 @@ public class SetEditItemBottomSheet extends BottomSheetCommon {
         if (isNormalVariation) {
             folders.add("**" + variation_string);
         }
-        if (setItemInfo.songfolder.startsWith("**") || setItemInfo.songfolder.startsWith("../")) {
+        if ("Scripture".equals(setItemInfo.songicon)
+                || setItemInfo.songfolder.startsWith("**Scripture")
+                || setItemInfo.songfolder.startsWith("**" + scripture_string)
+                || setItemInfo.songfolder.startsWith("../Scripture")) {
             folders.add("**" + scripture_string);
+        }
+        if (setItemInfo.songfolder.startsWith("**") || setItemInfo.songfolder.startsWith("../")) {
             folders.add("**" + slide_string);
         }
         return folders;

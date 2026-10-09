@@ -28,16 +28,11 @@ public class SequencerAdapter extends RecyclerView.Adapter<DrumViewGridHolder> {
     private final int[] velocityColors;
     private DrumSection currentSection = DrumSection.MAIN;
     private final List<String> cachedInstrumentNames = new ArrayList<>();
-    private final String showcase_string_1;
-    private final String showcase_string_2;
-    private boolean alreadyShowcased = false;
 
     public SequencerAdapter(Context c) {
         this.mainActivityInterface = (MainActivityInterface) c;
         velocity_string = c.getString(R.string.midi_velocity);
         off_string = c.getString(R.string.off);
-        showcase_string_1 = c.getString(R.string.drum_sequencer_info1);
-        showcase_string_2 = c.getString(R.string.drum_sequencer_info2);
 
         // Lets set up the colours for the velocities and tint them according to the palette
         // 0 -> primaryVariant (changed programmatically to secondary if on the beat)
@@ -229,10 +224,6 @@ public class SequencerAdapter extends RecyclerView.Adapter<DrumViewGridHolder> {
     public void onBindViewHolder(@NonNull DrumViewGridHolder holder, int position) {
         renderStep(holder, position);
         setupListeners(holder, position);
-        if (!alreadyShowcased && position == 0) {
-            alreadyShowcased = true;
-            showShowcase(holder.itemView);
-        }
     }
 
     private void updateStepHighlight(DrumViewGridHolder holder, int position, int velocity) {
@@ -310,20 +301,6 @@ public class SequencerAdapter extends RecyclerView.Adapter<DrumViewGridHolder> {
 
     public void resetPlayhead() {
         this.playheadStep = -1;
-    }
-
-    private void showShowcase(View view) {
-        alreadyShowcased = true;
-        ArrayList<View> views = new ArrayList<>();
-        ArrayList<String> messages = new ArrayList<>();
-        views.add(view);
-        views.add(view);
-        messages.add(showcase_string_1);
-        messages.add(showcase_string_2);
-        mainActivityInterface.getMainHandler().postDelayed(() ->
-                mainActivityInterface.getShowCase().sequenceShowCase(
-                        mainActivityInterface.getMyActivity(), views, null, messages,
-                        null, "drumSequencer"), 1000);
     }
 
 }

@@ -1,6 +1,5 @@
 package com.garethevans.church.opensongtablet.customviews;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -17,7 +16,6 @@ import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.garethevans.church.opensongtablet.R;
 import com.garethevans.church.opensongtablet.highlighter.HighlighterEditFragment;
-import com.garethevans.church.opensongtablet.interfaces.MainActivityInterface;
 import com.garethevans.church.opensongtablet.screensetup.Palette;
 import com.google.android.material.slider.Slider;
 
@@ -180,23 +178,6 @@ public class HighlighterToolBox extends LinearLayout implements View.OnTouchList
                 highlighterEditFragment.changePage(pdfCurrentPage+1);
             }
         });
-    }
-
-    public void checkShowcase(Context c, MainActivityInterface mainActivityInterface) {
-        // Add showcase info for the main toolbar options
-        ArrayList<View> views = new ArrayList<>();
-        ArrayList<String> infos = new ArrayList<>();
-        ArrayList<Boolean> rects = new ArrayList<>();
-        views.add(dragIcon);
-        views.add(currentTool);
-        views.add(saveButton);
-        infos.add(c.getString(R.string.highligher_drag));
-        infos.add(c.getString(R.string.highligher_tool_current));
-        infos.add(c.getString(R.string.save_changes));
-        rects.add(false);
-        rects.add(false);
-        rects.add(false);
-        mainActivityInterface.getShowCase().sequenceShowCase((Activity)c, views,null,infos,rects,"highlighterEdit");
     }
 
     @Override

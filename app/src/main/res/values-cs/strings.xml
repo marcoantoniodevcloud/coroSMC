@@ -594,9 +594,6 @@
     <string name="import_bulk">Více souborů</string>
     <string name="import_bulk_details">Aplikace se pokusí importovat soubory skladeb v čitelných formátech do složky \'Importované\' skladby.  V případě potřeby se pak můžete rozhodnout přesunout skladby do jiných složek.</string>
     <string name="import_bulk_info">Dávkový import více souborů skladeb</string>
-    <string name="import_bulk_showcase_choose">Kliknutím sem vyberete více souborů pomocí nástroje pro výběr souborů Android</string>
-    <string name="import_bulk_showcase_found">Toto jsou soubory, které jste se rozhodli importovat</string>
-    <string name="import_bulk_showcase_import">Ve vašem byly nalezeny některé neočekávané soubory skladeb Kliknutím sem se pokusíte tyto soubory importovat.</string>
     <string name="import_download">Importovat stahování</string>
     <string name="import_from_file">Import z uloženého souboru</string>
     <string name="import_main">Importujte nebo vytvářejte skladby</string>
@@ -726,7 +723,6 @@
     <string name="menu_set_info">Pomocí tohoto tlačítka můžete zobrazit a spravovat své sady</string>
     <string name="menu_settings">Nastavení nabídky</string>
     <string name="menu_settings_description">Změňte nastavení pro nabídku skladby/nastavení</string>
-    <string name="menu_showcase_info">Otevřete nabídku view a spravujte své skladby a sady</string>
     <string name="menu_song_info">Použijte toto tlačítko pro zobrazení a správu skladeb</string>
     <string name="menu_song_order">Jak by měly být skladby uvedeny v nabídce?</string>
     <string name="merged_text_file">Sloučený textový soubor</string>
@@ -1123,7 +1119,6 @@
     <string name="set_import">Import setlistu</string>
     <string name="set_inline">Inline sada</string>
     <string name="set_inline_info">Zobrazit setlist na obrazovce vedle okna skladby</string>
-    <string name="set_inline_showcase">Toto je vložená sada, která umožňuje view setlist během hraní.  Nastavení můžete změnit v Nastavení / Zobrazení / Inline sada.</string>
     <string name="set_is_empty">Ve vaší sadě nejsou žádné položky</string>
     <string name="set_item_info">Můžete změnit složku/název souboru skladby načtené ze sady a můžete také změnit klávesu pro zobrazení skladby (v případě potřeby provede dočasnou transpozici skladby do vašeho zařízení)</string>
     <string name="set_item_removed">Položka odstraněna ze sady</string>

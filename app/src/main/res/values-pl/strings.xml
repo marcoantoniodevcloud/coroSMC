@@ -594,9 +594,6 @@
     <string name="import_bulk">Wiele plików</string>
     <string name="import_bulk_details">Aplikacja spróbuje zaimportować pliki utworów w czytelnych formatach do folderu \'Zaimportowane\' utwory.  W razie potrzeby możesz przenieść utwory do innych folderów.</string>
     <string name="import_bulk_info">Importowanie wsadowe wielu plików utworów</string>
-    <string name="import_bulk_showcase_choose">Kliknij tutaj, aby wybrać wiele plików za pomocą selektora plików Androida</string>
-    <string name="import_bulk_showcase_found">Są to pliki, które wybrałeś do zaimportowania</string>
-    <string name="import_bulk_showcase_import">Kliknij tutaj, aby spróbować zaimportować te pliki</string>
     <string name="import_download">Importuj pobieranie</string>
     <string name="import_from_file">Importuj z zapisanego pliku</string>
     <string name="import_main">Importuj lub twórz piosenki</string>
@@ -726,7 +723,6 @@
     <string name="menu_set_info">Użyj tego przycisku, aby przeglądać i zarządzać swoimi zestawami</string>
     <string name="menu_settings">Ustawienia menu</string>
     <string name="menu_settings_description">Zmień ustawienia dla menu piosenki/zestawu</string>
-    <string name="menu_showcase_info">Otwórz menu, aby przeglądać i zarządzać utworami i setami</string>
     <string name="menu_song_info">Użyj tego przycisku, aby wyświetlać i zarządzać swoimi piosenkami</string>
     <string name="menu_song_order">Jak piosenki powinny być ułożone w menu?</string>
     <string name="merged_text_file">Połączony plik tekstowy</string>
@@ -1123,7 +1119,6 @@
     <string name="set_import">Importuj setlistę</string>
     <string name="set_inline">Zestaw wbudowany</string>
     <string name="set_inline_info">Pokaż setlistę na ekranie obok okna piosenki</string>
-    <string name="set_inline_showcase">Jest to zestaw wbudowany, który umożliwia podgląd setlisty podczas występu.  Ustawienia można zmienić w Ustawienia / Wyświetlacz / Zestaw wbudowany.</string>
     <string name="set_is_empty">W zestawie nie ma żadnych przedmiotów</string>
     <string name="set_item_info">Możesz zmienić katalog/nazwę pliku piosenki załadowanego z zestawu, a także zmienić tonację do wyświetlania (w razie potrzeby wykonuje tymczasową transpozycję piosenki na urządzeniu)</string>
     <string name="set_item_removed">Element usunięty z zestawu</string>

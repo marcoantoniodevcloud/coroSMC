@@ -614,7 +614,6 @@ public class ImportOnlineFragment extends Fragment {
             changeLayouts(false, true, false);
             myView.grabText.setVisibility(View.VISIBLE);
             if (getActivity()!=null && myView.grabText.getVisibility()==View.VISIBLE) {
-                myView.grabText.post(() -> mainActivityInterface.getShowCase().singleShowCase(getActivity(), myView.grabText, null, text_extract_check_string, false, "onlineTextSearch"));
             }
             webSearchFull = webAddress + mainActivityInterface.getCheckInternet().getSearchPhrase() + extra;
             String justaddress = webAddress;
@@ -706,7 +705,6 @@ public class ImportOnlineFragment extends Fragment {
                 changeLayouts(false, true, false);
                 myView.grabText.setVisibility(View.VISIBLE);
                 if (getActivity()!=null && myView.grabText.getVisibility()==View.VISIBLE) {
-                    myView.grabText.post(() -> mainActivityInterface.getShowCase().singleShowCase(getActivity(), myView.grabText, null, text_extract_check_string, false, "onlineTextSearch"));
                 }
                 webSearchFull = webAddress + mainActivityInterface.getCheckInternet().getSearchPhrase() + extra;
                 String justaddress = webAddress;
@@ -902,8 +900,6 @@ public class ImportOnlineFragment extends Fragment {
                     myView.grabText.hide();
                     myView.saveButton.show();
                     mainActivityInterface.getCustomAnimation().pulse(getContext(), myView.saveButton);
-                    mainActivityInterface.getShowCase().singleShowCase(getActivity(), myView.saveButton,
-                            null, text_extract_website_string, false, "textWebsite");
                 }
             });
 

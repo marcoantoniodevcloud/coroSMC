@@ -594,9 +594,6 @@
     <string name="import_bulk">Несколько файлов</string>
     <string name="import_bulk_details">Приложение попытается импортировать файлы песен в читаемых форматах в папку «Импортированные».  При необходимости можно переместить песни в другие папки.</string>
     <string name="import_bulk_info">Пакетный импорт нескольких файлов песен</string>
-    <string name="import_bulk_showcase_choose">Нажмите здесь, чтобы выбрать несколько файлов с помощью средства выбора файлов Android</string>
-    <string name="import_bulk_showcase_found">Это файлы, которые вы выбрали для импорта</string>
-    <string name="import_bulk_showcase_import">Нажмите здесь, чтобы попытаться импортировать эти файлы</string>
     <string name="import_download">Импортировать загрузку</string>
     <string name="import_from_file">Импорт из сохраненного файла</string>
     <string name="import_main">Импорт или создание песни</string>
@@ -726,7 +723,6 @@
     <string name="menu_set_info">Нажмите эту кнопку для просмотра и управления сетлистами</string>
     <string name="menu_settings">Настройка меню</string>
     <string name="menu_settings_description">Изменение настроек меню песни/сетлиста</string>
-    <string name="menu_showcase_info">Откройте меню для просмотра песен и сетлистов и управления ими</string>
     <string name="menu_song_info">Нажмите эту кнопку для просмотра и управления своими песнями</string>
     <string name="menu_song_order">Как песни должны быть упорядочены в меню?</string>
     <string name="merged_text_file">Объединенный текстовый файл</string>
@@ -1123,7 +1119,6 @@
     <string name="set_import">Импортировать сетлист</string>
     <string name="set_inline">Встроенный сетлист</string>
     <string name="set_inline_info">Показать сетлист на экране параллельно с окном песни</string>
-    <string name="set_inline_showcase">Это встроенное окошко, чтобы просматривать через него сетлист во время выступления. Вы можете изменить настройки в разделе Настройки / Дисплей / Встроенная настройка.</string>
     <string name="set_is_empty">В вашем сетлисте пусто</string>
     <string name="set_item_info">Вы можете изменить имя папки/файла песни, загруженной из сетлиста, а также изменить тональность песни ТОЛЬКО для текущего отображения в сетлисте (транспозиция песни в самой базе при этом не меняется)</string>
     <string name="set_item_removed">Элемент удален из сетлиста</string>

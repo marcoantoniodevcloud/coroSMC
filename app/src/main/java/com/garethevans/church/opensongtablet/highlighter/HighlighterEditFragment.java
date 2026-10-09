@@ -93,11 +93,6 @@ public class HighlighterEditFragment extends Fragment {
         // Set listeners
         setListeners();
 
-        // Check for the toolbox showcase
-        if (getContext()!=null && mainActivityInterface!=null) {
-            myView.draggableToolbox.checkShowcase(getContext(), mainActivityInterface);
-        }
-
         return myView.getRoot();
     }
 

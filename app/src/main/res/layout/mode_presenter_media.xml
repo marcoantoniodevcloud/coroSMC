@@ -17,32 +17,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="@string/bible" />
-
-            <com.garethevans.church.opensongtablet.customviews.MyMaterialTextView
-                android:id="@+id/bibleOffline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/set_add"
-                android:padding="8dp"
-                android:text="@string/bible_browse_offline"
-                app:mydrawable="@drawable/bible" />
-
-            <com.garethevans.church.opensongtablet.customviews.MyMaterialTextView
-                android:id="@+id/bibleOnline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/set_add"
-                android:padding="8dp"
-                android:text="@string/search_biblegateway"
-                app:mydrawable="@drawable/help_outline" />
-            <com.garethevans.church.opensongtablet.customviews.MyDivider
-                style="@style/MyDividerLine"/>
-
-            <com.garethevans.church.opensongtablet.customviews.MyMaterialSimpleTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
                 android:text="@string/audio" />
 
             <com.garethevans.church.opensongtablet.customviews.ExposedDropDown

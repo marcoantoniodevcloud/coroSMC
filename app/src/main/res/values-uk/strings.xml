@@ -594,9 +594,6 @@
     <string name="import_bulk">Кілька файлів</string>
     <string name="import_bulk_details">Програма спробує імпортувати файли пісень у читабельних форматах до папки «Імпортовані» пісні.  Потім ви можете перемістити пісні в інші папки, якщо це потрібно.</string>
     <string name="import_bulk_info">Пакетний імпорт кількох файлів пісень</string>
-    <string name="import_bulk_showcase_choose">Натисніть тут, щоб вибрати кілька файлів за допомогою засобу вибору файлів Android</string>
-    <string name="import_bulk_showcase_found">Це файли, які ви вибрали для імпорту</string>
-    <string name="import_bulk_showcase_import">Натисніть тут, щоб спробувати імпортувати ці файли</string>
     <string name="import_download">Імпорт завантаження</string>
     <string name="import_from_file">Імпорт із збереженого файлу</string>
     <string name="import_main">Імпортуйте або створюйте пісні</string>
@@ -726,7 +723,6 @@
     <string name="menu_set_info">Використовуйте цю кнопку, щоб переглядати набори та керувати ними</string>
     <string name="menu_settings">Параметри меню</string>
     <string name="menu_settings_description">Змініть налаштування для пісні/меню налаштувань</string>
-    <string name="menu_showcase_info">Відкрийте меню, щоб переглядати та керувати своїми піснями та сетами</string>
     <string name="menu_song_info">Використовуйте цю кнопку для перегляду та керування своїми піснями</string>
     <string name="menu_song_order">Як пісні мають бути перераховані в меню?</string>
     <string name="merged_text_file">Об’єднаний текстовий файл</string>
@@ -1123,7 +1119,6 @@
     <string name="set_import">Імпорт списку</string>
     <string name="set_inline">Вбудований набір</string>
     <string name="set_inline_info">Показати сет-лист на екрані біля вікна пісні</string>
-    <string name="set_inline_showcase">Це вбудований набір, який дозволяє переглядати сет-лист під час виконання.  Ви можете змінити налаштування в Налаштування / Дисплей / Вбудований набір.</string>
     <string name="set_is_empty">У вашому наборі немає предметів</string>
     <string name="set_item_info">Ви можете змінити папку/ім\'я файлу пісні, завантаженої з набору, а також змінити клавішу відображення пісні (це виконує тимчасову транспозицію пісні на вашому пристрої, якщо потрібно)</string>
     <string name="set_item_removed">Предмет вилучено з набору</string>

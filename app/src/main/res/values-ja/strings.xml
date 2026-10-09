@@ -594,9 +594,6 @@
     <string name="import_bulk">複数のファイル</string>
     <string name="import_bulk_details">アプリは、読み取り可能な形式の曲ファイルを「インポート済み」の曲フォルダにインポートしようとします。 その後、必要に応じて曲を他のフォルダに移動することを選択できます。</string>
     <string name="import_bulk_info">複数の曲ファイルを一括インポートする</string>
-    <string name="import_bulk_showcase_choose">Android のファイル ピッカーを使用して複数のファイルを選択するには、ここをクリックしてください</string>
-    <string name="import_bulk_showcase_found">これらは、インポートすることを選択したファイルです</string>
-    <string name="import_bulk_showcase_import">ここをクリックして、これらのファイルのインポートを試みます</string>
     <string name="import_download">インポートダウンロード</string>
     <string name="import_from_file">保存したファイルからインポートする</string>
     <string name="import_main">曲をインポートまたは作成する</string>
@@ -726,7 +723,6 @@
     <string name="menu_set_info">このボタンを使用して、セットを表示および管理します</string>
     <string name="menu_settings">メニュー設定</string>
     <string name="menu_settings_description">ソング/セットメニューの設定を変更する</string>
-    <string name="menu_showcase_info">メニューを開いて、曲とセットを表示および管理します</string>
     <string name="menu_song_info">このボタンを使用して、曲を表示および管理します</string>
     <string name="menu_song_order">メニューに曲をどのように表示する必要がありますか？</string>
     <string name="merged_text_file">結合されたテキストファイル</string>
@@ -1123,7 +1119,6 @@
     <string name="set_import">セットリストをインポートする</string>
     <string name="set_inline">インライン セット</string>
     <string name="set_inline_info">曲ウィンドウの横の画面にセットリストを表示します</string>
-    <string name="set_inline_showcase">これは、演奏中にセットリストを表示できるインラインセットです。 設定/表示/インラインセットで設定を変更できます。</string>
     <string name="set_is_empty">セットにアイテムがありません</string>
     <string name="set_item_info">セットからロードされた曲のフォルダ/ファイル名を変更したり、曲表示のキーを変更したりすることもできます(これにより、必要に応じてデバイス上の曲の一時的な移調が実行されます)</string>
     <string name="set_item_removed">セットから削除されたアイテム</string>

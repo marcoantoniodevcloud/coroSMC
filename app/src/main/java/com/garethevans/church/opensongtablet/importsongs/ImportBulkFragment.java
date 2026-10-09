@@ -43,8 +43,7 @@ public class ImportBulkFragment extends Fragment {
     private SettingsImportBulkBinding myView;
     private String imported_string="", success_string="", error_string="", unknown_string="",
             text_string="", chordpro_string="", onsong_string="", image_or_pdf_string="",
-            web_string="", import_bulk_string="", showcase_choose="", showcase_found="",
-            showcase_import="", ok_string="", word_string="";
+            web_string="", import_bulk_string="", word_string="";
     private ArrayList<Uri> uris;
     private ArrayList<String> foundItems;
     private ActivityResultLauncher<Intent> multiSelect;
@@ -87,10 +86,6 @@ public class ImportBulkFragment extends Fragment {
             unknown_string = getString(R.string.unknown);
             web_string = getString(R.string.website_import_bulk);
             import_bulk_string = getString(R.string.import_bulk);
-            showcase_choose = getString(R.string.import_bulk_showcase_choose);
-            showcase_found = getString(R.string.import_bulk_showcase_found);
-            showcase_import = getString(R.string.import_bulk_showcase_import);
-            ok_string = getString(R.string.okay);
             word_string = getString(R.string.word);
         }
     }
@@ -112,7 +107,6 @@ public class ImportBulkFragment extends Fragment {
         myView.doImport.hide();
         mainActivityInterface.updateToolbar(import_bulk_string);
         mainActivityInterface.updateToolbarHelp(web_string);
-        mainActivityInterface.getShowCase().singleShowCase(getActivity(),myView.fileChooser,ok_string,showcase_choose,true,"import_bulk_choose");
     }
 
     private void prepareListeners() {
@@ -168,17 +162,6 @@ public class ImportBulkFragment extends Fragment {
                     if (myView != null) {
                         myView.filesFound.setText(stringBuilder.toString());
                         myView.doImport.show();
-                        ArrayList<View> targets = new ArrayList<>();
-                        ArrayList<String> infos = new ArrayList<>();
-                        ArrayList<Boolean> rects = new ArrayList<>();
-                        targets.add(myView.filesFound);
-                        targets.add(myView.doImport);
-                        infos.add(showcase_found);
-                        infos.add(showcase_import);
-                        rects.add(true);
-                        rects.add(true);
-                        mainActivityInterface.getShowCase().sequenceShowCase(getActivity(),
-                                targets,null,infos,rects,"import_bulk");
                     }
                 });
             } else {

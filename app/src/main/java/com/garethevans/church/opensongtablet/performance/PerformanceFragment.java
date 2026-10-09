@@ -88,7 +88,7 @@ public class PerformanceFragment extends Fragment {
     private final Handler dealWithExtraStuffOnceSettledHandler = new Handler(Looper.getMainLooper());
     private final Runnable dealWithExtraStuffOnceSettledRunnable = this::dealWithExtraStuffOnceSettled;
     private String mainfoldername="", mode_performance="", mode_presenter="", mode_stage="", mode_hybrid="",
-            not_allowed="", image_string="", nearby_large_file_string="", inline_set_string="";
+            not_allowed="", image_string="", nearby_large_file_string="";
     private int sendSongDelay = 0;
     @SuppressWarnings("FieldCanBeLocal")
     // GE - hidden this option, but reserving the right to reinstate even just for me
@@ -246,10 +246,6 @@ public class PerformanceFragment extends Fragment {
             mainActivityInterface.setFirstRun(false);
         }
 
-        // Tint the watermark to the text colour
-        myView.waterMark.setColorFilter(mainActivityInterface.getMyThemeColors().getLyricsTextColor(),
-                android.graphics.PorterDuff.Mode.SRC_IN);
-
         removeViews();
 
         if (mainActivityInterface.getWhattodo().equals("pendingLoadSet")) {
@@ -299,7 +295,6 @@ public class PerformanceFragment extends Fragment {
             not_allowed = getString(R.string.not_allowed);
             image_string= getString(R.string.image);
             nearby_large_file_string = getString(R.string.nearby_large_file);
-            inline_set_string = getString(R.string.set_inline_showcase);
         }
     }
 
@@ -324,7 +319,6 @@ public class PerformanceFragment extends Fragment {
         swipeMinimumVelocity = mainActivityInterface.getPreferences().getMyPreferenceInt("swipeMinimumVelocity", 600);
         if (mainActivityInterface.getMode().equals(mode_performance) || mainActivityInterface.getMode().equals(mode_hybrid)) {
             myView.mypage.setBackgroundColor(mainActivityInterface.getMyThemeColors().getLyricsBackgroundColor());
-            myView.waterMark.setVisibility(View.VISIBLE);
         } else if (mainActivityInterface.getMode().equals(mode_stage)) {
             // Stage Mode - sections have correct colour, but the background is different - set to background colour with a reduced alpha
             int newColor = mainActivityInterface.getMyThemeColors().adjustAlpha(mainActivityInterface.getMyThemeColors().getLyricsBackgroundColor(),0.9f);
@@ -332,7 +326,6 @@ public class PerformanceFragment extends Fragment {
         } else {
             // Presenter mode, just use primary color
             myView.mypage.setBackgroundColor(mainActivityInterface.getPalette().primary);
-            myView.waterMark.setVisibility(View.GONE);
         }
         mainActivityInterface.updateOnScreenInfo("setpreferences");
         boolean allowPinchToZoom = mainActivityInterface.getPreferences().getMyPreferenceBoolean("allowPinchToZoom",true);
@@ -1512,30 +1505,6 @@ public class PerformanceFragment extends Fragment {
         mainActivityInterface.getMainHandler().postDelayed(() -> {
             if (myView!=null && myView.inlineSetList.getChildCount()>=0) {
                 myView.inlineSetList.notifyInlineSetHighlight();
-                // Showcase what this is
-                if (myView.inlineSetList.getVisibility() == View.VISIBLE) {
-                    // Just in case it is empty!
-                    try {
-                        if (myView != null) {
-                            myView.inlineSetList.postDelayed(() -> {
-                                if (myView!=null && myView.inlineSetList!=null) {
-                                    try {
-                                        mainActivityInterface.getShowCase().singleShowCase(
-                                                (Activity) mainActivityInterface,
-                                                myView.inlineSetList.getChildAt(0), null,
-                                                inline_set_string, true, "inline_set");
-                                    } catch (Exception e) {
-                                        mainActivityInterface.getStorageAccess().updateCrashLog(e.toString());
-                                        e.printStackTrace();
-                                    }
-                                }
-                            },800);
-                        }
-                    } catch (Exception e) {
-                        mainActivityInterface.getStorageAccess().updateCrashLog(e.toString());
-                        e.printStackTrace();
-                    }
-                }
             }
         },800);
     }

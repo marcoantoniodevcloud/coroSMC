@@ -223,7 +223,6 @@ public class Preferences extends Activity {
     // beatBuddyUseImported             boolean     Should we be searching the imported BeatBuddy songs/drums (def:false)
     // beatBuddyVolume                  int         The volume for the BeatBuddy (def:100)
     // beqtBuddyHPVolume                int         The volume for the BeatBuddy heaphones (def:100)
-    // bibleCurrentFile                 String      The last used local bible XML file (def:"")
     // blockShadow                      boolean     Should second screen text be displayed on block shadowed text boxes.  The color/alpha is set the same as presoShadowColor(def:false)
     // blockShadowAlpha                 float       The alpha of the blockShadow behind Stage/Presenter text (def:0.5f)
     // capoInfoAsNumerals               boolean     Should the capo info bar use Roman numerals (def:false)

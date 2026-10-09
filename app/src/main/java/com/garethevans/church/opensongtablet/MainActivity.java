@@ -71,7 +71,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.garethevans.church.opensongtablet.abcnotation.ABCNotation;
 import com.garethevans.church.opensongtablet.aeros.Aeros;
 import com.garethevans.church.opensongtablet.animation.CustomAnimation;
-import com.garethevans.church.opensongtablet.animation.ShowCase;
 import com.garethevans.church.opensongtablet.appdata.AlertChecks;
 import com.garethevans.church.opensongtablet.appdata.BootUpFragment;
 import com.garethevans.church.opensongtablet.appdata.CheckInternet;
@@ -83,7 +82,6 @@ import com.garethevans.church.opensongtablet.autoscroll.Autoscroll;
 import com.garethevans.church.opensongtablet.beatbuddy.BBOptionsFragment;
 import com.garethevans.church.opensongtablet.beatbuddy.BeatBuddy;
 import com.garethevans.church.opensongtablet.beatbuddy.BeatBuddyControlPopUp;
-import com.garethevans.church.opensongtablet.bible.Bible;
 import com.garethevans.church.opensongtablet.ccli.CCLILog;
 import com.garethevans.church.opensongtablet.ccli.SettingsCCLI;
 import com.garethevans.church.opensongtablet.chorddetector.ChordDetectionPopUp;
@@ -254,7 +252,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     private Autoscroll autoscroll;
     private volatile BeatBuddy beatBuddy;
     private final Object beatBuddyLock = new Object();
-    private Bible bible;
     private CCLILog ccliLog;
     private CheckInternet checkInternet;
     private ChordDetectionPopUp chordDetectionPopUp;
@@ -302,7 +299,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     private SaveSong saveSong;
     private SetActions setActions;
     private MyFonts myFonts;
-    private ShowCase showCase;
     private ShowToast showToast;
     private Song song, tempSong, indexingSong;
     private SongListBuildIndex songListBuildIndex;
@@ -365,9 +361,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     private Runnable updatingToolbarRunnable;
 
     // Variables used
-    private ArrayList<View> targets;
-    private ArrayList<String> infos;
-    private ArrayList<Boolean> rects;
     private ArrayList<View> sectionViews;
     private LinearLayout songSheetTitleLayout;
     private ArrayList<Integer> sectionWidths, sectionHeights, sectionColors;
@@ -388,15 +381,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     private String deeplink_import_osb = "", deeplink_sets_backup_restore = "", deeplink_onsong = "",
             deeplink_import_file = "", unknown = "", mainfoldername = "MAIN", deeplink_page_buttons = "",
             website_menu_set = "", website_menu_song = "", exit_confirm = "", deeplink_set_bundle = "",
-            error = "", extra_settings = "",
-            action_button_info = "", song_sections = "", logo_info = "", blank_screen_info = "",
-            black_screen_info = "", project_panic = "", song_title = "", long_press = "", edit_song = "",
-            song_sections_project = "", menu_song_info = "", menu_set_info = "", add_songs = "",
-            song_actions = "", deeplink_preferences = "", song_string = "", set_string = "",
+            error = "", deeplink_preferences = "", song_string = "", set_string = "",
             search_index_start = "", search_index_end = "", deeplink_metronome = "",
-            success = "", okay = "", pad_playback_info = "",
-            no_suitable_application = "", indexing_string = "", deeplink_edit = "", cast_info_string = "",
-            menu_showcase_info = "";
+            success = "", okay = "", no_suitable_application = "", indexing_string = "", deeplink_edit = "";
 
     private String mode_performance, mode_presenter, mode_stage, mode_hybrid;
     private MenuItem menuScreenMirror, menuScreenHelp, menuSearch, menuSettings;
@@ -444,9 +431,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             updatingToolbarHelp = true;
             if (menuScreenHelp != null) {
                 menuScreenHelp.setVisible(webHelpAddress != null && !webHelpAddress.isEmpty());
-                if (menuScreenHelp.isVisible() && !isCurrentFragment(R.id.setStorageLocationFragment)) {
-                    showCase.singleShowCase(MainActivity.this, menuScreenHelp.getActionView(), null, getString(R.string.help), false, "webHelp");
-                }
             }
             updatingToolbarHelp = false;
         };
@@ -800,21 +784,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             website_menu_song = getString(R.string.website_menu_song);
             exit_confirm = getString(R.string.exit_confirm);
             error = getString(R.string.error);
-            extra_settings = getString(R.string.extra_settings);
-            action_button_info = getString(R.string.action_button_info);
-            song_sections = getString(R.string.song_sections);
-            logo_info = getString(R.string.logo_info);
-            blank_screen_info = getString(R.string.blank_screen_info);
-            black_screen_info = getString(R.string.black_screen_info);
-            project_panic = getString(R.string.project_panic);
-            song_title = getString(R.string.song_title);
-            long_press = getString(R.string.long_press);
-            edit_song = getString(R.string.edit_song);
-            song_sections_project = getString(R.string.song_sections_project);
-            menu_song_info = getString(R.string.menu_song_info);
-            menu_set_info = getString(R.string.menu_set_info);
-            add_songs = getString(R.string.add_songs);
-            song_actions = getString(R.string.song_actions);
             deeplink_preferences = getString(R.string.deeplink_preferences);
             song_string = getString(R.string.song);
             set_string = getString(R.string.set);
@@ -827,11 +796,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             mode_hybrid = getString(R.string.mode_hybrid);
             success = getString(R.string.success);
             okay = getString(R.string.okay);
-            pad_playback_info = getString(R.string.pad_playback_info);
             no_suitable_application = getString(R.string.no_suitable_application);
             indexing_string = getString(R.string.index_songs_wait);
-            cast_info_string = getString(R.string.cast_info_string);
-            menu_showcase_info = getString(R.string.menu_showcase_info);
         }
         getVariations().updateStrings(this);
     }
@@ -920,7 +886,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
         // The screen display stuff
         customAnimation = getCustomAnimation();
-        showCase = getShowCase();
         getShowToast();
 
         // The app setup
@@ -1002,7 +967,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         // Other file actions
         ccliLog = getCCLILog();
         exportActions = getExportActions();
-        bible = getBible();
         customSlide = getCustomSlide();
         presenterSettings = getPresenterSettings();
 
@@ -1323,10 +1287,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             public void onDrawerOpened(@NonNull View drawerView) {
                 menuOpen = true;
                 hideActionButton(true);
-                if (setSongMenuFragment() && !songMenuFragment.getHasShownMenuShowcase()) {
-                    songMenuFragment.setHasShownMenuShowcase(true);
-                    showTutorial("songsetMenu", null);
-                }
                 // Hide the keyboard
                 windowFlags.hideKeyboard();
 
@@ -1827,12 +1787,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
                     ((EditSongFragmentTags) callingFragment).removeTags(arguments);
                     break;
 
-                case "presenterFragment_showCase":
-                    if (presenterValid()) {
-                        presenterFragment.showTutorial();
-                    }
-                    break;
-
                 case "presenterFragment_loadSong":
                     ((PresenterFragment) callingFragment).doSongLoad(getSong().getFolder(), getSong().getFilename());
                     break;
@@ -2299,119 +2253,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         invalidateOptionsMenu();
     }
 
-    @Override
-    public void showTutorial(String what, ArrayList<View> viewsToHighlight) {
-        checkOptionsMenu();
-
-        initialiseArrayLists();
-
-        String whichShowcase;
-        if (!getAlertChecks().getIsShowing()) {
-            switch (what) {
-                case "presenterSongs":
-                    whichShowcase = "presenterSongs";
-                    // The hamburger (song/set menu)
-                    if (myView.myToolbar.getChildCount() > 2) {
-                        final View view = myView.myToolbar.getChildAt(2);
-                        targets.add(view);
-                        infos.add("Open the menu to view and manage your songs and sets");
-                    } else {
-                        for (int i = 0; i < myView.myToolbar.getChildCount(); ++i) {
-                            final View child = myView.myToolbar.getChildAt(i);
-                            if (child != null && child.getClass().toString().contains("ImageView")) {
-                                targets.add(child);
-                                infos.add("Open the menu to view and manage your songs and sets");
-                            }
-                        }
-                    }
-                    targets.add(findViewById(R.id.menuSettings));
-                    infos.add(extra_settings);
-                    rects.add(false);
-                    rects.add(false);
-                    // This relies on views having been sent
-                    if (viewsToHighlight != null && viewsToHighlight.size() > 6) {
-                        targets.add(viewsToHighlight.get(0));
-                        infos.add(song_sections);
-                        rects.add(true);
-                        targets.add(viewsToHighlight.get(1));
-                        infos.add(logo_info);
-                        rects.add(true);
-                        targets.add(viewsToHighlight.get(2));
-                        infos.add(blank_screen_info);
-                        rects.add(true);
-                        targets.add(viewsToHighlight.get(3));
-                        infos.add(black_screen_info);
-                        rects.add(true);
-                        targets.add(viewsToHighlight.get(4));
-                        infos.add(project_panic);
-                        rects.add(true);
-                        targets.add(viewsToHighlight.get(5));
-                        infos.add(song_title + "\n" + long_press + " = " + edit_song);
-                        rects.add(true);
-                        targets.add(viewsToHighlight.get(6));
-                        infos.add(song_sections_project);
-                        rects.add(true);
-                    }
-                    break;
-                case "songsetMenu":
-                    // Initialize the arraylists
-                    whichShowcase = "songsetMenu";
-                    initialiseArrayLists();
-                    targets.add(Objects.requireNonNull(myView.menuTop.tabs.getTabAt(0)).view);
-                    targets.add(Objects.requireNonNull(myView.menuTop.tabs.getTabAt(1)).view);
-                    targets.add(Objects.requireNonNull(myView.viewpager.findViewById(R.id.actionFAB)));
-                    infos.add(menu_song_info);
-                    infos.add(menu_set_info);
-                    infos.add(add_songs + " / " + song_actions);
-                    rects.add(true);
-                    rects.add(true);
-                    rects.add(false);
-                    break;
-
-                case "performanceView":
-                default:
-                    whichShowcase = "performanceMode";
-                    // Get the hamburger icon and settings if shown
-                    View hamburgerView = null;
-                    View settingsView = null;
-                    for (int z = 0; z < myView.myToolbar.getChildCount(); z++) {
-                        if (hamburgerView == null && myView.myToolbar.getChildAt(z).getClass().toString().contains("ImageButton")) {
-                            hamburgerView = myView.myToolbar.getChildAt(z);
-                        }
-                        if (settingsView == null && myView.myToolbar.getChildAt(z).getClass().toString().contains("ActionMenu")) {
-                            settingsView = myView.myToolbar.getChildAt(z);
-                        }
-                    }
-
-                    if (hamburgerView != null) {
-                        targets.add(hamburgerView);
-                        infos.add(menu_showcase_info);
-                        rects.add(false);
-                    }
-                    if (settingsView != null) {
-                        targets.add(settingsView);
-                        infos.add(extra_settings);
-                        rects.add(false);
-                    }
-
-                    // The page button
-                    targets.add(myView.actionFAB);
-                    infos.add(action_button_info);
-                    rects.add(false);
-                    break;
-
-            }
-            getMainHandler().postDelayed(() -> showCase.sequenceShowCase(this, targets, null, infos, rects, whichShowcase), 200);
-        }
-    }
-
-    private void initialiseArrayLists() {
-        targets = new ArrayList<>();
-        infos = new ArrayList<>();
-        rects = new ArrayList<>();
-    }
-
-
     // Settings and options menus
     @Override
     public boolean onPrepareOptionsMenu(@NonNull Menu menu) {
@@ -2468,24 +2309,22 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             return true;
 
         } else if (item.getItemId() == R.id.mirror_menu_item) {
-            if (!getShowCase().singleShowCase(this, menuScreenMirror.getActionView(), null, cast_info_string, true, "castInfo")) {
+            try {
+                startActivity(new Intent("android.settings.WIFI_DISPLAY_SETTINGS"));
+            } catch (ActivityNotFoundException e) {
+                Log.d(TAG, "android.settings.WIFI_DISPLAY_SETTINGS not an option");
                 try {
-                    startActivity(new Intent("android.settings.WIFI_DISPLAY_SETTINGS"));
-                } catch (ActivityNotFoundException e) {
-                    Log.d(TAG, "android.settings.WIFI_DISPLAY_SETTINGS not an option");
+                    startActivity(new Intent("com.samsung.wfd.LAUNCH_WFD_PICKER_DLG"));
+                } catch (Exception e2) {
+                    Log.d(TAG, "com.samsung.wfd.LAUNCH_WFD_PICKER_DLG not an option");
                     try {
-                        startActivity(new Intent("com.samsung.wfd.LAUNCH_WFD_PICKER_DLG"));
-                    } catch (Exception e2) {
-                        Log.d(TAG, "com.samsung.wfd.LAUNCH_WFD_PICKER_DLG not an option");
-                        try {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                startActivity(new Intent(Settings.ACTION_CAST_SETTINGS));
-                            } else {
-                                startActivity(new Intent("android.settings.CAST_SETTINGS"));
-                            }
-                        } catch (Exception e3) {
-                            getShowToast().doIt(error);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            startActivity(new Intent(Settings.ACTION_CAST_SETTINGS));
+                        } else {
+                            startActivity(new Intent("android.settings.CAST_SETTINGS"));
                         }
+                    } catch (Exception e3) {
+                        getShowToast().doIt(error);
                     }
                 }
             }
@@ -3701,14 +3540,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     }
 
     @Override
-    public Bible getBible() {
-        if (bible == null) {
-            bible = new Bible(this);
-        }
-        return bible;
-    }
-
-    @Override
     public CustomSlide getCustomSlide() {
         if (customSlide == null) {
             customSlide = new CustomSlide(this);
@@ -4364,8 +4195,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             return false;
         } else {
             pad.startPad();
-            // Showcase if required
-            showCase.singleShowCase(this, myView.onScreenInfo.getPad(), okay, pad_playback_info, true, "padPlayback");
             return true;
         }
     }
@@ -4693,14 +4522,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     @Override
     public void pdfScrollToPage(int pageNumber) {
         performanceShowSection(pageNumber);
-    }
-
-    @Override
-    public ShowCase getShowCase() {
-        if (showCase == null) {
-            showCase = new ShowCase(this);
-        }
-        return showCase;
     }
 
     @Override

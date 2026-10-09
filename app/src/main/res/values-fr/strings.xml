@@ -594,9 +594,6 @@
     <string name="import_bulk">Fichiers multiples</string>
     <string name="import_bulk_details">L’application tentera d’importer des fichiers de chansons dans des formats lisibles dans un dossier de chansons « importées ».  Vous pouvez ensuite choisir de déplacer les chansons dans d’autres dossiers si nécessaire.</string>
     <string name="import_bulk_info">Importation par lots de plusieurs fichiers de morceaux</string>
-    <string name="import_bulk_showcase_choose">Cliquez ici pour sélectionner plusieurs fichiers à l’aide du sélecteur de fichiers Android</string>
-    <string name="import_bulk_showcase_found">Ce sont les fichiers que vous avez choisi d’importer</string>
-    <string name="import_bulk_showcase_import">Cliquez ici pour tenter d’importer ces fichiers</string>
     <string name="import_download">Importer le téléchargement</string>
     <string name="import_from_file">Importer à partir d\'un fichier enregistré</string>
     <string name="import_main">Importer ou créer des chansons</string>
@@ -726,7 +723,6 @@
     <string name="menu_set_info">Utilisez ce bouton pour afficher et gérer vos ensembles</string>
     <string name="menu_settings">Paramètres du menu</string>
     <string name="menu_settings_description">Modifier les paramètres du menu morceau/set</string>
-    <string name="menu_showcase_info">Ouvrez le menu pour afficher et gérer vos morceaux et vos sets</string>
     <string name="menu_song_info">Utilisez ce bouton pour afficher et gérer vos chansons</string>
     <string name="menu_song_order">Comment les chansons doivent-elles être répertoriées dans le menu ?</string>
     <string name="merged_text_file">Fichier texte fusionné</string>
@@ -1123,7 +1119,6 @@
     <string name="set_import">Importer la setlist</string>
     <string name="set_inline">Ensemble en ligne</string>
     <string name="set_inline_info">Afficher la setlist sur l\'écran à côté de la fenêtre de la chanson</string>
-    <string name="set_inline_showcase">Il s’agit de l’ensemble en ligne qui permet de visualiser la setlist pendant que vous jouez.  Vous pouvez modifier les paramètres dans Paramètres / Affichage / Ensemble en ligne.</string>
     <string name="set_is_empty">Il n’y a pas d’objets dans votre ensemble</string>
     <string name="set_item_info">Vous pouvez changer le dossier / nom de fichier de la chanson chargée à partir de l’ensemble et vous pouvez également changer la touche d’affichage de la chanson (cela effectue une transposition temporaire de la chanson sur votre appareil si nécessaire)</string>
     <string name="set_item_removed">Élément supprimé de l’ensemble</string>

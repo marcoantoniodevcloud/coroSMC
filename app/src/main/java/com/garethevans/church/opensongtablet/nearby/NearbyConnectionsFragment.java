@@ -43,10 +43,7 @@ public class NearbyConnectionsFragment extends Fragment {
     private BottomSheetBehavior<View> bottomSheetBehavior;
     private boolean advancedShown;
     private String connections_connect_string="", website_nearby_string="", mode_presenter_string="",
-            connections_device_name_string="", edit_string="", connections_off_string="",
-            connections_actashost_info_string="", connections_actasclient_info_string="",
-            connections_advanced_string="", connections_connected_devices_info_string="",
-            connections_advertise_info_string="", connections_discover_info_string="",
+            connections_device_name_string="", edit_string="",
             connections_discover_string="", connections_advertise_string="",
             connections_advertising_string="", connections_searching_string="",
             nearby_message_string="";
@@ -104,9 +101,6 @@ public class NearbyConnectionsFragment extends Fragment {
         // Set the listeners
         setListeners();
 
-        // Run showcase
-        showcase1();
-
         return myView.getRoot();
     }
 
@@ -117,13 +111,6 @@ public class NearbyConnectionsFragment extends Fragment {
             mode_presenter_string = getString(R.string.mode_presenter);
             connections_device_name_string = getString(R.string.connections_device_name);
             edit_string = getString(R.string.edit);
-            connections_off_string = getString(R.string.connections_off);
-            connections_actashost_info_string = getString(R.string.connections_actashost_info);
-            connections_actasclient_info_string = getString(R.string.connections_actasclient_info);
-            connections_advanced_string = getString(R.string.connections_advanced);
-            connections_connected_devices_info_string = getString(R.string.connections_connected_devices_info);
-            connections_advertise_info_string = getString(R.string.connections_advertise_info);
-            connections_discover_info_string = getString(R.string.connections_discover_info);
             connections_discover_string = getString(R.string.connections_discover);
             connections_advertise_string = getString(R.string.connections_advertise);
             connections_advertising_string = getString(R.string.connections_advertising);
@@ -230,49 +217,6 @@ public class NearbyConnectionsFragment extends Fragment {
         }
     }
 
-    private void showcase1() {
-        if (getActivity()!=null) {
-            ArrayList<View> targets = new ArrayList<>();
-            targets.add(myView.deviceButton);
-            targets.add(myView.off);
-            targets.add(myView.host);
-            targets.add(myView.client);
-            targets.add(myView.bottomSheet.bottomSheetTab);
-            ArrayList<String> infos = new ArrayList<>();
-            infos.add(connections_device_name_string + "\n" + edit_string);
-            infos.add(connections_off_string);
-            infos.add(connections_actashost_info_string);
-            infos.add(connections_actasclient_info_string);
-            infos.add(connections_advanced_string);
-            ArrayList<Boolean> rects = new ArrayList<>();
-            rects.add(true);
-            rects.add(true);
-            rects.add(true);
-            rects.add(true);
-            rects.add(true);
-            mainActivityInterface.getShowCase().sequenceShowCase(getActivity(),
-                    targets, null, infos, rects, "connectionsShowCase");
-        }
-    }
-    private void showcase2() {
-        if (getActivity()!=null) {
-            ArrayList<View> targets = new ArrayList<>();
-            targets.add(myView.connectedTo);
-            targets.add(myView.advertiseButton);
-            targets.add(myView.discoverButton);
-            ArrayList<String> infos = new ArrayList<>();
-            infos.add(connections_connected_devices_info_string);
-            infos.add(connections_advertise_info_string);
-            infos.add(connections_discover_info_string);
-            ArrayList<Boolean> rects = new ArrayList<>();
-            rects.add(true);
-            rects.add(true);
-            rects.add(true);
-            mainActivityInterface.getShowCase().sequenceShowCase(getActivity(),
-                    targets, null, infos, rects, "connectionsShowCase2");
-        }
-    }
-
     private void bottomSheetBar() {
         bottomSheetBehavior = BottomSheetBehavior.from(myView.bottomSheet.bottomSheet);
         bottomSheetBehavior.setHideable(false);
@@ -354,7 +298,6 @@ public class NearbyConnectionsFragment extends Fragment {
             if (mainActivityInterface.getNearbyActions().getNearbyConnectionManagement().getIsAdvertising()) {
                 myView.advertiseButton.setBackgroundTintList(onColor);
             }
-            showcase2();
 
         } else if (isClient) {
             myView.client.setBackgroundTintList(onColor);
@@ -365,7 +308,6 @@ public class NearbyConnectionsFragment extends Fragment {
             myView.connectedToLayout.setVisibility(View.VISIBLE);
             myView.connectInitiateButtons.setVisibility(View.VISIBLE);
             myView.temporaryAdvertise.setVisibility(View.GONE);
-            showcase2();
 
         } else {
             myView.off.setBackgroundTintList(onColor);

@@ -594,9 +594,6 @@
     <string name="import_bulk">Importazione multipla</string>
     <string name="import_bulk_details">L\'app tenterà di importare i files dei brani in formati leggibili in una cartella di nome \'Importati\'.  Se necessario, è possibile scegliere di spostare i brani in altre cartelle.</string>
     <string name="import_bulk_info">Importazione sequenziale multipla di brani</string>
-    <string name="import_bulk_showcase_choose">Cliccare qui per selezionare più files utilizzando il file manager di Android</string>
-    <string name="import_bulk_showcase_found">Questi sono i files che hai scelto di importare</string>
-    <string name="import_bulk_showcase_import">Cliccare clic qui per iniziare l\'importazione di questi files</string>
     <string name="import_download">Importa download</string>
     <string name="import_from_file">Importa da un file esistente</string>
     <string name="import_main">Importa o crea brani</string>
@@ -726,7 +723,6 @@
     <string name="menu_set_info">Usa questo pulsante per visualizzare e gestire le tue scalette</string>
     <string name="menu_settings">Impostazioni del menu</string>
     <string name="menu_settings_description">Modifica le impostazioni per i menu del brano/scaletta</string>
-    <string name="menu_showcase_info">Apri il menu per visualizzare e gestire i tuoi brani/scalette</string>
     <string name="menu_song_info">Usa questo pulsante per visualizzare e gestire i tuoi brani</string>
     <string name="menu_song_order">Modalità di ordinamento dell\'elenco dei brani</string>
     <string name="merged_text_file">Unione in un unico file di testo</string>
@@ -1123,7 +1119,6 @@
     <string name="set_import">Importare la scaletta</string>
     <string name="set_inline">Scaletta sullo schermo</string>
     <string name="set_inline_info">Mostra la scaletta sullo schermo accanto alla finestra del brano</string>
-    <string name="set_inline_showcase">Questa opzione consente di visualizzare la scaletta durante l\'esecuzione.  È possibile modificare le impostazioni in Impostazioni / Schermo / Scaletta sullo schermo.</string>
     <string name="set_is_empty">La scaletta è vuota</string>
     <string name="set_item_info">È possibile modificare la cartella / nome del file del brano caricato dal set e si può anche cambiare la tonalità di visualizzazione del brano (verrà eseguita una trasposizione temporanea del brano, se necessario)</string>
     <string name="set_item_removed">Brano rimosso dalla scaletta</string>

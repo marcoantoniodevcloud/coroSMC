@@ -13,18 +13,6 @@
     android:focusableInTouchMode="false"
     tools:context=".performance.PerformanceFragment">
 
-    <!-- The logo watermark -->
-    <ImageView
-        android:id="@+id/waterMark"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_centerInParent="true"
-        android:alpha="0.1"
-        android:contentDescription="@string/app_name"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/logo"
-        tools:ignore="ImageContrastCheck" />
-
     <!-- Where we draw the test sections to get sizes -->
     <RelativeLayout
         android:id="@+id/testPaneHeader"
