@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.DocumentsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,6 +65,8 @@ public class SetStorageLocationFragment extends Fragment {
     ActivityResultLauncher<String> storagePermission;
     private StorageChooseBinding myView;
     private String webAddress;
+    private boolean initialDocumentsPickerLaunched;
+    private boolean startAfterInitialStorageSelection;
 
     @Override
     public void onResume() {
@@ -114,6 +117,16 @@ public class SetStorageLocationFragment extends Fragment {
         // Check we have the required storage permission
         // If we have it, this will update the text, if not it will ask for permission
         checkStatus();
+
+        if (uriTree == null && savedInstanceState == null) {
+            myView.getRoot().post(() -> {
+                if (myView != null && uriTree == null && !initialDocumentsPickerLaunched) {
+                    initialDocumentsPickerLaunched = true;
+                    startAfterInitialStorageSelection = true;
+                    chooseStorageLocation(true);
+                }
+            });
+        }
 
         return myView.getRoot();
     }
@@ -194,6 +207,7 @@ public class SetStorageLocationFragment extends Fragment {
 
                         // See if we can show the start button yet
                         checkStatus();
+                        continueAfterInitialStorageSelection();
                     }
                 });
 
@@ -446,6 +460,14 @@ public class SetStorageLocationFragment extends Fragment {
     private boolean isStorageValid() {
         return (isStorageSet() && mainActivityInterface.getStorageAccess().uriTreeValid(uriTree));
     }
+
+    private void continueAfterInitialStorageSelection() {
+        if (startAfterInitialStorageSelection && isStorageValid()) {
+            startAfterInitialStorageSelection = false;
+            goToSongs();
+        }
+    }
+
     private void notWriteable() {
         uriTree = null;
         uriTreeHome = null;
@@ -455,11 +477,21 @@ public class SetStorageLocationFragment extends Fragment {
 
     // Now deal with getting a suitable storage location
     private void chooseStorageLocation() {
+        chooseStorageLocation(false);
+    }
+
+    private void chooseStorageLocation(boolean startInDocuments) {
         if (mainActivityInterface.getAppPermissions().hasStoragePermissions()) {
             Intent intent;
             if (mainActivityInterface.getStorageAccess().lollipopOrLater()) {
                 intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
                 intent.addFlags(mainActivityInterface.getStorageAccess().getAddPersistentWriteUriFlags());
+
+                if (startInDocuments && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    Uri documentsUri = DocumentsContract.buildDocumentUri(
+                            "com.android.externalstorage.documents", "primary:Documents");
+                    intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, documentsUri);
+                }
 
                 // IV - 'Commented in' this extra to try to always show internal and sd card storage
                 intent.putExtra("android.content.extra.SHOW_ADVANCED", true);
@@ -490,6 +522,7 @@ public class SetStorageLocationFragment extends Fragment {
                 saveUriLocation();
                 showStorageLocation();
                 checkStatus();
+                continueAfterInitialStorageSelection();
             }
             mainActivityInterface.setWhattodo(null);
         }

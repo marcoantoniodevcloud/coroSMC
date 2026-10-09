@@ -85,4 +85,7 @@
         <item name="alertDialogTheme">@style/MyAlertDialogTheme</item>
     </style>
     <style name="AppTheme" parent="@style/AppTheme.Base" />
+    <style name="AppTheme.Starting" parent="@style/AppTheme.Base">
+        <item name="android:windowBackground">@color/light_primary</item>
+    </style>
 </resources>
