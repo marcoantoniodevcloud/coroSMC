@@ -241,7 +241,7 @@ public class Preferences extends Activity {
     // clockOn                          boolean     Should the clock be shown in the action bar (def:true)
     // clockSeconds                     boolean     Should the actionbar clock include seconds (def:false)
     // clockTextSize                    float       The size of the clock font (def:9.0f)
-    // curlyBrackets                    boolean     Treat text inside curly brackets as performance comments and are hidden during presentation (def:true)
+    // curlyBrackets                    boolean     Treat text inside curly brackets as performance comments and hide in presentation (def:true)
     // curlyBracketsDevice              boolean     Hide text inside curly brackets on performance/stage devices too
     // custom1_invertPDF                boolean     Should the PDF colours be inverted (def:true)
     // custom1_lyricsBackgroundColor    int         The color for the lyrics background in the custom1 theme
@@ -377,7 +377,7 @@ public class Preferences extends Activity {
     // drawingPenColor                  int         The colour of the pen (def:StaticVariables.black)
     // drawingPenSize                   int         The default size of the pen (def:20)
     // drawingTool                      String      The current drawing tool (def:hghlighter)
-    // editAsChordPro                   boolean     Should the song edit window be ChordPro format (def:false)
+    // editAsChordPro                   boolean     Should the song edit window be ChordPro format (def:true)
     // editTextSize                     float       The size of the song edit text font (8-24) (def: 14)
     // exportOpenSongAppSet             boolean     Should we export .osts file (def:false)
     // exportOpenSongApp                boolean     Should we export .ost file (def:false)
@@ -685,7 +685,7 @@ public class Preferences extends Activity {
     // songMenuSubItemSizeAuthor        float       The text size for the song menu item sub title for the author (def:12.0f)
     // songMenuSubItemSizeFile          float       The text size for the song menu item sub title for the file location (def:12.0f)
     // songMenuSetTicksShow             boolean     Should we show the ticks identifying song is in the set in the song menu (def:true)
-    // songSheet                        boolean     Should the extra song info be shown at the top like a printed songsheet? (def:false)
+    // songSheet                        boolean     Should the extra song info be shown at the top like a printed songsheet? (def:true)
     // songTitleSize                    float       The size of the song title text in the action bar (def:13.0f)
     // songMenuSortTitles               boolean     If the song menu should sort (and display) by title rather than filename (def:true)
     // soundMeterRange                  int         The volume range of the sound meter (def:400)

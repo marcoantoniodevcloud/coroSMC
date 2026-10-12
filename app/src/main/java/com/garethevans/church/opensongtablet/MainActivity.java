@@ -386,10 +386,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             success = "", okay = "", no_suitable_application = "", indexing_string = "", deeplink_edit = "";
 
     private String mode_performance, mode_presenter, mode_stage, mode_hybrid;
-    private MenuItem menuScreenMirror, menuScreenHelp, menuSearch, menuSettings;
+    private MenuItem menuScreenMirror, menuScreenHelp, menuLanguage, menuSettings;
     private String webHelpAddress = null;
 
-    private Drawable searchIcon, helpIcon, settingsIcon, closeIcon, castIconOff, castIconOn,
+    private Drawable helpIcon, settingsIcon, closeIcon, castIconOff, castIconOn,
             navIconBack, navIconMenu;
 
     // Used if implementing Oboe using C++ injection
@@ -1011,8 +1011,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             hideActionBar();
         }
 
-        if (menuSearch != null) {
-            menuSearch.setVisible(!disable);
+        if (menuLanguage != null) {
+            menuLanguage.setVisible(!disable);
         }
         if (menuSettings != null) {
             menuSettings.setVisible(!disable);
@@ -1435,14 +1435,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             if (tempCastIconOn != null) {
                 castIconOn = DrawableCompat.wrap(tempCastIconOn);
                 DrawableCompat.setTint(castIconOn, getPalette().textColor);
-            }
-        }
-
-        if (searchIcon == null) {
-            Drawable tempSearchIcon = AppCompatResources.getDrawable(this, R.drawable.search);
-            if (tempSearchIcon != null) {
-                searchIcon = DrawableCompat.wrap(tempSearchIcon);
-                DrawableCompat.setTint(searchIcon, getPalette().textColor);
             }
         }
 
@@ -2262,7 +2254,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         // Decide if the user wants the showIfRoom option
         boolean minimiseAction = getPreferences().getMyPreferenceBoolean("actionBarSettingsMinimise",false);
         menuScreenHelp.setShowAsAction(minimiseAction && !settingsOpen ? MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW : MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menuSearch.setShowAsAction(minimiseAction && !settingsOpen ? MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW : MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menuLanguage.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
         menuScreenMirror.setShowAsAction(minimiseAction ? MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW : MenuItem.SHOW_AS_ACTION_ALWAYS);
         menuSettings.setShowAsAction(minimiseAction && !settingsOpen? MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW : MenuItem.SHOW_AS_ACTION_ALWAYS);
         getMainHandler().postDelayed(() -> menuSettings.setShowAsAction(minimiseAction && !settingsOpen? MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW : MenuItem.SHOW_AS_ACTION_ALWAYS),200);
@@ -2273,7 +2265,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     }
 
     private void checkOptionsMenu() {
-        if (menuSettings == null || menuSearch == null || menuScreenHelp == null || menuScreenMirror == null) {
+        if (menuSettings == null || menuLanguage == null || menuScreenHelp == null || menuScreenMirror == null) {
             invalidateOptionsMenu();
         }
     }
@@ -2304,8 +2296,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             }
             return true;
 
-        } else if (item.getItemId() == R.id.search_menu_item) {
-            navigateToFragment(getString(R.string.deeplink_search_menu), 0);
+        } else if (item.getItemId() == R.id.language_menu_item) {
+            navigateToFragment(getString(R.string.deeplink_language), 0);
             return true;
 
         } else if (item.getItemId() == R.id.mirror_menu_item) {
@@ -2360,7 +2352,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         navIconBack = null;
         settingsIcon = null;
         closeIcon = null;
-        searchIcon = null;
         helpIcon = null;
         castIconOff = null;
         castIconOn = null;
@@ -2384,7 +2375,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
             checkMenuIconsAreNotNull();
 
-            menuSearch = menu.findItem(R.id.search_menu_item);
+            menuLanguage = menu.findItem(R.id.language_menu_item);
             menuScreenHelp = menu.findItem(R.id.help_menu_item);
             menuScreenHelp.setVisible(false);
 
@@ -2396,9 +2387,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
             } else if (settingsIcon != null) {
                 menuSettings.setIcon(settingsIcon);
-            }
-            if (searchIcon != null) {
-                menuSearch.setIcon(searchIcon);
             }
             if (helpIcon != null) {
                 menuScreenHelp.setIcon(helpIcon);

@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.garethevans.church.opensongtablet.R;
 import com.garethevans.church.opensongtablet.databinding.BootupLogoBinding;
 import com.garethevans.church.opensongtablet.interfaces.MainActivityInterface;
+import com.garethevans.church.opensongtablet.songprocessing.Song;
 
 import java.util.ArrayList;
 
@@ -227,6 +228,8 @@ public class BootUpFragment extends Fragment {
                         mainActivityInterface.getSongListBuildIndex().setIndexComplete(true);
                     }
 
+                    setInitialSongIfNeeded();
+
                     message = success;
                     updateMessage();
 
@@ -265,6 +268,25 @@ public class BootUpFragment extends Fragment {
                 }
             });
         }
+    }
+
+    private void setInitialSongIfNeeded() {
+        if (mainActivityInterface.getPreferences().getMyPreferenceBoolean("songLoadSuccess", false)) {
+            return;
+        }
+
+        ArrayList<Song> songs = mainActivityInterface.getSQLiteHelper().getSongsByFilters(
+                false, false, false, false, false, false,
+                "", "", "", "", "", "", true);
+        if (songs.isEmpty()) {
+            return;
+        }
+
+        Song firstSong = songs.get(0);
+        mainActivityInterface.getSong().setFolder(firstSong.getFolder());
+        mainActivityInterface.getSong().setFilename(firstSong.getFilename());
+        mainActivityInterface.getPreferences().setMyPreferenceString("songFolder", firstSong.getFolder());
+        mainActivityInterface.getPreferences().setMyPreferenceString("songFilename", firstSong.getFilename());
     }
 
     // If the fragment is still attached, display the update message

@@ -32,6 +32,7 @@ import com.garethevans.church.opensongtablet.customviews.WrapContentLinearLayout
 import com.garethevans.church.opensongtablet.databinding.MenuSongsBinding;
 import com.garethevans.church.opensongtablet.interfaces.MainActivityInterface;
 import com.garethevans.church.opensongtablet.preferences.AreYouSureBottomSheet;
+import com.garethevans.church.opensongtablet.songprocessing.LiturgicalSeason;
 import com.garethevans.church.opensongtablet.songprocessing.Song;
 
 import java.util.ArrayList;
@@ -48,18 +49,20 @@ public class SongMenuFragment extends Fragment implements SongListAdapter.Adapte
     private MenuSongsBinding myView;
     private boolean songButtonActive = true;
     private boolean adapterReady = false;
-    private String folderSearchVal = "", artistSearchVal = "", keySearchVal = "", tagSearchVal = "",
-            filterSearchVal = "", titleSearchVal = "";
-    private boolean songListSearchByFolder, songListSearchByArtist, songListSearchByKey,
-            songListSearchByTag, songListSearchByFilter, songListSearchByTitle;
+    private String folderSearchVal = "", artistSearchVal = "", tagSearchVal = "",
+            filterSearchVal = "", titleSearchVal = "", liturgicalSeasonSearchVal = "",
+            liturgicalColorSearchVal = "";
+    private boolean songListSearchByFolder, songListSearchByArtist,
+            songListSearchByTag, songListSearchByFilter, songListSearchByTitle,
+            songListSearchByLiturgicalSeason;
     private String songListSearchByFolderValue;
-    private ExposedDropDownArrayAdapter folderArrayAdapter, keyArrayAdapter;
+    private ExposedDropDownArrayAdapter folderArrayAdapter,
+            liturgicalSeasonArrayAdapter, liturgicalColorArrayAdapter;
     private SongListAdapter songListAdapter;
     private LinearLayoutManager songListLayoutManager;
     private ArrayList<String> foundFolders;
     private String deeplink_tags_string="",
             deeplink_manage_storage_string="", add_all_songs_to_set_string="", songs_string="";
-    private String[] key_choice_string={};
     private boolean songMenuSortTitles;
     private final Handler waitBeforeSearchHandler = new Handler(Looper.getMainLooper());
     private final Runnable waitBeforeSearchRunnable = this::prepareSearch;
@@ -132,7 +135,6 @@ public class SongMenuFragment extends Fragment implements SongListAdapter.Adapte
 
     private void prepareStrings() {
         if (getContext()!=null) {
-            key_choice_string = getResources().getStringArray(R.array.key_choice);
             deeplink_manage_storage_string = getString(R.string.deeplink_manage_storage);
             deeplink_tags_string = getString(R.string.deeplink_tags);
             add_all_songs_to_set_string = getString(R.string.add_all_songs_to_set);
@@ -180,28 +182,69 @@ public class SongMenuFragment extends Fragment implements SongListAdapter.Adapte
         getSongListSearchByFolder();
         getSongListSearchByFolderValue();
         songListSearchByArtist = mainActivityInterface.getPreferences().getMyPreferenceBoolean("songListSearchByArtist", false);
-        songListSearchByKey = mainActivityInterface.getPreferences().getMyPreferenceBoolean("songListSearchByKey", false);
+        mainActivityInterface.getPreferences().setMyPreferenceBoolean("songListSearchByKey", false);
         songListSearchByTag = mainActivityInterface.getPreferences().getMyPreferenceBoolean("songListSearchByTag", false);
         songListSearchByFilter = mainActivityInterface.getPreferences().getMyPreferenceBoolean("songListSearchByFilter", false);
         songListSearchByTitle = mainActivityInterface.getPreferences().getMyPreferenceBoolean("songListSearchByTitle",false);
+        songListSearchByLiturgicalSeason = mainActivityInterface.getPreferences()
+                .getMyPreferenceBoolean("songListSearchByLiturgicalSeason", false);
+        liturgicalSeasonSearchVal = mainActivityInterface.getPreferences()
+                .getMyPreferenceString("songListLiturgicalSeasonValue", "");
+        liturgicalColorSearchVal = mainActivityInterface.getPreferences()
+                .getMyPreferenceString("songListLiturgicalColorValue", "");
+        myView.filterButtons.keyButton.setVisibility(View.GONE);
+        myView.filterButtons.searchButtonGroup.setWeightSum(6);
         showHideRows(myView.filters.folderLayout, songListSearchByFolder);
         showHideRows(myView.filters.artistSearch, songListSearchByArtist);
-        showHideRows(myView.filters.keySearch, songListSearchByKey);
         showHideRows(myView.filters.tagLayout, songListSearchByTag);
         showHideRows(myView.filters.filterSearch, songListSearchByFilter);
         showHideRows(myView.filters.titleSearch, songListSearchByTitle);
+        showHideRows(myView.filters.liturgicalSeasonLayout, songListSearchByLiturgicalSeason);
     }
 
     private void setUpExposedDropDowns() {
         mainActivityInterface.getThreadPoolExecutor().execute(() -> {
             if (getContext()!=null) {
                 try {
-                    keyArrayAdapter = new ExposedDropDownArrayAdapter(getContext(),
-                            myView.filters.keySearch, R.layout.view_exposed_dropdown_item, key_choice_string);
+                    ArrayList<String> liturgicalSeasons = new ArrayList<>();
+                    liturgicalSeasons.add(getString(R.string.liturgical_all_seasons));
+                    for (LiturgicalSeason season : LiturgicalSeason.values()) {
+                        liturgicalSeasons.add(getString(season.getNameResource()));
+                    }
+                    liturgicalSeasonArrayAdapter = new ExposedDropDownArrayAdapter(getContext(),
+                            myView.filters.liturgicalSeasonSearch, R.layout.view_exposed_dropdown_item,
+                            liturgicalSeasons);
+
+                    ArrayList<String> liturgicalColors = new ArrayList<>();
+                    liturgicalColors.add(getString(R.string.liturgical_all_colors));
+                    for (LiturgicalSeason.LiturgicalColor color : LiturgicalSeason.LiturgicalColor.values()) {
+                        liturgicalColors.add(getString(color.getNameResource()));
+                    }
+                    liturgicalColorArrayAdapter = new ExposedDropDownArrayAdapter(getContext(),
+                            myView.filters.liturgicalColorSearch, R.layout.view_exposed_dropdown_item,
+                            liturgicalColors);
                     mainActivityInterface.getMainHandler().post(() -> {
                         if (myView!=null) {
-                            myView.filters.keySearch.setAdapter(keyArrayAdapter);
-                            myView.filters.keySearch.addTextChangedListener(new MyTextWatcher("key"));
+                            myView.filters.liturgicalSeasonSearch.setAdapter(liturgicalSeasonArrayAdapter);
+                            myView.filters.liturgicalColorSearch.setAdapter(liturgicalColorArrayAdapter);
+                            setLiturgicalSeasonDropdownValue();
+                            setLiturgicalColorDropdownValue();
+                            myView.filters.liturgicalSeasonSearch.getAutoCompleteTextView()
+                                    .setOnItemClickListener((parent, view, position, id) -> {
+                                        liturgicalSeasonSearchVal = position == 0 ? "" :
+                                                LiturgicalSeason.values()[position - 1].getValue();
+                                        mainActivityInterface.getPreferences().setMyPreferenceString(
+                                                "songListLiturgicalSeasonValue", liturgicalSeasonSearchVal);
+                                        prepareSearch();
+                                    });
+                            myView.filters.liturgicalColorSearch.getAutoCompleteTextView()
+                                    .setOnItemClickListener((parent, view, position, id) -> {
+                                        liturgicalColorSearchVal = position == 0 ? "" :
+                                                LiturgicalSeason.LiturgicalColor.values()[position - 1].getValue();
+                                        mainActivityInterface.getPreferences().setMyPreferenceString(
+                                                "songListLiturgicalColorValue", liturgicalColorSearchVal);
+                                        prepareSearch();
+                                    });
                             myView.filters.artistSearch.addTextChangedListener(new MyTextWatcher("artist"));
                             myView.filters.tagSearch.addTextChangedListener(new MyTextWatcher("tag"));
                             myView.filters.filterSearch.addTextChangedListener(new MyTextWatcher("filter"));
@@ -213,6 +256,28 @@ public class SongMenuFragment extends Fragment implements SongListAdapter.Adapte
                 }
             }
         });
+    }
+
+    private void setLiturgicalSeasonDropdownValue() {
+        String selectedValue = getString(R.string.liturgical_all_seasons);
+        for (LiturgicalSeason season : LiturgicalSeason.values()) {
+            if (season.getValue().equals(liturgicalSeasonSearchVal)) {
+                selectedValue = getString(season.getNameResource());
+                break;
+            }
+        }
+        myView.filters.liturgicalSeasonSearch.setText(selectedValue, false);
+    }
+
+    private void setLiturgicalColorDropdownValue() {
+        String selectedValue = getString(R.string.liturgical_all_colors);
+        for (LiturgicalSeason.LiturgicalColor color : LiturgicalSeason.LiturgicalColor.values()) {
+            if (color.getValue().equals(liturgicalColorSearchVal)) {
+                selectedValue = getString(color.getNameResource());
+                break;
+            }
+        }
+        myView.filters.liturgicalColorSearch.setText(selectedValue, false);
     }
 
     public void setFolders() {
@@ -250,20 +315,15 @@ public class SongMenuFragment extends Fragment implements SongListAdapter.Adapte
 
     public void removeFiltersFromLoadSong() {
         // If we load a song from the set or received, we can hide the filters (may not be appropriate)
-        boolean needToUpdateSearch = songListSearchByArtist || songListSearchByKey ||
-                songListSearchByTag || songListSearchByTitle || songListSearchByFilter;
+        boolean needToUpdateSearch = songListSearchByArtist ||
+                songListSearchByTag || songListSearchByTitle || songListSearchByFilter ||
+                songListSearchByLiturgicalSeason;
 
         if (mainActivityInterface.getPreferences().getMyPreferenceBoolean("songListFilterReset",true)) {
             if (songListSearchByArtist) {
                 songListSearchByArtist = false;
                 mainActivityInterface.getPreferences().setMyPreferenceBoolean("songListSearchByArtist", false);
                 showHideRows(myView.filters.artistSearch, songListSearchByArtist);
-            }
-
-            if (songListSearchByKey) {
-                songListSearchByKey = false;
-                mainActivityInterface.getPreferences().setMyPreferenceBoolean("songListSearchByKey", false);
-                showHideRows(myView.filters.keySearch, songListSearchByKey);
             }
 
             if (songListSearchByTag) {
@@ -283,6 +343,13 @@ public class SongMenuFragment extends Fragment implements SongListAdapter.Adapte
                 mainActivityInterface.getPreferences().setMyPreferenceBoolean("songListSearchByFilter", false);
                 showHideRows(myView.filters.filterSearch, songListSearchByFilter);
             }
+
+            if (songListSearchByLiturgicalSeason) {
+                songListSearchByLiturgicalSeason = false;
+                mainActivityInterface.getPreferences().setMyPreferenceBoolean(
+                        "songListSearchByLiturgicalSeason", false);
+                showHideRows(myView.filters.liturgicalSeasonLayout, false);
+            }
         }
 
         if (needToUpdateSearch) {
@@ -299,10 +366,10 @@ public class SongMenuFragment extends Fragment implements SongListAdapter.Adapte
     private void fixButtons() {
         fixColor(myView.filterButtons.folderButton, songListSearchByFolder);
         fixColor(myView.filterButtons.artistButton, songListSearchByArtist);
-        fixColor(myView.filterButtons.keyButton, songListSearchByKey);
         fixColor(myView.filterButtons.tagButton, songListSearchByTag);
         fixColor(myView.filterButtons.filterButton, songListSearchByFilter);
         fixColor(myView.filterButtons.titleButton, songListSearchByTitle);
+        fixColor(myView.filterButtons.liturgicalButton, songListSearchByLiturgicalSeason);
         if (myView!=null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 myView.filterButtons.searchButtonGroup.post(() -> {
@@ -386,13 +453,6 @@ public class SongMenuFragment extends Fragment implements SongListAdapter.Adapte
             fixButtons();
             showHideRows(myView.filters.artistSearch, songListSearchByArtist);
         });
-        myView.filterButtons.keyButton.setOnClickListener(v -> {
-            myView.songListRecyclerView.stopScroll();
-            songListSearchByKey = !songListSearchByKey;
-            mainActivityInterface.getPreferences().setMyPreferenceBoolean("songListSearchByKey", songListSearchByKey);
-            fixButtons();
-            showHideRows(myView.filters.keySearch, songListSearchByKey);
-        });
         myView.filterButtons.tagButton.setOnClickListener(v -> {
             myView.songListRecyclerView.stopScroll();
             songListSearchByTag = !songListSearchByTag;
@@ -413,6 +473,14 @@ public class SongMenuFragment extends Fragment implements SongListAdapter.Adapte
             mainActivityInterface.getPreferences().setMyPreferenceBoolean("songListSearchByTitle",songListSearchByTitle);
             fixButtons();
             showHideRows(myView.filters.titleSearch, songListSearchByTitle);
+        });
+        myView.filterButtons.liturgicalButton.setOnClickListener(v -> {
+            myView.songListRecyclerView.stopScroll();
+            songListSearchByLiturgicalSeason = !songListSearchByLiturgicalSeason;
+            mainActivityInterface.getPreferences().setMyPreferenceBoolean(
+                    "songListSearchByLiturgicalSeason", songListSearchByLiturgicalSeason);
+            fixButtons();
+            showHideRows(myView.filters.liturgicalSeasonLayout, songListSearchByLiturgicalSeason);
         });
         myView.filters.manageFolders.setOnClickListener(v -> {
             myView.songListRecyclerView.stopScroll();
@@ -443,10 +511,8 @@ public class SongMenuFragment extends Fragment implements SongListAdapter.Adapte
     private void getSearchVals() {
         if (myView!=null) {
             folderSearchVal = myView.filters.folderSearch.getText().toString();
-            keySearchVal = myView.filters.keySearch.getText().toString();
         } else {
             folderSearchVal="";
-            keySearchVal="";
         }
     }
 
@@ -457,10 +523,10 @@ public class SongMenuFragment extends Fragment implements SongListAdapter.Adapte
                     try {
                         myView.filterButtons.folderButton.setEnabled(enabled);
                         myView.filterButtons.artistButton.setEnabled(enabled);
-                        myView.filterButtons.keyButton.setEnabled(enabled);
                         myView.filterButtons.tagButton.setEnabled(enabled);
                         myView.filterButtons.filterButton.setEnabled(enabled);
                         myView.filterButtons.titleButton.setEnabled(enabled);
+                        myView.filterButtons.liturgicalButton.setEnabled(enabled);
                         myView.actionFAB.setEnabled(enabled);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -495,10 +561,12 @@ public class SongMenuFragment extends Fragment implements SongListAdapter.Adapte
                         // 2. Fetch the "new" list from DB
                         // Get the songs based on the filters
                         ArrayList<Song> newList = mainActivityInterface.getSQLiteHelper().getSongsByFilters(
-                                songListSearchByFolder, songListSearchByArtist, songListSearchByKey,
+                                songListSearchByFolder, songListSearchByArtist, false,
                                 songListSearchByTag, songListSearchByFilter, songListSearchByTitle,
-                                folderSearchVal, artistSearchVal, keySearchVal, tagSearchVal,
-                                filterSearchVal, titleSearchVal, songMenuSortTitles);
+                                folderSearchVal, artistSearchVal, "", tagSearchVal,
+                                filterSearchVal, titleSearchVal, songMenuSortTitles,
+                                songListSearchByLiturgicalSeason ? liturgicalSeasonSearchVal : "",
+                                songListSearchByLiturgicalSeason ? liturgicalColorSearchVal : "");
 
                         if (newList == null) newList = new ArrayList<>();
 
@@ -701,10 +769,12 @@ public class SongMenuFragment extends Fragment implements SongListAdapter.Adapte
         if (songMenuSongs!=null && songMenuSongs.getFoundSongs()==null) {
             try {
                 ArrayList<Song> tempSongsFound = mainActivityInterface.getSQLiteHelper().getSongsByFilters(
-                        songListSearchByFolder, songListSearchByArtist, songListSearchByKey,
+                        songListSearchByFolder, songListSearchByArtist, false,
                         songListSearchByTag, songListSearchByFilter, songListSearchByTitle,
-                        folderSearchVal, artistSearchVal, keySearchVal, tagSearchVal,
-                        filterSearchVal, titleSearchVal, songMenuSortTitles);
+                        folderSearchVal, artistSearchVal, "", tagSearchVal,
+                        filterSearchVal, titleSearchVal, songMenuSortTitles,
+                        songListSearchByLiturgicalSeason ? liturgicalSeasonSearchVal : "",
+                        songListSearchByLiturgicalSeason ? liturgicalColorSearchVal : "");
                 songMenuSongs.updateSongs(tempSongsFound);
 
             } catch (Exception e) {
@@ -759,9 +829,6 @@ public class SongMenuFragment extends Fragment implements SongListAdapter.Adapte
                     break;
                 case "artist":
                     artistSearchVal = value;
-                    break;
-                case "key":
-                    keySearchVal = value;
                     break;
                 case "tag":
                     tagSearchVal = value;

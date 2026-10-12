@@ -84,7 +84,7 @@ public class LyricsOptionsBottomSheet extends BottomSheetCommon {
     }
 
     private void openSongOrChoProButtonColor() {
-        mainActivityInterface.getTempSong().setEditingAsChoPro(mainActivityInterface.getPreferences().getMyPreferenceBoolean("editAsChordPro",false));
+        mainActivityInterface.getTempSong().setEditingAsChoPro(mainActivityInterface.getPreferences().getMyPreferenceBoolean("editAsChordPro",true));
         if (mainActivityInterface.getTempSong().getEditingAsChoPro()) {
             //myView.choPro.setBackgroundTintList(ColorStateList.valueOf(colorOn));
             myView.choPro.setBackgroundTintList(new ColorStateList(

@@ -32,6 +32,7 @@ public class EditSongFragmentMain extends Fragment  {
     private String newFolder, new_folder_add_string="", new_folder_string="", new_folder_name_string="";
     private TextInputBottomSheet textInputBottomSheet;
     private ArrayList<String> folders;
+    private ExposedDropDownArrayAdapter seasonAdapter;
     private ExposedDropDownArrayAdapter arrayAdapter;
 
     @Override
@@ -86,6 +87,20 @@ public class EditSongFragmentMain extends Fragment  {
                     myView.title.setText(mainActivityInterface.getTempSong().getTitle());
                     myView.author.setText(mainActivityInterface.getTempSong().getAuthor());
                     myView.copyright.setText(mainActivityInterface.getTempSong().getCopyright());
+                    ArrayList<String> seasons = new ArrayList<>();
+                    LiturgicalSeason[] liturgicalSeasons = LiturgicalSeason.values();
+                    for (LiturgicalSeason season : liturgicalSeasons) {
+                        seasons.add(getString(season.getNameResource()));
+                    }
+                    Context context = getContext();
+                    if (context != null) {
+                        seasonAdapter = new ExposedDropDownArrayAdapter(context, myView.liturgicalSeason,
+                                R.layout.view_exposed_dropdown_item, seasons);
+                        myView.liturgicalSeason.setAdapter(seasonAdapter);
+                    }
+                    LiturgicalSeason selectedSeason = LiturgicalSeason.fromValue(
+                            mainActivityInterface.getTempSong().getLiturgicalSeason());
+                    myView.liturgicalSeason.setText(getString(selectedSeason.getNameResource()), false);
                     myView.songNotes.setText(mainActivityInterface.getTempSong().getNotes());
                     mainActivityInterface.getProcessSong().editBoxToMultiline(myView.songNotes);
                     mainActivityInterface.getProcessSong().stretchEditBoxToLines(myView.songNotes, 5);
@@ -120,6 +135,9 @@ public class EditSongFragmentMain extends Fragment  {
                 myView.filename.addTextChangedListener(new MyTextWatcher("filename"));
                 myView.author.addTextChangedListener(new MyTextWatcher("author"));
                 myView.copyright.addTextChangedListener(new MyTextWatcher("copyright"));
+                myView.liturgicalSeason.getAutoCompleteTextView().setOnItemClickListener((parent, view, position, id) ->
+                        mainActivityInterface.getTempSong().setLiturgicalSeason(
+                                LiturgicalSeason.values()[position].getValue()));
                 myView.songNotes.addTextChangedListener(new MyTextWatcher("notes"));
 
                 // The sticky notes override

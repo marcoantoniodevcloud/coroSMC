@@ -12,7 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class SongsDatabase extends SQLiteOpenHelper {
     private static volatile SongsDatabase instance;
-    private static final int DATABASE_VERSION = 11;
+    private static final int DATABASE_VERSION = 12;
     private static final String TAG = "SongsDatabase";
     private static final ReentrantLock lock = new ReentrantLock();
 
@@ -87,7 +87,10 @@ public class SongsDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Handle migrations here if you ever change your table schema
+        if (oldVersion < 12) {
+            db.execSQL("ALTER TABLE " + SQLite.TABLE_NAME + " ADD COLUMN " +
+                    SQLite.COLUMN_LITURGICAL_SEASON + " TEXT DEFAULT 'ordinary'");
+        }
     }
 
     @Override

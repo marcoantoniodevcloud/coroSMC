@@ -135,10 +135,23 @@ public class SQLiteHelper {
                                              String folderVal, String artistVal, String keyVal,
                                              String tagVal, String filterVal, String titleVal,
                                              boolean songMenuSortTitles) {
+        return getSongsByFilters(searchByFolder, searchByArtist, searchByKey, searchByTag,
+                searchByFilter, searchByTitle, folderVal, artistVal, keyVal, tagVal, filterVal,
+                titleVal, songMenuSortTitles, "", "");
+    }
+
+    public ArrayList<Song> getSongsByFilters(boolean searchByFolder, boolean searchByArtist,
+                                             boolean searchByKey, boolean searchByTag,
+                                             boolean searchByFilter, boolean searchByTitle,
+                                             String folderVal, String artistVal, String keyVal,
+                                             String tagVal, String filterVal, String titleVal,
+                                             boolean songMenuSortTitles, String liturgicalSeasonVal,
+                                             String liturgicalColorVal) {
         try {
             return mainActivityInterface.getCommonSQL().getSongsByFilters(getReadableDatabase(), searchByFolder,
                     searchByArtist, searchByKey, searchByTag, searchByFilter, searchByTitle,
-                    folderVal, artistVal, keyVal, tagVal, filterVal, titleVal, songMenuSortTitles);
+                    folderVal, artistVal, keyVal, tagVal, filterVal, titleVal, songMenuSortTitles,
+                    liturgicalSeasonVal, liturgicalColorVal);
         } catch (OutOfMemoryError | Exception e) {
             Log.d(TAG,"Table doesn't exist");
             return new ArrayList<>();

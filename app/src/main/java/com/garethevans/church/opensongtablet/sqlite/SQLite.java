@@ -89,6 +89,7 @@ public class SQLite {
     public static final String COLUMN_TITLE = "title";
     public static final String COLUMN_AUTHOR = "author";
     public static final String COLUMN_COPYRIGHT = "copyright";
+    public static final String COLUMN_LITURGICAL_SEASON = "liturgical_season";
     public static final String COLUMN_LYRICS = "lyrics";
     public static final String COLUMN_HYMNNUM = "hymn_num";
     public static final String COLUMN_CCLI = "ccli";
@@ -149,6 +150,7 @@ public class SQLite {
                     + COLUMN_TITLE + " TEXT,"
                     + COLUMN_AUTHOR + " TEXT,"
                     + COLUMN_COPYRIGHT + " TEXT,"
+                    + COLUMN_LITURGICAL_SEASON + " TEXT DEFAULT 'ordinary',"
                     + COLUMN_LYRICS + " TEXT,"
                     + COLUMN_HYMNNUM + " TEXT,"
                     + COLUMN_CCLI + " TEXT,"

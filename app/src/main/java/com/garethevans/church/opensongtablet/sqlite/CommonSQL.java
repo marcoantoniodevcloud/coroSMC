@@ -15,6 +15,7 @@ import com.garethevans.church.opensongtablet.drummer.DrumCalculations;
 import com.garethevans.church.opensongtablet.interfaces.MainActivityInterface;
 import com.garethevans.church.opensongtablet.nearby.ShareableObject;
 import com.garethevans.church.opensongtablet.openchords.OpenChordsTag;
+import com.garethevans.church.opensongtablet.songprocessing.LiturgicalSeason;
 import com.garethevans.church.opensongtablet.songprocessing.Song;
 import com.garethevans.church.opensongtablet.songprocessing.SongId;
 
@@ -51,6 +52,7 @@ public class CommonSQL {
         String[] columnNames = {SQLite.COLUMN_ID, SQLite.COLUMN_SONGID, SQLite.COLUMN_FILENAME,
                 SQLite.COLUMN_FOLDER, SQLite.COLUMN_TITLE, SQLite.COLUMN_AUTHOR,
                 SQLite.COLUMN_COPYRIGHT, SQLite.COLUMN_LYRICS, SQLite.COLUMN_HYMNNUM,
+                SQLite.COLUMN_LITURGICAL_SEASON,
                 SQLite.COLUMN_CCLI, SQLite.COLUMN_THEME, SQLite.COLUMN_ALTTHEME, SQLite.COLUMN_USER1,
                 SQLite.COLUMN_USER2, SQLite.COLUMN_USER3, SQLite.COLUMN_BEATBUDDY_SONG,
                 SQLite.COLUMN_BEATBUDDY_KIT, SQLite.COLUMN_DRUMMER, SQLite.COLUMN_DRUMMER_KIT,
@@ -204,6 +206,7 @@ public class CommonSQL {
         values.put(SQLite.COLUMN_TITLE, thisSong.getTitle());
         values.put(SQLite.COLUMN_AUTHOR, thisSong.getAuthor());
         values.put(SQLite.COLUMN_COPYRIGHT, thisSong.getCopyright());
+        values.put(SQLite.COLUMN_LITURGICAL_SEASON, thisSong.getLiturgicalSeason());
         values.put(SQLite.COLUMN_LYRICS, thisSong.getLyrics());
         values.put(SQLite.COLUMN_HYMNNUM, thisSong.getHymnnum());
         values.put(SQLite.COLUMN_CCLI, thisSong.getCcli());
@@ -349,6 +352,17 @@ public class CommonSQL {
                                              boolean searchByFilter, boolean searchByTitle, String folderVal,
                                              String artistVal, String keyVal, String tagVal,
                                              String filterVal, String titleVal, boolean songMenuSortTitles) {
+        return getSongsByFilters(db, searchByFolder, searchByArtist, searchByKey, searchByTag,
+                searchByFilter, searchByTitle, folderVal, artistVal, keyVal, tagVal, filterVal,
+                titleVal, songMenuSortTitles, "", "");
+    }
+
+    public ArrayList<Song> getSongsByFilters(SQLiteDatabase db, boolean searchByFolder,
+                                             boolean searchByArtist, boolean searchByKey, boolean searchByTag,
+                                             boolean searchByFilter, boolean searchByTitle, String folderVal,
+                                             String artistVal, String keyVal, String tagVal,
+                                             String filterVal, String titleVal, boolean songMenuSortTitles,
+                                             String liturgicalSeasonVal, String liturgicalColorVal) {
         ArrayList<Song> songs = new ArrayList<>();
 
         // To avoid SQL injections, we need to build the args
@@ -377,6 +391,30 @@ public class CommonSQL {
         if (searchByKey && keyVal != null && !keyVal.isEmpty()) {
             sqlMatch += SQLite.COLUMN_KEY + "= ? AND ";
             args.add(keyVal);
+        }
+
+        if (liturgicalSeasonVal != null && !liturgicalSeasonVal.isEmpty()) {
+            sqlMatch += SQLite.COLUMN_LITURGICAL_SEASON + "= ? AND ";
+            args.add(LiturgicalSeason.fromValue(liturgicalSeasonVal).getValue());
+        }
+
+        LiturgicalSeason.LiturgicalColor selectedColor =
+                LiturgicalSeason.LiturgicalColor.fromValue(liturgicalColorVal);
+        if (selectedColor != null) {
+            StringBuilder colorMatch = new StringBuilder("(");
+            boolean firstSeason = true;
+            for (LiturgicalSeason season : LiturgicalSeason.values()) {
+                if (season.getLiturgicalColor() == selectedColor) {
+                    if (!firstSeason) {
+                        colorMatch.append(", ");
+                    }
+                    colorMatch.append("?");
+                    args.add(season.getValue());
+                    firstSeason = false;
+                }
+            }
+            colorMatch.append(") AND ");
+            sqlMatch += SQLite.COLUMN_LITURGICAL_SEASON + " IN " + colorMatch;
         }
 
         // --- FIXED: ACCENT & PUNCTUATION INSENSITIVE TAG SEARCH VIA GLOB ---
@@ -805,6 +843,7 @@ public class CommonSQL {
         thisSong.setTitle(getValue(cursor, SQLite.COLUMN_TITLE));
         thisSong.setAuthor(getValue(cursor, SQLite.COLUMN_AUTHOR));
         thisSong.setCopyright(getValue(cursor, SQLite.COLUMN_COPYRIGHT));
+        thisSong.setLiturgicalSeason(getValue(cursor, SQLite.COLUMN_LITURGICAL_SEASON));
         thisSong.setLyrics(getValue(cursor, SQLite.COLUMN_LYRICS));
         thisSong.setHymnnum(getValue(cursor, SQLite.COLUMN_HYMNNUM));
         thisSong.setCcli(getValue(cursor, SQLite.COLUMN_CCLI));
@@ -1232,6 +1271,7 @@ public class CommonSQL {
                 String ti = cursor.getString(cursor.getColumnIndexOrThrow(SQLite.COLUMN_TIMESIG));
                 String no = cursor.getString(cursor.getColumnIndexOrThrow(SQLite.COLUMN_NOTES));
                 String co = cursor.getString(cursor.getColumnIndexOrThrow(SQLite.COLUMN_COPYRIGHT));
+                String ls = cursor.getString(cursor.getColumnIndexOrThrow(SQLite.COLUMN_LITURGICAL_SEASON));
                 String cc = cursor.getString(cursor.getColumnIndexOrThrow(SQLite.COLUMN_CCLI));
                 String po = cursor.getString(cursor.getColumnIndexOrThrow(SQLite.COLUMN_PRESENTATIONORDER));
 
@@ -1252,6 +1292,7 @@ public class CommonSQL {
                 song.setTimesig(ti);
                 song.setNotes(no);
                 song.setCopyright(co);
+                song.setLiturgicalSeason(ls);
                 song.setCcli(cc);
                 song.setPresentationorder(po);
 
@@ -1348,6 +1389,7 @@ public class CommonSQL {
         stringBuilder.append("\"").append(SQLite.COLUMN_TITLE).append("\",");
         stringBuilder.append("\"").append(SQLite.COLUMN_AUTHOR).append("\",");
         stringBuilder.append("\"").append(SQLite.COLUMN_COPYRIGHT).append("\",");
+        stringBuilder.append("\"").append(SQLite.COLUMN_LITURGICAL_SEASON).append("\",");
         stringBuilder.append("\"").append(SQLite.COLUMN_LYRICS).append("\",");
         stringBuilder.append("\"").append(SQLite.COLUMN_HYMNNUM).append("\",");
         stringBuilder.append("\"").append(SQLite.COLUMN_CCLI).append("\",");
@@ -1393,6 +1435,7 @@ public class CommonSQL {
         stringBuilder.append("\"").append(escaped(song != null ? song.getTitle() : cursor.getString(cursor.getColumnIndexOrThrow(SQLite.COLUMN_TITLE)))).append("\",");
         stringBuilder.append("\"").append(escaped(song != null ? song.getAuthor() : cursor.getString(cursor.getColumnIndexOrThrow(SQLite.COLUMN_AUTHOR)))).append("\",");
         stringBuilder.append("\"").append(escaped(song != null ? song.getCopyright() : cursor.getString(cursor.getColumnIndexOrThrow(SQLite.COLUMN_COPYRIGHT)))).append("\",");
+        stringBuilder.append("\"").append(escaped(song != null ? song.getLiturgicalSeason() : cursor.getString(cursor.getColumnIndexOrThrow(SQLite.COLUMN_LITURGICAL_SEASON)))).append("\",");
         stringBuilder.append("\"").append(escaped(song != null ? song.getLyrics() : cursor.getString(cursor.getColumnIndexOrThrow(SQLite.COLUMN_LYRICS)))).append("\",");
         stringBuilder.append("\"").append(escaped(song != null ? song.getHymnnum() : cursor.getString(cursor.getColumnIndexOrThrow(SQLite.COLUMN_HYMNNUM)))).append("\",");
         stringBuilder.append("\"").append(escaped(song != null ? song.getCcli() : cursor.getString(cursor.getColumnIndexOrThrow(SQLite.COLUMN_CCLI)))).append("\",");

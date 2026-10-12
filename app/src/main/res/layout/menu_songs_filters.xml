@@ -40,6 +40,36 @@
         android:paddingBottom="2dp"
         android:visibility="gone"/>
 
+    <LinearLayout
+        android:id="@+id/liturgicalSeasonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <com.garethevans.church.opensongtablet.customviews.ExposedDropDown
+            android:id="@+id/liturgicalSeasonSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/liturgical_time"
+            android:paddingStart="16dp"
+            android:paddingEnd="4dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"/>
+
+        <com.garethevans.church.opensongtablet.customviews.ExposedDropDown
+            android:id="@+id/liturgicalColorSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/liturgical_color"
+            android:paddingStart="4dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"/>
+    </LinearLayout>
+
     <com.garethevans.church.opensongtablet.customviews.MyMaterialEditText
         android:id="@+id/artistSearch"
         android:layout_width="match_parent"

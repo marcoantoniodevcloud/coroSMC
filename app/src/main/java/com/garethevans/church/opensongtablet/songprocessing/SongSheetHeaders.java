@@ -3,6 +3,9 @@ package com.garethevans.church.opensongtablet.songprocessing;
 import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.view.Gravity;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.garethevans.church.opensongtablet.R;
@@ -32,15 +35,17 @@ public class SongSheetHeaders {
         // This allows on the fly processing of other songs not processed (e.g. as part of a set)
         // IV - Uses SongSelect tricks of bold, simple separators and field names - to enhance readability
         linearLayout = new LinearLayout(c);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        linearLayout.setGravity(Gravity.CENTER_VERTICAL);
+        linearLayout.setPadding(dp(8), dp(6), dp(8), dp(6));
+        linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
         Typeface typeface = mainActivityInterface.getMyFonts().getLyricFont();
 
-        // This will generate a separate LinearLayout containing the songsheet info
         String title = thisSong.getTitle();
         String author = thisSong.getAuthor();
-        String copyright = thisSong.getCopyright();
+        String description = thisSong.getCopyright();
+        LiturgicalSeason seasonColors = LiturgicalSeason.fromValue(thisSong.getLiturgicalSeason());
 
         float defFontSize;
         if (forExport) {
@@ -51,22 +56,35 @@ public class SongSheetHeaders {
 
         songSheetHTML = "";
 
+        MyMaterialSimpleTextView season = getSongSheetTexts(c.getString(seasonColors.getBadgeResource()),
+                typeface, seasonColors.getTextColor(), Math.max(10f, defFontSize * commentScaling));
+        season.setBackgroundColor(seasonColors.getBadgeBackgroundColor());
+        season.setPadding(dp(8), dp(5), dp(8), dp(5));
+        season.setGravity(Gravity.CENTER);
+        linearLayout.addView(season, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+        LinearLayout details = new LinearLayout(c);
+        details.setOrientation(LinearLayout.VERTICAL);
+        details.setGravity(Gravity.CENTER_VERTICAL);
+        LinearLayout.LayoutParams detailsParams = new LinearLayout.LayoutParams(0,
+                LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
+        detailsParams.setMargins(dp(10), 0, dp(8), 0);
+
         if (title!=null && !title.isEmpty()) {
-            MyMaterialSimpleTextView textView = getSongSheetTexts(title,typeface,textColor,defFontSize);
+            MyMaterialSimpleTextView textView = getSongSheetTexts(title,typeface,
+                    seasonColors.getTextColor(),defFontSize*1.5f);
             textView.setPaintFlags(textView.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
             textView.setTypeface(textView.getTypeface(),Typeface.BOLD);
-            linearLayout.addView(textView);
+            details.addView(textView);
         }
         if (author!=null && !author.isEmpty()) {
-            linearLayout.addView(getSongSheetTexts(author,typeface,textColor,defFontSize*commentScaling));
+            details.addView(getSongSheetTexts(author,typeface,textColor,defFontSize*commentScaling));
             songSheetHTML += author+ "<br>\n";
         }
-        if (copyright!=null && !copyright.isEmpty()) {
-            if (!copyright.contains("©") && !copyright.contains(c.getString(R.string.copyright))) {
-                copyright = "© "+copyright;
-            }
-            linearLayout.addView(getSongSheetTexts(copyright,typeface,textColor,defFontSize*commentScaling));
-            songSheetHTML += copyright + "<br>\n";
+        if (description!=null && !description.isEmpty()) {
+            details.addView(getSongSheetTexts(description,typeface,textColor,defFontSize*commentScaling));
+            songSheetHTML += description + "<br>\n";
         }
 
         String keyCapoTempo = getKeyCapoTempo(thisSong);
@@ -75,20 +93,29 @@ public class SongSheetHeaders {
             MyMaterialSimpleTextView textView = getSongSheetTexts(keyCapoTempo.trim(),typeface,textColor,defFontSize*commentScaling);
             textView.setPaintFlags(textView.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
             textView.setTypeface(textView.getTypeface(),Typeface.BOLD);
-            linearLayout.addView(textView);
+            details.addView(textView);
             songSheetHTML += keyCapoTempo + "<br>\n";
         }
 
-        // Add a section space to the bottom of the songSheet
-        if (linearLayout.getChildCount()>0) {
-            linearLayout.addView(getSongSheetTexts("",typeface,textColor,defFontSize*commentScaling*0.5f));
-        }
-
-        if (linearLayout !=null && linearLayout.getChildCount()==0) {
-            linearLayout = null;
+        linearLayout.addView(details, detailsParams);
+        Uri logoUri = mainActivityInterface.getPresenterSettings().getLogo();
+        if (logoUri != null) {
+            ImageView logo = new ImageView(c);
+            logo.setContentDescription(c.getString(R.string.app_name));
+            logo.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            try {
+                logo.setImageURI(logoUri);
+                linearLayout.addView(logo, new LinearLayout.LayoutParams(dp(56), dp(56)));
+            } catch (RuntimeException e) {
+                android.util.Log.e(TAG, "Unable to load song sheet logo", e);
+            }
         }
 
         return linearLayout;
+    }
+
+    private int dp(float value) {
+        return (int) (value * c.getResources().getDisplayMetrics().density + 0.5f);
     }
 
     public MyMaterialSimpleTextView getSongSheetTexts(String content, Typeface typeface, int color, float size) {

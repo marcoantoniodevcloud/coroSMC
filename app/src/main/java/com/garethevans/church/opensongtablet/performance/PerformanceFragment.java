@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -42,6 +44,7 @@ import com.garethevans.church.opensongtablet.interfaces.DisplayInterface;
 import com.garethevans.church.opensongtablet.interfaces.MainActivityInterface;
 import com.garethevans.church.opensongtablet.nearby.NearbyAlertPopUp;
 import com.garethevans.church.opensongtablet.pdf.PDFPageAdapter;
+import com.garethevans.church.opensongtablet.songprocessing.LiturgicalSeason;
 import com.garethevans.church.opensongtablet.songprocessing.Song;
 import com.garethevans.church.opensongtablet.stage.StageSectionAdapter;
 import com.garethevans.church.opensongtablet.stickynotes.StickyPopUp;
@@ -1048,6 +1051,13 @@ public class PerformanceFragment extends Fragment {
 
     }
     private void prepareXMLView() {
+        int seasonColor = LiturgicalSeason.fromValue(
+                mainActivityInterface.getSong().getLiturgicalSeason()).getTextColor();
+        GradientDrawable pageBorder = new GradientDrawable();
+        pageBorder.setColor(Color.TRANSPARENT);
+        pageBorder.setStroke(Math.max(1, (int) (2 * getResources().getDisplayMetrics().density)), seasonColor);
+        myView.pageHolder.setBackground(pageBorder);
+
         if (mainActivityInterface.getSong().getFiletype()==null) {
             mainActivityInterface.getSong().setFiletype(mainActivityInterface.getStorageAccess().tryToFixFileTypeFromNull(mainActivityInterface.getSong().getFilename()));
         }
@@ -1064,7 +1074,7 @@ public class PerformanceFragment extends Fragment {
                 setSongInLayout(mainActivityInterface.getSong(), false, false));
 
         // Prepare the song sheet header if required, if not, make it null
-        if (mainActivityInterface.getPreferences().getMyPreferenceBoolean("songSheet", false)) {
+        if (mainActivityInterface.getPreferences().getMyPreferenceBoolean("songSheet", true)) {
             mainActivityInterface.setSongSheetTitleLayout(mainActivityInterface.getSongSheetHeaders().getSongSheet(
                     mainActivityInterface.getSong(), mainActivityInterface.getProcessSong().getScaleComments(), mainActivityInterface.getMyThemeColors().getLyricsTextColor()));
         } else {
@@ -1304,7 +1314,7 @@ public class PerformanceFragment extends Fragment {
                             mainActivityInterface.getSectionWidths(), mainActivityInterface.getSectionHeights(),
                             myView.pageHolder, myView.songView, myView.songSheetTitle,
                             availableWidth, availableHeight, myView.songView.getCol1(), myView.songView.getCol2(),
-                            myView.songView.getCol3(), false, getResources().getDisplayMetrics());
+                            myView.songView.getCol3(), false, getResources().getDisplayMetrics(), true);
 
                     // Determine how many columns are scaled
                     heightAfterScale = 0;
@@ -1362,13 +1372,16 @@ public class PerformanceFragment extends Fragment {
                         myView.songView.getLayoutParams().width = availableWidth;
                     }
 
-                    heightAfterScale = heightAfterScale + mainActivityInterface.getSongSheetTitleLayout().getHeight();
-                    myView.pageHolder.getLayoutParams().height = heightAfterScale;
+                    heightAfterScale = heightAfterScale + myView.songSheetTitle.getHeight();
+                    int framedWidth = Math.max(availableWidth, widthAfterScale);
+                    int framedHeight = Math.max(availableHeight, heightAfterScale);
+                    myView.pageHolder.getLayoutParams().width = framedWidth;
+                    myView.pageHolder.getLayoutParams().height = framedHeight;
                     myView.songView.getLayoutParams().height = heightAfterScale;
 
                     // Pass this scale factor to the zoom layout as the new minimum scale
                     myView.zoomLayout.setCurrentScale(scaleFactor);
-                    myView.zoomLayout.setSongSize(widthAfterScale, heightAfterScale);
+                    myView.zoomLayout.setSongSize(framedWidth, framedHeight);
 
                     endProcessing();
 

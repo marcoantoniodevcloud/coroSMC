@@ -237,6 +237,8 @@ public class BulkTagAssignFragment extends Fragment {
             // Hide the edit folder/tag buttons as not required here
             myView.filters.manageTags.setVisibility(View.GONE);
             myView.filters.manageFolders.setVisibility(View.GONE);
+            myView.filterButtons.liturgicalButton.setVisibility(View.GONE);
+            myView.filterButtons.searchButtonGroup.setWeightSum(6);
             showHideRows(myView.filters.folderLayout, songListSearchByFolder);
             showHideRows(myView.filters.artistSearch, songListSearchByArtist);
             showHideRows(myView.filters.keySearch, songListSearchByKey);

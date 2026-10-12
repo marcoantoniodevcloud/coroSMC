@@ -246,9 +246,9 @@ public class EditSongFragment extends Fragment implements EditSongFragmentInterf
                 mainActivityInterface.getThreadPoolExecutor().execute(() -> {
                     // If we were editing the lyrics as ChoPro, convert to OpenSong
                     if (mainActivityInterface.getTempSong().getEditingAsChoPro()) {
-                        String lyrics = mainActivityInterface.getTempSong().getLyrics();
-                        lyrics = mainActivityInterface.getConvertChoPro().fromChordProToOpenSong(lyrics);
-                        mainActivityInterface.getTempSong().setLyrics(lyrics);
+                        mainActivityInterface.getConvertChoPro().convertChordProLyricsToOpenSong(
+                                mainActivityInterface.getTempSong(),
+                                mainActivityInterface.getTempSong().getLyrics());
                         mainActivityInterface.getTempSong().setEditingAsChoPro(false);
                     }
 

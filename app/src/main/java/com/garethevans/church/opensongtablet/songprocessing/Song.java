@@ -27,6 +27,7 @@ public class Song implements Serializable {
     private String title="";
     private String author="";
     private String copyright="";
+    private String liturgicalSeason="ordinary";
     private String lyrics="";
     private String hymnnum="";
     private String ccli="";
@@ -114,6 +115,9 @@ public class Song implements Serializable {
     }
     public String getCopyright() {
         return copyright;
+    }
+    public String getLiturgicalSeason() {
+        return liturgicalSeason;
     }
     public String getLyrics() {
         return lyrics;
@@ -291,6 +295,9 @@ public class Song implements Serializable {
     public void setCopyright(String copyright) {
         this.copyright = copyright;
     }
+    public void setLiturgicalSeason(String liturgicalSeason) {
+        this.liturgicalSeason = LiturgicalSeason.fromValue(liturgicalSeason).getValue();
+    }
     public void setLyrics(String lyrics) {
         this.lyrics = lyrics;
     }
@@ -455,6 +462,7 @@ public class Song implements Serializable {
         this.title = toCopy.title;
         this.author = toCopy.author;
         this.copyright = toCopy.copyright;
+        this.liturgicalSeason = toCopy.liturgicalSeason;
         this.lyrics = toCopy.lyrics;
         this.hymnnum = toCopy.hymnnum;
         this.ccli = toCopy.ccli;

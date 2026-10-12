@@ -88,6 +88,10 @@ public class LoadSong {
                     thisSong.setLyrics(" ");
                 }
                 thisSong.setLyrics(mainActivityInterface.getProcessSong().parseLyrics(mainActivityInterface.getLocale(), thisSong, true));
+                if (lyricsHaveChoProTags(thisSong.getLyrics())) {
+                    thisSong = mainActivityInterface.getConvertChoPro().convertChordProLyricsToOpenSong(
+                            thisSong, thisSong.getLyrics());
+                }
 
                 sortLoadingSuccessful(thisSong);
 
@@ -226,6 +230,10 @@ public class LoadSong {
                     thisSong.setLyrics(" ");
                 }
                 thisSong.setLyrics(mainActivityInterface.getProcessSong().parseLyrics(mainActivityInterface.getLocale(), thisSong, true));
+                if (lyricsHaveChoProTags(thisSong.getLyrics())) {
+                    thisSong = mainActivityInterface.getConvertChoPro().convertChordProLyricsToOpenSong(
+                            thisSong, thisSong.getLyrics());
+                }
 
             } else {
                 thisSong.setTitle(thisSong.getFilename());
@@ -337,16 +345,37 @@ public class LoadSong {
     }
 
     private boolean lyricsHaveChoProTags(String lyrics) {
-        return lyrics.contains("{title") ||
-                lyrics.contains("{t:") ||
-                lyrics.contains("{t :") ||
-                lyrics.contains("{subtitle") ||
-                lyrics.contains("{st:") ||
-                lyrics.contains("{st :") ||
-                lyrics.contains("{comment") ||
-                lyrics.contains("{c:") ||
-                lyrics.contains("{new_song") ||
-                lyrics.contains("{ns");
+        if (lyrics == null) {
+            return false;
+        }
+        String lowerLyrics = lyrics.toLowerCase(Locale.ROOT);
+        return lowerLyrics.contains("{title") ||
+                lowerLyrics.contains("{t:") ||
+                lowerLyrics.contains("{t :") ||
+                lowerLyrics.contains("{artist:") ||
+                lowerLyrics.contains("{subtitle") ||
+                lowerLyrics.contains("{st:") ||
+                lowerLyrics.contains("{st :") ||
+                lowerLyrics.contains("{copyright:") ||
+                lowerLyrics.contains("{ccli:") ||
+                lowerLyrics.contains("{key:") ||
+                lowerLyrics.contains("{tempo:") ||
+                lowerLyrics.contains("{time:") ||
+                lowerLyrics.contains("{duration:") ||
+                lowerLyrics.contains("{start_of_") ||
+                lowerLyrics.contains("{end_of_") ||
+                lowerLyrics.contains("{soc") ||
+                lowerLyrics.contains("{sov") ||
+                lowerLyrics.contains("{sob") ||
+                lowerLyrics.contains("{eoc") ||
+                lowerLyrics.contains("{eov") ||
+                lowerLyrics.contains("{eob") ||
+                lowerLyrics.contains("{sot") ||
+                lowerLyrics.contains("{eot") ||
+                lowerLyrics.contains("{comment") ||
+                lowerLyrics.contains("{c:") ||
+                lowerLyrics.contains("{new_song") ||
+                lowerLyrics.contains("{ns");
     }
 
     private String getFileTypeByExtension(String filename) {
@@ -457,6 +486,9 @@ public class LoadSong {
                                         break;
                                     case "copyright":
                                         thisSong.setCopyright(mainActivityInterface.getProcessSong().parseHTML(xpp.nextText()));
+                                        break;
+                                    case "liturgical_season":
+                                        thisSong.setLiturgicalSeason(mainActivityInterface.getProcessSong().parseHTML(xpp.nextText()));
                                         break;
                                     case "title":
                                         String testthetitle = mainActivityInterface.getProcessSong().parseHTML(xpp.nextText());

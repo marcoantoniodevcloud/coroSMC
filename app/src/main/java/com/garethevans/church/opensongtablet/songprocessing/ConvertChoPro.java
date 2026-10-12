@@ -44,6 +44,33 @@ public class ConvertChoPro {
         return setValues(thisSong);
     }
 
+    public Song convertChordProLyricsToOpenSong(Song thisSong, String chordProLyrics) {
+        lyrics = parseLyrics(chordProLyrics);
+        thisSong.setLyrics(lyrics);
+        if (!title.isEmpty()) {
+            thisSong.setTitle(title);
+        }
+        if (!author.isEmpty()) {
+            thisSong.setAuthor(author);
+        }
+        if (!copyright.isEmpty()) {
+            thisSong.setCopyright(copyright);
+        }
+        if (!ccli.isEmpty()) {
+            thisSong.setCcli(ccli);
+        }
+        if (!key.isEmpty()) {
+            thisSong.setKey(key);
+        }
+        if (!time_sig.isEmpty()) {
+            thisSong.setTimesig(time_sig);
+        }
+        if (!tempo.isEmpty()) {
+            thisSong.setTempo(tempo);
+        }
+        return thisSong;
+    }
+
     private String parseLyrics(String lyrics) {
         initialiseTheVariables();
 

@@ -7,7 +7,7 @@
     android:layout_height="42dp"
     android:layout_gravity="center"
     android:layout_marginTop="8dp"
-    android:weightSum="6"
+    android:weightSum="7"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
     app:checkedButton="@+id/folderButton"
@@ -61,6 +61,16 @@
         android:layout_weight="1"
         app:icon="@drawable/folder_search"
         app:iconSize="24dp" />
+
+    <com.garethevans.church.opensongtablet.customviews.MyMaterialButton
+        android:id="@+id/liturgicalButton"
+        style="@style/IconOnlyButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:icon="@drawable/bible"
+        app:iconSize="24dp"
+        android:contentDescription="@string/filter_by_liturgical_time"/>
 
     <com.garethevans.church.opensongtablet.customviews.MyMaterialButton
         android:id="@+id/tagButton"

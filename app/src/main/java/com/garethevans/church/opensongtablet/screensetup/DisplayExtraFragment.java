@@ -88,7 +88,7 @@ public class DisplayExtraFragment extends Fragment {
     }
     private void setViews() {
         // Set the checkboxes
-        myView.songSheet.setChecked(getChecked("songSheet",false));
+        myView.songSheet.setChecked(getChecked("songSheet",true));
         myView.nextInSet.setChecked(getChecked("nextInSet",true));
         myView.prevInSet.setChecked(getChecked("prevInSet",false));
         myView.prevNextSongMenu.setChecked(getChecked("prevNextSongMenu",false));

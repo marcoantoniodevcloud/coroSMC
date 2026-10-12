@@ -33,7 +33,7 @@ public class NonOpenSongSQLiteHelper extends SQLiteOpenHelper {
     private boolean initialiseUserDB = false;
 
     // Database Version
-    private static final int DATABASE_VERSION = 11;
+    private static final int DATABASE_VERSION = 12;
 
     private static String getDatabasePath(Context c) {
         MainActivityInterface mai = (MainActivityInterface) c;
@@ -225,6 +225,7 @@ public class NonOpenSongSQLiteHelper extends SQLiteOpenHelper {
             addColumnIfMissing(db, SQLite.COLUMN_DRUMMER, "TEXT");
             addColumnIfMissing(db, SQLite.COLUMN_DRUMMER_KIT, "TEXT");
         }
+        if (oldVersion < 12) addColumnIfMissing(db, SQLite.COLUMN_LITURGICAL_SEASON, "TEXT DEFAULT 'ordinary'");
     }
 
     @Override

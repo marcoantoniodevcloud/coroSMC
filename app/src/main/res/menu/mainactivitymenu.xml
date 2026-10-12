@@ -10,9 +10,9 @@
         android:orderInCategory="1"
         android:visible="false" />
 
-    <item android:id="@+id/search_menu_item"
-        android:title="@string/search"
-        android:icon="@drawable/search"
+    <item android:id="@+id/language_menu_item"
+        android:title="@string/language"
+        android:icon="@drawable/web"
         app:showAsAction="always"
         android:orderInCategory="2"
         android:visible="true"/>

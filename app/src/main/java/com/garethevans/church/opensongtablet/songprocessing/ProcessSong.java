@@ -72,6 +72,10 @@ public class ProcessSong {
     // The variables used for repeated song processing
     private final Context c;
     private final MainActivityInterface mainActivityInterface;
+    private static final Pattern CHORDPRO_SECTION_DIRECTIVE = Pattern.compile(
+            "(?im)^\\s*\\{(?:sov|soc|sob|sot|eov|eoc|eob|eot|" +
+                    "start_of_(?:verse|chorus|bridge|tab)|end_of_(?:verse|chorus|bridge|tab))" +
+                    "(?:\\s*:[^}]*)?\\s*\\}\\s*$");
     @SuppressWarnings({"FieldCanBeLocal","unused"})
     private final String TAG = "ProcessSong", newline_string="___NEWLINE___";
     public final String columnbreak_string="::CBr::", groupline_string="____groupline____";
@@ -197,6 +201,7 @@ public class ProcessSong {
         thisSong.setTitle(fixNullValues(thisSong.getTitle()));
         thisSong.setAuthor(fixNullValues(thisSong.getAuthor()));
         thisSong.setCopyright(fixNullValues(thisSong.getCopyright()));
+        thisSong.setLiturgicalSeason(fixNullValues(thisSong.getLiturgicalSeason()));
         thisSong.setPresentationorder(fixNullValues(thisSong.getPresentationorder()));
         thisSong.setHymnnum(fixNullValues(thisSong.getHymnnum()));
         thisSong.setCapoprint(fixNullValues(thisSong.getCapoprint()));
@@ -238,6 +243,7 @@ public class ProcessSong {
         myNEWXML += "  <title>" + parseToHTMLEntities(thisSong.getTitle()).trim() + "</title>\n";
         myNEWXML += "  <author>" + parseToHTMLEntities(thisSong.getAuthor()).trim() + "</author>\n";
         myNEWXML += "  <copyright>" + parseToHTMLEntities(thisSong.getCopyright()).trim() + "</copyright>\n";
+        myNEWXML += "  <liturgical_season>" + parseToHTMLEntities(thisSong.getLiturgicalSeason()).trim() + "</liturgical_season>\n";
         myNEWXML += "  <presentation>" + parseToHTMLEntities(thisSong.getPresentationorder()).trim() + "</presentation>\n";
         myNEWXML += "  <hymn_number>" + parseToHTMLEntities(thisSong.getHymnnum()).trim() + "</hymn_number>\n";
         myNEWXML += "  <capo print=\"" + parseToHTMLEntities(thisSong.getCapoprint()).trim() + "\">" +
@@ -2319,18 +2325,26 @@ public class ProcessSong {
     }
 
     public void processSongIntoSections(Song song, boolean presentation) {
-        // If the song doesn't start with a section header but text/chords, add in a blank one
         if (song.getLyrics()==null) {
             song.setLyrics("");
         }
-        if (!song.getLyrics().trim().startsWith("[")) {
-            song.setLyrics("[ ]\n"+song.getLyrics());
+
+        String sourceLyrics = song.getLyrics();
+        boolean hasChordProSectionDirectives = CHORDPRO_SECTION_DIRECTIVE.matcher(sourceLyrics).find();
+        if (hasChordProSectionDirectives) {
+            sourceLyrics = mainActivityInterface.getConvertChoPro().fromChordProToOpenSong(sourceLyrics);
+        }
+        if (!sourceLyrics.trim().startsWith("[")) {
+            sourceLyrics = "[ ]\n" + sourceLyrics;
+            if (!hasChordProSectionDirectives) {
+                song.setLyrics(sourceLyrics);
+            }
         }
 
         // First we process the song (could be the loaded song, or a temp song - that's why we take a reference)
         // 1. Get a temporary version of the lyrics (as we are going to process them)
         // Replace [ or ] that aren't in headers to protect them
-        String[] lines = song.getLyrics().split("\n");
+        String[] lines = sourceLyrics.split("\n");
         StringBuilder sb = new StringBuilder();
         for (String line : lines) {
             if (!line.startsWith("[")) {
@@ -3478,6 +3492,18 @@ public class ProcessSong {
                                     LinearLayout songSheetView, int availableWidth, int availableHeight,
                                     LinearLayout column1, LinearLayout column2, LinearLayout column3,
                                     boolean presentation, DisplayMetrics displayMetrics) {
+        return addViewsToScreen(thisSong, sectionViews, sectionWidths, sectionHeights, pageHolder, songView,
+                songSheetView, availableWidth, availableHeight, column1, column2, column3,
+                presentation, displayMetrics, false);
+    }
+
+    public float[] addViewsToScreen(Song thisSong, ArrayList<View> sectionViews,
+                                    ArrayList<Integer> sectionWidths, ArrayList<Integer> sectionHeights,
+                                    RelativeLayout pageHolder, LinearLayout songView,
+                                    LinearLayout songSheetView, int availableWidth, int availableHeight,
+                                    LinearLayout column1, LinearLayout column2, LinearLayout column3,
+                                    boolean presentation, DisplayMetrics displayMetrics,
+                                    boolean useFixedFontSize) {
         updateProcessingPreferences();
 
         // Now we have all the sizes in, determines the best way to show the song
@@ -3510,7 +3536,7 @@ public class ProcessSong {
         // Subtract the height of the songsheetview from the available height.
         int songSheetTitleHeight = 0;
         if (songSheetView!=null &&
-                mainActivityInterface.getPreferences().getMyPreferenceBoolean("songSheet", false) &&
+                mainActivityInterface.getPreferences().getMyPreferenceBoolean("songSheet", true) &&
                  !mainActivityInterface.getMode().equals(c.getString(R.string.mode_presenter))) {
             songSheetTitleHeight = mainActivityInterface.getSongSheetTitleLayout().getHeight();
             // Check the songsheet isn't already attached to a view
@@ -3523,7 +3549,7 @@ public class ProcessSong {
             songSheetView.setVisibility(View.GONE);
         }
 
-        String thisAutoScale = songAutoScale;
+        String thisAutoScale = useFixedFontSize ? "N" : songAutoScale;
 
         // A request to force columns (still a maximum of 3 allowed though)
         boolean doForceColumns = false;
@@ -3560,7 +3586,7 @@ public class ProcessSong {
 
         // Figure out the best option of 1,2 or 3 columns and how to arrange them
         float[] columnInfo = columnSplitAlgorithm(thisSong, sectionWidths, sectionHeights, availableWidth,
-                availableHeight-songSheetTitleHeight,songAutoScale,
+                availableHeight-songSheetTitleHeight,thisAutoScale,
                 doForceColumns, forceColumnsInfo, presentation);
 
         if (columnInfo[0]==1) {
