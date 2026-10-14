@@ -6,7 +6,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.garethevans.church.opensongtablet.R;
@@ -61,11 +60,6 @@ public class SongSheetHeaders {
         LinearLayout seasonRow = new LinearLayout(c);
         seasonRow.setOrientation(LinearLayout.HORIZONTAL);
         seasonRow.setGravity(Gravity.CENTER_VERTICAL);
-        View seasonRule = new View(c);
-        seasonRule.setBackgroundColor(seasonColor);
-        LinearLayout.LayoutParams ruleParams = new LinearLayout.LayoutParams(0, dp(3), 1f);
-        ruleParams.setMargins(0, 0, dp(6), 0);
-        seasonRow.addView(seasonRule, ruleParams);
 
         MyMaterialSimpleTextView season = getSongSheetTexts(
                 c.getString(seasonColors.getBadgeResource()), typeface, 0xFFFFFFFF,
@@ -76,45 +70,22 @@ public class SongSheetHeaders {
         seasonBadge.setColor(seasonColor);
         seasonBadge.setCornerRadius(dp(18));
         season.setBackground(seasonBadge);
+
+        LinearLayout.LayoutParams seasonRowParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        linearLayout.addView(seasonRow, seasonRowParams);
+
+        View seasonRule = new View(c);
+        seasonRule.setBackgroundColor(seasonColor);
+        LinearLayout.LayoutParams ruleParams = new LinearLayout.LayoutParams(0, dp(2), 1f);
+        ruleParams.setMargins(0, 0, dp(6), 0);
+        seasonRow.addView(seasonRule, ruleParams);
         seasonRow.addView(season, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        linearLayout.addView(seasonRow, new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-        LinearLayout brandRow = new LinearLayout(c);
-        brandRow.setOrientation(LinearLayout.HORIZONTAL);
-        brandRow.setGravity(Gravity.CENTER_VERTICAL);
-        LinearLayout.LayoutParams brandParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        brandParams.topMargin = dp(3);
-        linearLayout.addView(brandRow, brandParams);
-
-        ImageView logo = new ImageView(c);
-        logo.setContentDescription(c.getString(R.string.logo));
-        logo.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        logo.setImageResource(R.drawable.logo_header);
-        brandRow.addView(logo, new LinearLayout.LayoutParams(dp(64), dp(64)));
-
-        LinearLayout brandText = new LinearLayout(c);
-        brandText.setOrientation(LinearLayout.VERTICAL);
-        brandText.setGravity(Gravity.CENTER_VERTICAL);
-        LinearLayout.LayoutParams brandTextParams = new LinearLayout.LayoutParams(0,
-                LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
-        brandTextParams.setMargins(dp(8), 0, 0, 0);
-        brandRow.addView(brandText, brandTextParams);
-
-        MyMaterialSimpleTextView choirName = getSongSheetTexts(
-                c.getString(R.string.header_choir_name), typeface, 0xFF174C7D,
-                Math.max(10f, defFontSize * 0.95f));
-        choirName.setPaintFlags(choirName.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
-        choirName.setTypeface(choirName.getTypeface(), Typeface.BOLD);
-        brandText.addView(choirName);
-        brandText.addView(getSongSheetTexts(c.getString(R.string.header_choir_subtitle),
-                typeface, 0xFF174C7D, Math.max(7f, defFontSize * 0.68f)));
 
         if (title != null && !title.isEmpty()) {
-            MyMaterialSimpleTextView titleView = getSongSheetTexts(title, typeface, 0xFF174C7D,
-                    Math.max(18f, defFontSize * 2f));
+            MyMaterialSimpleTextView titleView = getSongSheetTexts(title, typeface, 0xFF000000,
+                    Math.max(16f, defFontSize * 1.75f));
             titleView.setGravity(Gravity.CENTER);
             titleView.setPaintFlags(titleView.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
             titleView.setTypeface(titleView.getTypeface(), Typeface.BOLD);
@@ -130,23 +101,13 @@ public class SongSheetHeaders {
                 ? c.getString(R.string.header_to_be_confirmed) : album;
         MyMaterialSimpleTextView metadata = getSongSheetTexts(
                 c.getString(R.string.header_song_metadata, displayAuthor, displayAlbum),
-                typeface, 0xFF174C7D, Math.max(8f, defFontSize * 0.78f * commentScaling));
+                typeface, 0xFF000000, Math.max(8f, defFontSize * 0.78f * commentScaling));
         metadata.setGravity(Gravity.CENTER);
         linearLayout.addView(metadata, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
-        String keyCapoTempo = getKeyCapoTempo(thisSong);
-        if (!keyCapoTempo.isEmpty()) {
-            MyMaterialSimpleTextView songDetails = getSongSheetTexts(keyCapoTempo.trim(), typeface,
-                    textColor, Math.max(8f, defFontSize * 0.72f * commentScaling));
-            songDetails.setGravity(Gravity.CENTER);
-            linearLayout.addView(songDetails, new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            songSheetHTML += keyCapoTempo + "<br>\n";
-        }
-
         songSheetHTML = c.getString(R.string.header_song_metadata, displayAuthor, displayAlbum)
-                + "<br>\n" + songSheetHTML;
+                + "<br>\n";
 
         return linearLayout;
     }
@@ -212,7 +173,6 @@ public class SongSheetHeaders {
         // This will generate a separate LinearLayout containing the songsheet info
         String author = thisSong.getAuthor();
         String copyright = thisSong.getCopyright();
-        String keyCapoTempo = getKeyCapoTempo(thisSong);
         String extras = "";
         String displayAuthor = author == null || author.trim().isEmpty()
                 ? c.getString(R.string.header_to_be_confirmed) : author;
@@ -224,10 +184,6 @@ public class SongSheetHeaders {
         LiturgicalSeason season = LiturgicalSeason.fromValue(thisSong.getLiturgicalSeason());
         extras += "<div class=\"titleextras\">" + c.getString(season.getBadgeResource())
                 + "</div>\n";
-        if (!keyCapoTempo.isEmpty()) {
-            extras += "<div class=\"titleextras\">" + keyCapoTempo + "</div>\n";
-        }
-
         return extras;
     }
 }
