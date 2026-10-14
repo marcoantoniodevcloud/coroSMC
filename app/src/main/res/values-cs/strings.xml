@@ -328,6 +328,8 @@
     <string name="copy_chord_into">Zkopírujte do</string>
     <string name="copy_chord_section">Použijte strukturu akordu v této části</string>
     <string name="copy_of">Kopírovat</string>
+    <string name="paste">Vložit</string>
+    <string name="replace_all">Nahradit vše</string>
     <string name="copyright">Copyright info</string>
     <string name="crash">Pád</string>
     <string name="crash_alert">OpenSongApp selhal.  Crash uložený v souboru crashLog.txt</string>

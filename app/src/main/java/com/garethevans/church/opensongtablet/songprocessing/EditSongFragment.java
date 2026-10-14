@@ -96,6 +96,7 @@ public class EditSongFragment extends Fragment implements EditSongFragmentInterf
 
             // Set the save listener
             myView.saveChanges.setOnClickListener(v -> doSaveChanges());
+            myView.saveChanges.post(() -> myView.saveChanges.shrink());
 
             // Clear the back stack to the root editSongFragment (otherwise it includes the tabs)
             try {

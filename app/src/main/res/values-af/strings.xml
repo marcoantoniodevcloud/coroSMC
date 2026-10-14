@@ -328,6 +328,8 @@
     <string name="copy_chord_into">Kopieer in</string>
     <string name="copy_chord_section">Gebruik die akkoordstruktuur in hierdie afdeling</string>
     <string name="copy_of">Kopieer</string>
+    <string name="paste">Plak</string>
+    <string name="replace_all">Vervang alles</string>
     <string name="copyright">Kopiereg inligting</string>
     <string name="crash">Ineenstorting</string>
     <string name="crash_alert">OpenSongApp het omgeval.  Omval gestoor in die crashLog.txt-lêer</string>

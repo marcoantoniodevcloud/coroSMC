@@ -328,6 +328,8 @@
     <string name="copy_chord_into">Kopiera in</string>
     <string name="copy_chord_section">Använd ackordstrukturen i det här avsnittet</string>
     <string name="copy_of">Kopiera</string>
+    <string name="paste">Klistra in</string>
+    <string name="replace_all">Ersätt alla</string>
     <string name="copyright">Upphovsrättsinformation</string>
     <string name="crash">Krascha</string>
     <string name="crash_alert">OpenSongApp har kraschat.  Crash sparad i filen crashLog.txt</string>

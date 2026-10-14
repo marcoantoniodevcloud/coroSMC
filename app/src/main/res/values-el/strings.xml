@@ -328,6 +328,8 @@
     <string name="copy_chord_into">Αντιγραφή σε</string>
     <string name="copy_chord_section">Χρησιμοποιήστε τη δομή της χορδής σε αυτήν την ενότητα</string>
     <string name="copy_of">Αντίγραφο</string>
+    <string name="paste">Επικόλληση</string>
+    <string name="replace_all">Αντικατάσταση όλων</string>
     <string name="copyright">Copyright info</string>
     <string name="crash">Σύγκρουση</string>
     <string name="crash_alert">Το OpenSongApp έχει καταρρεύσει.  Το σφάλμα αποθηκεύτηκε στο αρχείο crashLog.txt</string>

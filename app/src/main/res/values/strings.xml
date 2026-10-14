@@ -399,6 +399,8 @@
     <string name="copy_chord_into">Copy into</string>
     <string name="copy_chord_section">Use the chord structure in this section</string>
     <string name="copy_of">Copy</string>
+    <string name="paste">Paste</string>
+    <string name="replace_all">Replace all</string>
     <string name="copyright">Copyright</string>
     <string name="crash">Crash</string>
     <string name="crash_alert">OpenSongApp has crashed.  Crash saved in the crashLog.txt file</string>

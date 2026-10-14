@@ -328,6 +328,8 @@
     <string name="copy_chord_into">复制到</string>
     <string name="copy_chord_section">使用本节中的和弦结构</string>
     <string name="copy_of">复制</string>
+    <string name="paste">粘贴</string>
+    <string name="replace_all">全部替换</string>
     <string name="copyright">版权信息</string>
     <string name="crash">碰撞</string>
     <string name="crash_alert">OpenSongApp 崩溃了。崩溃信息已保存在 crashLog.txt 文件中</string>

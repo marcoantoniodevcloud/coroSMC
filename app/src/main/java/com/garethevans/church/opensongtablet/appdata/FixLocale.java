@@ -11,8 +11,7 @@ import java.util.Locale;
 
 public class FixLocale {
 
-    // By default the app runs in the device language (if available)
-    // English is the fall back default
+    // Spanish is the default unless the user chooses another language.
     // If a user chooses a different language in the app, this is used regardless of the device settings
 
     @SuppressWarnings({"unused","FieldCanBeLocal"})
@@ -49,17 +48,8 @@ public class FixLocale {
                 userLocale = new Locale(language);
 
             } else {
-                // No locale is set, so let's see if the user's language is supported
-                // Get device setting
-                String deviceval = Locale.getDefault().getLanguage();
-
-                // If this is supported, set the user preference, otherwise use English
-                String translations = "af cs de el es fr hu it ja pl pt ru si sr sv uk zh";
-                if (!translations.contains(deviceval)) {
-                    deviceval = "en";
-                }
-
-                userLocale = new Locale(deviceval);
+                language = "es";
+                userLocale = new Locale(language);
 
             }
 

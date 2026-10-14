@@ -328,6 +328,8 @@
     <string name="copy_chord_into">Másolás be</string>
     <string name="copy_chord_section">Használja ebben a részben az akkordszerkezetet</string>
     <string name="copy_of">Másolat</string>
+    <string name="paste">Beillesztés</string>
+    <string name="replace_all">Összes cseréje</string>
     <string name="copyright">Szerzői jogi információk</string>
     <string name="crash">Összeomlás</string>
     <string name="crash_alert">Az OpenSongApp összeomlott.  Az összeomlás a crashLog.txt fájlba mentve</string>

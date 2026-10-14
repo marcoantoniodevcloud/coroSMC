@@ -64,7 +64,7 @@ public class LanguageFragment extends Fragment {
         }
     }
     private void buildRadioGroup() {
-        String languageCode = mainActivityInterface.getPreferences().getMyPreferenceString("language", "en");
+        String languageCode = mainActivityInterface.getPreferences().getMyPreferenceString("language", "es");
         int id;
         // Define colors for different states
         int[][] states = new int[][]{

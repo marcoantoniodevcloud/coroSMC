@@ -1,7 +1,6 @@
 package com.garethevans.church.opensongtablet.songprocessing;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +21,6 @@ public class LyricsOptionsBottomSheet extends BottomSheetCommon {
     private MainActivityInterface mainActivityInterface;
     @SuppressWarnings({"unused","FieldCanBeLocal"})
     private final String TAG = "LyricsBottomSheet";
-    private int colorOn, colorOff;
     private final EditSongFragmentLyrics openingFragment;
 
     public LyricsOptionsBottomSheet() {
@@ -54,11 +52,6 @@ public class LyricsOptionsBottomSheet extends BottomSheetCommon {
         myView = BottomSheetEditSongLyricsBinding.inflate(inflater,container,false);
         myView.dialogHeading.setClose(this);
 
-        // The button colors
-        if (getContext()!=null) {
-            colorOn = mainActivityInterface.getPalette().secondary;
-            colorOff = mainActivityInterface.getPalette().primaryVariant;
-        }
         // Prepare views
         prepareViews();
 
@@ -75,39 +68,10 @@ public class LyricsOptionsBottomSheet extends BottomSheetCommon {
                 ", [B]="+getString(R.string.bridge)+", [P]="+getString(R.string.prechorus) +
                 ", [...]="+getString(R.string.custom)+", [*" + getString(R.string.text) + ":" +
                 getString(R.string.verse) + "]="+getString(R.string.filters));
-        openSongOrChoProButtonColor();
         if (openingFragment!=null) {
             myView.textSize.setHint(String.valueOf((int) openingFragment.getEditTextSize()));
         }
-        myView.keyboardSmartRibbon.setChecked(mainActivityInterface.getPreferences().getMyPreferenceBoolean("keyboardSmartRibbon",true));
         setTransposeDetectedFormat();
-    }
-
-    private void openSongOrChoProButtonColor() {
-        mainActivityInterface.getTempSong().setEditingAsChoPro(mainActivityInterface.getPreferences().getMyPreferenceBoolean("editAsChordPro",true));
-        if (mainActivityInterface.getTempSong().getEditingAsChoPro()) {
-            //myView.choPro.setBackgroundTintList(ColorStateList.valueOf(colorOn));
-            myView.choPro.setBackgroundTintList(new ColorStateList(
-                    new int[][]{new int[0]},
-                    new int[]{colorOn}
-            ));
-            //myView.openSong.setBackgroundTintList(ColorStateList.valueOf(colorOff));
-            myView.openSong.setBackgroundTintList(new ColorStateList(
-                    new int[][]{new int[0]},
-                    new int[]{colorOff}
-            ));
-        } else {
-            //myView.choPro.setBackgroundTintList(ColorStateList.valueOf(colorOff));
-            myView.choPro.setBackgroundTintList(new ColorStateList(
-                    new int[][]{new int[0]},
-                    new int[]{colorOff}
-            ));
-            //myView.openSong.setBackgroundTintList(ColorStateList.valueOf(colorOn));
-            myView.openSong.setBackgroundTintList(new ColorStateList(
-                    new int[][]{new int[0]},
-                    new int[]{colorOn}
-            ));
-        }
     }
 
     private void setListeners() {
@@ -125,26 +89,15 @@ public class LyricsOptionsBottomSheet extends BottomSheetCommon {
         });
         myView.insertGuitarTab.setOnClickListener(v -> {
             try {
-                String bitToAdd;
                 if (openingFragment != null) {
-                    if (!mainActivityInterface.getTempSong().getEditingAsChoPro()) {
-                        bitToAdd = "\n;e |--------|\n" +
-                                ";B |--------|\n" +
-                                ";G |--------|\n" +
-                                ";D |--------|\n" +
-                                ";A |--------|\n" +
-                                ";E |--------|";
-                    } else {
-                        bitToAdd = "\n{sot}\n" +
-                                "e |--------|\n" +
-                                "B |--------|\n" +
-                                "G |--------|\n" +
-                                "D |--------|\n" +
-                                "A |--------|\n" +
-                                "E |--------|\n" +
-                                "{eot}";
-                    }
-
+                    String bitToAdd = "\n{sot}\n" +
+                            "e |--------|\n" +
+                            "B |--------|\n" +
+                            "G |--------|\n" +
+                            "D |--------|\n" +
+                            "A |--------|\n" +
+                            "E |--------|\n" +
+                            "{eot}";
                     openingFragment.insertSection(bitToAdd,1);
                     this.dismiss();
                 }
@@ -163,9 +116,7 @@ public class LyricsOptionsBottomSheet extends BottomSheetCommon {
                 e.printStackTrace();
             }
         });
-        myView.keyboardSmartRibbon.setOnCheckedChangeListener((compoundButton, checked) -> mainActivityInterface.getPreferences().setMyPreferenceBoolean("keyboardSmartRibbon", checked));
-
-                myView.insertInlineMidi.setOnClickListener(view -> {
+        myView.insertInlineMidi.setOnClickListener(view -> {
             if (openingFragment!=null) {
                 InlineMidiBottomSheet inlineMidiBottomSheet = new InlineMidiBottomSheet(openingFragment);
                 inlineMidiBottomSheet.show(mainActivityInterface.getMyFragmentManager(), "InlineMIDIMessages");
@@ -184,31 +135,6 @@ public class LyricsOptionsBottomSheet extends BottomSheetCommon {
             }
             this.dismiss();
         });
-        myView.openSong.setOnClickListener(v -> {
-            // Only do this if we aren't editing as OpenSong already
-            if (mainActivityInterface.getTempSong().getEditingAsChoPro()) {
-                mainActivityInterface.getTempSong().setEditingAsChoPro(false);
-                mainActivityInterface.getPreferences().setMyPreferenceBoolean("editAsChordPro",false);
-                openSongOrChoProButtonColor();
-                if (openingFragment!=null) {
-                    openingFragment.convertToOpenSong();
-                }
-                this.dismiss();
-            }
-        });
-        myView.choPro.setOnClickListener(v -> {
-            // Only do this if we aren't editing as ChordPro already
-            if (!mainActivityInterface.getTempSong().getEditingAsChoPro()) {
-                mainActivityInterface.getTempSong().setEditingAsChoPro(true);
-                mainActivityInterface.getPreferences().setMyPreferenceBoolean("editAsChordPro",true);
-                openSongOrChoProButtonColor();
-                if (openingFragment!=null) {
-                    openingFragment.convertToChoPro();
-                }
-                this.dismiss();
-            }
-        });
-
         myView.transposeDown.setOnClickListener(v -> {
             if (openingFragment!=null) {
                 openingFragment.transpose("-1");

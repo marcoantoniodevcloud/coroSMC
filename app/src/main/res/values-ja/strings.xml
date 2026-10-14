@@ -328,6 +328,8 @@
     <string name="copy_chord_into">にコピー</string>
     <string name="copy_chord_section">このセクションのコード構造を使用する</string>
     <string name="copy_of">コピー</string>
+    <string name="paste">貼り付け</string>
+    <string name="replace_all">すべて置換</string>
     <string name="copyright">著作権情報</string>
     <string name="crash">クラッシュ</string>
     <string name="crash_alert">OpenSongAppがクラッシュしました。クラッシュはcrashLog.txtファイルに保存されています</string>

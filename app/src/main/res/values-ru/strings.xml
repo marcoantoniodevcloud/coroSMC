@@ -328,6 +328,8 @@
     <string name="copy_chord_into">Скопировать в</string>
     <string name="copy_chord_section">Использовать структуру аккордов в этом разделе</string>
     <string name="copy_of">Копия</string>
+    <string name="paste">Вставить</string>
+    <string name="replace_all">Заменить всё</string>
     <string name="copyright">Информация об авторском праве</string>
     <string name="crash">Крушение</string>
     <string name="crash_alert">Произошёл сбой в работе OpenSongApp. Сбой сохранён в файле crashLog.txt.</string>

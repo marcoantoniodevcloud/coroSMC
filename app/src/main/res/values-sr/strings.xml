@@ -328,6 +328,8 @@
     <string name="copy_chord_into">Kopiraj u</string>
     <string name="copy_chord_section">Koristite strukturu akorda u ovom odeljku</string>
     <string name="copy_of">Kopiraj</string>
+    <string name="paste">Nalepi</string>
+    <string name="replace_all">Zameni sve</string>
     <string name="copyright">Copyright info</string>
     <string name="crash">Nesreжi</string>
     <string name="crash_alert">OpenSongApp se srušio.  Crash sačuvan u datoteci crashLog.txt</string>

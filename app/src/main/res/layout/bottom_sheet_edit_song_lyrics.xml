@@ -87,48 +87,6 @@
             <com.garethevans.church.opensongtablet.customviews.MyDivider
                 style="@style/MyDividerLine"/>
 
-            <com.garethevans.church.opensongtablet.customviews.MyMaterialSwitch
-                android:id="@+id/keyboardSmartRibbon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/keyboard_smart_ribbon"
-                android:hint="@string/keyboard_smart_ribbon_info" />
-            <com.garethevans.church.opensongtablet.customviews.MyDivider
-                style="@style/MyDividerLine"/>
-
-
-            <com.garethevans.church.opensongtablet.customviews.MyMaterialSimpleTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_format" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="48dp"
-                android:orientation="horizontal">
-
-                <com.garethevans.church.opensongtablet.customviews.MyMaterialButton
-                    android:id="@+id/openSong"
-                    style="@style/LeftButton"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:padding="8dp"
-                    android:text="@string/opensong" />
-
-                <com.garethevans.church.opensongtablet.customviews.MyMaterialButton
-                    android:id="@+id/choPro"
-                    style="@style/RightButton"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:padding="8dp"
-                    android:text="@string/chordpro"/>
-            </LinearLayout>
-            <com.garethevans.church.opensongtablet.customviews.MyDivider
-                style="@style/MyDividerLine"/>
-
             <com.garethevans.church.opensongtablet.customviews.MyMaterialSimpleTextView
                 android:id="@+id/textSize"
                 android:layout_width="match_parent"

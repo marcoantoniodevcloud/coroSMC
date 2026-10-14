@@ -328,6 +328,8 @@
     <string name="copy_chord_into">පිටපත් කරන්න</string>
     <string name="copy_chord_section">මෙම කොටසෙහි ස්වර ව්‍යුහය භාවිතා කරන්න</string>
     <string name="copy_of">පිටපත් කරන්න</string>
+    <string name="paste">අලවන්න</string>
+    <string name="replace_all">සියල්ල ප්‍රතිස්ථාපනය කරන්න</string>
     <string name="copyright">අයිතිය</string>
     <string name="crash">කඩා වැටීම</string>
     <string name="crash_alert">OpenSongApp බිඳ වැටී ඇත.  බිඳ වැටීම crashLog.txt ගොනුවේ සුරකින ලදී</string>

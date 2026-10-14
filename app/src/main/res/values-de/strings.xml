@@ -328,6 +328,8 @@
     <string name="copy_chord_into">Kopieren Sie hinein</string>
     <string name="copy_chord_section">Verwenden Sie die Akkordstruktur in diesem Abschnitt</string>
     <string name="copy_of">Kopieren</string>
+    <string name="paste">Einfügen</string>
+    <string name="replace_all">Alles ersetzen</string>
     <string name="copyright">Copyright-Informationen</string>
     <string name="crash">Absturz</string>
     <string name="crash_alert">OpenSongApp ist abgestürzt. Absturz in der Datei crashLog.txt gespeichert</string>

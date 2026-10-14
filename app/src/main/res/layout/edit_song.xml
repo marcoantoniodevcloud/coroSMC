@@ -39,6 +39,7 @@
         android:text="@string/save"
         android:visibility="visible"
         android:minHeight="56dp"
+        app:collapsedSize="56dp"
         app:icon="@drawable/save" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

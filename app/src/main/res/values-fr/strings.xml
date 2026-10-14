@@ -328,6 +328,8 @@
     <string name="copy_chord_into">Copier dans</string>
     <string name="copy_chord_section">Utilisez la structure d\'accords dans cette section</string>
     <string name="copy_of">Copie</string>
+    <string name="paste">Coller</string>
+    <string name="replace_all">Tout remplacer</string>
     <string name="copyright">Infos Copyright</string>
     <string name="crash">Accident</string>
     <string name="crash_alert">OpenSongApp a planté. Le plantage est enregistré dans le fichier crashLog.txt.</string>

@@ -328,6 +328,8 @@
     <string name="copy_chord_into">Copiar para</string>
     <string name="copy_chord_section">Use a estrutura de acordes nesta seção</string>
     <string name="copy_of">Cópia de</string>
+    <string name="paste">Colar</string>
+    <string name="replace_all">Substituir tudo</string>
     <string name="copyright">Info Copyright</string>
     <string name="crash">Colidir</string>
     <string name="crash_alert">O OpenSongApp travou. A falha foi salva no arquivo crashLog.txt.</string>
