@@ -108,6 +108,10 @@
     <string name="liturgical_funerals_badge">FUNERALS</string>
     <string name="liturgical_joy_badge">JOY</string>
     <string name="liturgical_marian_badge">MARY</string>
+    <string name="header_choir_name">CORO SANTA MARÍA DEL CAMINO</string>
+    <string name="header_choir_subtitle">CANTORAL LITÚRGICO · EDICIÓN PARROQUIAL</string>
+    <string name="header_song_metadata">Author: %1$s · Album: %2$s</string>
+    <string name="header_to_be_confirmed">to be confirmed</string>
     <string name="ask">Ask each time</string>
     <string name="audio">Audio</string>
     <string name="audio_player">Audio player</string>

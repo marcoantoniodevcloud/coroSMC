@@ -6,11 +6,8 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.RectF;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.InsetDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -47,7 +44,6 @@ import com.garethevans.church.opensongtablet.interfaces.DisplayInterface;
 import com.garethevans.church.opensongtablet.interfaces.MainActivityInterface;
 import com.garethevans.church.opensongtablet.nearby.NearbyAlertPopUp;
 import com.garethevans.church.opensongtablet.pdf.PDFPageAdapter;
-import com.garethevans.church.opensongtablet.songprocessing.LiturgicalSeason;
 import com.garethevans.church.opensongtablet.songprocessing.Song;
 import com.garethevans.church.opensongtablet.stage.StageSectionAdapter;
 import com.garethevans.church.opensongtablet.stickynotes.StickyPopUp;
@@ -1058,18 +1054,12 @@ public class PerformanceFragment extends Fragment {
 
     }
     private void prepareXMLView() {
-        int seasonColor = LiturgicalSeason.fromValue(
-                mainActivityInterface.getSong().getLiturgicalSeason()).getTextColor();
         float density = getResources().getDisplayMetrics().density;
-        int borderInset = Math.round(4 * density);
         int contentInset = Math.round(10 * density);
         pageContentInset = contentInset;
         myView.pageHolder.setPadding(0, 0, 0, 0);
         setPageContentMargins(contentInset);
-        GradientDrawable pageBorder = new GradientDrawable();
-        pageBorder.setColor(Color.TRANSPARENT);
-        pageBorder.setStroke(Math.max(1, Math.round(3 * density)), seasonColor);
-        myView.pageHolder.setBackground(new InsetDrawable(pageBorder, borderInset));
+        myView.pageHolder.setBackground(null);
 
         if (mainActivityInterface.getSong().getFiletype()==null) {
             mainActivityInterface.getSong().setFiletype(mainActivityInterface.getStorageAccess().tryToFixFileTypeFromNull(mainActivityInterface.getSong().getFilename()));
