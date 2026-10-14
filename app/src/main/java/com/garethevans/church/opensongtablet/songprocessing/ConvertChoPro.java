@@ -1208,6 +1208,10 @@ public class ConvertChoPro {
             // Check for ending previous parts
             returnString = addChordProEndOfDirective();
 
+            if (line.substring(1, line.length() - 1).trim().isEmpty()) {
+                return returnString;
+            }
+
             // This is a heading line.  Try to detect which
             String textOnly = line.replaceAll("\\d","");
             String numberOnly = line.replaceAll("\\D", "");

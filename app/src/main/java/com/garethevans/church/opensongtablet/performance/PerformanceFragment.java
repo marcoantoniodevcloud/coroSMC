@@ -7,7 +7,10 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.RectF;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.InsetDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -75,6 +78,7 @@ public class PerformanceFragment extends Fragment {
     private final long doSongLoadQOSTime = 200;
     private int widthAfterScale;
     private int heightAfterScale;
+    private int pageContentInset;
     private boolean processingTestView;
     @SuppressWarnings("FieldCanBeLocal")
     private boolean songChange;
@@ -656,6 +660,9 @@ public class PerformanceFragment extends Fragment {
                             if (myView != null) {
                                 // Set the default color
                                 myView.pageHolder.setBackgroundColor(mainActivityInterface.getMyThemeColors().getLyricsBackgroundColor());
+                                myView.pageHolder.setPadding(0, 0, 0, 0);
+                                pageContentInset = 0;
+                                setPageContentMargins(0);
                                 // Update the toolbar with the song detail (null).
                                 mainActivityInterface.updateToolbar(null);
                             }
@@ -1053,10 +1060,16 @@ public class PerformanceFragment extends Fragment {
     private void prepareXMLView() {
         int seasonColor = LiturgicalSeason.fromValue(
                 mainActivityInterface.getSong().getLiturgicalSeason()).getTextColor();
+        float density = getResources().getDisplayMetrics().density;
+        int borderInset = Math.round(4 * density);
+        int contentInset = Math.round(10 * density);
+        pageContentInset = contentInset;
+        myView.pageHolder.setPadding(0, 0, 0, 0);
+        setPageContentMargins(contentInset);
         GradientDrawable pageBorder = new GradientDrawable();
         pageBorder.setColor(Color.TRANSPARENT);
-        pageBorder.setStroke(Math.max(1, (int) (2 * getResources().getDisplayMetrics().density)), seasonColor);
-        myView.pageHolder.setBackground(pageBorder);
+        pageBorder.setStroke(Math.max(1, Math.round(3 * density)), seasonColor);
+        myView.pageHolder.setBackground(new InsetDrawable(pageBorder, borderInset));
 
         if (mainActivityInterface.getSong().getFiletype()==null) {
             mainActivityInterface.getSong().setFiletype(mainActivityInterface.getStorageAccess().tryToFixFileTypeFromNull(mainActivityInterface.getSong().getFilename()));
@@ -1088,6 +1101,56 @@ public class PerformanceFragment extends Fragment {
         myView.getRoot().post(this::setUpHeaderListener);
     }
 
+    private void setPageContentMargins(int inset) {
+        setViewMargins(myView.songSheetTitle, inset, inset, inset, 0);
+        setViewMargins(myView.songView, inset, 0, inset, 0);
+    }
+
+    private void setViewMargins(View view, int start, int top, int end, int bottom) {
+        ViewGroup.LayoutParams params = view.getLayoutParams();
+        if (params instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) params;
+            marginParams.setMargins(start, top, end, bottom);
+            view.setLayoutParams(marginParams);
+        }
+    }
+
+    private void expandPageToRenderedLyrics() {
+        if (myView == null || mainActivityInterface.getSectionViews() == null ||
+                mainActivityInterface.getSectionViews().isEmpty()) {
+            return;
+        }
+
+        int[] pageLocation = new int[2];
+        myView.pageHolder.getLocationOnScreen(pageLocation);
+        float renderedContentBottom = 0;
+        for (View sectionView : mainActivityInterface.getSectionViews()) {
+            if (sectionView.getWidth() <= 0 || sectionView.getHeight() <= 0) {
+                continue;
+            }
+            Matrix matrix = new Matrix();
+            sectionView.transformMatrixToGlobal(matrix);
+            RectF sectionBounds = new RectF(0, 0, sectionView.getWidth(), sectionView.getHeight());
+            matrix.mapRect(sectionBounds);
+            renderedContentBottom = Math.max(renderedContentBottom, sectionBounds.bottom - pageLocation[1]);
+        }
+
+        int requiredHeight = Math.max(availableHeight,
+                (int) Math.ceil(renderedContentBottom) + pageContentInset);
+        ViewGroup.LayoutParams pageParams = myView.pageHolder.getLayoutParams();
+        if (requiredHeight > pageParams.height) {
+            int additionalHeight = requiredHeight - pageParams.height;
+            pageParams.height = requiredHeight;
+            myView.pageHolder.setLayoutParams(pageParams);
+
+            ViewGroup.LayoutParams songParams = myView.songView.getLayoutParams();
+            songParams.height += additionalHeight;
+            myView.songView.setLayoutParams(songParams);
+
+            myView.zoomLayout.setSongSize(pageParams.width, requiredHeight);
+        }
+    }
+
     private void setUpHeaderListener() {
         try {
             // If we want headers, the header layout isn't null, so we can draw and listen
@@ -1111,6 +1174,7 @@ public class PerformanceFragment extends Fragment {
                             mainActivityInterface.getStorageAccess().updateCrashLog(e.toString());
                         }
                     }
+
                 });
                 try {
                     if (myView!=null) {
@@ -1308,12 +1372,13 @@ public class PerformanceFragment extends Fragment {
                     myView.pageHolder.getLayoutParams().width = availableWidth;
                     myView.pageHolder.getLayoutParams().height = availableHeight;
 
+                    int contentWidth = Math.max(1, availableWidth - 2 * pageContentInset);
                     float[] scaleInfo = mainActivityInterface.getProcessSong().addViewsToScreen(
                             mainActivityInterface.getSong(),
                             mainActivityInterface.getSectionViews(),
                             mainActivityInterface.getSectionWidths(), mainActivityInterface.getSectionHeights(),
                             myView.pageHolder, myView.songView, myView.songSheetTitle,
-                            availableWidth, availableHeight, myView.songView.getCol1(), myView.songView.getCol2(),
+                            contentWidth, availableHeight, myView.songView.getCol1(), myView.songView.getCol2(),
                             myView.songView.getCol3(), false, getResources().getDisplayMetrics(), true);
 
                     // Determine how many columns are scaled
@@ -1329,7 +1394,8 @@ public class PerformanceFragment extends Fragment {
                         heightBeforeScale = (int) scaleInfo[3];
                         widthAfterScale = (int) (widthBeforeScale * scaleFactor);
                         heightAfterScale = (int) (heightBeforeScale * scaleFactor);
-                        myView.pageHolder.getLayoutParams().width = widthAfterScale;
+                        myView.pageHolder.getLayoutParams().width = Math.max(availableWidth,
+                                widthAfterScale + 2 * pageContentInset);
                     } else if (scaleInfo[0] == 2) {
                     /*float[]{2,             // Number of columns
                     1    twoColumnScale,     // Overall best scale
@@ -1342,12 +1408,12 @@ public class PerformanceFragment extends Fragment {
                     8    col2_2Height,       // Column 2 total height
                     9    sectionSpace}       // Section space per view except last column */
                         scaleFactor = Math.max(scaleInfo[3], scaleInfo[6]);
-                        widthBeforeScale = availableWidth;
+                        widthBeforeScale = contentWidth;
                         heightBeforeScale = (int) Math.max(scaleInfo[5], scaleInfo[8]);
-                        widthAfterScale = availableWidth;
+                        widthAfterScale = contentWidth;
                         heightAfterScale = (int) Math.max(scaleInfo[3] * scaleInfo[5], scaleInfo[6] * scaleInfo[8]);
                         myView.pageHolder.getLayoutParams().width = availableWidth;
-                        myView.songView.getLayoutParams().width = availableWidth;
+                        myView.songView.getLayoutParams().width = contentWidth;
                     } else if (scaleInfo[0] == 3) {
                     /*float[]{3,             // Number of columns
                     1    threeColumnScale,   // Overall best scale
@@ -1363,17 +1429,17 @@ public class PerformanceFragment extends Fragment {
                     11   col3_3Width,        // Column 3 max width
                     12   col3_3Height,       // Column 3 total height
                     13   sectionSpace};      // Section space per view except last in column */
-                        widthBeforeScale = availableWidth;
+                        widthBeforeScale = contentWidth;
                         heightBeforeScale = (int) Math.max(scaleInfo[6], Math.max(scaleInfo[9], scaleInfo[12]));
-                        widthAfterScale = availableWidth;
+                        widthAfterScale = contentWidth;
                         scaleFactor = Math.max(scaleInfo[4], Math.max(scaleInfo[7], scaleInfo[10]));
                         heightAfterScale = (int) Math.max(scaleInfo[4] * scaleInfo[6], Math.max(scaleInfo[7] * scaleInfo[9], scaleInfo[10] * scaleInfo[12]));
                         myView.pageHolder.getLayoutParams().width = availableWidth;
-                        myView.songView.getLayoutParams().width = availableWidth;
+                        myView.songView.getLayoutParams().width = contentWidth;
                     }
 
                     heightAfterScale = heightAfterScale + myView.songSheetTitle.getHeight();
-                    int framedWidth = Math.max(availableWidth, widthAfterScale);
+                    int framedWidth = Math.max(availableWidth, widthAfterScale + 2 * pageContentInset);
                     int framedHeight = Math.max(availableHeight, heightAfterScale);
                     myView.pageHolder.getLayoutParams().width = framedWidth;
                     myView.pageHolder.getLayoutParams().height = framedHeight;
@@ -1398,6 +1464,7 @@ public class PerformanceFragment extends Fragment {
                                 myView.pageHolder.requestLayout();
                                 myView.pageHolder.setVisibility(View.VISIBLE);
                                 myView.pageHolder.startAnimation(animSlideIn);
+                                myView.pageHolder.post(this::expandPageToRenderedLyrics);
 
                                 dealWithStuffAfterReady(false);
 
