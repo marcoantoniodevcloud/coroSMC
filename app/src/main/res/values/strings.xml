@@ -437,6 +437,14 @@
     <string name="database_export_info">Export the database as a CSV file that can be opened and viewed using Spreadsheet software</string>
     <string name="database_management">Database management</string>
     <string name="database_management_info">Options to help you manage your persistent app database (for PDF/image files) and export the information in your song databases to spreadsheets</string>
+    <string name="batch_ocr">OCR all PDF/image songs</string>
+    <string name="batch_ocr_info">Extract text from PDF and image files that do not already have an OpenSong text companion</string>
+    <string name="batch_ocr_confirm_title">Batch OCR</string>
+    <string name="batch_ocr_confirm_message">This will process every page of each PDF and every image without a matching XML file. Existing XML companions are skipped and originals are preserved. OCR results may need manual correction; a multi-song PDF will produce one text file for the whole PDF.</string>
+    <string name="batch_ocr_running">Recognizing text</string>
+    <string name="batch_ocr_result_title">Batch OCR complete</string>
+    <string name="batch_ocr_result_summary">Created: %1$d\nSkipped (text already exists): %2$d\nFailed or empty: %3$d</string>
+    <string name="batch_ocr_no_files">No PDF or image files need OCR</string>
     <string name="date">Date</string>
     <string name="dec_autoscroll_speed">Decrease Autoscroll Speed</string>
     <string name="decrease">Decrease</string>
@@ -521,6 +529,8 @@
     <string name="default_autoscroll">Default autoscroll times</string>
     <string name="default_metronome_info">Use default values for tempo (100bpm) and time signature (4/4) if they have not been set for the song</string>
     <string name="default_presentation_text">Include default presentation text</string>
+    <string name="default_songs_installing">Installing the included song library</string>
+    <string name="default_songs_install_failed">Unable to install the bundled song library</string>
     <string name="delay">Delay</string>
     <string name="delete">Delete</string>
     <string name="delete_folder_info">Delete song subdirectory</string>
@@ -1397,6 +1407,7 @@
     <string name="show_chords_info">Display chords found in the song</string>
     <string name="show_logo">Show logo</string>
     <string name="show_lyrics">Show lyrics</string>
+    <string name="show_media_reference">Show image/PDF</string>
     <string name="show_lyrics_info">Display lyrics found in the song</string>
     <string name="show_next_in_set">Show next song in set</string>
     <string name="show_next_line_preview">Show next line preview</string>

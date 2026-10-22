@@ -1,5 +1,7 @@
 package com.garethevans.church.opensongtablet.songmenu;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +19,8 @@ import com.garethevans.church.opensongtablet.customviews.BottomSheetCommon;
 import com.garethevans.church.opensongtablet.customviews.MyMaterialSimpleTextView;
 import com.garethevans.church.opensongtablet.databinding.BottomSheetMenuSongsBinding;
 import com.garethevans.church.opensongtablet.interfaces.MainActivityInterface;
+
+import java.util.ArrayList;
 
 public class SongMenuBottomSheet extends BottomSheetCommon {
 
@@ -174,6 +178,80 @@ public class SongMenuBottomSheet extends BottomSheetCommon {
             analyticsBottomSheet.show(mainActivityInterface.getMyFragmentManager(), "AnalyticsBottomSheet");
             dismiss();
         });
+        myView.batchOCR.setOnClickListener(v -> confirmBatchOCR());
+    }
+
+    private void confirmBatchOCR() {
+        ArrayList<String> mediaFiles = new ArrayList<>();
+        for (String songId : mainActivityInterface.getStorageAccess().listSongs(false)) {
+            if (songId != null && !songId.endsWith("/") &&
+                    mainActivityInterface.getStorageAccess().isSpecificFileExtension(
+                            "imageorpdf", songId.substring(songId.lastIndexOf('/') + 1))) {
+                mediaFiles.add(songId);
+            }
+        }
+
+        if (mediaFiles.isEmpty()) {
+            new AlertDialog.Builder(requireContext())
+                    .setMessage(R.string.batch_ocr_no_files)
+                    .setPositiveButton(android.R.string.ok, null)
+                    .show();
+            return;
+        }
+
+        new AlertDialog.Builder(requireContext())
+                .setTitle(R.string.batch_ocr_confirm_title)
+                .setMessage(R.string.batch_ocr_confirm_message)
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(R.string.batch_ocr, (dialog, which) -> {
+                    runBatchOCR(mediaFiles, requireContext());
+                })
+                .show();
+    }
+
+    private void runBatchOCR(ArrayList<String> mediaFiles, Context context) {
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setTitle(R.string.batch_ocr_running);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(false);
+        progressDialog.setProgress(0);
+        progressDialog.show();
+
+        mainActivityInterface.getOCR().startBatchOCR(mediaFiles,
+                new com.garethevans.church.opensongtablet.pdf.OCR.BatchOCRListener() {
+                    @Override
+                    public void onProgress(int completed, int total, String filename) {
+                        progressDialog.setMax(total);
+                        progressDialog.setProgress(completed - 1);
+                        progressDialog.setMessage(filename);
+                    }
+
+                    @Override
+                    public void onComplete(int succeeded, int skipped, int failed, ArrayList<String> errors) {
+                        if (progressDialog.isShowing()) {
+                            progressDialog.setProgress(progressDialog.getMax());
+                            progressDialog.dismiss();
+                        }
+                        StringBuilder summary = new StringBuilder(getString(
+                                R.string.batch_ocr_result_summary, succeeded, skipped, failed));
+                        if (!errors.isEmpty()) {
+                            summary.append("\n\n");
+                            int errorLimit = Math.min(errors.size(), 8);
+                            for (int i = 0; i < errorLimit; i++) {
+                                summary.append(errors.get(i)).append('\n');
+                            }
+                            if (errors.size() > errorLimit) {
+                                summary.append("...");
+                            }
+                        }
+                        new AlertDialog.Builder(context)
+                                .setTitle(R.string.batch_ocr_result_title)
+                                .setMessage(summary.toString())
+                                .setPositiveButton(android.R.string.ok, (dialog, which) -> dismiss())
+                                .show();
+                    }
+                });
     }
 
 

@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.garethevans.church.opensongtablet.R;
+import com.garethevans.church.opensongtablet.filemanagement.DefaultSongsInstaller;
 import com.garethevans.church.opensongtablet.databinding.BootupLogoBinding;
 import com.garethevans.church.opensongtablet.interfaces.MainActivityInterface;
 import com.garethevans.church.opensongtablet.songprocessing.Song;
@@ -158,9 +159,11 @@ public class BootUpFragment extends Fragment {
     }
 
     public void startBootProcess(boolean needIndex, boolean fullIndexRequired) {
+        final boolean[] indexing = {needIndex, fullIndexRequired};
         mainActivityInterface.getSongListBuildIndex().setIndexRequired(needIndex);
         mainActivityInterface.getSongListBuildIndex().setFullIndexRequired(fullIndexRequired);
         mainActivityInterface.getSongListBuildIndex().setCurrentlyIndexing(false);
+        Context appContext = requireContext().getApplicationContext();
 
         // Start the boot process
         if (getContext() != null) {
@@ -191,6 +194,25 @@ public class BootUpFragment extends Fragment {
                 boolean foldersok = !progress.contains("Error");
 
                 if (foldersok) {
+                    message = getString(R.string.default_songs_installing);
+                    updateMessage();
+                    DefaultSongsInstaller defaultSongsInstaller =
+                            new DefaultSongsInstaller(appContext, mainActivityInterface);
+                    String defaultSongsError = defaultSongsInstaller.installIfNeeded();
+                    if (defaultSongsError != null) {
+                        Log.e(TAG, "Bundled song library installation failed: " + defaultSongsError);
+                        mainActivityInterface.getMainHandler().post(() ->
+                                mainActivityInterface.getShowToast().doIt(
+                                        getString(R.string.default_songs_install_failed) + ": " + defaultSongsError));
+                        return;
+                    }
+                    if (defaultSongsInstaller.wasInstalled()) {
+                        indexing[0] = true;
+                        indexing[1] = true;
+                        mainActivityInterface.getSongListBuildIndex().setIndexRequired(true);
+                        mainActivityInterface.getSongListBuildIndex().setFullIndexRequired(true);
+                    }
+
                     // Build the basic song index by scanning the songs and creating a songIDs file
                     if (getContext() != null) {
                         message = processing + "\n" + wait;
@@ -199,7 +221,7 @@ public class BootUpFragment extends Fragment {
                     }
                     updateMessage();
 
-                    if (needIndex || fullIndexRequired) {
+                    if (indexing[0] || indexing[1]) {
                         mainActivityInterface.getSongListBuildIndex().buildBasicFromFiles();
                     }
 
@@ -214,7 +236,7 @@ public class BootUpFragment extends Fragment {
                     message = success;
                     updateMessage();
 
-                    if (needIndex) {
+                    if (indexing[0]) {
                         // We want to rebuild the index, either fully or quickly
                         mainActivityInterface.getSongListBuildIndex().setIndexComplete(false);
                         mainActivityInterface.getPreferences().setMyPreferenceBoolean("indexSkipAllowed", false);

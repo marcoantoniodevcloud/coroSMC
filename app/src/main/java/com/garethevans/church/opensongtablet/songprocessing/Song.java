@@ -66,6 +66,7 @@ public class Song implements Serializable {
     private String presentationorder="";
     private boolean hasExtraStuff;
     private String filetype="XML";
+    private boolean showMediaReference;
     private int detectedChordFormat=1;
     private int desiredChordFormat=1;
     private String encoding="UTF-8";
@@ -194,6 +195,18 @@ public class Song implements Serializable {
     public String getLinkother() {return linkother;}
     public String getPresentationorder() {return presentationorder;}
     public String getFiletype() {return filetype;}
+    public boolean getShowMediaReference() {return showMediaReference;}
+    public boolean hasMediaReference() {
+        return ("PDF".equals(filetype) || "IMG".equals(filetype)) &&
+                lyrics != null && !lyrics.trim().isEmpty();
+    }
+    public boolean shouldShowLyrics() {
+        return "XML".equals(filetype) || (hasMediaReference() && !showMediaReference);
+    }
+    public boolean shouldShowMediaReference() {
+        return ("PDF".equals(filetype) || "IMG".equals(filetype)) &&
+                (!hasMediaReference() || showMediaReference);
+    }
     public ArrayList<String> getSongSections() {
         if (songSections!=null) {
             return songSections;
@@ -378,6 +391,9 @@ public class Song implements Serializable {
         this.hasExtraStuff = hasExtraStuff;
     }
     public void setFiletype(String filetype) {this.filetype = filetype;}
+    public void setShowMediaReference(boolean showMediaReference) {
+        this.showMediaReference = showMediaReference;
+    }
     public void setSongSections(ArrayList<String> songSections) {
         this.songSections = songSections;
     }
@@ -500,6 +516,7 @@ public class Song implements Serializable {
         this.linkother = toCopy.linkother;
         this.hasExtraStuff = toCopy.hasExtraStuff;
         this.filetype = toCopy.filetype;
+        this.showMediaReference = toCopy.showMediaReference;
         this.detectedChordFormat = toCopy.detectedChordFormat;
         this.desiredChordFormat = toCopy.desiredChordFormat;
         this.encoding = toCopy.encoding;

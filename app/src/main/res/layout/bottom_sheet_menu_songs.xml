@@ -147,6 +147,18 @@
                 android:layout_height="wrap_content"/>
 
             <com.garethevans.church.opensongtablet.customviews.MyMaterialTextView
+                android:id="@+id/batchOCR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/batch_ocr_info"
+                android:padding="16dp"
+                android:text="@string/batch_ocr"
+                app:mydrawable="@drawable/ocr" />
+            <com.garethevans.church.opensongtablet.customviews.MyDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.garethevans.church.opensongtablet.customviews.MyMaterialTextView
                 android:id="@+id/rebuildIndexFull"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -905,7 +905,8 @@ public class PerformanceGestures {
             if (mainActivityInterface.getMode().equals(c.getString(R.string.mode_stage)) ||
                     mainActivityInterface.getMode().equals(c.getString(R.string.mode_hybrid))) {
                 int currentPos, finalPos;
-                if (mainActivityInterface.getSong().getFiletype().equals("PDF")) {
+                if (mainActivityInterface.getSong().shouldShowMediaReference() &&
+                        mainActivityInterface.getSong().getFiletype().equals("PDF")) {
                     currentPos = mainActivityInterface.getSong().getPdfPageCurrent();
                     finalPos = mainActivityInterface.getSong().getPdfPageCount() - 1;
                 } else {
@@ -930,7 +931,8 @@ public class PerformanceGestures {
             }
         } else if (presenterRecyclerView != null) {
             int currentPos, finalPos;
-            if (mainActivityInterface.getSong().getFiletype().equals("PDF")) {
+            if (mainActivityInterface.getSong().shouldShowMediaReference() &&
+                    mainActivityInterface.getSong().getFiletype().equals("PDF")) {
                 currentPos = mainActivityInterface.getSong().getPdfPageCurrent();
                 finalPos = mainActivityInterface.getSong().getPdfPageCount() - 1;
             } else {
@@ -955,7 +957,8 @@ public class PerformanceGestures {
             if (mainActivityInterface.getSong().getFiletype()==null) {
                 mainActivityInterface.getSong().setFiletype(mainActivityInterface.getStorageAccess().tryToFixFileTypeFromNull(mainActivityInterface.getSong().getFilename()));
             }
-            if (mainActivityInterface.getSong().getFiletype().equals("PDF")) {
+            if (mainActivityInterface.getSong().shouldShowMediaReference() &&
+                    mainActivityInterface.getSong().getFiletype().equals("PDF")) {
                 mainActivityInterface.getSong().setPdfPageCurrent(newPosition);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
                         presenterRecyclerView.getAdapter() != null &&
@@ -973,7 +976,8 @@ public class PerformanceGestures {
                 recyclerView != null && recyclerView.getVisibility() == View.VISIBLE) {
             int newPosition = getPosition(scrollDown);
 
-            if (mainActivityInterface.getSong().getFiletype().equals("PDF")) {
+            if (mainActivityInterface.getSong().shouldShowMediaReference() &&
+                    mainActivityInterface.getSong().getFiletype().equals("PDF")) {
                 mainActivityInterface.getSong().setPdfPageCurrent(newPosition);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
                         recyclerView.getAdapter() != null) {
@@ -1039,7 +1043,8 @@ public class PerformanceGestures {
             mainActivityInterface.getSong().setFiletype(mainActivityInterface.getStorageAccess().tryToFixFileTypeFromNull(mainActivityInterface.getSong().getFilename()));
         }
 
-        if (mainActivityInterface.getSong().getFiletype().equals("PDF")) {
+        if (mainActivityInterface.getSong().shouldShowMediaReference() &&
+                mainActivityInterface.getSong().getFiletype().equals("PDF")) {
             currentPosition = mainActivityInterface.getSong().getPdfPageCurrent();
             finalPosition = mainActivityInterface.getSong().getPdfPageCount() - 1;
         }
@@ -1232,7 +1237,8 @@ public class PerformanceGestures {
             mainActivityInterface.getSong().setFiletype(mainActivityInterface.getStorageAccess().tryToFixFileTypeFromNull(mainActivityInterface.getSong().getFilename()));
         }
 
-        if (ifPDFAndAllowed() || !mainActivityInterface.getSong().getFiletype().equals("PDF")) {
+        if (ifPDFAndAllowed() || !mainActivityInterface.getSong().shouldShowMediaReference() ||
+                !mainActivityInterface.getSong().getFiletype().equals("PDF")) {
             actionInterface.navigateToFragment(c.getString(R.string.deeplink_highlighter), 0);
         }
     }
@@ -1699,7 +1705,8 @@ public class PerformanceGestures {
             mainActivityInterface.getSong().setFiletype(mainActivityInterface.getStorageAccess().tryToFixFileTypeFromNull(mainActivityInterface.getSong().getFilename()));
         }
 
-        if (mainActivityInterface.getSong().getFiletype().equals("PDF")) {
+        if (mainActivityInterface.getSong().shouldShowMediaReference() &&
+                mainActivityInterface.getSong().getFiletype().equals("PDF")) {
             if (ifPDFAllowed()) {
                 return true;
             } else {

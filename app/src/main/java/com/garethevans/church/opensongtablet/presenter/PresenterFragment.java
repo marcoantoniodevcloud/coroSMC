@@ -23,6 +23,7 @@ import com.garethevans.church.opensongtablet.customviews.MyMaterialSwitch;
 import com.garethevans.church.opensongtablet.databinding.ModePresenterBinding;
 import com.garethevans.church.opensongtablet.interfaces.DisplayInterface;
 import com.garethevans.church.opensongtablet.interfaces.MainActivityInterface;
+import com.garethevans.church.opensongtablet.songprocessing.Song;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
@@ -268,6 +269,13 @@ public class PresenterFragment extends Fragment {
     }
 
     public void doSongLoad(String folder, String filename) {
+        Song currentSong = mainActivityInterface.getSong();
+        if (currentSong != null &&
+                (!java.util.Objects.equals(currentSong.getFolder(), folder) ||
+                        !java.util.Objects.equals(currentSong.getFilename(), filename))) {
+            currentSong.setShowMediaReference(false);
+        }
+
         Log.d(TAG,"doSongLoad("+folder+","+filename+")");
         // Check to highlighting in the set
         mainActivityInterface.checkSetMenuItemHighlighted(mainActivityInterface.getCurrentSet().getPrevIndexSongInSet());
@@ -304,6 +312,7 @@ public class PresenterFragment extends Fragment {
         }
 
         if (mainActivityInterface.getSong()!=null && mainActivityInterface.getSong().getFiletype()!=null &&
+                mainActivityInterface.getSong().shouldShowMediaReference() &&
                 mainActivityInterface.getSong().getFiletype().equals("PDF")) {
             mainActivityInterface.getSong().setPdfPageCurrent(0);
         } else {

@@ -1750,6 +1750,50 @@ public class StorageAccess {
             return deleteFile_File(uri);
         }
     }
+    public boolean deleteFolder(String folder, String subfolder) {
+        Uri uri = getUriForItem(folder, subfolder, "");
+        if (uri == null) {
+            return false;
+        }
+        if (lollipopOrLater()) {
+            DocumentFile directory = DocumentFile.fromTreeUri(c, uri);
+            return directory != null && (!directory.exists() ||
+                    (directory.isDirectory() && deleteDirectory(directory)));
+        }
+
+        if (uri.getPath() == null) {
+            return false;
+        }
+        File directory = new File(uri.getPath());
+        return !directory.exists() || (directory.isDirectory() && deleteDirectory(directory));
+    }
+
+    private boolean deleteDirectory(DocumentFile directory) {
+        boolean deletedContents = true;
+        for (DocumentFile child : directory.listFiles()) {
+            if (child.isDirectory()) {
+                deletedContents &= deleteDirectory(child);
+            } else {
+                deletedContents &= child.delete();
+            }
+        }
+        return deletedContents && directory.delete();
+    }
+
+    private boolean deleteDirectory(File directory) {
+        File[] children = directory.listFiles();
+        if (children == null) {
+            return false;
+        }
+        for (File child : children) {
+            boolean deleted = child.isDirectory() ? deleteDirectory(child) : child.delete();
+            if (!deleted) {
+                return false;
+            }
+        }
+        return directory.delete();
+    }
+
     private boolean deleteFile_SAF(Uri uri) {
         try {
             DocumentFile df = DocumentFile.fromTreeUri(c, uri);
@@ -2280,6 +2324,7 @@ public class StorageAccess {
     }
 
     public boolean badFileExtension(String filename) {
+        String originalFilename = filename;
         filename = filename.toLowerCase();
         // Check for ".xxx" or ".xxxx" extension that isn't wanted
         if (filename.contains(".") &&
@@ -2291,6 +2336,21 @@ public class StorageAccess {
                 !filename.endsWith(".xml")) {
             updateFileActivityLog("BAD file:"+filename+" should not be in an OpenSong song folder - please move it as soon as possible!");
             return true;
+        }
+        return filename.endsWith(".xml") && isMediaCompanionXml(originalFilename);
+    }
+
+    private boolean isMediaCompanionXml(String relativeFilename) {
+        int separator = relativeFilename.lastIndexOf('/');
+        String folder = separator < 0 ? "" : relativeFilename.substring(0, separator);
+        String filename = separator < 0 ? relativeFilename : relativeFilename.substring(separator + 1);
+        String baseName = filename.substring(0, filename.length() - ".xml".length());
+        String[] mediaExtensions = {".pdf", ".jpg", ".jpeg", ".png", ".gif", ".bmp"};
+        for (String extension : mediaExtensions) {
+            Uri mediaUri = getUriForItem("Songs", folder, baseName + extension);
+            if (uriExists(mediaUri)) {
+                return true;
+            }
         }
         return false;
     }

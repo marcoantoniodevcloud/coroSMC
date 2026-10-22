@@ -920,7 +920,7 @@ public class SecondaryDisplay extends Presentation {
             mainActivityInterface.getSong().setFiletype(mainActivityInterface.getStorageAccess().tryToFixFileTypeFromNull(mainActivityInterface.getSong().getFilename()));
         }
 
-        if (mainActivityInterface.getSong().getFiletype().equals("XML") &&
+        if (mainActivityInterface.getSong().shouldShowLyrics() &&
         !mainActivityInterface.getSong().getFolder().contains("**Image") &&
         !mainActivityInterface.getSong().getFolder().contains("**"+c.getString(R.string.image))) {
             setSectionViews();
@@ -1089,8 +1089,7 @@ public class SecondaryDisplay extends Presentation {
 
             if ((mainActivityInterface.getMode().equals(c.getString(R.string.mode_performance)) ||
                     mainActivityInterface.getMode().equals(c.getString(R.string.mode_hybrid))) &&
-                    !mainActivityInterface.getSong().getFiletype().equals("IMG") &&
-                    !mainActivityInterface.getSong().getFiletype().equals("PDF")) {
+                    !mainActivityInterface.getSong().shouldShowMediaReference()) {
                 mainActivityInterface.getMainHandler().postDelayed(() -> {
                     viewsAreReady();
                     showAllSections();
@@ -1104,8 +1103,10 @@ public class SecondaryDisplay extends Presentation {
                     boolean stageOk = mainActivityInterface.getMode().equals(c.getString(R.string.mode_stage));
                     boolean presenterOk = mainActivityInterface.getMode().equals(c.getString(R.string.mode_presenter)) &&
                             mainActivityInterface.getPresenterSettings().getSongSectionsAdapter() != null;
-                    boolean image = mainActivityInterface.getSong().getFiletype().equals("IMG");
-                    boolean pdf = mainActivityInterface.getSong().getFiletype().equals("PDF");
+                    boolean image = mainActivityInterface.getSong().shouldShowMediaReference() &&
+                            mainActivityInterface.getSong().getFiletype().equals("IMG");
+                    boolean pdf = mainActivityInterface.getSong().shouldShowMediaReference() &&
+                            mainActivityInterface.getSong().getFiletype().equals("PDF");
                     boolean imageslide = mainActivityInterface.getSong().getFolder().contains("**Image");
                     int viewsAvailable;
                     if (image) {

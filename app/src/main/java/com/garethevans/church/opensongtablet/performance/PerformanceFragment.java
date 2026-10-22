@@ -469,6 +469,13 @@ public class PerformanceFragment extends Fragment {
 
     // This stuff loads the song and prepares the views
     public void doSongLoad(String folder, String filename) {
+        Song currentSong = mainActivityInterface.getSong();
+        if (currentSong != null &&
+                (!java.util.Objects.equals(currentSong.getFolder(), folder) ||
+                        !java.util.Objects.equals(currentSong.getFilename(), filename))) {
+            currentSong.setShowMediaReference(false);
+        }
+
         // IV - Set a boolean indicating song change
         songChange = !mainActivityInterface.getSong().getFilename().equals(filename) ||
                 !mainActivityInterface.getSong().getFolder().equals(folder) ||
@@ -659,6 +666,7 @@ public class PerformanceFragment extends Fragment {
                                 myView.pageHolder.setPadding(0, 0, 0, 0);
                                 pageContentInset = 0;
                                 setPageContentMargins(0);
+                                updateMediaReferenceToggle();
                                 // Update the toolbar with the song detail (null).
                                 mainActivityInterface.updateToolbar(null);
                             }
@@ -850,7 +858,10 @@ public class PerformanceFragment extends Fragment {
                     mainActivityInterface.getSong().getFiletype() != null &&
                     mainActivityInterface.getSong().getFolder() != null) {
 
-                if (mainActivityInterface.getSong().getFiletype().equals("PDF") &&
+                if (mainActivityInterface.getSong().shouldShowLyrics()) {
+                    prepareXMLView();
+
+                } else if (mainActivityInterface.getSong().getFiletype().equals("PDF") &&
                         android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     preparePDFView();
 
@@ -1065,7 +1076,8 @@ public class PerformanceFragment extends Fragment {
             mainActivityInterface.getSong().setFiletype(mainActivityInterface.getStorageAccess().tryToFixFileTypeFromNull(mainActivityInterface.getSong().getFilename()));
         }
         // If we are old Android and can't show a pdf, tell the user
-        if (mainActivityInterface.getSong().getFiletype().equals("PDF") &&
+        if (mainActivityInterface.getSong().shouldShowMediaReference() &&
+                mainActivityInterface.getSong().getFiletype().equals("PDF") &&
                 android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP) {
             mainActivityInterface.getShowToast().doIt(not_allowed);
         }
@@ -1276,6 +1288,7 @@ public class PerformanceFragment extends Fragment {
                             mainActivityInterface.getSong().setFiletype(mainActivityInterface.getStorageAccess().tryToFixFileTypeFromNull(mainActivityInterface.getSong().getFilename()));
                         }
                         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP &&
+                                mainActivityInterface.getSong().shouldShowMediaReference() &&
                                 mainActivityInterface.getSong().getFiletype().equals("PDF")) {
                             pdfPageAdapter = new PDFPageAdapter(getContext(), mainActivityInterface,
                                     displayInterface, availableWidth, availableHeight, myView.inlineSetList.getInlineSetWidth());
@@ -1292,12 +1305,13 @@ public class PerformanceFragment extends Fragment {
                                 myView.recyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
                                 if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP &&
+                                        mainActivityInterface.getSong().shouldShowMediaReference() &&
                                         mainActivityInterface.getSong().getFiletype().equals("PDF")) {
                                     widthBeforeScale = pdfPageAdapter.getWidth();
                                     widthAfterScale = widthBeforeScale;
                                     heightBeforeScale = pdfPageAdapter.getHeight();
                                     heightAfterScale = heightBeforeScale;
-                                    recyclerLayoutManager.setSizes(stageSectionAdapter.getWidths(), pdfPageAdapter.getHeights(), availableWidth, availableHeight, 1f);
+                                    recyclerLayoutManager.setSizes(pdfPageAdapter.getWidths(), pdfPageAdapter.getHeights(), availableWidth, availableHeight, 1f);
                                 } else {
                                     widthBeforeScale = stageSectionAdapter.getWidth();
                                     widthAfterScale = widthBeforeScale;
@@ -1334,9 +1348,11 @@ public class PerformanceFragment extends Fragment {
                     myView.recyclerView.post(() -> {
                         try {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+                                    mainActivityInterface.getSong().shouldShowMediaReference() &&
                                     mainActivityInterface.getSong().getFiletype().equals("PDF")) {
                                 myView.recyclerView.setAdapter(pdfPageAdapter);
-                            } else if (!mainActivityInterface.getSong().getFiletype().equals("PDF")) {
+                            } else if (!mainActivityInterface.getSong().shouldShowMediaReference() ||
+                                    !mainActivityInterface.getSong().getFiletype().equals("PDF")) {
                                 myView.recyclerView.setAdapter(stageSectionAdapter);
                             }
                         } catch (Exception e) {
@@ -1475,6 +1491,25 @@ public class PerformanceFragment extends Fragment {
         }
     }
 
+    private void updateMediaReferenceToggle() {
+        if (myView == null) {
+            return;
+        }
+        boolean available = mainActivityInterface.getSong().hasMediaReference() &&
+                (!mainActivityInterface.getSong().getFiletype().equals("PDF") ||
+                        Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
+        myView.mediaReferenceToggle.setVisibility(available ? View.VISIBLE : View.GONE);
+        if (available) {
+            myView.mediaReferenceToggle.setText(mainActivityInterface.getSong().shouldShowMediaReference()
+                    ? R.string.show_lyrics : R.string.show_media_reference);
+            myView.mediaReferenceToggle.setOnClickListener(view -> {
+                Song song = mainActivityInterface.getSong();
+                song.setShowMediaReference(!song.getShowMediaReference());
+                doSongLoad(song.getFolder(), song.getFilename());
+            });
+        }
+    }
+
     private void endProcessing () {
         // Set the load status to the song (used to enable nearby section change  listener)
         mainActivityInterface.getSong().setCurrentlyLoading(false);
@@ -1509,11 +1544,11 @@ public class PerformanceFragment extends Fragment {
             mainActivityInterface.getSong().setFiletype(mainActivityInterface.getStorageAccess().tryToFixFileTypeFromNull(mainActivityInterface.getSong().getFilename()));
         }
         if (mainActivityInterface.getMode().equals(mode_stage) &&
-                mainActivityInterface.getSong().getFiletype().equals("XML") &&
+                mainActivityInterface.getSong().shouldShowLyrics() &&
                 !mainActivityInterface.getSong().getFolder().contains("**Image") &&
                 !mainActivityInterface.getSong().getFolder().contains("**"+image_string)) {
             displayInterface.updateDisplay("setSongContent");
-        } else if (!mainActivityInterface.getSong().getFiletype().equals("XML") ||
+        } else if (mainActivityInterface.getSong().shouldShowMediaReference() ||
                 mainActivityInterface.getSong().getFolder().contains("**Image")) {
             mainActivityInterface.getPresenterSettings().setCurrentSection(0);
             displayInterface.updateDisplay("showSection");
@@ -1525,9 +1560,7 @@ public class PerformanceFragment extends Fragment {
         if (mainActivityInterface.getMode().equals(mode_performance) ||
                 mainActivityInterface.getMode().equals(mode_hybrid)) {
             // The highlighter is already part of the scaling if it isn't an xml
-            if (mainActivityInterface.getSong().getFiletype()==null ||
-                    mainActivityInterface.getSong().getFiletype().isEmpty() ||
-                    mainActivityInterface.getSong().getFiletype().equals("XML")) {
+            if (mainActivityInterface.getSong().shouldShowLyrics()) {
                 if (myView.inlineSetList!=null && myView.inlineSetList.getWidth()>0) {
                     int actualAvailableWidth = availableWidth + myView.inlineSetList.getWidth();
                     float rescale = (float) actualAvailableWidth / widthBeforeScale;
@@ -1991,7 +2024,8 @@ public class PerformanceFragment extends Fragment {
             if (mainActivityInterface.getSong().getFiletype()==null) {
                 mainActivityInterface.getSong().setFiletype(mainActivityInterface.getStorageAccess().tryToFixFileTypeFromNull(mainActivityInterface.getSong().getFilename()));
             }
-            if (mainActivityInterface.getSong().getFiletype().equals("PDF") &&
+            if (mainActivityInterface.getSong().shouldShowMediaReference() &&
+                    mainActivityInterface.getSong().getFiletype().equals("PDF") &&
                     Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
                     pdfPageAdapter!=null && pdfPageAdapter.getItemCount()>position && position>=0) {
                 pdfPageAdapter.sectionSelected(position);

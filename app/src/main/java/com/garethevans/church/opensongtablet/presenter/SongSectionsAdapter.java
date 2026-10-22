@@ -284,7 +284,8 @@ public class SongSectionsAdapter extends RecyclerView.Adapter<SongSectionViewHol
             mainActivityInterface.getSong().setFiletype(mainActivityInterface.getStorageAccess().tryToFixFileTypeFromNull(mainActivityInterface.getSong().getFilename()));
         }
 
-        if (mainActivityInterface.getSong().getFiletype().equals("PDF")) {
+        if (mainActivityInterface.getSong().shouldShowMediaReference() &&
+                mainActivityInterface.getSong().getFiletype().equals("PDF")) {
             mainActivityInterface.getSong().setPdfPageCurrent(thisPos);
         } else {
             mainActivityInterface.getSong().setCurrentSection(thisPos);

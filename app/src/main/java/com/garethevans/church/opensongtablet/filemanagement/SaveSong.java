@@ -157,6 +157,10 @@ public class SaveSong {
             if (!thisSong.getFiletype().equals("XML")) {
                 // If update fails (due to no existing row, a new one is created)
                 mainActivityInterface.getNonOpenSongSQLiteHelper().updateSong(thisSong);
+                if ((thisSong.getFiletype().equals("PDF") || thisSong.getFiletype().equals("IMG")) &&
+                        !saveXMLCompanion(thisSong)) {
+                    return false;
+                }
             }
 
             // Update the CCLI log if required
@@ -189,6 +193,25 @@ public class SaveSong {
             mainActivityInterface.getShowToast().doIt(c.getString(R.string.error_song_not_saved));
             return false; //Welcome song, so no saving!
         }
+    }
+
+    private boolean saveXMLCompanion(Song mediaSong) {
+        String filename = mediaSong.getFilename();
+        String baseName = filename.contains(".")
+                ? filename.substring(0, filename.lastIndexOf('.')) : filename;
+        String companionFilename = baseName + ".xml";
+        Uri companionUri = mainActivityInterface.getStorageAccess().getUriForItem(
+                "Songs", mediaSong.getFolder(), companionFilename);
+        if (!mainActivityInterface.getStorageAccess().uriExists(companionUri)) {
+            return true;
+        }
+
+        Song companionSong = new Song(mediaSong);
+        companionSong.setFilename(baseName);
+        companionSong.setFiletype("XML");
+        String xml = mainActivityInterface.getProcessSong().getXML(companionSong);
+        return xml != null && mainActivityInterface.getStorageAccess().writeFileFromString(
+                "Songs", mediaSong.getFolder(), companionFilename, xml, false);
     }
 
     public boolean checkNotWelcomeSong(Song thisSong) {

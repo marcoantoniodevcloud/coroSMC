@@ -13,3 +13,18 @@ To use (and install) this code, copy the git address (https://github.com/thebigg
 The master branch represents the stable version of the app (currently v5.6.0). This is not likely to be further updated. All new developments (v6+) are currently in the MaterialApp branch (this one!)
 
 Gareth Evans
+
+## Default song library and OCR
+
+Files under `app/src/main/assets/DefaultSongs` are installed into `Songs`,
+preserving the library's original category folders. On a library update, the
+previous managed `Songs/OpenSongLibrary` copy is removed and the song index is
+rebuilt. Other files in `Songs` are left untouched.
+
+The song menu's batch OCR action processes PDFs one page at a time and images
+without an XML companion. It preserves each source file and writes the
+recognized OpenSong XML beside it. A multi-song PDF produces one XML companion
+for the whole document, and OCR output should be reviewed and corrected.
+When a media file has a non-empty XML companion, its lyrics are shown by
+default. The Presenter and Performance screens provide a button to switch
+between the editable lyrics and the original image or PDF.

@@ -43,6 +43,7 @@ public class LoadSong {
         mainActivityInterface.setHighlightChangeAllowed(false);
 
         // Get the song folder/filename from the sent song object
+        boolean showMediaReference = thisSong.getShowMediaReference();
         String folder = thisSong.getFolder();
         String filename = thisSong.getFilename();
 
@@ -75,13 +76,17 @@ public class LoadSong {
                 (thisSong.getFiletype()!=null && (thisSong.getFiletype().equals("TXT") || thisSong.getFiletype().equals("CHO") || thisSong.getFiletype().equals("iOS")))) {
             // This is set to true once the index is completed, so we either haven't finished indexing
             // or this is a custom slide/note as identified by the folder (which aren't indexed)
-            return doLoadSongFile(thisSong, indexing);
+            thisSong = doLoadSongFile(thisSong, indexing);
+            thisSong.setShowMediaReference(showMediaReference && thisSong.hasMediaReference());
+            return thisSong;
         } else {
             if (thisSong.getFilename().equals("Welcome to OpenSongApp") || thisSong.getFilename().endsWith(c.getString(R.string.welcome))) {
                 return mainActivityInterface.getSong().showWelcomeSong(c, thisSong);
             } else {
                 thisSong = mainActivityInterface.getSQLiteHelper().getSpecificSong(
                         thisSong.getFolder(), thisSong.getFilename());
+                thisSong = loadXMLCompanion(thisSong);
+                thisSong.setShowMediaReference(showMediaReference && thisSong.hasMediaReference());
                 // IV - A Database song still needs cleaning -odd?
                 // Fix all the rogue code
                 if (thisSong.getLyrics()==null || thisSong.getLyrics().isEmpty()) {
@@ -246,6 +251,8 @@ public class LoadSong {
             thisSong = mainActivityInterface.getSQLiteHelper().getSpecificSong(thisSong.getFolder(),thisSong.getFilename());
         }
 
+        thisSong = loadXMLCompanion(thisSong);
+
         // Update the songLoadSuccess and references to the working file if it did work if we aren't indexing
         if (!indexing) {
             sortLoadingSuccessful(thisSong);
@@ -260,6 +267,44 @@ public class LoadSong {
         // Send the song back with all of its children populated!
         return thisSong;
     }
+
+    private Song loadXMLCompanion(Song mediaSong) {
+        if (mediaSong == null || mediaSong.getFilename() == null ||
+                mediaSong.getFiletype() == null ||
+                (!mediaSong.getFiletype().equals("PDF") && !mediaSong.getFiletype().equals("IMG"))) {
+            return mediaSong;
+        }
+
+        String mediaFilename = mediaSong.getFilename();
+        String baseName = mediaFilename.contains(".")
+                ? mediaFilename.substring(0, mediaFilename.lastIndexOf('.')) : mediaFilename;
+        String companionFilename = baseName + ".xml";
+        Uri companionUri = mainActivityInterface.getStorageAccess().getUriForItem(
+                "Songs", mediaSong.getFolder(), companionFilename);
+        if (!mainActivityInterface.getStorageAccess().uriExists(companionUri)) {
+            return mediaSong;
+        }
+
+        Song songWithText = new Song(mediaSong);
+        songWithText.setFilename(companionFilename);
+        songWithText.setFiletype("XML");
+        try {
+            songWithText = readFileAsXML(songWithText, "Songs", companionUri, "UTF-8");
+            if (songWithText.getLyrics() == null || songWithText.getLyrics().trim().isEmpty()) {
+                return mediaSong;
+            }
+            songWithText.setFilename(mediaFilename);
+            songWithText.setFolder(mediaSong.getFolder());
+            songWithText.setFiletype(mediaSong.getFiletype());
+            songWithText.setId(mediaSong.getId());
+            songWithText.setSongid(mediaSong.getSongid());
+            return songWithText;
+        } catch (Exception e) {
+            Log.e(TAG, "Unable to load text companion for " + mediaFilename, e);
+            return mediaSong;
+        }
+    }
+
 
     public Song changeTextBasedSongFile(Song thisSong, String where, ArrayList<String> fileExtensionsToRemove) {
         if (thisSong.getLyrics().contains("<lyrics>") && thisSong.getLyrics().contains("</lyrics>")) {

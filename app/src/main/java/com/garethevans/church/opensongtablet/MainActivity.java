@@ -5389,7 +5389,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
                                 case "contentAlignment":
                                 case "showSection":
-                                    if (song.getFiletype() != null && song.getFiletype().equals("PDF")) {
+                                    if (song.shouldShowMediaReference() && song.getFiletype() != null && song.getFiletype().equals("PDF")) {
                                         secondaryDisplay.showSection(song.getPdfPageCurrent());
                                     } else {
                                         secondaryDisplay.showSection(song.getCurrentSection());
@@ -5460,12 +5460,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     @Override
     public void presenterShowSection(int position) {
         int sections;
-        if ((song.getFiletype()!=null && song.getFiletype().equals("PDF")) || song.getFolder().contains("**Image")) {
+        if ((song.shouldShowMediaReference() && song.getFiletype()!=null && song.getFiletype().equals("PDF")) ||
+                song.getFolder().contains("**Image")) {
             sections = song.getPdfPageCount();
             if (position < sections) {
                 song.setPdfPageCurrent(position);
             }
-        } else if (song.getFiletype()!=null && song.getFiletype().equals("IMG")) {
+        } else if (song.shouldShowMediaReference() && song.getFiletype()!=null && song.getFiletype().equals("IMG")) {
             sections = 1;
             song.setPdfPageCount(0);
             song.setCurrentSection(0);

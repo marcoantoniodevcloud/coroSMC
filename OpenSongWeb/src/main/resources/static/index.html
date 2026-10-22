@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1e4c75">
+    <title>OpenSongWeb · Editor de canciones</title>
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="icon" href="/icons/opensongweb.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="app-shell">
+    <aside class="sidebar">
+        <div class="brand">
+            <img src="/icons/opensongweb.svg" alt="" class="brand-icon">
+            <div>
+                <strong>OpenSongWeb</strong>
+                <span>Editor CHORDPRO</span>
+            </div>
+        </div>
+        <button id="new-song" class="button button-primary new-song" type="button">＋ Nueva canción</button>
+        <label class="search-label" for="search-songs">Biblioteca</label>
+        <input id="search-songs" class="search-input" type="search" placeholder="Buscar canción o carpeta">
+        <div id="song-count" class="song-count">Cargando canciones…</div>
+        <nav id="song-list" class="song-list" aria-label="Canciones"></nav>
+        <a class="button button-secondary export-button" href="/api/export.zip">Descargar biblioteca ZIP</a>
+        <p class="sidebar-hint">El ZIP conserva tus carpetas y contiene archivos CHORDPRO .pro.</p>
+    </aside>
+
+    <main class="editor">
+        <header class="editor-header">
+            <div>
+                <p class="eyebrow">BIBLIOTECA LOCAL</p>
+                <h1 id="editor-heading">Nueva canción</h1>
+            </div>
+            <span class="format-pill">CHORDPRO</span>
+        </header>
+
+        <div id="message" class="message" role="status" aria-live="polite" hidden></div>
+
+        <form id="song-form">
+            <input id="song-id" type="hidden">
+            <div class="metadata-grid">
+                <label class="field field-title">
+                    <span>Título <b aria-hidden="true">*</b></span>
+                    <input id="song-title" name="title" maxlength="160" required placeholder="Nombre de la canción">
+                </label>
+                <label class="field">
+                    <span>Autor</span>
+                    <input id="song-author" name="author" maxlength="160" placeholder="Autor o compositor">
+                </label>
+                <label class="field">
+                    <span>Copyright / álbum</span>
+                    <input id="song-copyright" name="copyright" maxlength="160" placeholder="Opcional">
+                </label>
+                <label class="field">
+                    <span>Carpeta</span>
+                    <input id="song-folder" name="folder" maxlength="240" placeholder="Ej. Litúrgico/Adviento">
+                    <small>Usa / para crear subcarpetas. Déjalo vacío para la raíz.</small>
+                </label>
+            </div>
+
+            <label class="field lyrics-field" for="song-chordpro">
+                <span>Letra con acordes <b aria-hidden="true">*</b></span>
+                <small>Escribe los acordes entre corchetes, por ejemplo [G]Alabemos al Señor.</small>
+                <textarea id="song-chordpro" name="chordPro" required spellcheck="false"
+                          placeholder="[G]Escribe aquí la letra&#10;[C]Los acordes van [D]entre corchetes"></textarea>
+            </label>
+
+            <div class="editor-actions">
+                <button class="button button-primary" type="submit">Guardar canción</button>
+                <button id="delete-song" class="button button-danger" type="button" hidden>Eliminar</button>
+                <button id="reset-song" class="button button-quiet" type="button">Cancelar cambios</button>
+            </div>
+        </form>
+
+        <section class="preview-section" aria-labelledby="preview-heading">
+            <div class="preview-title">
+                <div>
+                    <p class="eyebrow">VISTA PREVIA</p>
+                    <h2 id="preview-heading">Letra y acordes</h2>
+                </div>
+                <span>Los acordes se resaltan para facilitar la revisión.</span>
+            </div>
+            <pre id="song-preview" class="song-preview"></pre>
+        </section>
+    </main>
+</div>
+<script src="/app.js" defer></script>
+</body>
+</html>
