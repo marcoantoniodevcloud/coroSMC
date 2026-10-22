@@ -22,32 +22,11 @@
             android:focusableInTouchMode="false"
             android:paddingBottom="@dimen/extra_scroll_space_large">
 
-            <com.garethevans.church.opensongtablet.customviews.MyMaterialButton
-                android:id="@+id/ocr"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:text="@string/text_extract"
-                android:visibility="gone"
-                app:icon="@drawable/ocr"
-                app:iconTint="@color/white" />
-
-            <com.garethevans.church.opensongtablet.customviews.MyMaterialButton
-                android:id="@+id/imageEdit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/ocr"
-                android:text="@string/image_adjust"
-                android:visibility="gone"
-                app:icon="@drawable/crop_rotate"
-                app:iconTint="@color/white" />
-
             <LinearLayout
                 android:id="@+id/lyricsActions"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_below="@+id/imageEdit"
+                android:layout_alignParentTop="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -75,6 +54,28 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_weight="1" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/ocr"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/text_extract"
+                    android:padding="9dp"
+                    android:src="@drawable/ocr"
+                    android:visibility="gone"
+                    app:tint="?attr/colorOnSurface" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/imageEdit"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/image_adjust"
+                    android:padding="9dp"
+                    android:src="@drawable/crop_rotate"
+                    android:visibility="gone"
+                    app:tint="?attr/colorOnSurface" />
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/copyLyricsButton"
