@@ -2333,21 +2333,30 @@ public class StorageAccess {
                 (filename.lastIndexOf(".")==filename.length()-4 ||
                         filename.lastIndexOf(".")==filename.length()-5) &&
                 !filenameIsImage(filename) && !filename.endsWith(".pdf") &&
-                !filename.endsWith(".xml")) {
+                !filename.endsWith(".xml") && !isSpecificFileExtension("chordpro", filename)) {
             updateFileActivityLog("BAD file:"+filename+" should not be in an OpenSong song folder - please move it as soon as possible!");
             return true;
         }
-        return filename.endsWith(".xml") && isMediaCompanionXml(originalFilename);
+        return isMediaLyricsCompanion(originalFilename);
     }
 
-    private boolean isMediaCompanionXml(String relativeFilename) {
+    private boolean isMediaLyricsCompanion(String relativeFilename) {
         int separator = relativeFilename.lastIndexOf('/');
         String folder = separator < 0 ? "" : relativeFilename.substring(0, separator);
         String filename = separator < 0 ? relativeFilename : relativeFilename.substring(separator + 1);
-        String baseName = filename.substring(0, filename.length() - ".xml".length());
+        String lowerFilename = filename.toLowerCase(Locale.ROOT);
+        String extension = lowerFilename.endsWith(".xml") ? ".xml" : null;
+        if (extension == null && isSpecificFileExtension("chordpro", lowerFilename)) {
+            int extensionStart = lowerFilename.lastIndexOf('.');
+            extension = extensionStart >= 0 ? lowerFilename.substring(extensionStart) : null;
+        }
+        if (extension == null) {
+            return false;
+        }
+        String baseName = filename.substring(0, filename.length() - extension.length());
         String[] mediaExtensions = {".pdf", ".jpg", ".jpeg", ".png", ".gif", ".bmp"};
-        for (String extension : mediaExtensions) {
-            Uri mediaUri = getUriForItem("Songs", folder, baseName + extension);
+        for (String mediaExtension : mediaExtensions) {
+            Uri mediaUri = getUriForItem("Songs", folder, baseName + mediaExtension);
             if (uriExists(mediaUri)) {
                 return true;
             }
@@ -2841,6 +2850,9 @@ public class StorageAccess {
                 boolean chordpro = isSpecificFileExtension("chordpro", songId);
                 boolean text = isSpecificFileExtension("text", songId);
                 boolean word = isSpecificFileExtension("word", songId);
+                if (chordpro && isMediaLyricsCompanion(songId)) {
+                    continue;
+                }
                 if (onsong || chordpro || text || word) {
                     String oldsubfolder = "";
                     String oldfilename = songId;

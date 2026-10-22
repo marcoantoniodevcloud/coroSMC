@@ -34,6 +34,12 @@ public class DefaultSongsInstaller {
 
         try {
             copyDirectory(ASSET_ROOT, "");
+            Uri oldBenditoLyrics = mainActivityInterface.getStorageAccess()
+                    .getUriForItem("Songs", "adoracion", "Bendito bendito.xml");
+            if (mainActivityInterface.getStorageAccess().uriExists(oldBenditoLyrics) &&
+                    !mainActivityInterface.getStorageAccess().deleteFile(oldBenditoLyrics)) {
+                throw new IOException("Unable to replace the old Bendito bendito XML companion");
+            }
             if (!mainActivityInterface.getStorageAccess().deleteFolder("Songs", "OpenSongLibrary")) {
                 throw new IOException("Unable to remove old Songs/OpenSongLibrary folder");
             }

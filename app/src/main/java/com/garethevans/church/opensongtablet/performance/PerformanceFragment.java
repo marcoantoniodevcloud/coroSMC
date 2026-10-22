@@ -666,7 +666,6 @@ public class PerformanceFragment extends Fragment {
                                 myView.pageHolder.setPadding(0, 0, 0, 0);
                                 pageContentInset = 0;
                                 setPageContentMargins(0);
-                                updateMediaReferenceToggle();
                                 // Update the toolbar with the song detail (null).
                                 mainActivityInterface.updateToolbar(null);
                             }
@@ -1488,25 +1487,6 @@ public class PerformanceFragment extends Fragment {
                 mainActivityInterface.getStorageAccess().updateCrashLog(e.toString());
                 e.printStackTrace();
             }
-        }
-    }
-
-    private void updateMediaReferenceToggle() {
-        if (myView == null) {
-            return;
-        }
-        boolean available = mainActivityInterface.getSong().hasMediaReference() &&
-                (!mainActivityInterface.getSong().getFiletype().equals("PDF") ||
-                        Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
-        myView.mediaReferenceToggle.setVisibility(available ? View.VISIBLE : View.GONE);
-        if (available) {
-            myView.mediaReferenceToggle.setText(mainActivityInterface.getSong().shouldShowMediaReference()
-                    ? R.string.show_lyrics : R.string.show_media_reference);
-            myView.mediaReferenceToggle.setOnClickListener(view -> {
-                Song song = mainActivityInterface.getSong();
-                song.setShowMediaReference(!song.getShowMediaReference());
-                doSongLoad(song.getFolder(), song.getFilename());
-            });
         }
     }
 

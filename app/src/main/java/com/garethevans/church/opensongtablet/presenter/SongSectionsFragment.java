@@ -158,22 +158,6 @@ public class SongSectionsFragment extends Fragment {
                     mainActivityInterface.getSong().setFiletype(mainActivityInterface.getStorageAccess().tryToFixFileTypeFromNull(mainActivityInterface.getSong().getFilename()));
                 }
 
-                boolean hasMediaReference = mainActivityInterface.getSong().hasMediaReference();
-                myView.mediaReferenceToggle.setVisibility(hasMediaReference ? View.VISIBLE : View.GONE);
-                if (hasMediaReference) {
-                    myView.mediaReferenceToggle.setText(mainActivityInterface.getSong().shouldShowMediaReference()
-                            ? R.string.show_lyrics : R.string.show_media_reference);
-                    myView.mediaReferenceToggle.setOnClickListener(view -> {
-                        mainActivityInterface.getSong().setShowMediaReference(
-                                !mainActivityInterface.getSong().getShowMediaReference());
-                        showSongInfo();
-                        displayInterface.updateDisplay("setSongContent");
-                        if (mainActivityInterface.getSong().shouldShowMediaReference()) {
-                            displayInterface.updateDisplay("showSection");
-                        }
-                    });
-                }
-
                 if (getContext()!=null && mainActivityInterface.getSong().getFiletype()!=null &&
                         mainActivityInterface.getSong().shouldShowMediaReference() &&
                         mainActivityInterface.getSong().getFiletype().equals("PDF") &&

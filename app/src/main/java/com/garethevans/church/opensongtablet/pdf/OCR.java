@@ -410,7 +410,7 @@ public class OCR {
                 continue;
             }
             String itemFolder = separator < 0 ? "" : songId.substring(0, separator);
-            if (hasXMLCompanion(itemFolder, itemFilename)) {
+            if (hasLyricsCompanion(itemFolder, itemFilename)) {
                 batchSkipped++;
             } else {
                 batchFiles.add(songId);
@@ -503,11 +503,17 @@ public class OCR {
         processNextBatchFile();
     }
 
-    private boolean hasXMLCompanion(String folder, String mediaFilename) {
+    private boolean hasLyricsCompanion(String folder, String mediaFilename) {
         String baseName = mediaFilename.contains(".")
                 ? mediaFilename.substring(0, mediaFilename.lastIndexOf('.')) : mediaFilename;
-        Uri companion = mainActivityInterface.getStorageAccess()
-                .getUriForItem("Songs", folder, baseName + ".xml");
-        return mainActivityInterface.getStorageAccess().uriExists(companion);
+        String[] extensions = {".xml", ".cho", ".crd", ".chopro", ".chordpro", ".pro"};
+        for (String extension : extensions) {
+            Uri companion = mainActivityInterface.getStorageAccess()
+                    .getUriForItem("Songs", folder, baseName + extension);
+            if (mainActivityInterface.getStorageAccess().uriExists(companion)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

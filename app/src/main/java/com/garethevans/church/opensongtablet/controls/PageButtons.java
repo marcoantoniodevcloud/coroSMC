@@ -219,6 +219,7 @@ public class PageButtons {
         prepareOption("pad_metronome",c.getString(R.string.pad) + " / " + c.getString(R.string.metronome),c.getString(R.string.start)+" / "+c.getString(R.string.stop),"",R.drawable.metronome_pad);
         prepareOption("autoscroll_metronome",c.getString(R.string.autoscroll) + " / " + c.getString(R.string.metronome),c.getString(R.string.start)+" / "+c.getString(R.string.stop),"",R.drawable.metronome_autoscroll);
         prepareOption("pad_autoscroll_metronome",c.getString(R.string.pad) + " / " + c.getString(R.string.autoscroll) + " / " + c.getString(R.string.metronome),c.getString(R.string.start)+" / "+c.getString(R.string.stop),"",R.drawable.metronome_autoscroll_pad);
+        prepareOption("mediareference",c.getString(R.string.show_media_reference),c.getString(R.string.select),"",R.drawable.image);
         prepareOption("inc_autoscroll_speed",c.getString(R.string.inc_autoscroll_speed),c.getString(R.string.inc_autoscroll_speed),"",R.drawable.timer_plus);
         prepareOption("dec_autoscroll_speed",c.getString(R.string.dec_autoscroll_speed),c.getString(R.string.dec_autoscroll_speed),"",R.drawable.timer_minus);
         prepareOption("toggle_autoscroll_pause",c.getString(R.string.autoscroll_pause),c.getString(R.string.pause) + " / " + c.getString(R.string.resume),"",R.drawable.timer_pause);
@@ -408,6 +409,8 @@ public class PageButtons {
             fallback = "set";
         } else if (x ==1) {
             fallback = "transpose";
+        } else if (x ==2) {
+            fallback = "mediareference";
         } else if (x ==2) {
             fallback = "editsong";
         } else if (x ==3) {

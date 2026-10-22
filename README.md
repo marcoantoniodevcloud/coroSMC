@@ -25,6 +25,11 @@ The song menu's batch OCR action processes PDFs one page at a time and images
 without an XML companion. It preserves each source file and writes the
 recognized OpenSong XML beside it. A multi-song PDF produces one XML companion
 for the whole document, and OCR output should be reviewed and corrected.
-When a media file has a non-empty XML companion, its lyrics are shown by
-default. The Presenter and Performance screens provide a button to switch
-between the editable lyrics and the original image or PDF.
+When a media file has a non-empty XML or ChordPro companion, its lyrics are
+shown by default. Use the third quick action under the `+` button to switch
+between the editable lyrics and the original image or PDF; this action can also
+be assigned to another quick-action button. Edits to a ChordPro companion are
+saved back in ChordPro format.
+
+`DefaultSongs/adoracion/Bendito bendito.cho` is a ChordPro text-and-chords
+companion for `Bendito bendito.png`.

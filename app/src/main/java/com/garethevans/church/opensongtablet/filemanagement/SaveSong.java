@@ -158,7 +158,7 @@ public class SaveSong {
                 // If update fails (due to no existing row, a new one is created)
                 mainActivityInterface.getNonOpenSongSQLiteHelper().updateSong(thisSong);
                 if ((thisSong.getFiletype().equals("PDF") || thisSong.getFiletype().equals("IMG")) &&
-                        !saveXMLCompanion(thisSong)) {
+                        !saveLyricsCompanion(thisSong)) {
                     return false;
                 }
             }
@@ -195,10 +195,36 @@ public class SaveSong {
         }
     }
 
-    private boolean saveXMLCompanion(Song mediaSong) {
+    private boolean saveLyricsCompanion(Song mediaSong) {
         String filename = mediaSong.getFilename();
         String baseName = filename.contains(".")
                 ? filename.substring(0, filename.lastIndexOf('.')) : filename;
+        String[] chordProExtensions = {".cho", ".crd", ".chopro", ".chordpro", ".pro"};
+        String chordProFilename = null;
+        for (String extension : chordProExtensions) {
+            String candidate = baseName + extension;
+            Uri candidateUri = mainActivityInterface.getStorageAccess().getUriForItem(
+                    "Songs", mediaSong.getFolder(), candidate);
+            if (mainActivityInterface.getStorageAccess().uriExists(candidateUri)) {
+                chordProFilename = candidate;
+                break;
+            }
+        }
+        if (chordProFilename != null) {
+            StringBuilder chordPro = new StringBuilder();
+            appendChordProDirective(chordPro, "title", mediaSong.getTitle());
+            appendChordProDirective(chordPro, "artist", mediaSong.getAuthor());
+            appendChordProDirective(chordPro, "copyright", mediaSong.getCopyright());
+            appendChordProDirective(chordPro, "ccli", mediaSong.getCcli());
+            appendChordProDirective(chordPro, "key", mediaSong.getKey());
+            appendChordProDirective(chordPro, "time", mediaSong.getTimesig());
+            appendChordProDirective(chordPro, "tempo", mediaSong.getTempo());
+            chordPro.append("\n").append(mainActivityInterface.getConvertChoPro()
+                    .fromOpenSongToChordPro(mediaSong.getLyrics()));
+            return mainActivityInterface.getStorageAccess().writeFileFromString(
+                    "Songs", mediaSong.getFolder(), chordProFilename, chordPro.toString(), false);
+        }
+
         String companionFilename = baseName + ".xml";
         Uri companionUri = mainActivityInterface.getStorageAccess().getUriForItem(
                 "Songs", mediaSong.getFolder(), companionFilename);
@@ -212,6 +238,14 @@ public class SaveSong {
         String xml = mainActivityInterface.getProcessSong().getXML(companionSong);
         return xml != null && mainActivityInterface.getStorageAccess().writeFileFromString(
                 "Songs", mediaSong.getFolder(), companionFilename, xml, false);
+    }
+
+    private void appendChordProDirective(StringBuilder chordPro, String directive, String value) {
+        if (value != null && !value.trim().isEmpty()) {
+            chordPro.append("{").append(directive).append(": ")
+                    .append(value.replace("\r", " ").replace("\n", " ").trim())
+                    .append("}\n");
+        }
     }
 
     public boolean checkNotWelcomeSong(Song thisSong) {

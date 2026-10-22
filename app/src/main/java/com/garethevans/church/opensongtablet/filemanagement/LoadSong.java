@@ -85,7 +85,7 @@ public class LoadSong {
             } else {
                 thisSong = mainActivityInterface.getSQLiteHelper().getSpecificSong(
                         thisSong.getFolder(), thisSong.getFilename());
-                thisSong = loadXMLCompanion(thisSong);
+                thisSong = loadLyricsCompanion(thisSong);
                 thisSong.setShowMediaReference(showMediaReference && thisSong.hasMediaReference());
                 // IV - A Database song still needs cleaning -odd?
                 // Fix all the rogue code
@@ -251,7 +251,7 @@ public class LoadSong {
             thisSong = mainActivityInterface.getSQLiteHelper().getSpecificSong(thisSong.getFolder(),thisSong.getFilename());
         }
 
-        thisSong = loadXMLCompanion(thisSong);
+        thisSong = loadLyricsCompanion(thisSong);
 
         // Update the songLoadSuccess and references to the working file if it did work if we aren't indexing
         if (!indexing) {
@@ -268,7 +268,7 @@ public class LoadSong {
         return thisSong;
     }
 
-    private Song loadXMLCompanion(Song mediaSong) {
+    private Song loadLyricsCompanion(Song mediaSong) {
         if (mediaSong == null || mediaSong.getFilename() == null ||
                 mediaSong.getFiletype() == null ||
                 (!mediaSong.getFiletype().equals("PDF") && !mediaSong.getFiletype().equals("IMG"))) {
@@ -278,18 +278,42 @@ public class LoadSong {
         String mediaFilename = mediaSong.getFilename();
         String baseName = mediaFilename.contains(".")
                 ? mediaFilename.substring(0, mediaFilename.lastIndexOf('.')) : mediaFilename;
-        String companionFilename = baseName + ".xml";
-        Uri companionUri = mainActivityInterface.getStorageAccess().getUriForItem(
-                "Songs", mediaSong.getFolder(), companionFilename);
-        if (!mainActivityInterface.getStorageAccess().uriExists(companionUri)) {
+        String companionFilename = null;
+        Uri companionUri = null;
+        String[] chordProExtensions = {".cho", ".crd", ".chopro", ".chordpro", ".pro"};
+        for (String extension : chordProExtensions) {
+            Uri candidateUri = mainActivityInterface.getStorageAccess().getUriForItem(
+                    "Songs", mediaSong.getFolder(), baseName + extension);
+            if (mainActivityInterface.getStorageAccess().uriExists(candidateUri)) {
+                companionFilename = baseName + extension;
+                companionUri = candidateUri;
+                break;
+            }
+        }
+        boolean chordProCompanion = companionFilename != null;
+        if (!chordProCompanion) {
+            companionFilename = baseName + ".xml";
+            companionUri = mainActivityInterface.getStorageAccess().getUriForItem(
+                    "Songs", mediaSong.getFolder(), companionFilename);
+        }
+        if (companionUri == null || !mainActivityInterface.getStorageAccess().uriExists(companionUri)) {
             return mediaSong;
         }
 
         Song songWithText = new Song(mediaSong);
         songWithText.setFilename(companionFilename);
-        songWithText.setFiletype("XML");
         try {
-            songWithText = readFileAsXML(songWithText, "Songs", companionUri, "UTF-8");
+            if (chordProCompanion) {
+                String chordProText = getSongAsText("Songs", mediaSong.getFolder(), companionFilename);
+                if (chordProText == null || chordProText.trim().isEmpty()) {
+                    return mediaSong;
+                }
+                songWithText = mainActivityInterface.getConvertChoPro()
+                        .convertChordProLyricsToOpenSong(songWithText, chordProText);
+            } else {
+                songWithText.setFiletype("XML");
+                songWithText = readFileAsXML(songWithText, "Songs", companionUri, "UTF-8");
+            }
             if (songWithText.getLyrics() == null || songWithText.getLyrics().trim().isEmpty()) {
                 return mediaSong;
             }

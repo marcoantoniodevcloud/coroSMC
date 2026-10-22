@@ -328,6 +328,9 @@ public class PerformanceGestures {
             case "showlyrics":
                 showLyrics();
                 break;
+            case "mediareference":
+                toggleMediaReference();
+                break;
             case "curlybrackets":
                 showCurlyBrackets();
                 break;
@@ -672,6 +675,15 @@ public class PerformanceGestures {
     // Edit page buttons
     public void editPageButtons() {
         mainActivityInterface.navigateToFragment(c.getString(R.string.deeplink_page_buttons), 0);
+    }
+
+    private void toggleMediaReference() {
+        if (mainActivityInterface.getSong() != null &&
+                mainActivityInterface.getSong().hasMediaReference()) {
+            mainActivityInterface.getSong().setShowMediaReference(
+                    !mainActivityInterface.getSong().getShowMediaReference());
+            mainActivityInterface.refreshSong();
+        }
     }
 
     // Song menu
