@@ -1775,8 +1775,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
                     ((EditSongFragmentTags) callingFragment).updateValue();
                     break;
 
-                case "confirmed_EditSongFragmentTags":
-                    ((EditSongFragmentTags) callingFragment).removeTags(arguments);
+                case "EditSongFragmentMainTags":
+                    ((EditSongFragmentMain) callingFragment).updateTagsValue();
+                    break;
+
+                case "confirmed_EditSongFragmentMainTags":
+                    ((EditSongFragmentMain) callingFragment).removeTags(arguments);
                     break;
 
                 case "presenterFragment_loadSong":

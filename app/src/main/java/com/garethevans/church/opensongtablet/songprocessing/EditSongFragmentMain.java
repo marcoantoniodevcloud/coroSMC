@@ -14,10 +14,12 @@ import androidx.fragment.app.Fragment;
 
 import com.garethevans.church.opensongtablet.R;
 import com.garethevans.church.opensongtablet.customviews.ExposedDropDownArrayAdapter;
+import com.garethevans.church.opensongtablet.customviews.MyMaterialSimpleTextView;
 import com.garethevans.church.opensongtablet.databinding.EditSongMainBinding;
 import com.garethevans.church.opensongtablet.interfaces.EditSongFragmentInterface;
 import com.garethevans.church.opensongtablet.interfaces.MainActivityInterface;
 import com.garethevans.church.opensongtablet.preferences.TextInputBottomSheet;
+import com.garethevans.church.opensongtablet.tags.TagsBottomSheet;
 
 import java.util.ArrayList;
 
@@ -31,9 +33,12 @@ public class EditSongFragmentMain extends Fragment  {
     private EditSongFragmentInterface editSongFragmentInterface;
     private String newFolder, new_folder_add_string="", new_folder_string="", new_folder_name_string="";
     private TextInputBottomSheet textInputBottomSheet;
+    private TagsBottomSheet tagsBottomSheet;
     private ArrayList<String> folders;
     private ExposedDropDownArrayAdapter seasonAdapter;
     private ExposedDropDownArrayAdapter arrayAdapter;
+    private String[] keyChoiceStrings = {};
+    private String searchIndexWaitString = "";
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -73,6 +78,9 @@ public class EditSongFragmentMain extends Fragment  {
             new_folder_add_string = getString(R.string.new_folder_add);
             new_folder_string = getString(R.string.new_folder);
             new_folder_name_string = getString(R.string.new_folder_name);
+            searchIndexWaitString = getString(R.string.index_songs_wait);
+            keyChoiceStrings = getResources().getStringArray(R.array.key_choice);
+            keyChoiceStrings = mainActivityInterface.getTranspose().fixTempKeys(keyChoiceStrings);
         }
     }
 
@@ -87,12 +95,21 @@ public class EditSongFragmentMain extends Fragment  {
                     myView.title.setText(mainActivityInterface.getTempSong().getTitle());
                     myView.author.setText(mainActivityInterface.getTempSong().getAuthor());
                     myView.copyright.setText(mainActivityInterface.getTempSong().getCopyright());
+                    Context context = getContext();
+                    if (context != null) {
+                        ExposedDropDownArrayAdapter keyAdapter = new ExposedDropDownArrayAdapter(
+                                context, myView.key, R.layout.view_exposed_dropdown_item, keyChoiceStrings);
+                        myView.key.setAdapter(keyAdapter);
+                    }
+                    myView.key.setText(mainActivityInterface.getTranspose().getFixedKey(
+                            mainActivityInterface.getTempSong().getKey()));
+                    updateTagsView();
+                    myView.tags.setFocusable(false);
                     ArrayList<String> seasons = new ArrayList<>();
                     LiturgicalSeason[] liturgicalSeasons = LiturgicalSeason.values();
                     for (LiturgicalSeason season : liturgicalSeasons) {
                         seasons.add(getString(season.getNameResource()));
                     }
-                    Context context = getContext();
                     if (context != null) {
                         seasonAdapter = new ExposedDropDownArrayAdapter(context, myView.liturgicalSeason,
                                 R.layout.view_exposed_dropdown_item, seasons);
@@ -101,25 +118,17 @@ public class EditSongFragmentMain extends Fragment  {
                     LiturgicalSeason selectedSeason = LiturgicalSeason.fromValue(
                             mainActivityInterface.getTempSong().getLiturgicalSeason());
                     myView.liturgicalSeason.setText(getString(selectedSeason.getNameResource()), false);
-                    myView.songNotes.setText(mainActivityInterface.getTempSong().getNotes());
-                    mainActivityInterface.getProcessSong().editBoxToMultiline(myView.songNotes);
-                    mainActivityInterface.getProcessSong().stretchEditBoxToLines(myView.songNotes, 5);
                     myView.filename.setText(mainActivityInterface.getTempSong().getFilename());
 
-                    // Check for overrides
-                    if (mainActivityInterface.getProcessSong().getHasStickyOffOverride(mainActivityInterface.getTempSong())) {
-                        myView.overrideStickySlider.setSliderPos(2);
-                    } else if (mainActivityInterface.getProcessSong().getHasStickyOnOverride(mainActivityInterface.getTempSong())) {
-                        myView.overrideStickySlider.setSliderPos(1);
-                    } else {
-                        myView.overrideStickySlider.setSliderPos(0);
-                    }
                 }
             });
 
             newFolder = "+ " + new_folder_add_string;
 
             textInputBottomSheet = new TextInputBottomSheet(this, "EditSongFragmentMain", new_folder_string, new_folder_name_string, null, "", "", true);
+            if (tagsBottomSheet == null) {
+                tagsBottomSheet = new TagsBottomSheet(this, "EditSongFragmentMainTags");
+            }
 
             // Resize the bottom padding to the soft keyboard height or half the screen height for the soft keyboard (workaround)
             mainActivityInterface.getMainHandler().post(() -> mainActivityInterface.getWindowFlags().adjustViewPadding(mainActivityInterface, myView.resizeForKeyboardLayout));
@@ -135,30 +144,27 @@ public class EditSongFragmentMain extends Fragment  {
                 myView.filename.addTextChangedListener(new MyTextWatcher("filename"));
                 myView.author.addTextChangedListener(new MyTextWatcher("author"));
                 myView.copyright.addTextChangedListener(new MyTextWatcher("copyright"));
+                myView.key.addTextChangedListener(new MyTextWatcher("key"));
+                myView.tags.setOnClickListener(v -> {
+                    if (mainActivityInterface.getSongListBuildIndex().getIndexComplete()) {
+                        if (tagsBottomSheet != null && !tagsBottomSheet.isAdded() && getActivity() != null) {
+                            tagsBottomSheet.show(getActivity().getSupportFragmentManager(), "ThemesBottomSheet");
+                        }
+                    } else {
+                        String progressText = "";
+                        if (mainActivityInterface.getSongMenuFragment() != null) {
+                            MyMaterialSimpleTextView progressView =
+                                    mainActivityInterface.getSongMenuFragment().getProgressText();
+                            if (progressView != null && progressView.getText() != null) {
+                                progressText = " " + progressView.getText().toString();
+                            }
+                        }
+                        mainActivityInterface.getShowToast().doIt(searchIndexWaitString + progressText);
+                    }
+                });
                 myView.liturgicalSeason.getAutoCompleteTextView().setOnItemClickListener((parent, view, position, id) ->
                         mainActivityInterface.getTempSong().setLiturgicalSeason(
                                 LiturgicalSeason.values()[position].getValue()));
-                myView.songNotes.addTextChangedListener(new MyTextWatcher("notes"));
-
-                // The sticky notes override
-                myView.overrideStickySlider.addOnChangeListener((slider, value, fromUser) -> {
-                    // All options should clear existing override value
-                    mainActivityInterface.getProcessSong().removeStickyOverrides(mainActivityInterface.getTempSong(), true);
-                    // Get rid of any existing sticky_off values
-                    mainActivityInterface.getProcessSong().removeStickyOverrides(mainActivityInterface.getTempSong(),false);
-
-                    if (value==1) {
-                        // Add the sticky_on override
-                        mainActivityInterface.getProcessSong().addStickyOverride(
-                                mainActivityInterface.getTempSong(),true);
-
-                    } else if (value==2) {
-                        // Add the sticky_off override
-                        mainActivityInterface.getProcessSong().addStickyOverride(
-                                mainActivityInterface.getTempSong(), false);
-                    }
-                    myView.overrideStickySlider.updateAlphas();
-                });
 
                 // Scroll listener
                 myView.mainScrollView.setExtendedFabToAnimate(editSongFragmentInterface.getSaveButton());
@@ -229,11 +235,12 @@ public class EditSongFragmentMain extends Fragment  {
                 case "copyright":
                     mainActivityInterface.getTempSong().setCopyright(value);
                     break;
+                case "key":
+                    mainActivityInterface.getTempSong().setKey(
+                            mainActivityInterface.getTranspose().getOriginalFixedKey(value));
+                    break;
                 case "author":
                     mainActivityInterface.getTempSong().setAuthor(value);
-                    break;
-                case "notes":
-                    mainActivityInterface.getTempSong().setNotes(value);
                     break;
             }
         }
@@ -260,6 +267,83 @@ public class EditSongFragmentMain extends Fragment  {
                 }
             });
         }
+    }
+
+    private void updateTagsView() {
+        if (myView == null || mainActivityInterface.getTempSong() == null) {
+            return;
+        }
+        String tags = mainActivityInterface.getTempSong().getTheme();
+        if (tags == null) {
+            tags = "";
+        }
+        mainActivityInterface.getProcessSong().editBoxToMultiline(myView.tags);
+        myView.tags.setText(tags.replace("&amp;", "&").replace("; ", "\n").replace(";", "\n"));
+        mainActivityInterface.getProcessSong().stretchEditBoxToLines(myView.tags, 2);
+    }
+
+    public void updateTagsValue() {
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(this::updateTagsView);
+        }
+    }
+
+    public void removeTags(ArrayList<String> tag) {
+        String tagToRemove = "";
+        int position = -1;
+        if (tag != null && tag.size() == 2) {
+            tagToRemove = tag.get(0);
+            position = Integer.parseInt(tag.get(1));
+        }
+        if (position >= 0 && !tagToRemove.isEmpty()) {
+            ArrayList<Song> songs = mainActivityInterface.getSQLiteHelper().getSongsByFilters(
+                    false, false, false, true, false, false,
+                    null, null, null, tagToRemove, null, null,
+                    mainActivityInterface.getPreferences().getMyPreferenceBoolean("songMenuSortTitles", true));
+            for (Song thisSong : songs) {
+                thisSong = mainActivityInterface.getSQLiteHelper().getSpecificSong(
+                        thisSong.getFolder(), thisSong.getFilename());
+                thisSong.setTheme(removeTagFromTheme(thisSong.getTheme(), tagToRemove));
+                thisSong.setAlttheme(removeTagFromTheme(thisSong.getAlttheme(), tagToRemove));
+                mainActivityInterface.getSQLiteHelper().updateSong(thisSong);
+                if (thisSong.getFiletype() == null) {
+                    thisSong.setFiletype(mainActivityInterface.getStorageAccess()
+                            .tryToFixFileTypeFromNull(thisSong.getFilename()));
+                }
+                if ("PDF".equals(thisSong.getFiletype()) || "IMG".equals(thisSong.getFiletype())) {
+                    mainActivityInterface.getNonOpenSongSQLiteHelper().updateSong(thisSong);
+                } else if ("XML".equals(thisSong.getFiletype())) {
+                    mainActivityInterface.getSaveSong().updateSong(thisSong, false);
+                }
+            }
+            if (tagsBottomSheet != null) {
+                tagsBottomSheet.deleteTags(position);
+            }
+        }
+        Song tempSong = mainActivityInterface.getTempSong();
+        tempSong.setTheme(removeTagFromTheme(tempSong.getTheme(), tagToRemove));
+        updateTagsView();
+    }
+
+    private String removeTagFromTheme(String currentTheme, String tagToRemove) {
+        if (currentTheme == null) {
+            return "";
+        }
+        if (currentTheme.contains(";")) {
+            currentTheme += ";";
+        }
+        StringBuilder updatedTheme = new StringBuilder();
+        for (String bit : currentTheme.split(";")) {
+            bit = bit.trim();
+            if (!bit.equals(tagToRemove.trim())) {
+                updatedTheme.append(bit).append("; ");
+            }
+        }
+        String result = updatedTheme.toString().trim();
+        if (result.endsWith(";")) {
+            result = result.substring(0, result.lastIndexOf(";"));
+        }
+        return result;
     }
 
     private void getFoldersFromStorage() {

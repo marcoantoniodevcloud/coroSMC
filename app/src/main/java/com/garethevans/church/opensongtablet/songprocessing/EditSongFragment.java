@@ -33,8 +33,8 @@ public class EditSongFragment extends Fragment implements EditSongFragmentInterf
     private String edit_string="", website_edit_song_string="", information_string="", okay_string="",
             edit_song_variation_temp_string="", edit_song_variation_string="",
             website_edit_song_main_string="", website_edit_song_features_string="",
-            website_edit_song_tag_string="", lyrics_string="", mainfoldername_string="",
-            song_features_string="", tag_string="", not_saved_filename_string="",
+            lyrics_string="", mainfoldername_string="",
+            song_features_string="", not_saved_filename_string="",
             not_saved_folder_string="", not_saved_string="";
     private String webAddress;
 
@@ -142,11 +142,9 @@ public class EditSongFragment extends Fragment implements EditSongFragmentInterf
             edit_song_variation_string = getString(R.string.edit_song_variation);
             website_edit_song_main_string = getString(R.string.website_edit_song_main);
             website_edit_song_features_string = getString(R.string.website_edit_song_features);
-            website_edit_song_tag_string = getString(R.string.website_edit_song_tag);
             lyrics_string = getString(R.string.lyrics);
             mainfoldername_string = getString(R.string.mainfoldername);
             song_features_string = getString(R.string.song_features);
-            tag_string = getString(R.string.tag);
             not_saved_filename_string = getString(R.string.not_saved_filename);
             not_saved_folder_string = getString(R.string.not_saved_folder);
             not_saved_string = getString(R.string.not_saved);
@@ -179,7 +177,7 @@ public class EditSongFragment extends Fragment implements EditSongFragmentInterf
                                         webAddress = website_edit_song_features_string;
                                         break;
                                     case 3:
-                                        webAddress = website_edit_song_tag_string;
+                                        webAddress = website_edit_song_string;
                                         break;
                                 }
                                 mainActivityInterface.updateToolbarHelp(webAddress);
@@ -208,7 +206,7 @@ public class EditSongFragment extends Fragment implements EditSongFragmentInterf
                                             tab.setText(song_features_string);
                                             break;
                                         case 3:
-                                            tab.setText(tag_string);
+                                            tab.setText(getString(R.string.extra));
                                             break;
                                         case 0:
                                         default:

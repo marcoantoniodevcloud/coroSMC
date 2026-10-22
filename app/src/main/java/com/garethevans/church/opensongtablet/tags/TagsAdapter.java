@@ -66,7 +66,7 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.ViewHolder> {
             String which = mainActivityInterface.getSQLiteHelper().songsWithThemeTags("%"+tags.get(x)+"%");
 
             // Check if it is only in the current tempSong
-            if (mainActivityInterface.getTempSong().getTheme().contains(tags.get(x)) &&
+            if (currentTheme().contains(tags.get(x)) &&
                 !which.contains(mainActivityInterface.getTempSong().getSongid())) {
                 which = which + ", " + mainActivityInterface.getTempSong().getSongid();
                 if (which.startsWith(",")) {
@@ -136,7 +136,7 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.ViewHolder> {
 
     private void initialiseCheckedArray() {
         for (int i = 0; i < tags.size(); i++) {
-            if (mainActivityInterface.getTempSong().getTheme().contains(tags.get(i))) {
+            if (currentTheme().contains(tags.get(i))) {
                 checked.add(i, true);
             } else {
                 checked.add(i, false);
@@ -144,8 +144,16 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.ViewHolder> {
         }
     }
 
+    private String currentTheme() {
+        String theme = mainActivityInterface.getTempSong().getTheme();
+        return theme == null ? "" : theme;
+    }
+
     private void updateThemeTags(boolean add, String themeTag) {
         String currThemeTag = mainActivityInterface.getTempSong().getTheme();
+        if (currThemeTag == null) {
+            currThemeTag = "";
+        }
 
         // Do either add or remove
         if (add) {

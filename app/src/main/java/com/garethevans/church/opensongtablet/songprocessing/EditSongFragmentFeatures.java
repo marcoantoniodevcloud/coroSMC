@@ -115,10 +115,6 @@ public class EditSongFragmentFeatures extends Fragment {
         if (getContext()!=null && myView!=null) {
             mainActivityInterface.getMainHandler().post(() -> {
                 if (mainActivityInterface!=null && myView!=null) {
-                    ExposedDropDownArrayAdapter keyArrayAdapter1 = new ExposedDropDownArrayAdapter(getContext(),
-                            myView.key, R.layout.view_exposed_dropdown_item, key_choice_string);
-                    myView.key.setAdapter(keyArrayAdapter1);
-                    myView.key.setText(mainActivityInterface.getTranspose().getFixedKey(mainActivityInterface.getTempSong().getKey()));
                     ExposedDropDownArrayAdapter keyArrayAdapter2 = new ExposedDropDownArrayAdapter(getContext(),
                             myView.originalkey, R.layout.view_exposed_dropdown_item, key_choice_string);
                     myView.originalkey.setAdapter(keyArrayAdapter2);
@@ -357,9 +353,6 @@ public class EditSongFragmentFeatures extends Fragment {
             if ((songkey == null || songkey.isEmpty()) && origkey != null && !origkey.isEmpty()) {
                 songkey = origkey;
                 mainActivityInterface.getTempSong().setKey(origkey);
-                String finalOrigkey = origkey;
-                mainActivityInterface.getMainHandler().post(() -> myView.key.setText(finalOrigkey));
-
             }
             if ((origkey == null || origkey.isEmpty()) && songkey != null && !songkey.isEmpty()) {
                 origkey = songkey;
@@ -455,7 +448,6 @@ public class EditSongFragmentFeatures extends Fragment {
                 getBPMBottomSheet.show(mainActivityInterface.getMyFragmentManager(), "GetBPMBottomSheet");
             });
             // The simple text only fields
-            myView.key.addTextChangedListener(new MyTextWatcher("key"));
             myView.originalkey.addTextChangedListener(new MyTextWatcher("originalkey"));
             myView.capo.addTextChangedListener(new MyTextWatcher("capo"));
             myView.pad.addTextChangedListener(new MyTextWatcher("pad"));
@@ -595,10 +587,6 @@ public class EditSongFragmentFeatures extends Fragment {
         @Override
         public void afterTextChanged(Editable editable) {
             switch (what) {
-                case "key":
-                    mainActivityInterface.getTempSong().setKey(mainActivityInterface.getTranspose().getOriginalFixedKey(editable.toString()));
-                    setupCapo();
-                    break;
                 case "originalkey":
                     mainActivityInterface.getTempSong().setKeyOriginal(mainActivityInterface.getTranspose().getOriginalFixedKey(editable.toString()));
                     break;
@@ -706,7 +694,9 @@ public class EditSongFragmentFeatures extends Fragment {
 
     // From the online search bottom sheet
     public void updateKey(String foundKey) {
-        myView.key.setText(foundKey);
+        mainActivityInterface.getTempSong().setKey(
+                mainActivityInterface.getTranspose().getOriginalFixedKey(foundKey));
+        setupCapo();
     }
     public void updateTempo(int tempo) {
         myView.tempo.setText(String.valueOf(tempo));

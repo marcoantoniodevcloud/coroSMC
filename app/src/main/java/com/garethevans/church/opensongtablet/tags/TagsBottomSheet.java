@@ -26,7 +26,7 @@ public class TagsBottomSheet extends BottomSheetCommon {
     private final String fragName;
     private MainActivityInterface mainActivityInterface;
     private TagsAdapter tagsAdapter;
-    private String website_edit_song_tag_string="", theme_exists_string="";
+    private String website_edit_song_tag_string="", theme_exists_string="", tag_name_required_string="";
 
     public TagsBottomSheet() {
         // Default constructor required to avoid re-instantiation failures
@@ -83,6 +83,7 @@ public class TagsBottomSheet extends BottomSheetCommon {
         if (getContext()!=null) {
             website_edit_song_tag_string = getString(R.string.website_edit_song_tag);
             theme_exists_string = getString(R.string.theme_exists);
+            tag_name_required_string = getString(R.string.tag_name_required);
         }
     }
     private void setCurrentTags() {
@@ -99,8 +100,17 @@ public class TagsBottomSheet extends BottomSheetCommon {
 
     public void insertTag() {
         // Check this song doesn't have this tag already (meaning it's already in the list)
-        String themeString = mainActivityInterface.getTempSong().getTheme().trim();
+        String themeString = mainActivityInterface.getTempSong().getTheme();
+        if (themeString == null) {
+            themeString = "";
+        } else {
+            themeString = themeString.trim();
+        }
         String newThemeString = myView.newTag.getText().toString().trim();
+        if (newThemeString.isEmpty()) {
+            mainActivityInterface.getShowToast().doItBottomSheet(tag_name_required_string, myView.getRoot());
+            return;
+        }
         if (!themeString.contains(newThemeString + ";") && !themeString.endsWith(newThemeString)) {
             themeString = themeString + "; " + newThemeString;
             themeString = mainActivityInterface.getProcessSong().tidyThemeString(themeString);

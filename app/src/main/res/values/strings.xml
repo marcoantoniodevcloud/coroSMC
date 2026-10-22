@@ -74,7 +74,7 @@
     <string name="are_you_sure">Are you sure?</string>
     <string name="artist">Artist</string>
     <string name="song_author">Author</string>
-    <string name="song_description">Description</string>
+    <string name="song_album">Album</string>
     <string name="liturgical_time">Liturgical time</string>
     <string name="liturgical_advent">Advent</string>
     <string name="liturgical_lent">Lent</string>
@@ -1669,6 +1669,7 @@
     <string name="theme_dark">Dark theme</string>
     <string name="theme_edit">Edit or change current theme</string>
     <string name="theme_exists">That theme already exists</string>
+    <string name="tag_name_required">Enter a tag name</string>
     <string name="theme_light">Light theme</string>
     <string name="theme_pdf_image">Theme for PDF/Image</string>
     <string name="tick">Tick</string>

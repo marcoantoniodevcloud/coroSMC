@@ -25,21 +25,6 @@
             android:paddingBottom="@dimen/extra_scroll_space_large">
 
             <com.garethevans.church.opensongtablet.customviews.MyMaterialEditText
-                android:id="@+id/tags"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/tag_song"
-                android:inputType="text|textMultiLine"
-                android:minLines="2" />
-
-            <com.garethevans.church.opensongtablet.customviews.MyDivider
-                android:id="@+id/focusLine"
-                style="@style/MyDividerLine"
-                android:focusable="false"
-                android:focusableInTouchMode="false"/>
-
-            <com.garethevans.church.opensongtablet.customviews.MyMaterialEditText
                 android:id="@+id/aka"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -70,7 +70,7 @@
     <string name="are_you_sure">¿Estás seguro?</string>
     <string name="artist">Artista</string>
     <string name="song_author">Autor</string>
-    <string name="song_description">Descripción</string>
+    <string name="song_album">Álbum</string>
     <string name="liturgical_time">Tiempo litúrgico</string>
     <string name="liturgical_advent">Adviento</string>
     <string name="liturgical_lent">Cuaresma</string>
@@ -1471,6 +1471,7 @@
     <string name="theme_dark">Dark theme</string>
     <string name="theme_edit">Editar o cambiar el tema actual</string>
     <string name="theme_exists">Ese tema ya existe</string>
+    <string name="tag_name_required">Escribe el nombre de la etiqueta</string>
     <string name="theme_light">Tema de Luz</string>
     <string name="theme_pdf_image">Tema para PDF/Imagen</string>
     <string name="tick">Garrapata</string>
