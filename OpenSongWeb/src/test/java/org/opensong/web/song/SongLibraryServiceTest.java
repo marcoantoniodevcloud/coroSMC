@@ -156,6 +156,31 @@ class SongLibraryServiceTest {
     }
 
     @Test
+    void persistsReviewStateForPdfOnlySongsOutsideTheSongsFolder() throws Exception {
+        Path songsFolder = temporaryDirectory.resolve("DefaultSongs");
+        Path pdfFolder = songsFolder.resolve("María");
+        Files.createDirectories(pdfFolder);
+        Files.write(pdfFolder.resolve("Canto de prueba.pdf"), new byte[]{1, 2, 3});
+        SongLibraryService directLibrary = new SongLibraryService(
+                temporaryDirectory.toString(), songsFolder.toString());
+
+        directLibrary.setSongReviewed(new ReviewSongRequest("María/Canto de prueba.pdf", true));
+
+        LibrarySong reviewed = directLibrary.listLibrary().getFirst();
+        assertTrue(reviewed.reviewed());
+        assertTrue(Files.exists(pdfFolder.resolve("Canto de prueba.pdf")));
+        assertFalse(Files.exists(songsFolder.resolve("review-status.txt")));
+        assertTrue(Files.exists(temporaryDirectory.resolve("review-status.txt")));
+
+        SongLibraryService restartedLibrary = new SongLibraryService(
+                temporaryDirectory.toString(), songsFolder.toString());
+        assertTrue(restartedLibrary.listLibrary().getFirst().reviewed());
+
+        restartedLibrary.setSongReviewed(new ReviewSongRequest("María/Canto de prueba.pdf", false));
+        assertFalse(restartedLibrary.listLibrary().getFirst().reviewed());
+    }
+
+    @Test
     void supportsUsingAnExistingSongsFolderDirectly() throws Exception {
         Path directFolder = temporaryDirectory.resolve("DefaultSongs");
         Files.createDirectories(directFolder);

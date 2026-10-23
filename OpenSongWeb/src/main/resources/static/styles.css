@@ -469,6 +469,51 @@ h1 {
     background: #1b1b1b;
 }
 
+.folder-status-dot, .song-status-dot {
+    width: 8px;
+    height: 8px;
+    flex: 0 0 8px;
+    border: 1px solid #666;
+    border-radius: 50%;
+    background: #282828;
+}
+
+.song-item .song-title-line .song-status-dot {
+    width: 7px;
+    height: 7px;
+    flex-basis: 7px;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+}
+
+.song-status-dot.reviewed {
+    border-color: #4eaa6b;
+    background: #50bd72;
+    box-shadow: 0 0 6px #50bd7255;
+}
+
+.folder-status-dot.reviewed {
+    border-color: #dbb65e;
+    background: #e3c15f;
+    box-shadow: 0 0 6px #e3c15f55;
+}
+
+.folder-group.reviewed > summary .folder-name {
+    color: #e7d69d;
+}
+
+.song-item .song-title-line {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 0;
+}
+
+.song-item .song-title-line strong {
+    min-width: 0;
+}
+
 .folder-name {
     min-width: 0;
     flex: 1;
@@ -534,6 +579,13 @@ h1 {
     border-bottom: 1px solid #3a3a3a;
 }
 
+.editor-heading-actions {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 6px;
+}
+
 .file-heading {
     min-width: 0;
     gap: 8px;
@@ -583,6 +635,33 @@ h1 {
 
 .save-button:disabled {
     color: #888;
+    cursor: default;
+}
+
+.review-button {
+    min-height: 29px;
+    flex: 0 0 auto;
+    padding: 0 8px;
+    border: 1px solid #4b4b4b;
+    border-radius: 6px;
+    color: #c9c9c9;
+    background: #292929;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.review-button:hover:not(:disabled) {
+    background: #3c3c3c;
+}
+
+.review-button.reviewed {
+    border-color: #477c59;
+    color: #b5e7c2;
+    background: #203b29;
+}
+
+.review-button:disabled {
+    color: #777;
     cursor: default;
 }
 

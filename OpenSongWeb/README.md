@@ -28,6 +28,10 @@ de cada canto permite escoger y eliminar un archivo individual (`.cho`, `.pro`, 
 eliminar los demás archivos relacionados.
 La vista previa en vivo coloca los acordes sobre la posición correspondiente de la letra e interpreta
 los encabezados ChordPro de coro, estrofa y puente.
+Cada canto inicia pendiente y puede marcarse como revisado desde el editor, incluso si solo tiene un
+PDF o imagen. El estado se guarda en `review-status.txt`, junto a los datos locales de OpenSongWeb,
+sin modificar los archivos del cantoral. Las carpetas indican en amarillo cuando todos sus cantos
+están revisados.
 `desktopRun` usa por defecto `app\src\main\assets\DefaultSongs` del repositorio, sin mover ni copiar sus archivos.
 
 Para usar otra carpeta existente, configura su ruta antes de iniciar la aplicación:

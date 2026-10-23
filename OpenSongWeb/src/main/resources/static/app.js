@@ -23,6 +23,7 @@ const elements = {
     chordPro: document.querySelector("#song-chordpro"),
     lineNumbers: document.querySelector("#line-numbers"),
     save: document.querySelector("#save-song"),
+    review: document.querySelector("#review-song"),
     reload: document.querySelector("#reload-song"),
     saveStatus: document.querySelector("#save-status"),
     message: document.querySelector("#message"),
@@ -95,15 +96,14 @@ function kindLabel(files) {
 
 function renderSongList() {
     const query = elements.search.value.trim().toLocaleLowerCase();
-    const songs = state.songs.filter(song =>
-        `${song.title} ${song.folder} ${kindLabel(song.files)}`
-            .toLocaleLowerCase()
-            .includes(query)
-    );
-    elements.count.textContent = `${songs.length}`;
+    const matchesQuery = song => `${song.title} ${song.folder} ${kindLabel(song.files)}`
+        .toLocaleLowerCase()
+        .includes(query);
+    const visibleSongs = state.songs.filter(matchesQuery);
+    elements.count.textContent = `${visibleSongs.length}`;
     elements.summary.textContent = `Biblioteca de cantos · ${state.songs.length} títulos`;
 
-    if (songs.length === 0) {
+    if (visibleSongs.length === 0) {
         elements.list.innerHTML = `<div class="song-list-empty">${
             state.songs.length
                 ? "No hay cantos que coincidan con la búsqueda."
@@ -112,10 +112,16 @@ function renderSongList() {
         return;
     }
 
-    const root = { name: "", path: "", songs: [], folders: new Map(), count: 0 };
-    for (const song of songs) {
+    const root = {
+        name: "", path: "", songs: [], folders: new Map(), count: 0, reviewedCount: 0, visibleCount: 0
+    };
+    for (const song of state.songs) {
+        const isVisible = matchesQuery(song);
         const segments = song.folder.split(/[\\/]/).filter(Boolean);
         let folder = root;
+        folder.count += 1;
+        folder.reviewedCount += song.reviewed ? 1 : 0;
+        folder.visibleCount += isVisible ? 1 : 0;
         for (const segment of segments) {
             const key = segment.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase();
             if (!folder.folders.has(key)) {
@@ -125,12 +131,19 @@ function renderSongList() {
                     path,
                     songs: [],
                     folders: new Map(),
-                    count: 0
+                    count: 0,
+                    reviewedCount: 0,
+                    visibleCount: 0
                 });
             }
             folder = folder.folders.get(key);
+            folder.count += 1;
+            folder.reviewedCount += song.reviewed ? 1 : 0;
+            folder.visibleCount += isVisible ? 1 : 0;
         }
-        folder.songs.push(song);
+        if (isVisible) {
+            folder.songs.push(song);
+        }
     }
 
     const addSong = (container, song) => {
@@ -140,11 +153,19 @@ function renderSongList() {
         button.type = "button";
         button.className = "song-item";
         button.setAttribute("aria-current", song.id === state.selectedId ? "true" : "false");
+        const titleLine = document.createElement("span");
+        titleLine.className = "song-title-line";
+        const status = document.createElement("span");
+        status.className = `song-status-dot${song.reviewed ? " reviewed" : ""}`;
+        const reviewLabel = song.reviewed ? "Revisado" : "Borrador o pendiente";
+        status.setAttribute("aria-label", reviewLabel);
+        status.title = reviewLabel;
         const title = document.createElement("strong");
         title.textContent = song.title;
+        titleLine.append(status, title);
         const types = document.createElement("span");
         types.textContent = kindLabel(song.files) || "Sin archivos";
-        button.append(title, types);
+        button.append(titleLine, types);
         button.addEventListener("click", () => selectSong(song));
 
         const remove = document.createElement("button");
@@ -158,21 +179,22 @@ function renderSongList() {
         container.append(row);
     };
 
-    const countSongs = folder => {
-        folder.count = folder.songs.length;
-        for (const child of folder.folders.values()) {
-            folder.count += countSongs(child);
-        }
-        return folder.count;
-    };
-    countSongs(root);
-
     const renderFolder = (container, folder, depth) => {
+        if (folder.visibleCount === 0) {
+            return;
+        }
         const details = document.createElement("details");
         details.className = "folder-group";
         details.dataset.depth = `${depth}`;
         details.open = query !== "" || depth === 1 || folder.path === state.expandedFolder;
         const summary = document.createElement("summary");
+        const complete = folder.count > 0 && folder.reviewedCount === folder.count;
+        if (complete) {
+            details.classList.add("reviewed");
+        }
+        const folderStatus = document.createElement("span");
+        folderStatus.className = `folder-status-dot${complete ? " reviewed" : ""}`;
+        folderStatus.setAttribute("aria-label", complete ? "Todos los cantos revisados" : "Carpeta pendiente");
         const name = document.createElement("span");
         name.className = "folder-name";
         name.textContent = folder.name;
@@ -180,7 +202,7 @@ function renderSongList() {
         const count = document.createElement("span");
         count.className = "folder-count";
         count.textContent = `${folder.count}`;
-        summary.append(name, count);
+        summary.append(folderStatus, name, count);
         details.append(summary);
 
         const contents = document.createElement("div");
@@ -219,6 +241,36 @@ function setDirty(dirty) {
     elements.saveStatus.innerHTML = dirty
         ? "<i></i> Cambios sin guardar"
         : "<i></i> Cambios guardados";
+}
+
+function updateReviewButton() {
+    const song = state.selectedSong;
+    elements.review.disabled = !song || song.files.length === 0;
+    elements.review.classList.toggle("reviewed", Boolean(song?.reviewed));
+    elements.review.textContent = song?.reviewed ? "✓ Revisado" : "○ Marcar revisado";
+    elements.review.title = song?.reviewed
+        ? "Quitar el estado de revisado"
+        : "Marcar el canto como completo o revisado";
+}
+
+async function toggleSongReviewed() {
+    const song = state.selectedSong;
+    if (!song || song.files.length === 0) {
+        return;
+    }
+    const reviewed = !song.reviewed;
+    elements.review.disabled = true;
+    try {
+        await request("/api/library/review", {
+            method: "POST",
+            body: JSON.stringify({ path: song.id, reviewed })
+        });
+        await refreshLibrary();
+        showMessage(reviewed ? "Canto marcado como revisado." : "Se quitó el estado de revisado.");
+    } catch (error) {
+        updateReviewButton();
+        showMessage(error.message, true);
+    }
 }
 
 function renderChordProPreview(content) {
@@ -362,6 +414,7 @@ async function selectSong(song) {
     clearMessage();
     state.selectedId = song.id;
     state.selectedSong = song;
+    updateReviewButton();
     elements.editorFilename.textContent = fileForGroup(song)?.name || `${song.title}.cho`;
     elements.editorFolder.textContent = song.folder || "Biblioteca principal";
     elements.referenceTitle.textContent = song.title;
@@ -570,6 +623,7 @@ async function deleteLibraryFile(song, file) {
         if (selectedChordProWasDeleted) {
             state.selectedId = null;
             state.selectedSong = null;
+            updateReviewButton();
             state.chordProPath = null;
             state.revision = null;
             state.savedContent = "";
@@ -614,6 +668,7 @@ async function refreshLibrary() {
         );
         if (current) {
             state.selectedSong = current;
+            updateReviewButton();
             const referencePaths = relatedMedia(current).map(file => file.path).join("\n");
             const displayedPaths = [...elements.referenceSelect.options]
                 .map(option => option.value)
@@ -654,6 +709,7 @@ async function refreshLibrary() {
         } else if (!state.dirty) {
             state.selectedId = null;
             state.selectedSong = null;
+            updateReviewButton();
             state.chordProPath = null;
             elements.chordPro.value = "";
             elements.editorWrap.hidden = true;
@@ -715,6 +771,7 @@ function createSong() {
     };
     state.selectedId = song.id;
     state.selectedSong = song;
+    updateReviewButton();
     state.chordProPath = `${folder ? `${folder}/` : ""}${filename}.cho`;
     state.revision = null;
     state.savedContent = "";
@@ -741,6 +798,7 @@ elements.chordPro.addEventListener("input", () => {
 elements.chordPro.addEventListener("scroll", () => {
     elements.lineNumbers.scrollTop = elements.chordPro.scrollTop;
 });
+elements.review.addEventListener("click", toggleSongReviewed);
 
 elements.save.addEventListener("click", async () => {
     if (!state.chordProPath || !state.dirty) {

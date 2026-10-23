@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.opensong.web.song.ChordProFile;
 import org.opensong.web.song.LibrarySong;
+import org.opensong.web.song.ReviewSongRequest;
 import org.opensong.web.song.SaveChordProRequest;
 import org.opensong.web.song.SaveSongRequest;
 import org.opensong.web.song.SongDocument;
@@ -39,6 +40,12 @@ public class SongController {
     @GetMapping("/library")
     public List<LibrarySong> listLibrary() {
         return songLibrary.listLibrary();
+    }
+
+    @PostMapping("/library/review")
+    public ResponseEntity<Void> setSongReviewed(@RequestBody ReviewSongRequest request) {
+        songLibrary.setSongReviewed(request);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/library/chordpro")

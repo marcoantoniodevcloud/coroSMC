@@ -14,6 +14,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.HexFormat;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -48,6 +49,7 @@ public class SongLibraryService {
             Set.of("CON", "PRN", "AUX", "NUL");
 
     private final Path songsRoot;
+    private final Path reviewStatusFile;
 
     @Autowired
     public SongLibraryService(@Value("${opensongweb.library-path}") String libraryPath,
@@ -55,6 +57,7 @@ public class SongLibraryService {
         songsRoot = configuredSongsPath.isBlank()
                 ? Path.of(libraryPath).toAbsolutePath().normalize().resolve("Songs").normalize()
                 : Path.of(configuredSongsPath).toAbsolutePath().normalize();
+        reviewStatusFile = Path.of(libraryPath).toAbsolutePath().normalize().resolve("review-status.txt");
         try {
             Files.createDirectories(songsRoot);
         } catch (IOException e) {
@@ -85,6 +88,7 @@ public class SongLibraryService {
     }
 
     public List<LibrarySong> listLibrary() {
+        Set<String> reviewedSongs = readReviewedSongs();
         try (var paths = Files.walk(songsRoot)) {
             Map<String, LibraryGroup> groups = new LinkedHashMap<>();
             paths.filter(path -> Files.isRegularFile(path, LinkOption.NOFOLLOW_LINKS))
@@ -102,13 +106,14 @@ public class SongLibraryService {
                         String groupFolder = folder;
                         String key = normalizeGroupPart(groupFolder) + "/" + normalizeGroupPart(title);
                         LibraryGroup group = groups.computeIfAbsent(key,
-                                ignored -> new LibraryGroup(title, groupFolder));
+                                ignored -> new LibraryGroup(title, groupFolder, reviewedSongs.contains(reviewKey(
+                                        groupFolder, title))));
                         String ext = extension(path);
                         group.files.add(new LibraryFile(relative, filename, ext, libraryKind(ext)));
                     });
             return groups.values().stream()
                     .map(group -> new LibrarySong(group.files.get(0).path(), group.title,
-                            group.folder, List.copyOf(group.files)))
+                            group.folder, List.copyOf(group.files), group.reviewed))
                     .toList();
         } catch (IOException e) {
             throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
@@ -117,6 +122,32 @@ public class SongLibraryService {
             throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
                     "No se pudo leer uno de los archivos de la biblioteca.", e.getCause());
         }
+    }
+
+    public synchronized void setSongReviewed(ReviewSongRequest request) {
+        if (request == null || request.path() == null || request.reviewed() == null) {
+            throw badRequest("No se recibieron los datos del estado de revisión.");
+        }
+        Path path = resolveLibraryFile(request.path(), Set.of("cho", "pro", "pdf", "png", "jpg", "jpeg", "webp"));
+        if (!Files.isRegularFile(path, LinkOption.NOFOLLOW_LINKS)) {
+            throw new SongLibraryException(HttpStatus.NOT_FOUND, "No se encontró el canto.");
+        }
+
+        String filename = path.getFileName().toString();
+        String title = filename.substring(0, filename.lastIndexOf('.'));
+        String folder = songsRoot.relativize(path.getParent()).toString().replace('\\', '/');
+        if (folder.equals(".")) {
+            folder = "";
+        }
+
+        Set<String> reviewedSongs = readReviewedSongs();
+        String key = reviewKey(folder, title);
+        if (request.reviewed()) {
+            reviewedSongs.add(key);
+        } else {
+            reviewedSongs.remove(key);
+        }
+        writeReviewedSongs(reviewedSongs);
     }
 
     public ChordProFile getChordProFile(String id) {
@@ -501,6 +532,51 @@ public class SongLibraryService {
         return normalized.toLowerCase(Locale.ROOT);
     }
 
+    private String reviewKey(String folder, String title) {
+        return revision(normalizeGroupPart(folder) + "/" + normalizeGroupPart(title));
+    }
+
+    private Set<String> readReviewedSongs() {
+        if (!Files.exists(reviewStatusFile)) {
+            return new HashSet<>();
+        }
+        try {
+            Set<String> reviewedSongs = new HashSet<>();
+            for (String key : Files.readAllLines(reviewStatusFile, StandardCharsets.UTF_8)) {
+                if (!key.matches("[a-f0-9]{64}")) {
+                    throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
+                            "El archivo de estados de revisión contiene datos no válidos.");
+                }
+                reviewedSongs.add(key);
+            }
+            return reviewedSongs;
+        } catch (IOException e) {
+            throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "No se pudieron leer los estados de revisión.", e);
+        }
+    }
+
+    private void writeReviewedSongs(Set<String> reviewedSongs) {
+        try {
+            Files.createDirectories(reviewStatusFile.getParent());
+            Path tempFile = Files.createTempFile(reviewStatusFile.getParent(), ".opensongweb-review-", ".tmp");
+            try {
+                Files.write(tempFile, reviewedSongs.stream().sorted().toList(), StandardCharsets.UTF_8);
+                try {
+                    Files.move(tempFile, reviewStatusFile, StandardCopyOption.ATOMIC_MOVE,
+                            StandardCopyOption.REPLACE_EXISTING);
+                } catch (AtomicMoveNotSupportedException e) {
+                    Files.move(tempFile, reviewStatusFile, StandardCopyOption.REPLACE_EXISTING);
+                }
+            } finally {
+                Files.deleteIfExists(tempFile);
+            }
+        } catch (IOException e) {
+            throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "No se pudo guardar el estado de revisión.", e);
+        }
+    }
+
     private String revision(String content) {
         try {
             byte[] digest = MessageDigest.getInstance("SHA-256")
@@ -514,11 +590,13 @@ public class SongLibraryService {
     private static final class LibraryGroup {
         private final String title;
         private final String folder;
+        private final boolean reviewed;
         private final List<LibraryFile> files = new ArrayList<>();
 
-        private LibraryGroup(String title, String folder) {
+        private LibraryGroup(String title, String folder, boolean reviewed) {
             this.title = title;
             this.folder = folder;
+            this.reviewed = reviewed;
         }
     }
 
