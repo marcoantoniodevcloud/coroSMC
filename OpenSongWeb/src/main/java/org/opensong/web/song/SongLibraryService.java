@@ -12,6 +12,8 @@ import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.Normalizer;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -50,14 +52,17 @@ public class SongLibraryService {
 
     private final Path songsRoot;
     private final Path reviewStatusFile;
+    private final OcrProjectService ocrProject;
 
     @Autowired
     public SongLibraryService(@Value("${opensongweb.library-path}") String libraryPath,
-                              @Value("${opensongweb.songs-path:}") String configuredSongsPath) {
+                              @Value("${opensongweb.songs-path:}") String configuredSongsPath,
+                              OcrProjectService ocrProject) {
         songsRoot = configuredSongsPath.isBlank()
                 ? Path.of(libraryPath).toAbsolutePath().normalize().resolve("Songs").normalize()
                 : Path.of(configuredSongsPath).toAbsolutePath().normalize();
         reviewStatusFile = Path.of(libraryPath).toAbsolutePath().normalize().resolve("review-status.txt");
+        this.ocrProject = ocrProject;
         try {
             Files.createDirectories(songsRoot);
         } catch (IOException e) {
@@ -67,7 +72,11 @@ public class SongLibraryService {
     }
 
     public SongLibraryService(String libraryPath) {
-        this(libraryPath, "");
+        this(libraryPath, "", new OcrProjectService());
+    }
+
+    public SongLibraryService(String libraryPath, String configuredSongsPath) {
+        this(libraryPath, configuredSongsPath, new OcrProjectService());
     }
 
     public List<SongSummary> listSongs() {
@@ -164,7 +173,60 @@ public class SongLibraryService {
         }
     }
 
-    public ChordProFile saveChordProFile(SaveChordProRequest request) {
+    public ChordProFile runOcr(OcrSongRequest request) {
+        if (request == null || request.path() == null || request.path().isBlank()) {
+            throw badRequest("Selecciona una imagen o PDF para procesar con OCR_PROJECT.");
+        }
+        Path mediaPath = resolveLibraryFile(request.path(), Set.of("pdf", "png", "jpg", "jpeg", "webp"));
+        if (!Files.isRegularFile(mediaPath, LinkOption.NOFOLLOW_LINKS)) {
+            throw new SongLibraryException(HttpStatus.NOT_FOUND, "No se encontró la imagen o PDF del canto.");
+        }
+
+        Path targetPath = findChordProCompanion(mediaPath);
+        if (targetPath == null) {
+            targetPath = mediaPath.resolveSibling(removeExtension(mediaPath.getFileName().toString()) + ".cho");
+        }
+        String targetId = songsRoot.relativize(targetPath).toString().replace('\\', '/');
+        String previousContent = null;
+        if (Files.isRegularFile(targetPath, LinkOption.NOFOLLOW_LINKS)) {
+            try {
+                previousContent = Files.readString(targetPath, StandardCharsets.UTF_8);
+            } catch (IOException e) {
+                throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
+                        "No se pudo leer la letra actual antes de ejecutar OCR.", e);
+            }
+        }
+        String previousRevision = previousContent == null ? null : revision(previousContent);
+
+        String title = previousContent == null ? removeExtension(mediaPath.getFileName().toString())
+                : findDirective(TITLE_DIRECTIVE, previousContent);
+        if (title.isBlank()) {
+            title = removeExtension(mediaPath.getFileName().toString());
+        }
+        title = validateDirectiveValue(requiredText(title, "El título del canto está vacío.", MAX_TITLE_LENGTH));
+        String author = previousContent == null ? "" : validateDirectiveValue(
+                optionalText(findDirective(ARTIST_DIRECTIVE, previousContent), MAX_AUTHOR_LENGTH,
+                        "El autor actual supera el tamaño máximo permitido."));
+        String copyright = previousContent == null ? "" : validateDirectiveValue(
+                optionalText(findDirective(COPYRIGHT_DIRECTIVE, previousContent), MAX_AUTHOR_LENGTH,
+                        "El copyright actual supera el tamaño máximo permitido."));
+
+        String recognized = ocrProject.recognize(mediaPath);
+        String body = MANAGED_DIRECTIVE.matcher(recognized).replaceAll("").strip();
+        if (body.isBlank()) {
+            throw new SongLibraryException(HttpStatus.BAD_GATEWAY,
+                    "OCR_PROJECT no encontró letra para reemplazar el contenido actual.");
+        }
+        String replacement = withMetadata(title, author, copyright, body);
+        if (previousContent != null) {
+            backupBeforeOcr(targetPath, targetId);
+        }
+        ChordProFile saved = saveChordProFile(new SaveChordProRequest(targetId, replacement, previousRevision));
+        setSongReviewed(new ReviewSongRequest(request.path(), false));
+        return saved;
+    }
+
+    public synchronized ChordProFile saveChordProFile(SaveChordProRequest request) {
         if (request == null || request.content() == null || request.path() == null) {
             throw badRequest("No se recibieron los datos del archivo ChordPro.");
         }
@@ -511,6 +573,38 @@ public class SongLibraryService {
         }
     }
 
+    private Path findChordProCompanion(Path mediaPath) {
+        String mediaTitle = removeExtension(mediaPath.getFileName().toString());
+        try (var siblings = Files.list(mediaPath.getParent())) {
+            return siblings.filter(path -> Files.isRegularFile(path, LinkOption.NOFOLLOW_LINKS))
+                    .filter(path -> Set.of("cho", "pro").contains(extension(path)))
+                    .filter(path -> normalizeGroupPart(removeExtension(path.getFileName().toString()))
+                            .equals(normalizeGroupPart(mediaTitle)))
+                    .min(Comparator.comparingInt(path -> extension(path).equals("cho") ? 0 : 1))
+                    .orElse(null);
+        } catch (IOException e) {
+            throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "No se pudo buscar la letra existente del canto.", e);
+        }
+    }
+
+    private void backupBeforeOcr(Path source, String relativePath) {
+        Path backupRoot = reviewStatusFile.getParent().resolve("ocr-backups");
+        String timestamp = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss-SSS").format(LocalDateTime.now());
+        Path backup = backupRoot.resolve(relativePath + ".before-ocr-" + timestamp + ".bak").normalize();
+        if (!backup.startsWith(backupRoot)) {
+            throw new SongLibraryException(HttpStatus.BAD_REQUEST,
+                    "No se pudo crear una copia segura de la letra anterior.");
+        }
+        try {
+            Files.createDirectories(backup.getParent());
+            Files.copy(source, backup);
+        } catch (IOException e) {
+            throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "No se pudo respaldar la letra actual; no se reemplazó el canto.", e);
+        }
+    }
+
     private String extension(Path path) {
         String filename = path.getFileName().toString();
         int dot = filename.lastIndexOf('.');
@@ -672,6 +766,11 @@ public class SongLibraryService {
 
     private String removeProExtension(String filename) {
         return filename.substring(0, filename.length() - ".pro".length());
+    }
+
+    private String removeExtension(String filename) {
+        int dot = filename.lastIndexOf('.');
+        return dot < 0 ? filename : filename.substring(0, dot);
     }
 
     private boolean isWindowsReservedName(String name) {

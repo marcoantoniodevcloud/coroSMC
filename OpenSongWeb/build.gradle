@@ -27,6 +27,38 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+def ocrRequirements = file('src/main/resources/ocr_project/requirements.txt')
+def ocrVenvPython = file(org.gradle.internal.os.OperatingSystem.current().isWindows()
+        ? '.venv/Scripts/python.exe'
+        : '.venv/bin/python')
+def ocrRequirementsMarker = file('.venv/.requirements-installed')
+
+tasks.register('createOcrEnvironment', Exec) {
+    group = 'application'
+    description = 'Create the local Python environment required by OCR_PROJECT.'
+    onlyIf { !ocrVenvPython.isFile() }
+    if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
+        commandLine 'py', '-3', '-m', 'venv', '.venv'
+    } else {
+        commandLine 'python3', '-m', 'venv', '.venv'
+    }
+}
+
+tasks.register('installOcrRequirements', Exec) {
+    group = 'application'
+    description = 'Install OCR_PROJECT dependencies into OpenSongWeb/.venv.'
+    dependsOn tasks.named('createOcrEnvironment')
+    inputs.file(ocrRequirements)
+    outputs.file(ocrRequirementsMarker)
+    doFirst {
+        commandLine ocrVenvPython.absolutePath, '-m', 'pip', 'install', '-r', ocrRequirements.absolutePath
+    }
+    doLast {
+        ocrRequirementsMarker.parentFile.mkdirs()
+        ocrRequirementsMarker.text = 'installed'
+    }
+}
+
 tasks.register('desktopRun', JavaExec) {
     group = 'application'
     description = 'Run OpenSongWeb locally and open it in the default browser.'
@@ -35,4 +67,9 @@ tasks.register('desktopRun', JavaExec) {
     args '--opensongweb.desktop=true'
     environment 'OPENSONGWEB_SONGS_PATH', providers.environmentVariable('OPENSONGWEB_SONGS_PATH')
             .getOrElse(file('../app/src/main/assets/DefaultSongs').absolutePath)
+    dependsOn tasks.named('installOcrRequirements')
+}
+
+tasks.named('bootRun') {
+    dependsOn tasks.named('installOcrRequirements')
 }

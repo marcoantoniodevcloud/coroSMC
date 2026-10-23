@@ -78,6 +78,10 @@
                 <span aria-hidden="true">⌕</span>
                 <input id="search-songs" type="search" placeholder="Buscar canto…" autocomplete="off">
             </label>
+            <div class="library-ocr-tools">
+                <button id="ocr-pending" class="ocr-button" type="button" disabled>OCR pendientes</button>
+                <span id="ocr-pending-count">0 pendientes</span>
+            </div>
             <nav id="song-list" class="song-list" aria-label="Canciones"></nav>
             <div class="library-footer">
                 <a class="export-link" href="/api/export.zip">Descargar biblioteca ZIP</a>
@@ -98,6 +102,8 @@
                     </div>
                 </div>
                 <div class="editor-heading-actions">
+                    <button id="ocr-current" class="ocr-button" type="button" disabled
+                            title="Reemplazar la letra con OCR de la referencia seleccionada">Procesar OCR</button>
                     <button id="review-song" class="review-button" type="button" disabled>
                         ○ Marcar revisado
                     </button>

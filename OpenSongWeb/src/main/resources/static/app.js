@@ -8,7 +8,10 @@ const state = {
     savedContent: "",
     dirty: false,
     scale: 1,
-    expandedFolder: null
+    expandedFolder: null,
+    ocrBusy: false,
+    ocrBatch: false,
+    stopOcrBatch: false
 };
 
 const elements = {
@@ -24,6 +27,9 @@ const elements = {
     lineNumbers: document.querySelector("#line-numbers"),
     save: document.querySelector("#save-song"),
     review: document.querySelector("#review-song"),
+    ocrCurrent: document.querySelector("#ocr-current"),
+    ocrPending: document.querySelector("#ocr-pending"),
+    ocrPendingCount: document.querySelector("#ocr-pending-count"),
     reload: document.querySelector("#reload-song"),
     saveStatus: document.querySelector("#save-status"),
     message: document.querySelector("#message"),
@@ -102,6 +108,15 @@ function renderSongList() {
     const visibleSongs = state.songs.filter(matchesQuery);
     elements.count.textContent = `${visibleSongs.length}`;
     elements.summary.textContent = `Biblioteca de cantos · ${state.songs.length} títulos`;
+    const pendingWithMedia = state.songs.filter(song => !song.reviewed && relatedMedia(song).length > 0).length;
+    const pendingWithoutMedia = state.songs.filter(song => !song.reviewed && relatedMedia(song).length === 0).length;
+    elements.ocrPendingCount.textContent = pendingWithoutMedia
+        ? `${pendingWithMedia} con referencia · ${pendingWithoutMedia} sin imagen/PDF`
+        : `${pendingWithMedia} pendientes`;
+    elements.ocrPending.textContent = state.ocrBusy && state.ocrBatch ? "Detener lote" : "OCR pendientes";
+    elements.ocrPending.disabled = state.ocrBusy
+        ? !state.ocrBatch
+        : pendingWithMedia === 0;
 
     if (visibleSongs.length === 0) {
         elements.list.innerHTML = `<div class="song-list-empty">${
@@ -174,8 +189,19 @@ function renderSongList() {
         remove.textContent = "🗑";
         remove.title = `Eliminar archivo de ${song.title}`;
         remove.setAttribute("aria-label", `Eliminar archivo de ${song.title}`);
+        remove.disabled = state.ocrBusy;
         remove.addEventListener("click", () => openDeleteDialog(song));
-        row.append(button, remove);
+        const ocr = document.createElement("button");
+        ocr.type = "button";
+        ocr.className = "song-ocr";
+        ocr.textContent = "OCR";
+        ocr.title = relatedMedia(song).length
+            ? `Reemplazar la letra de ${song.title} con OCR`
+            : ` ${song.title} no tiene imagen ni PDF para OCR`;
+        ocr.setAttribute("aria-label", `Procesar ${song.title} con OCR`);
+        ocr.disabled = state.ocrBusy || relatedMedia(song).length === 0;
+        ocr.addEventListener("click", () => runSingleOcr(song));
+        row.append(button, ocr, remove);
         container.append(row);
     };
 
@@ -243,12 +269,18 @@ function setDirty(dirty) {
 
 function updateReviewButton() {
     const song = state.selectedSong;
-    elements.review.disabled = !song || song.files.length === 0;
+    elements.review.disabled = state.ocrBusy || !song || song.files.length === 0;
     elements.review.classList.toggle("reviewed", Boolean(song?.reviewed));
     elements.review.textContent = song?.reviewed ? "✓ Revisado" : "○ Marcar revisado";
     elements.review.title = song?.reviewed
         ? "Quitar el estado de revisado"
         : "Marcar el canto como completo o revisado";
+    updateOcrButton();
+}
+
+function updateOcrButton() {
+    const song = state.selectedSong;
+    elements.ocrCurrent.disabled = state.ocrBusy || !song || relatedMedia(song).length === 0;
 }
 
 async function toggleSongReviewed() {
@@ -269,6 +301,152 @@ async function toggleSongReviewed() {
         updateReviewButton();
         showMessage(error.message, true);
     }
+}
+
+function ocrMediaFor(song) {
+    const media = relatedMedia(song);
+    if (song.id === state.selectedId) {
+        const selected = media.find(file => file.path === elements.referenceSelect.value);
+        if (selected) {
+            return selected;
+        }
+    }
+    return media[0] || null;
+}
+
+function applyOcrResult(song, result) {
+    const current = state.songs.find(item => item.id === song.id
+        || item.files.some(file => file.path === song.id));
+    if (current) {
+        current.reviewed = false;
+    }
+    const selectedSongMatches = state.selectedSong?.id === song.id
+        || state.selectedSong?.files.some(file => file.path === song.id);
+    if (selectedSongMatches) {
+        state.selectedSong = current || { ...song, reviewed: false };
+        state.chordProPath = result.path;
+        state.revision = result.revision;
+        state.savedContent = result.content;
+        elements.editorFilename.textContent = result.path.split("/").at(-1);
+        elements.chordPro.value = result.content;
+        renderLineNumbers();
+        renderChordProPreview(result.content);
+        elements.reload.hidden = true;
+        setDirty(false);
+        updateReviewButton();
+    }
+    renderSongList();
+}
+
+async function runSingleOcr(song, requestedPath = null) {
+    if (state.ocrBusy) {
+        return;
+    }
+    const media = requestedPath
+        ? relatedMedia(song).find(file => file.path === requestedPath)
+        : ocrMediaFor(song);
+    if (!media) {
+        showMessage("Este canto no tiene una imagen ni un PDF para procesar.", true);
+        return;
+    }
+    const hasUnsavedEdits = state.selectedSong?.id === song.id && state.dirty;
+    const warning = hasUnsavedEdits ? " También se descartarán los cambios sin guardar." : "";
+    if (!window.confirm(`OCR_PROJECT reemplazará la letra actual de “${song.title}”. Si existe una letra, guardaré una copia de respaldo.${warning} ¿Continuar?`)) {
+        return;
+    }
+
+    state.ocrBusy = true;
+    updateReviewButton();
+    renderSongList();
+    elements.chordPro.readOnly = true;
+    elements.save.disabled = true;
+    clearMessage();
+    showMessage(`Procesando “${song.title}” con OCR_PROJECT…`);
+    try {
+        const result = await request("/api/library/ocr", {
+            method: "POST",
+            body: JSON.stringify({ path: media.path })
+        });
+        applyOcrResult(song, result);
+        await refreshLibrary();
+        showMessage(`OCR completado para “${song.title}”. El canto quedó pendiente de revisión.`);
+    } catch (error) {
+        showMessage(error.message, true);
+    } finally {
+        state.ocrBusy = false;
+        elements.chordPro.readOnly = false;
+        setDirty(state.dirty);
+        updateReviewButton();
+        renderSongList();
+    }
+}
+
+async function runBatchOcr() {
+    if (state.ocrBusy && state.ocrBatch) {
+        state.stopOcrBatch = true;
+        showMessage("El lote se detendrá cuando termine el canto actual.");
+        return;
+    }
+    if (state.ocrBusy) {
+        return;
+    }
+    const candidates = state.songs
+        .filter(song => !song.reviewed && relatedMedia(song).length > 0)
+        .map(song => ({ song, media: ocrMediaFor(song) }))
+        .filter(item => item.media);
+    const skippedWithoutMedia = state.songs.filter(song => !song.reviewed && relatedMedia(song).length === 0).length;
+    if (candidates.length === 0) {
+        showMessage(skippedWithoutMedia
+            ? `${skippedWithoutMedia} canto(s) pendientes no tienen imagen ni PDF para OCR.`
+            : "No hay cantos pendientes de OCR.");
+        return;
+    }
+    const unsavedWarning = state.dirty ? " Los cambios abiertos sin guardar se descartarán si ese canto entra en el lote." : "";
+    if (!window.confirm(`Se procesarán ${candidates.length} canto(s) sin revisar con imagen o PDF. OCR_PROJECT reemplazará sus letras actuales y guardará respaldo cuando exista una letra.${skippedWithoutMedia ? ` Se omitirán ${skippedWithoutMedia} sin imagen/PDF.` : ""}${unsavedWarning} ¿Continuar?`)) {
+        return;
+    }
+
+    state.ocrBusy = true;
+    state.ocrBatch = true;
+    state.stopOcrBatch = false;
+    elements.chordPro.readOnly = true;
+    elements.save.disabled = true;
+    updateReviewButton();
+    renderSongList();
+    const failures = [];
+    let processed = 0;
+    for (let index = 0; index < candidates.length; index++) {
+        if (state.stopOcrBatch) {
+            break;
+        }
+        const { song, media } = candidates[index];
+        showMessage(`OCR ${index + 1}/${candidates.length}: ${song.title}`);
+        try {
+            const result = await request("/api/library/ocr", {
+                method: "POST",
+                body: JSON.stringify({ path: media.path })
+            });
+            applyOcrResult(song, result);
+            processed += 1;
+        } catch (error) {
+            failures.push(`${song.title}: ${error.message}`);
+        }
+    }
+    state.ocrBatch = false;
+    try {
+        await refreshLibrary();
+    } catch (error) {
+        failures.push(`Actualizar biblioteca: ${error.message}`);
+    }
+    const stopped = state.stopOcrBatch;
+    state.stopOcrBatch = false;
+    state.ocrBusy = false;
+    elements.chordPro.readOnly = false;
+    setDirty(state.dirty);
+    updateReviewButton();
+    const summary = `${stopped ? "Lote detenido" : "Lote terminado"}: ${processed} procesado(s), ${failures.length} con error${skippedWithoutMedia ? `, ${skippedWithoutMedia} sin imagen/PDF` : ""}. Los cantos procesados siguen pendientes de revisión.`;
+    showMessage(failures.length ? `${summary} ${failures.slice(0, 3).join(" · ")}` : summary, failures.length > 0);
+    renderSongList();
 }
 
 function renderChordProPreview(content) {
@@ -405,6 +583,9 @@ function editorPathFor(song) {
 }
 
 async function selectSong(song) {
+    if (state.ocrBusy) {
+        return;
+    }
     if (!hasUnsavedChanges()) {
         return;
     }
@@ -481,6 +662,7 @@ function renderReferenceOptions(song) {
     elements.referenceSelect.disabled = false;
     elements.referenceSelect.value = media[0].path;
     renderReference(media[0]);
+    updateOcrButton();
 }
 
 function setPanelWidths(libraryWidth, editorWidth, previewWidth, referenceWidth) {
@@ -797,6 +979,12 @@ elements.chordPro.addEventListener("scroll", () => {
     elements.lineNumbers.scrollTop = elements.chordPro.scrollTop;
 });
 elements.review.addEventListener("click", toggleSongReviewed);
+elements.ocrCurrent.addEventListener("click", () => {
+    if (state.selectedSong) {
+        runSingleOcr(state.selectedSong, elements.referenceSelect.value || null);
+    }
+});
+elements.ocrPending.addEventListener("click", runBatchOcr);
 
 elements.save.addEventListener("click", async () => {
     if (!state.chordProPath || !state.dirty) {

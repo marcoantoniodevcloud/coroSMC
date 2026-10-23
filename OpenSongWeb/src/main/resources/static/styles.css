@@ -221,6 +221,21 @@ h1 {
     color: #848484;
 }
 
+.library-ocr-tools {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 9px;
+}
+
+.library-ocr-tools > span {
+    color: var(--subtle);
+    font-size: 10px;
+    text-align: right;
+}
+
 .song-list {
     display: flex;
     flex: 1;
@@ -271,6 +286,33 @@ h1 {
     color: #ffb2b2;
     background: #3b2020;
     outline: none;
+}
+
+.song-ocr {
+    width: 35px;
+    flex: 0 0 35px;
+    align-self: center;
+    padding: 4px 0;
+    border: 1px solid #3a5143;
+    border-radius: 6px;
+    color: #b9e6ca;
+    background: #17251d;
+    font-size: 9px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.song-ocr:hover:not(:disabled), .song-ocr:focus-visible {
+    border-color: #5b8d6b;
+    background: #20382a;
+    outline: none;
+}
+
+.song-ocr:disabled {
+    border-color: transparent;
+    color: #686868;
+    background: transparent;
+    cursor: default;
 }
 
 .song-item:hover {
@@ -658,6 +700,30 @@ h1 {
     background: #292929;
     font-size: 10px;
     cursor: pointer;
+}
+
+.ocr-button {
+    min-height: 29px;
+    flex: 0 0 auto;
+    padding: 0 8px;
+    border: 1px solid #3a5143;
+    border-radius: 6px;
+    color: #b9e6ca;
+    background: #17251d;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.ocr-button:hover:not(:disabled) {
+    border-color: #5b8d6b;
+    background: #20382a;
+}
+
+.ocr-button:disabled {
+    border-color: #303030;
+    color: #777;
+    background: #1b1b1b;
+    cursor: default;
 }
 
 .review-button:hover:not(:disabled) {
