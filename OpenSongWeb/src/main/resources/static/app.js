@@ -29,7 +29,20 @@ const elements = {
     referenceSelect: document.querySelector("#reference-select"),
     referenceTitle: document.querySelector("#reference-title"),
     referenceName: document.querySelector("#reference-name"),
-    referenceViewer: document.querySelector("#reference-viewer")
+    referenceViewer: document.querySelector("#reference-viewer"),
+    newSongDialog: document.querySelector("#new-song-dialog"),
+    newSongDialogTitle: document.querySelector("#new-song-dialog-title"),
+    newSongFolderStep: document.querySelector("#new-song-folder-step"),
+    newSongFolder: document.querySelector("#new-song-folder"),
+    newSongTitleStep: document.querySelector("#new-song-title-step"),
+    newSongFolderSummary: document.querySelector("#new-song-folder-summary"),
+    newSongTitle: document.querySelector("#new-song-title"),
+    nextNewSong: document.querySelector("#next-new-song"),
+    backNewSong: document.querySelector("#back-new-song"),
+    createNewSong: document.querySelector("#create-new-song"),
+    deleteSongDialog: document.querySelector("#delete-song-dialog"),
+    deleteSongTitle: document.querySelector("#delete-song-title"),
+    deleteSongFiles: document.querySelector("#delete-song-files")
 };
 
 async function request(url, options = {}) {
@@ -119,6 +132,8 @@ function renderSongList() {
     }
 
     const addSong = (container, song) => {
+        const row = document.createElement("div");
+        row.className = "song-item-row";
         const button = document.createElement("button");
         button.type = "button";
         button.className = "song-item";
@@ -129,7 +144,16 @@ function renderSongList() {
         types.textContent = kindLabel(song.files) || "Sin archivos";
         button.append(title, types);
         button.addEventListener("click", () => selectSong(song));
-        container.append(button);
+
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.className = "song-delete";
+        remove.textContent = "🗑";
+        remove.title = `Eliminar archivo de ${song.title}`;
+        remove.setAttribute("aria-label", `Eliminar archivo de ${song.title}`);
+        remove.addEventListener("click", () => openDeleteDialog(song));
+        row.append(button, remove);
+        container.append(row);
     };
 
     const countSongs = folder => {
@@ -401,6 +425,68 @@ function renderReference(file) {
     elements.referenceName.textContent = file.name;
 }
 
+function openDeleteDialog(song) {
+    elements.deleteSongTitle.textContent = `¿Qué archivo de “${song.title}” quieres eliminar?`;
+    elements.deleteSongFiles.replaceChildren();
+    for (const file of song.files) {
+        const option = document.createElement("button");
+        option.type = "button";
+        option.className = "delete-file-option";
+        const name = document.createElement("span");
+        name.textContent = file.name;
+        const type = document.createElement("span");
+        type.textContent = file.extension.toUpperCase();
+        option.append(name, type);
+        option.addEventListener("click", () => deleteLibraryFile(song, file));
+        elements.deleteSongFiles.append(option);
+    }
+    elements.deleteSongDialog.showModal();
+}
+
+async function deleteLibraryFile(song, file) {
+    if (!window.confirm(`¿Eliminar “${file.path}” permanentemente?`)) {
+        return;
+    }
+    if (state.selectedSong?.id === song.id && state.chordProPath === file.path
+        && !hasUnsavedChanges()) {
+        return;
+    }
+    try {
+        await request(`/api/library/file?path=${encodeURIComponent(file.path)}`, { method: "DELETE" });
+        elements.deleteSongDialog.close();
+        const selectedSongId = state.selectedSong?.id;
+        const selectedChordProWasDeleted = selectedSongId === song.id && state.chordProPath === file.path;
+        if (selectedChordProWasDeleted) {
+            state.selectedId = null;
+            state.selectedSong = null;
+            state.chordProPath = null;
+            state.revision = null;
+            state.savedContent = "";
+            elements.chordPro.value = "";
+            elements.editorWrap.hidden = true;
+            elements.emptyEditor.hidden = false;
+            elements.editorFilename.textContent = "Selecciona un canto";
+            elements.editorFolder.textContent = "";
+            setDirty(false);
+            state.songs = await request("/api/library");
+            const remainingSong = state.songs.find(candidate =>
+                candidate.folder === song.folder
+                && candidate.title.localeCompare(song.title, "es", { sensitivity: "base" }) === 0
+            );
+            if (remainingSong) {
+                await selectSong(remainingSong);
+            } else {
+                renderSongList();
+            }
+        } else {
+            await refreshLibrary();
+        }
+        showMessage(`Se eliminó ${file.name}.`);
+    } catch (error) {
+        showMessage(error.message, true);
+    }
+}
+
 async function refreshLibrary() {
     const currentId = state.selectedId;
     const selectionVersion = state.selectionVersion;
@@ -468,28 +554,58 @@ async function refreshLibrary() {
     }
 }
 
-async function createSong() {
+function openCreateSongDialog() {
     if (!hasUnsavedChanges()) {
         return;
     }
-    const title = window.prompt("Nombre del canto nuevo:");
-    if (!title?.trim()) {
+    const folders = [...new Set(state.songs.map(song => song.folder).filter(Boolean))]
+        .sort((left, right) => left.localeCompare(right, "es", { sensitivity: "base" }));
+    elements.newSongFolder.replaceChildren(new Option("Biblioteca principal", ""));
+    folders.forEach(folder => elements.newSongFolder.add(new Option(folder, folder)));
+    elements.newSongFolderStep.hidden = false;
+    elements.newSongTitleStep.hidden = true;
+    elements.newSongDialogTitle.textContent = "Selecciona una carpeta";
+    elements.nextNewSong.hidden = false;
+    elements.backNewSong.hidden = true;
+    elements.createNewSong.hidden = true;
+    elements.newSongTitle.value = "";
+    elements.newSongDialog.showModal();
+}
+
+function showNewSongTitleStep() {
+    elements.newSongFolderStep.hidden = true;
+    elements.newSongTitleStep.hidden = false;
+    elements.newSongDialogTitle.textContent = "Escribe el nombre del canto";
+    elements.newSongFolderSummary.textContent =
+        `Se guardará en: ${elements.newSongFolder.value || "Biblioteca principal"}`;
+    elements.nextNewSong.hidden = true;
+    elements.backNewSong.hidden = false;
+    elements.createNewSong.hidden = false;
+    elements.newSongTitle.focus();
+}
+
+function createSong() {
+    const title = elements.newSongTitle.value.trim();
+    if (!title) {
+        elements.newSongTitle.focus();
         return;
     }
     const filename = title.trim().normalize("NFC").replace(/[<>:"/\\|?*\u0000-\u001f]/g, "-");
+    const folder = elements.newSongFolder.value;
+    state.selectionVersion += 1;
     const song = {
-        id: `draft:${filename}`,
-        title: title.trim(),
-        folder: "",
+        id: `draft:${folder}/${filename}`,
+        title,
+        folder,
         files: []
     };
     state.selectedId = song.id;
     state.selectedSong = song;
-    state.chordProPath = `${filename}.cho`;
+    state.chordProPath = `${folder ? `${folder}/` : ""}${filename}.cho`;
     state.revision = null;
     state.savedContent = "";
     elements.editorFilename.textContent = `${filename}.cho`;
-    elements.editorFolder.textContent = "Biblioteca principal";
+    elements.editorFolder.textContent = folder || "Biblioteca principal";
     elements.chordPro.value = "";
     elements.editorWrap.hidden = false;
     elements.emptyEditor.hidden = true;
@@ -497,6 +613,7 @@ async function createSong() {
     setDirty(true);
     renderReferenceOptions(song);
     renderSongList();
+    elements.newSongDialog.close();
     elements.chordPro.focus();
 }
 
@@ -543,7 +660,25 @@ elements.referenceSelect.addEventListener("change", () => {
     renderReference(file || null);
 });
 elements.search.addEventListener("input", renderSongList);
-document.querySelector("#new-song").addEventListener("click", createSong);
+document.querySelector("#new-song").addEventListener("click", openCreateSongDialog);
+document.querySelector("#cancel-new-song").addEventListener("click", () => elements.newSongDialog.close());
+document.querySelector("#next-new-song").addEventListener("click", showNewSongTitleStep);
+document.querySelector("#back-new-song").addEventListener("click", () => {
+    elements.newSongFolderStep.hidden = false;
+    elements.newSongTitleStep.hidden = true;
+    elements.newSongDialogTitle.textContent = "Selecciona una carpeta";
+    elements.nextNewSong.hidden = false;
+    elements.backNewSong.hidden = true;
+    elements.createNewSong.hidden = true;
+});
+document.querySelector("#create-new-song").addEventListener("click", createSong);
+elements.newSongTitle.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        createSong();
+    }
+});
+document.querySelector("#cancel-delete-song").addEventListener("click", () => elements.deleteSongDialog.close());
 elements.reload.addEventListener("click", reloadCurrentFile);
 document.querySelector("#refresh-library").addEventListener("click", () => {
     refreshLibrary().catch(error => showMessage(error.message, true));

@@ -29,6 +29,42 @@
 
     <div id="message" class="message" role="status" aria-live="polite" hidden></div>
 
+    <dialog id="new-song-dialog" class="library-dialog">
+        <div class="dialog-heading">
+            <p class="eyebrow">NUEVO CANTO</p>
+            <strong id="new-song-dialog-title">Selecciona una carpeta</strong>
+        </div>
+        <label id="new-song-folder-step" class="dialog-field">
+            <span>Carpeta de destino</span>
+            <select id="new-song-folder"></select>
+        </label>
+        <div id="new-song-title-step" hidden>
+            <p id="new-song-folder-summary" class="dialog-description"></p>
+            <label class="dialog-field">
+                <span>Nombre del canto</span>
+                <input id="new-song-title" type="text" maxlength="160" autocomplete="off">
+            </label>
+        </div>
+        <div class="dialog-actions">
+            <button id="cancel-new-song" class="dialog-secondary" type="button">Cancelar</button>
+            <button id="back-new-song" class="dialog-secondary" type="button" hidden>Volver</button>
+            <button id="next-new-song" class="dialog-primary" type="button">Continuar</button>
+            <button id="create-new-song" class="dialog-primary" type="button" hidden>Crear canto</button>
+        </div>
+    </dialog>
+
+    <dialog id="delete-song-dialog" class="library-dialog">
+        <div class="dialog-heading">
+            <p class="eyebrow">ELIMINAR ARCHIVO</p>
+            <strong id="delete-song-title">Selecciona el archivo que quieres eliminar</strong>
+        </div>
+        <p class="dialog-description">Esta acción elimina solo el archivo elegido y no se puede deshacer.</p>
+        <div id="delete-song-files" class="delete-file-list"></div>
+        <div class="dialog-actions">
+            <button id="cancel-delete-song" class="dialog-secondary" type="button">Cancelar</button>
+        </div>
+    </dialog>
+
     <main class="workspace">
         <aside class="library-panel panel">
             <div class="panel-heading">

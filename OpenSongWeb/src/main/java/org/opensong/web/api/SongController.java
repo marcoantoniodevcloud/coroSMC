@@ -68,6 +68,12 @@ public class SongController {
                 .body(songLibrary.getMedia(path));
     }
 
+    @DeleteMapping("/library/file")
+    public ResponseEntity<Void> deleteLibraryFile(@RequestParam String path) {
+        songLibrary.deleteLibraryFile(path);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/song")
     public SongDocument getSong(@RequestParam String path) {
         return songLibrary.getSong(path);

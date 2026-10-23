@@ -137,6 +137,25 @@ class SongLibraryServiceTest {
     }
 
     @Test
+    void deletesOnlyTheSelectedRelatedFileAndRejectsUnsupportedTypes() throws Exception {
+        Path songs = temporaryDirectory.resolve("Songs");
+        Path chordPro = songs.resolve("Grupo/Canto.cho");
+        Path pdf = songs.resolve("Grupo/Canto.pdf");
+        Files.createDirectories(chordPro.getParent());
+        Files.writeString(chordPro, "[C]Letra");
+        Files.write(pdf, new byte[]{1, 2, 3});
+
+        library.deleteLibraryFile("Grupo/Canto.pdf");
+
+        assertTrue(Files.exists(chordPro));
+        assertFalse(Files.exists(pdf));
+        assertEquals(HttpStatus.BAD_REQUEST, assertThrows(SongLibraryException.class,
+                () -> library.deleteLibraryFile("../fuera.pdf")).getStatus());
+        assertEquals(HttpStatus.BAD_REQUEST, assertThrows(SongLibraryException.class,
+                () -> library.deleteLibraryFile("Grupo/Canto.txt")).getStatus());
+    }
+
+    @Test
     void supportsUsingAnExistingSongsFolderDirectly() throws Exception {
         Path directFolder = temporaryDirectory.resolve("DefaultSongs");
         Files.createDirectories(directFolder);

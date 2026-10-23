@@ -175,6 +175,19 @@ public class SongLibraryService {
         }
     }
 
+    public void deleteLibraryFile(String id) {
+        Path path = resolveLibraryFile(id, Set.of("cho", "pro", "pdf", "png", "jpg", "jpeg", "webp"));
+        if (!Files.isRegularFile(path, LinkOption.NOFOLLOW_LINKS)) {
+            throw new SongLibraryException(HttpStatus.NOT_FOUND, "No se encontró el archivo seleccionado.");
+        }
+        try {
+            Files.delete(path);
+        } catch (IOException e) {
+            throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "No se pudo eliminar el archivo seleccionado.", e);
+        }
+    }
+
     public SongDocument getSong(String id) {
         Path path = resolveSongPath(id);
         if (!Files.isRegularFile(path)) {

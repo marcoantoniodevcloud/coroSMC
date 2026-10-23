@@ -236,6 +236,38 @@ h1 {
     cursor: pointer;
 }
 
+.song-item-row {
+    display: flex;
+    min-width: 0;
+    align-items: stretch;
+    gap: 2px;
+}
+
+.song-item-row .song-item {
+    min-width: 0;
+    flex: 1;
+}
+
+.song-delete {
+    width: 32px;
+    flex: 0 0 32px;
+    align-self: center;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    color: #a8a8a8;
+    background: transparent;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.song-delete:hover, .song-delete:focus-visible {
+    border-color: #744444;
+    color: #ffb2b2;
+    background: #3b2020;
+    outline: none;
+}
+
 .song-item:hover {
     background: #191919;
 }
@@ -268,6 +300,128 @@ h1 {
     color: var(--muted);
     font-size: 12px;
     line-height: 1.5;
+}
+
+.library-dialog {
+    width: min(420px, calc(100vw - 32px));
+    max-width: none;
+    padding: 20px;
+    border: 1px solid #464646;
+    border-radius: 10px;
+    color: var(--ink);
+    background: #202020;
+    box-shadow: 0 18px 60px #000a;
+}
+
+.library-dialog::backdrop {
+    background: #0009;
+    backdrop-filter: blur(2px);
+}
+
+.dialog-heading {
+    margin-bottom: 18px;
+}
+
+.dialog-heading .eyebrow {
+    margin-bottom: 5px;
+    color: #a9a9a9;
+}
+
+.dialog-heading strong {
+    font-size: 14px;
+}
+
+.dialog-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    color: #c9c9c9;
+    font-size: 12px;
+}
+
+.dialog-field select, .dialog-field input {
+    width: 100%;
+    height: 36px;
+    padding: 0 10px;
+    border: 1px solid #484848;
+    border-radius: 6px;
+    outline: none;
+    color: #eee;
+    background: #171717;
+    font: inherit;
+}
+
+.dialog-field select:focus, .dialog-field input:focus {
+    border-color: #777;
+}
+
+.dialog-description {
+    margin: 0 0 15px;
+    color: #b4b4b4;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 21px;
+}
+
+.dialog-actions button, .delete-file-option {
+    min-height: 33px;
+    padding: 0 11px;
+    border: 1px solid #484848;
+    border-radius: 6px;
+    color: #ddd;
+    background: #292929;
+    font: inherit;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.dialog-actions button:hover, .delete-file-option:hover {
+    background: #383838;
+}
+
+.dialog-actions .dialog-primary {
+    border-color: #47865f;
+    color: #e9fff0;
+    background: #285238;
+}
+
+.dialog-actions .dialog-primary:hover {
+    background: #326847;
+}
+
+.delete-file-list {
+    display: flex;
+    max-height: 260px;
+    flex-direction: column;
+    gap: 6px;
+    overflow: auto;
+}
+
+.delete-file-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    text-align: left;
+}
+
+.delete-file-option span:first-child {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.delete-file-option span:last-child {
+    flex: 0 0 auto;
+    color: #aaa;
+    font-size: 10px;
 }
 
 .folder-group {
