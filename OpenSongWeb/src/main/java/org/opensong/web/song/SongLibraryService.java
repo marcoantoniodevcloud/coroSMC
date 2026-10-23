@@ -211,13 +211,14 @@ public class SongLibraryService {
                 optionalText(findDirective(COPYRIGHT_DIRECTIVE, previousContent), MAX_AUTHOR_LENGTH,
                         "El copyright actual supera el tamaño máximo permitido."));
 
-        String recognized = ocrProject.recognize(mediaPath);
-        String body = MANAGED_DIRECTIVE.matcher(recognized).replaceAll("").strip();
+        OcrProjectResult ocrResult = ocrProject.recognize(mediaPath);
+        String body = MANAGED_DIRECTIVE.matcher(ocrResult.chordPro()).replaceAll("").strip();
         if (body.isBlank()) {
             throw new SongLibraryException(HttpStatus.BAD_GATEWAY,
                     "OCR_PROJECT no encontró letra para reemplazar el contenido actual.");
         }
         String replacement = withMetadata(title, author, copyright, body);
+        saveOcrReview(targetId, ocrResult.reviewJson());
         if (previousContent != null) {
             backupBeforeOcr(targetPath, targetId);
         }
@@ -602,6 +603,33 @@ public class SongLibraryService {
         } catch (IOException e) {
             throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
                     "No se pudo respaldar la letra actual; no se reemplazó el canto.", e);
+        }
+    }
+
+    private void saveOcrReview(String relativePath, String content) {
+        Path reviewRoot = reviewStatusFile.getParent().resolve("ocr-reviews");
+        Path reviewFile = reviewRoot.resolve(relativePath + ".json").normalize();
+        if (!reviewFile.startsWith(reviewRoot)) {
+            throw new SongLibraryException(HttpStatus.BAD_REQUEST,
+                    "No se pudo guardar el archivo de revisión OCR.");
+        }
+        try {
+            Files.createDirectories(reviewFile.getParent());
+            Path tempFile = Files.createTempFile(reviewFile.getParent(), ".ocr-review-", ".tmp");
+            try {
+                Files.writeString(tempFile, content, StandardCharsets.UTF_8);
+                try {
+                    Files.move(tempFile, reviewFile, StandardCopyOption.ATOMIC_MOVE,
+                            StandardCopyOption.REPLACE_EXISTING);
+                } catch (AtomicMoveNotSupportedException e) {
+                    Files.move(tempFile, reviewFile, StandardCopyOption.REPLACE_EXISTING);
+                }
+            } finally {
+                Files.deleteIfExists(tempFile);
+            }
+        } catch (IOException e) {
+            throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "No se pudo guardar el detalle de revisión OCR.", e);
         }
     }
 

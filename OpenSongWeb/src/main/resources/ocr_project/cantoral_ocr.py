@@ -11,7 +11,9 @@ All processing is local once dependencies/models are installed.
 from __future__ import annotations
 import argparse
 import json
+import os
 import re
+import statistics
 import sys
 from pathlib import Path
 
@@ -67,6 +69,20 @@ def split_ocr_text(text: str, x1: float, y1: float, x2: float, y2: float, gray_i
     # still processed because the whole string is not a chord label.
     if is_chord(compact):
         return [{"text": compact, "x1": x1, "y1": y1, "x2": x2, "y2": y2}]
+    recognized_chords = list(re.finditer(r"\S+", str(text)))
+    if len(recognized_chords) > 1 and all(is_chord(match.group(0)) for match in recognized_chords):
+        text_length = max(1, len(str(text)))
+        width = x2 - x1
+        return [
+            {
+                "text": match.group(0),
+                "x1": x1 + (match.start() / text_length) * width,
+                "y1": y1,
+                "x2": x1 + (match.end() / text_length) * width,
+                "y2": y2,
+            }
+            for match in recognized_chords
+        ]
     chord_sequence = split_chord_sequence(compact)
     if chord_sequence and len(chord_sequence) > 1:
         pieces = []
@@ -77,6 +93,25 @@ def split_ocr_text(text: str, x1: float, y1: float, x2: float, y2: float, gray_i
             word_x2 = x1 + (offset / len(compact)) * (x2 - x1)
             pieces.append({"text": chord, "x1": word_x1, "y1": y1, "x2": word_x2, "y2": y2})
         return pieces
+
+    # When the recognizer already found word spaces, preserve them. Re-cutting
+    # those lines from pixel gaps was splitting clear words into fragments
+    # (for example, "Sacramento" into "Sacra" + "mento"). Approximate each
+    # recognized word's position proportionally inside the detector line box.
+    recognized_words = list(re.finditer(r"\S+", str(text)))
+    if len(recognized_words) > 1:
+        text_length = max(1, len(str(text)))
+        width = x2 - x1
+        return [
+            {
+                "text": match.group(0),
+                "x1": x1 + (match.start() / text_length) * width,
+                "y1": y1,
+                "x2": x1 + (match.end() / text_length) * width,
+                "y2": y2,
+            }
+            for match in recognized_words
+        ]
 
     boundaries = set()
     # Keep any separators already recognized by OCR.
@@ -208,7 +243,19 @@ def ocr_image(image_path: Path):
         raise RuntimeError(
             "Falta RapidOCR. Instala dependencias con: pip install -r requirements.txt"
         )
-    engine = RapidOCR()
+    model_dir = Path(os.environ.get(
+        "OPENSONG_OCR_MODEL_DIR",
+        str(Path(__file__).resolve().parent / "models"),
+    ))
+    latin_model = model_dir / "latin_PP-OCRv3_rec_mobile.onnx"
+    latin_dictionary = model_dir / "latin_dict.txt"
+    if latin_model.is_file() and latin_dictionary.is_file():
+        engine = RapidOCR(
+            rec_model_path=str(latin_model),
+            rec_keys_path=str(latin_dictionary),
+        )
+    else:
+        engine = RapidOCR()
     result, _ = engine(str(image_path))
     with Image.open(image_path) as source_image:
         gray_image = np.asarray(source_image.convert("L"))
@@ -317,6 +364,10 @@ def insert_chords_into_lyric(lyric_row, chord_tokens):
         # If a chord is placed within a word, ChordPro inline notation is valid
         # and keeps the chord at the selected character/syllable position.
         result = result[:idx] + f'[{p["chord"]}]' + result[idx:]
+    first_letter = re.search(r"[^\W\d_]", result, flags=re.UNICODE)
+    if first_letter:
+        index = first_letter.start()
+        result = result[:index] + result[index].upper() + result[index + 1:]
     return result, placements
 
 def process_page(image_path: Path, page_number: int, temporary: bool, output_dir: Path, dpi: int):
@@ -341,6 +392,7 @@ def process_page(image_path: Path, page_number: int, temporary: bool, output_dir
         "page": page_number,
         "ocr_items": items,
         "rows": [],
+        "unpaired_chord_rows": [],
         "warnings": [
             "Revisa el resultado: OCR y alineación son estimaciones, no una transcripción musical garantizada.",
             "Comprueba especialmente acordes con OCR ambiguo (Bm/8m, D7/D?), sílabas y líneas partidas."
@@ -357,6 +409,24 @@ def process_page(image_path: Path, page_number: int, temporary: bool, output_dir
         output_lines.append("{title: " + title.replace("{", "").replace("}", "") + "}")
         output_lines.append("")
 
+    lyric_centers = [
+        sum(item["cy"] for item in info["row"]) / len(info["row"])
+        for info in row_info if info["text"] and not info["is_chord_row"]
+    ]
+    lyric_gaps = [right - left for left, right in zip(lyric_centers, lyric_centers[1:]) if right > left]
+    stanza_gap_threshold = statistics.median(lyric_gaps) * 1.35 if lyric_gaps else float("inf")
+    last_lyric_center = None
+
+    def append_lyric_line(line, row):
+        nonlocal last_lyric_center
+        center = sum(item["cy"] for item in row) / len(row)
+        if (last_lyric_center is not None
+                and center - last_lyric_center > stanza_gap_threshold
+                and output_lines and output_lines[-1] != ""):
+            output_lines.append("")
+        output_lines.append(line)
+        last_lyric_center = center
+
     i = 0
     while i < len(row_info):
         info = row_info[i]
@@ -372,7 +442,7 @@ def process_page(image_path: Path, page_number: int, temporary: bool, output_dir
             if target is not None:
                 lyric_row = row_info[target]["row"]
                 converted, placements = insert_chords_into_lyric(lyric_row, info["chords"])
-                output_lines.append(converted)
+                append_lyric_line(converted, lyric_row)
                 used_chord_rows.add(i)
                 used_chord_rows.add(target)
                 audit["rows"].append({
@@ -384,10 +454,22 @@ def process_page(image_path: Path, page_number: int, temporary: bool, output_dir
                 })
                 i = target + 1
                 continue
-            # Unpaired chord row: keep as comment for review.
-            output_lines.append("{comment: Revisar acordes detectados: " + info["text"] + "}")
+            # Keep uncertain chord-only detections in the review JSON, but do
+            # not inject editorial comments into the singer-facing ChordPro.
+            audit["unpaired_chord_rows"].append({
+                "row": info["text"],
+                "tokens": [
+                    {
+                        "text": chord["text"],
+                        "x1": chord["x1"], "y1": chord["y1"],
+                        "x2": chord["x2"], "y2": chord["y2"],
+                        "confidence": chord.get("confidence")
+                    }
+                    for chord in info["chords"]
+                ]
+            })
         elif info["text"]:
-            output_lines.append(info["text"])
+            append_lyric_line(info["text"], info["row"])
         i += 1
 
     # Preserve blank space between rows with a larger vertical gap.

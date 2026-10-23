@@ -23,6 +23,8 @@ public class OcrProjectService {
 
     private static final Duration PROCESS_TIMEOUT = Duration.ofMinutes(15);
     private static final Pattern PAGE_NUMBER = Pattern.compile("_page(\\d+)\\.cho$", Pattern.CASE_INSENSITIVE);
+    private static final Path LATIN_MODEL_CACHE = Path.of(System.getProperty("java.io.tmpdir"),
+            "opensongweb-ocr-models", "latin-ppocr-v3");
 
     private final String configuredPython;
 
@@ -35,7 +37,7 @@ public class OcrProjectService {
         this("");
     }
 
-    public String recognize(Path inputFile) {
+    public OcrProjectResult recognize(Path inputFile) {
         Path workingDirectory = null;
         try {
             workingDirectory = Files.createTempDirectory("opensongweb-ocr-");
@@ -43,6 +45,7 @@ public class OcrProjectService {
             try (var source = new ClassPathResource("ocr_project/cantoral_ocr.py").getInputStream()) {
                 Files.copy(source, script);
             }
+            Path modelDirectory = ensureLatinModelCache();
             Path outputDirectory = Files.createDirectory(workingDirectory.resolve("output"));
             Path logFile = workingDirectory.resolve("process.log");
             List<String> command = new java.util.ArrayList<>(List.of(pythonExecutable(),
@@ -55,6 +58,7 @@ public class OcrProjectService {
             // active legacy code page while Java always reads this log as UTF-8.
             processBuilder.environment().put("PYTHONIOENCODING", "utf-8");
             processBuilder.environment().put("PYTHONUTF8", "1");
+            processBuilder.environment().put("OPENSONG_OCR_MODEL_DIR", modelDirectory.toString());
             Process process = processBuilder.start();
             try {
                 if (!process.waitFor(PROCESS_TIMEOUT.toMillis(), java.util.concurrent.TimeUnit.MILLISECONDS)) {
@@ -79,13 +83,21 @@ public class OcrProjectService {
                     throw new SongLibraryException(HttpStatus.BAD_GATEWAY,
                             "OCR_PROJECT terminó sin generar texto para este archivo. " + tail(log));
                 }
-                return pages.stream().map(path -> {
-                    try {
-                        return Files.readString(path, StandardCharsets.UTF_8).strip();
-                    } catch (IOException e) {
-                        throw new java.io.UncheckedIOException(e);
+                List<String> chordProPages = new java.util.ArrayList<>();
+                List<String> reviewPages = new java.util.ArrayList<>();
+                for (Path page : pages) {
+                    chordProPages.add(Files.readString(page, StandardCharsets.UTF_8).strip());
+                    String filename = page.getFileName().toString();
+                    Path reviewFile = page.resolveSibling(filename.substring(0, filename.length() - 4)
+                            + "_review.json");
+                    if (Files.isRegularFile(reviewFile)) {
+                        reviewPages.add(Files.readString(reviewFile, StandardCharsets.UTF_8));
                     }
-                }).filter(content -> !content.isBlank()).collect(java.util.stream.Collectors.joining("\n\n"));
+                }
+                String chordPro = chordProPages.stream().filter(content -> !content.isBlank())
+                        .collect(java.util.stream.Collectors.joining("\n\n"));
+                String reviewJson = "[\n" + String.join(",\n", reviewPages) + "\n]";
+                return new OcrProjectResult(chordPro, reviewJson);
             } catch (InterruptedException e) {
                 process.destroyForcibly();
                 Thread.currentThread().interrupt();
@@ -95,9 +107,6 @@ public class OcrProjectService {
                 process.destroyForcibly();
                 throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
                         "No se pudo leer el resultado de OCR_PROJECT: " + e.getMessage(), e);
-            } catch (java.io.UncheckedIOException e) {
-                throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
-                        "No se pudo leer una página generada por OCR_PROJECT.", e.getCause());
             }
         } catch (SongLibraryException e) {
             throw e;
@@ -123,6 +132,28 @@ public class OcrProjectService {
             }
         }
         return windows ? "python" : "python3";
+    }
+
+    private static void copyBundledResource(String resourceName, Path destination) throws IOException {
+        try (var source = new ClassPathResource(resourceName).getInputStream()) {
+            Files.copy(source, destination);
+        }
+    }
+
+    private static Path ensureLatinModelCache() throws IOException {
+        Path model = LATIN_MODEL_CACHE.resolve("latin_PP-OCRv3_rec_mobile.onnx");
+        Path dictionary = LATIN_MODEL_CACHE.resolve("latin_dict.txt");
+        if (Files.isRegularFile(model) && Files.isRegularFile(dictionary)) {
+            return LATIN_MODEL_CACHE;
+        }
+        synchronized (OcrProjectService.class) {
+            if (!Files.isRegularFile(model) || !Files.isRegularFile(dictionary)) {
+                Files.createDirectories(LATIN_MODEL_CACHE);
+                copyBundledResource("ocr_project/models/latin_PP-OCRv3_rec_mobile.onnx", model);
+                copyBundledResource("ocr_project/models/latin_dict.txt", dictionary);
+            }
+        }
+        return LATIN_MODEL_CACHE;
     }
 
     private static int pageNumber(Path path) {

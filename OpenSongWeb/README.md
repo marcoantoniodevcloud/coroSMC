@@ -38,7 +38,7 @@ cuando todos los cantos de una carpeta están revisados, el indicador cambia a v
 
 La biblioteca ofrece un botón **OCR** en cada canto y otro para procesar en lote los cantos pendientes que tengan una imagen o PDF relacionado. El botón individual usa la referencia seleccionada en el panel derecho; el lote procesa el primer archivo de referencia asociado a cada canto. El proceso reemplaza el contenido ChordPro actual, conserva título/autor/copyright y deja el canto pendiente para revisión. Los cantos sin imagen o PDF se omiten. Antes de reemplazar una letra existente, se guarda una copia en `ocr-backups` dentro de la carpeta de datos de OpenSongWeb.
 
-El código de OCR_PROJECT y la lista de dependencias están incluidos en `OpenSongWeb/src/main/resources/ocr_project`; ya no se requiere la carpeta externa `cantoral_chordpro_ocr`. En Windows, ejecuta `OpenSongWeb/run-app.bat` para iniciar la biblioteca. Al iniciar `desktopRun` o `bootRun`, Gradle crea `OpenSongWeb/.venv` e instala automáticamente las dependencias la primera vez, o cuando cambia `requirements.txt`. Esto requiere Python 3.12 disponible como `py -3` en Windows o `python3` en Linux/macOS y conexión a Internet durante la instalación inicial. El entorno queda dentro del repositorio y se reutiliza en los siguientes arranques. Para una instalación de Python en otra ruta, se puede definir `OPENSONGWEB_PYTHON` con el ejecutable.
+El código de OCR_PROJECT, sus dependencias y el modelo de reconocimiento para escritura latina están incluidos en `OpenSongWeb/src/main/resources/ocr_project`; ya no se requiere la carpeta externa `cantoral_chordpro_ocr`. En Windows, ejecuta `OpenSongWeb/run-app.bat` para iniciar la biblioteca. Al iniciar `desktopRun` o `bootRun`, Gradle crea `OpenSongWeb/.venv` e instala automáticamente las dependencias la primera vez, o cuando cambia `requirements.txt`. Esto requiere Python 3.12 disponible como `py -3` en Windows o `python3` en Linux/macOS y conexión a Internet durante la instalación inicial. El entorno queda dentro del repositorio y se reutiliza en los siguientes arranques. Para una instalación de Python en otra ruta, se puede definir `OPENSONGWEB_PYTHON` con el ejecutable.
 
 Para usar otra carpeta existente, configura su ruta antes de iniciar la aplicación:
 
@@ -71,6 +71,8 @@ $env:OPENSONGWEB_LIBRARY_PATH = 'D:\OpenSongWebData'
 Los archivos `.cho` y `.pro` se editan en su ubicación original. Antes de guardar se comprueba si otro programa modificó el archivo. Las imágenes y PDF con el mismo nombre base se muestran como referencias del canto. Se conserva el editor de biblioteca `.pro` y la exportación ZIP existente.
 
 La descarga e instalación directa desde Android todavía no está implementada; está descrita como la Iteración 2 en el plan de features.
+
+Cada ejecución OCR también conserva el JSON de revisión más reciente en `ocr-reviews`, junto a los datos de OpenSongWeb, usando la misma estructura de carpetas que la biblioteca. El JSON contiene las detecciones originales, coordenadas, confianza y posiciones calculadas de acordes. Sirve para diagnosticar y comparar correcciones; no es una entrada que el OCR necesite para generar el `.cho`.
 
 ## Pruebas
 
