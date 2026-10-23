@@ -26,6 +26,8 @@ const elements = {
     reload: document.querySelector("#reload-song"),
     saveStatus: document.querySelector("#save-status"),
     message: document.querySelector("#message"),
+    previewTitle: document.querySelector("#preview-title"),
+    preview: document.querySelector("#chordpro-preview"),
     referenceSelect: document.querySelector("#reference-select"),
     referenceTitle: document.querySelector("#reference-title"),
     referenceName: document.querySelector("#reference-name"),
@@ -219,6 +221,102 @@ function setDirty(dirty) {
         : "<i></i> Cambios guardados";
 }
 
+function renderChordProPreview(content) {
+    elements.preview.replaceChildren();
+    if (!content.trim()) {
+        const empty = document.createElement("div");
+        empty.className = "preview-empty";
+        empty.textContent = "Escribe la letra y agrega acordes entre corchetes, por ejemplo [G].";
+        elements.preview.append(empty);
+        return;
+    }
+
+    const metadata = new Set([
+        "title", "t", "subtitle", "artist", "author", "composer", "lyricist",
+        "copyright", "album", "year", "key", "time", "tempo", "capo", "duration",
+        "ccli", "language", "meta"
+    ]);
+    const sections = new Map([
+        ["start_of_chorus", "CORO"], ["soc", "CORO"],
+        ["start_of_verse", "ESTROFA"], ["sov", "ESTROFA"],
+        ["start_of_bridge", "PUENTE"], ["sob", "PUENTE"],
+        ["start_of_tab", "TAB"], ["sot", "TAB"],
+        ["start_of_grid", "ACORDES"], ["sog", "ACORDES"]
+    ]);
+
+    const addTextLine = (className, text) => {
+        const line = document.createElement("div");
+        line.className = className;
+        line.textContent = text;
+        elements.preview.append(line);
+    };
+
+    for (const rawLine of content.replace(/\r\n?/g, "\n").split("\n")) {
+        const trimmedLine = rawLine.trim();
+        if (!trimmedLine) {
+            const blank = document.createElement("div");
+            blank.className = "preview-blank";
+            blank.setAttribute("aria-hidden", "true");
+            elements.preview.append(blank);
+            continue;
+        }
+
+        const directive = trimmedLine.match(/^\{([a-z_]+)(?::\s*([^}]*))?\}$/i);
+        if (directive) {
+            const name = directive[1].toLowerCase();
+            const value = directive[2]?.trim() || "";
+            if (metadata.has(name) || name.startsWith("end_of_")
+                || ["eoc", "eov", "eob", "eot", "eog", "new_page", "np"].includes(name)) {
+                continue;
+            }
+            const section = sections.get(name);
+            if (section) {
+                addTextLine("preview-section", section);
+            } else if (name === "comment" || name === "c") {
+                if (value) {
+                    addTextLine("preview-comment", value);
+                }
+            } else {
+                addTextLine("preview-comment", value || name.replaceAll("_", " "));
+            }
+            continue;
+        }
+
+        const lyric = [];
+        const chords = [];
+        const chordPattern = /\[([^\]]+)]/g;
+        let lastIndex = 0;
+        let lyricLength = 0;
+        let match;
+        while ((match = chordPattern.exec(rawLine)) !== null) {
+            const text = rawLine.slice(lastIndex, match.index);
+            lyric.push(text);
+            lyricLength += text.length;
+            chords.push({ position: lyricLength, label: match[1].trim() });
+            lastIndex = match.index + match[0].length;
+        }
+        lyric.push(rawLine.slice(lastIndex));
+        const lyricText = lyric.join("");
+
+        const line = document.createElement("div");
+        line.className = "preview-line";
+        const chordRow = document.createElement("div");
+        chordRow.className = "preview-chords";
+        for (const chord of chords) {
+            const label = document.createElement("span");
+            label.className = "preview-chord";
+            label.style.left = `${chord.position}ch`;
+            label.textContent = chord.label;
+            chordRow.append(label);
+        }
+        const lyricRow = document.createElement("div");
+        lyricRow.className = "preview-lyrics";
+        lyricRow.textContent = lyricText || "\u00a0";
+        line.append(chordRow, lyricRow);
+        elements.preview.append(line);
+    }
+}
+
 async function reloadCurrentFile() {
     if (!state.chordProPath || (state.dirty
         && !window.confirm("Se descartarán tus cambios locales. ¿Recargar el archivo desde disco?"))) {
@@ -232,6 +330,7 @@ async function reloadCurrentFile() {
         state.revision = latest.revision;
         state.savedContent = latest.content;
         elements.chordPro.value = latest.content;
+        renderChordProPreview(latest.content);
         elements.reload.hidden = true;
         renderLineNumbers();
         setDirty(false);
@@ -266,7 +365,9 @@ async function selectSong(song) {
     elements.editorFilename.textContent = fileForGroup(song)?.name || `${song.title}.cho`;
     elements.editorFolder.textContent = song.folder || "Biblioteca principal";
     elements.referenceTitle.textContent = song.title;
+    elements.previewTitle.textContent = song.title;
     elements.chordPro.value = "";
+    renderChordProPreview("");
     elements.editorWrap.hidden = false;
     elements.emptyEditor.hidden = true;
     state.chordProPath = null;
@@ -288,6 +389,7 @@ async function selectSong(song) {
             state.revision = document.revision;
             state.savedContent = document.content;
             elements.chordPro.value = document.content;
+            renderChordProPreview(document.content);
         } catch (error) {
             if (selectionVersion !== state.selectionVersion) {
                 return;
@@ -296,6 +398,7 @@ async function selectSong(song) {
             state.revision = null;
             state.savedContent = "";
             elements.chordPro.value = "";
+            renderChordProPreview("");
             showMessage(error.message, true);
         }
     } else {
@@ -303,6 +406,7 @@ async function selectSong(song) {
         state.revision = null;
         state.savedContent = "";
         state.chordProPath = editorPathFor(song);
+        renderChordProPreview("");
     }
 
     elements.editorFilename.textContent = state.chordProPath?.split("/").at(-1) || `${song.title}.cho`;
@@ -328,14 +432,14 @@ function renderReferenceOptions(song) {
     renderReference(media[0]);
 }
 
-function setPanelWidths(libraryWidth, editorWidth, referenceWidth) {
+function setPanelWidths(libraryWidth, editorWidth, previewWidth, referenceWidth) {
     const workspace = document.querySelector(".workspace");
-    const total = Math.max(680, libraryWidth + editorWidth + referenceWidth);
-    const left = Math.max(180, Math.min(total - 500, libraryWidth));
-    const middle = Math.max(280, Math.min(total - left - 220, editorWidth));
-    const right = total - left - middle;
+    const left = Math.max(170, libraryWidth);
+    const editor = Math.max(220, editorWidth);
+    const preview = Math.max(220, previewWidth);
+    const right = Math.max(220, referenceWidth);
     workspace.style.gridTemplateColumns =
-        `${left}px 7px ${middle}px 7px ${right}px`;
+        `${left}px 7px ${editor}px 7px ${preview}px 7px ${right}px`;
 }
 
 for (const splitter of document.querySelectorAll(".panel-splitter")) {
@@ -343,24 +447,26 @@ for (const splitter of document.querySelectorAll(".panel-splitter")) {
         event.preventDefault();
         const library = document.querySelector(".library-panel");
         const editor = document.querySelector(".editor-panel");
+        const preview = document.querySelector(".preview-panel");
         const reference = document.querySelector(".reference-panel");
         const startX = event.clientX;
         const startLibrary = library.getBoundingClientRect().width;
         const startEditor = editor.getBoundingClientRect().width;
+        const startPreview = preview.getBoundingClientRect().width;
         const startReference = reference.getBoundingClientRect().width;
         splitter.setPointerCapture(event.pointerId);
 
         const onMove = moveEvent => {
             const delta = moveEvent.clientX - startX;
-            if (splitter.dataset.splitter === "library") {
-                const libraryWidth = Math.max(180, Math.min(startLibrary + startEditor - 300,
-                    startLibrary + delta));
-                setPanelWidths(libraryWidth, startLibrary + startEditor - libraryWidth, startReference);
-            } else {
-                const editorWidth = Math.max(280, Math.min(startEditor + startReference - 220,
-                    startEditor + delta));
-                setPanelWidths(startLibrary, editorWidth, startEditor + startReference - editorWidth);
-            }
+            const widths = [startLibrary, startEditor, startPreview, startReference];
+            const pairIndex = { library: 0, preview: 1, reference: 2 }[splitter.dataset.splitter];
+            const pairWidth = widths[pairIndex] + widths[pairIndex + 1];
+            const firstMinimum = pairIndex === 0 ? 170 : 220;
+            const firstWidth = Math.max(firstMinimum,
+                Math.min(pairWidth - 220, widths[pairIndex] + delta));
+            widths[pairIndex] = firstWidth;
+            widths[pairIndex + 1] = pairWidth - firstWidth;
+            setPanelWidths(...widths);
         };
         const onEnd = () => {
             splitter.removeEventListener("pointermove", onMove);
@@ -379,13 +485,18 @@ for (const splitter of document.querySelectorAll(".panel-splitter")) {
         event.preventDefault();
         const libraryWidth = document.querySelector(".library-panel").getBoundingClientRect().width;
         const editorWidth = document.querySelector(".editor-panel").getBoundingClientRect().width;
+        const previewWidth = document.querySelector(".preview-panel").getBoundingClientRect().width;
         const referenceWidth = document.querySelector(".reference-panel").getBoundingClientRect().width;
         const delta = event.key === "ArrowRight" ? 24 : -24;
-        if (splitter.dataset.splitter === "library") {
-            setPanelWidths(libraryWidth + delta, editorWidth - delta, referenceWidth);
-        } else {
-            setPanelWidths(libraryWidth, editorWidth + delta, referenceWidth - delta);
-        }
+        const widths = [libraryWidth, editorWidth, previewWidth, referenceWidth];
+        const pairIndex = { library: 0, preview: 1, reference: 2 }[splitter.dataset.splitter];
+        const pairWidth = widths[pairIndex] + widths[pairIndex + 1];
+        const firstMinimum = pairIndex === 0 ? 170 : 220;
+        const firstWidth = Math.max(firstMinimum,
+            Math.min(pairWidth - 220, widths[pairIndex] + delta));
+        widths[pairIndex] = firstWidth;
+        widths[pairIndex + 1] = pairWidth - firstWidth;
+        setPanelWidths(...widths);
     });
 }
 
@@ -463,10 +574,12 @@ async function deleteLibraryFile(song, file) {
             state.revision = null;
             state.savedContent = "";
             elements.chordPro.value = "";
+            renderChordProPreview("");
             elements.editorWrap.hidden = true;
             elements.emptyEditor.hidden = false;
             elements.editorFilename.textContent = "Selecciona un canto";
             elements.editorFolder.textContent = "";
+            elements.previewTitle.textContent = "Canto";
             setDirty(false);
             state.songs = await request("/api/library");
             const remainingSong = state.songs.find(candidate =>
@@ -530,6 +643,7 @@ async function refreshLibrary() {
                         state.revision = latest.revision;
                         state.savedContent = latest.content;
                         elements.chordPro.value = latest.content;
+                        renderChordProPreview(latest.content);
                         elements.reload.hidden = true;
                         renderLineNumbers();
                         setDirty(false);
@@ -607,6 +721,8 @@ function createSong() {
     elements.editorFilename.textContent = `${filename}.cho`;
     elements.editorFolder.textContent = folder || "Biblioteca principal";
     elements.chordPro.value = "";
+    elements.previewTitle.textContent = title;
+    renderChordProPreview("");
     elements.editorWrap.hidden = false;
     elements.emptyEditor.hidden = true;
     renderLineNumbers();
@@ -619,6 +735,7 @@ function createSong() {
 
 elements.chordPro.addEventListener("input", () => {
     renderLineNumbers();
+    renderChordProPreview(elements.chordPro.value);
     setDirty(elements.chordPro.value !== state.savedContent);
 });
 elements.chordPro.addEventListener("scroll", () => {

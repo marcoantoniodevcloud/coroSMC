@@ -1,4 +1,4 @@
-const CACHE_NAME = "opensongweb-shell-v2";
+const CACHE_NAME = "opensongweb-shell-v3";
 const APP_SHELL = ["/", "/styles.css", "/app.js", "/manifest.webmanifest", "/icons/opensongweb.svg"];
 
 self.addEventListener("install", event => {

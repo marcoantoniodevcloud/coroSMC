@@ -26,6 +26,8 @@ La biblioteca aparece con su jerarquía de carpetas; puedes expandir cada carpet
 Para crear un canto, selecciona primero la carpeta de destino y después escribe su nombre. La papelera
 de cada canto permite escoger y eliminar un archivo individual (`.cho`, `.pro`, imagen o PDF), sin
 eliminar los demás archivos relacionados.
+La vista previa en vivo coloca los acordes sobre la posición correspondiente de la letra e interpreta
+los encabezados ChordPro de coro, estrofa y puente.
 `desktopRun` usa por defecto `app\src\main\assets\DefaultSongs` del repositorio, sin mover ni copiar sus archivos.
 
 Para usar otra carpeta existente, configura su ruta antes de iniciar la aplicación:

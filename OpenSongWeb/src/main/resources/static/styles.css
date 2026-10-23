@@ -111,8 +111,13 @@ button {
 .workspace {
     display: grid;
     min-height: 0;
-    grid-template-columns: minmax(205px, 26fr) 7px minmax(300px, 40fr) 7px minmax(255px, 34fr);
+    grid-template-columns:
+        minmax(190px, 22fr) 7px
+        minmax(250px, 28fr) 7px
+        minmax(250px, 28fr) 7px
+        minmax(250px, 28fr);
     padding: 10px;
+    overflow: auto;
 }
 
 .panel {
@@ -707,6 +712,126 @@ h1 {
     background: #875c20;
 }
 
+.preview-panel {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 12px 9px;
+}
+
+.preview-heading {
+    display: flex;
+    min-height: 34px;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 9px;
+}
+
+.preview-heading .eyebrow {
+    margin-bottom: 4px;
+}
+
+.preview-heading strong {
+    display: block;
+    max-width: 190px;
+    overflow: hidden;
+    font-size: 12px;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.preview-live {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 5px;
+    color: #a8d9b8;
+    font-size: 10px;
+}
+
+.preview-live i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #76c88f;
+    box-shadow: 0 0 7px #76c88f88;
+}
+
+.chordpro-preview {
+    min-height: 0;
+    flex: 1;
+    overflow: auto;
+    padding: 16px 13px;
+    border: 1px solid #363636;
+    border-radius: 8px;
+    color: #f0f0f0;
+    background: #191919;
+    font-family: "Cascadia Code", Consolas, "Courier New", monospace;
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.preview-line {
+    width: max-content;
+    min-width: 100%;
+}
+
+.preview-chords {
+    position: relative;
+    width: max-content;
+    min-width: 100%;
+    height: 1.35em;
+    color: #f3c979;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: pre;
+}
+
+.preview-chord {
+    position: absolute;
+    top: 0;
+    white-space: pre;
+}
+
+.preview-lyrics {
+    min-height: 1.55em;
+    color: #f0f0f0;
+    white-space: pre;
+}
+
+.preview-section {
+    margin: 12px 0 4px;
+    color: #a9dabc;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+}
+
+.preview-comment {
+    margin: 5px 0;
+    color: #a9a9a9;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 11px;
+    font-style: italic;
+}
+
+.preview-blank {
+    height: .8em;
+}
+
+.preview-empty {
+    max-width: 250px;
+    margin: 30px auto;
+    color: #a4a4a4;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 11px;
+    line-height: 1.6;
+    text-align: center;
+}
+
 .reference-panel {
     display: flex;
     flex-direction: column;
@@ -843,7 +968,11 @@ h1 {
 
 @media (max-width: 900px) {
     .workspace {
-        grid-template-columns: minmax(175px, 26fr) 7px minmax(275px, 42fr) 7px minmax(220px, 32fr);
+        grid-template-columns:
+            minmax(165px, 20fr) 7px
+            minmax(200px, 27fr) 7px
+            minmax(200px, 27fr) 7px
+            minmax(200px, 26fr);
         padding: 7px;
     }
 
@@ -869,14 +998,19 @@ h1 {
     .workspace {
         min-height: 0;
         grid-template-columns: 1fr;
-        grid-template-rows: minmax(180px, 28vh) minmax(360px, 55vh) minmax(340px, 50vh);
+        grid-template-rows:
+            minmax(180px, 28vh)
+            minmax(360px, 55vh)
+            minmax(360px, 55vh)
+            minmax(340px, 50vh);
+        overflow: visible;
     }
 
     .panel-splitter {
         display: none;
     }
 
-    .library-panel, .editor-panel, .reference-panel {
+    .library-panel, .editor-panel, .preview-panel, .reference-panel {
         min-height: 0;
     }
 }

@@ -121,7 +121,23 @@
         </section>
 
         <div class="panel-splitter" role="separator" aria-orientation="vertical"
-             aria-label="Redimensionar visor" tabindex="0" data-splitter="reference"></div>
+             aria-label="Redimensionar editor y vista previa" tabindex="0" data-splitter="preview"></div>
+
+        <section class="preview-panel panel" aria-label="Vista previa ChordPro">
+            <header class="preview-heading">
+                <div>
+                    <p class="eyebrow">VISTA PREVIA</p>
+                    <strong id="preview-title">Canto</strong>
+                </div>
+                <span class="preview-live"><i></i> En vivo</span>
+            </header>
+            <div id="chordpro-preview" class="chordpro-preview" aria-label="Renderizado de acordes y letra">
+                <div class="preview-empty">La letra con los acordes aparecerá aquí mientras editas.</div>
+            </div>
+        </section>
+
+        <div class="panel-splitter" role="separator" aria-orientation="vertical"
+             aria-label="Redimensionar vista previa y referencia" tabindex="0" data-splitter="reference"></div>
 
         <section class="reference-panel panel" aria-label="Archivo de referencia">
             <header class="reference-heading">
