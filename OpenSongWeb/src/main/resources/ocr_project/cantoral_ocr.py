@@ -21,13 +21,26 @@ import numpy as np
 from PIL import Image, ImageFont
 
 CHORD_RE = re.compile(
-    r"^(?:[A-G](?:#|b)?(?:m|maj|min|dim|aug|sus|add)?"
-    r"(?:\d{0,2})?(?:sus\d+)?(?:add\d+)?(?:/[A-G](?:#|b)?)?)$"
+    r"^(?:(?:Do|Re|Mi|Fa|Sol|La|Si)|[A-G])(?:#|b)?"
+    r"(?:m|maj|min|dim|aug|sus|add)?(?:\d{0,2})?"
+    r"(?:sus\d+)?(?:add\d+)?"
+    r"(?:/(?:(?:Do|Re|Mi|Fa|Sol|La|Si)|[A-G])(?:#|b)?)?$",
+    re.IGNORECASE,
 )
 
+def normalize_chord(text: str) -> str:
+    """Canonicalize recognized chord roots while preserving chord modifiers."""
+    text = text.strip().replace("♯", "#").replace("♭", "b")
+    root_re = re.compile(r"^(Do|Re|Mi|Fa|Sol|La|Si|[A-G])", re.IGNORECASE)
+
+    def normalize_root(match):
+        root = match.group(1)
+        return root.upper() if len(root) == 1 else root.capitalize()
+
+    return root_re.sub(normalize_root, text)
+
 def is_chord(s: str) -> bool:
-    s = s.strip().replace("♯", "#").replace("♭", "b")
-    return bool(CHORD_RE.fullmatch(s))
+    return bool(CHORD_RE.fullmatch(normalize_chord(s)))
 
 def split_chord_sequence(text: str):
     """Split a detector result that contains several adjacent chord labels."""
@@ -306,7 +319,7 @@ def tokens_as_chords(row):
     # OCR sometimes attaches punctuation; normalize common chord glyphs.
     out = []
     for token in row:
-        t = token["text"].strip().replace("♯", "#").replace("♭", "b")
+        t = normalize_chord(token["text"])
         t = t.strip(".,;:|")
         if is_chord(t):
             out.append({**token, "text": t})

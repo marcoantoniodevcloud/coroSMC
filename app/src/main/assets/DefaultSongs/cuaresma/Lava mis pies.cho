@@ -1,108 +1,33 @@
 {title: Lava mis pies}
 
-Intro: SOL DO LAm RE SOL (2 veces)
-[SOL] Lava mis [RE] pies, Señor, [LAm] lava mi [SOL] [RE] alma;
-[SOL] lava mis [RE] pies, Señor, [LAm] para ser [Do] digno de [RE] Ti.
-[SOL] Quiero lavar [RE] tus [LAm] pies en mis [SOL] [RE] hermanos;
-[SOL] quiero imitar [RE] tu amor, [LAm] viviendo [Do] para [RE] servir.
-Hoy te [MIm] levantas de la [DO] cena,
-te [LAm] quitas el manto, [RE] preparas el agua
-y te [MIm] arrodillas frente a [DO] mí,
-me [LAm] miras tan dulce y [RE] lleno de amor,
-[DO] tomas mis [RE] pies y [LAm] lavas mis [SIm] [RE] pecados.
-Yo te [MIm] pregunto [DO] Señor,
-4	1	1	1	22	0	52	474	166	14	-1	
-5	1	1	1	22	1	52	474	27	14	92.184074	LAm
-5	1	1	1	22	2	201	474	17	14	89.212517	RE
-4	1	1	1	23	0	14	494	287	18	-1	
-5	1	1	1	23	1	14	498	27	14	96.549240	¿me
-5	1	1	1	23	2	51	498	27	10	96.549240	vas
-5	1	1	1	23	3	89	498	8	10	96.449295	a
-5	1	1	1	23	4	108	494	45	14	96.620033	lavar
-5	1	1	1	23	5	164	494	26	14	96.730293	los
-5	1	1	1	23	6	201	494	36	18	96.359558	pies
-5	1	1	1	23	7	248	498	8	10	96.169960	a
-5	1	1	1	23	8	266	494	35	14	95.213936	mí?
+L[Sol]ava mis pi[Re]es, Seno[Lam]r, lava mi al[Sol]ma[Re];
+L[Sol]ava mis pi[Re]es, Seno[Lam]r, para ser di[Do]gno de T[Re]i.
+Q[Sol]uiero lava[Re]r tus pi[Lam]es en mis herma[Sol]nos[Re];
+Q[Sol]uiero imita[Re]r tu amo[Lam]r, viviendo pa[Do]ra serv[Re]ir.
 
-y me [MIm] contestas [DO] tiernamente
-[LAm] [RE] Tú
-5	1	1	1	27	2	52	572	45	14	96.752640	ahora
-5	1	1	1	27	3	108	576	17	10	96.568588	no
-5	1	1	1	27	4	136	572	54	18	96.906120	puedes
-5	1	1	1	27	5	201	572	92	18	95.000343	comprender
-4	1	1	1	28	0	80	592	110	14	-1	
-5	1	1	1	28	1	80	592	17	14	81.904251	DO
-5	1	1	1	28	2	173	592	17	14	96.934975	RE
-4	1	1	1	29	0	15	611	229	18	-1	
-5	1	1	1	29	1	15	611	17	14	96.559540	lo
-5	1	1	1	29	2	42	615	27	14	96.959023	que
-5	1	1	1	29	3	79	611	18	14	96.692093	Yo
-5	1	1	1	29	4	107	611	46	18	96.488525	estoy
-5	1	1	1	29	5	164	611	80	18	96.488525	haciendo,
-4	1	1	1	30	0	71	631	185	14	-1	
-5	1	1	1	30	1	71	631	26	14	92.272942	LAm
-5	1	1	1	30	2	192	631	27	14	75.118927	SIm
-5	1	1	1	30	3	238	631	18	14	92.670563	RE
-4	1	1	1	31	0	15	651	229	18	-1	
-5	1	1	1	31	1	15	651	17	14	96.518349	lo
-5	1	1	1	31	2	42	651	111	18	96.134743	comprenderás
-5	1	1	1	31	3	163	651	81	18	93.679543	después.
+Hoy te lev[Mim]antas de la [Do]cena,
+Te q[Lam]uitas el manto, pre[Re]paras el agua
 
-Me descoloca [MIm] verte [DO] así,
-[LAm] ver que el Maestro [RE] sirve al discípulo
-y me [MIm] niego a [DO] aceptar
-que seas [LAm] Tú quien me lave los [RE] pies a mí,
-DO RE
-pero sé que si no lo haces
-no podré [LAm] compartir [Sim] [RE] contigo.
-[MIm] [DO] Entiendan
-5	1	1	1	45	2	117	964	17	14	96.329117	lo
-5	1	1	1	45	3	145	968	27	14	97.005188	que
-5	1	1	1	45	4	182	964	18	14	97.010742	he
-5	1	1	1	45	5	210	964	53	18	96.403328	hecho,
-4	1	1	1	46	0	34	984	184	14	-1	
-5	1	1	1	46	1	34	984	26	14	89.812462	LAm
-5	1	1	1	46	2	201	984	17	14	96.935440	RE
-4	1	1	1	47	0	14	1003	307	18	-1	
-5	1	1	1	47	1	14	1003	64	14	96.556847	ustedes
-5	1	1	1	47	2	88	1007	18	10	96.993210	me
-5	1	1	1	47	3	117	1003	55	14	75.817093	llaman
-5	1	1	1	47	4	182	1003	64	14	96.841522	Maestro
-5	1	1	1	47	5	257	1007	8	14	96.962181	y
-5	1	1	1	47	6	276	1003	45	14	96.441086	Señor
-4	1	1	1	48	0	33	1023	129	14	-1	
-5	1	1	1	48	1	33	1023	27	14	89.259552	MIm
-5	1	1	1	48	2	145	1023	17	14	79.225571	DO
-4	1	1	1	49	0	14	1043	165	18	-1	
-5	1	1	1	49	1	14	1047	8	14	96.634369	y
-5	1	1	1	49	2	33	1043	45	14	95.926689	dicen
-5	1	1	1	49	3	89	1043	17	14	95.926689	la
-5	1	1	1	49	4	117	1043	62	14	96.708847	verdad.
-4	1	1	1	50	0	80	1062	157	14	-1	
-5	1	1	1	50	1	80	1062	27	14	92.376923	LAm
-5	1	1	1	50	2	220	1062	17	14	96.785187	RE
-4	1	1	1	51	0	14	1082	335	18	-1	
-5	1	1	1	51	1	14	1082	17	14	96.577583	Si
-5	1	1	1	51	2	42	1082	25	18	96.772598	Yo,
-5	1	1	1	51	3	80	1082	54	14	96.904434	siendo
-5	1	1	1	51	4	145	1082	45	14	96.734665	Señor
-5	1	1	1	51	5	201	1086	8	14	97.020668	y
-5	1	1	1	51	6	220	1082	54	14	96.679146	siendo
-5	1	1	1	51	7	284	1082	65	14	96.594688	Maestro
-4	1	1	1	52	0	52	1101	138	14	-1	
-5	1	1	1	52	1	52	1101	17	14	82.657272	DO
-5	1	1	1	52	2	173	1101	17	14	96.934975	RE
-4	1	1	1	53	0	15	1121	210	18	-1	
-5	1	1	1	53	1	15	1121	26	14	96.482254	les
-5	1	1	1	53	2	52	1121	17	14	96.710274	he
-5	1	1	1	53	3	80	1121	54	14	96.921227	lavado
-5	1	1	1	53	4	145	1121	26	14	96.583748	los
-5	1	1	1	53	5	182	1121	43	18	96.765205	pies,
-4	1	1	1	54	0	62	1141	184	14	-1	
-5	1	1	1	54	1	62	1141	26	14	85.906853	LAm
-5	1	1	1	54	2	182	1141	27	14	24.119995	SIm
-5	1	1	1	54	3	229	1141	17	14	88.821785	RE
-4	1	1	1	55	0	14	1160	222	18	-1	
-5	1	1	1	55	1	14	1160	64	18	96.602470	háganlo
-5	1	1	1	55	2	89	1160	64	14	96.402870	también
-5	1	1	1	55	3	164	1160	72	14	94.534813	ustedes
+Me m[Lam]iras tan dulce y l[Re]leno de amor,
+T[Do]omas mis [Re]pies y [Lam]lavas mis pe[Sim]cados[Re].
+
+Yo te preg[Mim]unto "Sen[Do]or,
+‘Me v[Lam]as a lavar los [Re]pies a mi?"
+Y me cont[Mim]estas tierna[Do]mente
+"Tü ah[Lam]ora no puedes [Re]comprender
+Lo que Y[Do]o estoy ha[Re]ciendo,
+Lo comp[Lam]renderas desp[Sim]ués"[Re].
+
+Me descol[Mim]oca verte as[Do]i,
+V[Lam]er que el Maestro s[Re]irve al discipulo
+
+Que seas T[Lam]ü quien me lave los p[Re]ies a mi,
+Pero s[Do]é que si no lo[Re] haces
+No pod[Lam]ré comparti[Sim]r con[Re]tigo.
+
+"Ent[Mim]iendan lo que he h[Do]echo,
+Ust[Lam]edes me llaman Ma[Re]estro y Senor
+
+Si Yo, s[Lam]iendo Seor y s[Re]iendo Maestro
+Les h[Do]e lavado los[Re] pies,
+Häganl[Lam]o también ust[Sim]edes[Re]"
