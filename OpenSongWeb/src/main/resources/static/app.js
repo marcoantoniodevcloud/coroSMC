@@ -189,12 +189,10 @@ function renderSongList() {
         details.open = query !== "" || depth === 1 || folder.path === state.expandedFolder;
         const summary = document.createElement("summary");
         const complete = folder.count > 0 && folder.reviewedCount === folder.count;
-        if (complete) {
-            details.classList.add("reviewed");
-        }
+        details.classList.add(complete ? "reviewed" : "pending");
         const folderStatus = document.createElement("span");
-        folderStatus.className = `folder-status-dot${complete ? " reviewed" : ""}`;
-        folderStatus.setAttribute("aria-label", complete ? "Todos los cantos revisados" : "Carpeta pendiente");
+        folderStatus.className = `folder-status-dot ${complete ? "reviewed" : "pending"}`;
+        folderStatus.setAttribute("aria-label", complete ? "Todos los cantos revisados" : "Hay cantos pendientes");
         const name = document.createElement("span");
         name.className = "folder-name";
         name.textContent = folder.name;

@@ -1307,6 +1307,17 @@
     <string name="resume">Resume</string>
     <string name="reverb">Reverb</string>
     <string name="review">Review</string>
+    <string name="manage_song_files">Manage song files</string>
+    <string name="related_song_files">Delete one text, PDF or image file, or attach an image.</string>
+    <string name="delete_song_file">Delete one file</string>
+    <string name="delete_song_file_warning">Delete only “%1$s”? Other files related to this song will be kept.</string>
+    <string name="no_song_files_found">No matching song files were found.</string>
+    <string name="attach_image_to_song">Attach image to this song</string>
+    <string name="image_attached">Image attached to the song.</string>
+    <string name="image_attach_failed">Could not attach the image.</string>
+    <string name="image_already_attached">An image with this name already exists.</string>
+    <string name="mark_song_reviewed">Mark as reviewed</string>
+    <string name="mark_song_pending">Mark as pending review</string>
     <string name="rhythmic">Rhythmic</string>
     <string name="root">ROOT</string>
     <string name="rotate_display">Rotate display</string>

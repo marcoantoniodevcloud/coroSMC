@@ -100,6 +100,8 @@ public class SongMenuBottomSheet extends BottomSheetCommon {
     }
 
     private void setupViews() {
+        myView.manageSongFiles.setVisibility(songFilename == null || songFilename.isEmpty()
+                ? View.GONE : View.VISIBLE);
         // Set up the song title
         if (!mainActivityInterface.getProcessSong().isValidSong(mainActivityInterface.getSong())) {
             myView.songSpecificActions.setVisibility(View.GONE);
@@ -138,6 +140,11 @@ public class SongMenuBottomSheet extends BottomSheetCommon {
         myView.songShare.setOnClickListener(v -> navigateTo(deeplink_export_string));
         myView.songEdit.setOnClickListener(v -> navigateTo(deeplink_edit_string));
         myView.songActions.setOnClickListener(v -> navigateTo(deeplink_song_actions_string));
+        myView.manageSongFiles.setOnClickListener(v -> {
+            SongFilesBottomSheet filesBottomSheet = SongFilesBottomSheet.newInstance(songFolder, songFilename);
+            filesBottomSheet.show(getParentFragmentManager(), "songFilesBottomSheet");
+            dismiss();
+        });
         myView.newSongs.setOnClickListener(v -> navigateTo(deeplink_import_string));
         myView.addToSet.setOnClickListener(v -> addToSet());
         myView.addVariationToSet.setOnClickListener(v -> addVariationToSet());

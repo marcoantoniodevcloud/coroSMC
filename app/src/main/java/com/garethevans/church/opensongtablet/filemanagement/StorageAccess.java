@@ -2354,7 +2354,7 @@ public class StorageAccess {
             return false;
         }
         String baseName = filename.substring(0, filename.length() - extension.length());
-        String[] mediaExtensions = {".pdf", ".jpg", ".jpeg", ".png", ".gif", ".bmp"};
+        String[] mediaExtensions = {".pdf", ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".heic", ".heif"};
         for (String mediaExtension : mediaExtensions) {
             Uri mediaUri = getUriForItem("Songs", folder, baseName + mediaExtension);
             if (uriExists(mediaUri)) {

@@ -493,14 +493,24 @@ h1 {
     box-shadow: 0 0 6px #50bd7255;
 }
 
-.folder-status-dot.reviewed {
+.folder-status-dot.pending {
     border-color: #dbb65e;
     background: #e3c15f;
     box-shadow: 0 0 6px #e3c15f55;
 }
 
-.folder-group.reviewed > summary .folder-name {
+.folder-status-dot.reviewed {
+    border-color: #4eaa6b;
+    background: #50bd72;
+    box-shadow: 0 0 6px #50bd7255;
+}
+
+.folder-group.pending > summary .folder-name {
     color: #e7d69d;
+}
+
+.folder-group.reviewed > summary .folder-name {
+    color: #b5e7c2;
 }
 
 .song-item .song-title-line {

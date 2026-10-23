@@ -3,6 +3,7 @@ package com.garethevans.church.opensongtablet.songmenu;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +18,7 @@ public class SongItemViewHolder extends RecyclerView.ViewHolder {
     final MyMaterialSimpleTextView itemFolderNamePair;
     final MyMaterialCheckbox itemChecked;
     final FrameLayout itemCheckedFrame;
+    final TextView itemReviewed;
     final LinearLayout itemCard;
 
     SongItemViewHolder(View v) {
@@ -27,5 +29,6 @@ public class SongItemViewHolder extends RecyclerView.ViewHolder {
         itemFolderNamePair = v.findViewById(R.id.cardview_foldernamepair);
         itemChecked = v.findViewById(R.id.cardview_setcheck);
         itemCheckedFrame = v.findViewById(R.id.cardview_setcheck_frame);
+        itemReviewed = v.findViewById(R.id.cardview_reviewed);
     }
 }

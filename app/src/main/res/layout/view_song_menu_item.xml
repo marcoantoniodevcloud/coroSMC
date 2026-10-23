@@ -69,6 +69,18 @@
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp" />
             </FrameLayout>
+
+            <TextView
+                android:id="@+id/cardview_reviewed"
+                android:layout_width="48dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="○"
+                android:textSize="20sp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/mark_song_reviewed" />
         </LinearLayout>
 
         <com.garethevans.church.opensongtablet.customviews.MyDivider

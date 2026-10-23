@@ -1,6 +1,7 @@
 package com.garethevans.church.opensongtablet.songmenu;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongItemViewHolder> {
 
     @SuppressWarnings({"FieldCanBeLocal","unused"})
     private final String TAG = "SongListAdapter";
+    private final Context context;
     private final MainActivityInterface mainActivityInterface;
     private boolean showChecked;
     private boolean songMenuSortTitles;
@@ -32,6 +34,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongItemViewHolder> {
     AdapterCallback callback;
 
     public SongListAdapter(Context c, AdapterCallback callback, SongMenuSongs songMenuSongs) {
+        context = c;
         mainActivityInterface = (MainActivityInterface) c;
         this.callback = callback;
         this.songMenuSongs = songMenuSongs;
@@ -179,6 +182,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongItemViewHolder> {
 
                     // Set the checkbox if the song is in the set
                     bindCheckBox(songItemViewHolder.itemChecked, folderNamePair);
+                    bindReviewedMarker(songItemViewHolder, song);
 
                     if (showChecked) {
                         songItemViewHolder.itemChecked.setVisibility(View.VISIBLE);
@@ -337,6 +341,28 @@ public class SongListAdapter extends RecyclerView.Adapter<SongItemViewHolder> {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void bindReviewedMarker(SongItemViewHolder holder, Song song) {
+        boolean reviewed = SongReviewStatus.isReviewed(context, song);
+        holder.itemReviewed.setText(reviewed ? "✓" : "○");
+        holder.itemReviewed.setTextColor(reviewed ? Color.rgb(46, 125, 50)
+                : mainActivityInterface.getPalette().hintColor);
+        holder.itemReviewed.setContentDescription(getContextDescription(reviewed));
+        holder.itemReviewed.setOnClickListener(v -> {
+            boolean nowReviewed = SongReviewStatus.toggle(context, song);
+            holder.itemReviewed.setText(nowReviewed ? "✓" : "○");
+            holder.itemReviewed.setTextColor(nowReviewed ? Color.rgb(46, 125, 50)
+                    : mainActivityInterface.getPalette().hintColor);
+            holder.itemReviewed.setContentDescription(getContextDescription(nowReviewed));
+            notifyDataSetChanged();
+        });
+    }
+
+    private String getContextDescription(boolean reviewed) {
+        return context.getString(reviewed
+                ? R.string.mark_song_pending
+                : R.string.mark_song_reviewed);
     }
 
     void bindCheckBox(MyMaterialCheckbox checkBox, String folderNamePair) {

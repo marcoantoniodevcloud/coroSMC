@@ -123,6 +123,14 @@
                 android:paddingEnd="16dp"/>
 
             <com.garethevans.church.opensongtablet.customviews.MyMaterialTextView
+                android:id="@+id/manageSongFiles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/manage_song_files"
+                android:hint="@string/related_song_files"/>
+
+            <com.garethevans.church.opensongtablet.customviews.MyMaterialTextView
                 android:id="@+id/randomSong"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
