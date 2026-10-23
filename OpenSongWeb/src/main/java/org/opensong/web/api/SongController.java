@@ -2,6 +2,9 @@ package org.opensong.web.api;
 
 import java.util.List;
 
+import org.opensong.web.song.ChordProFile;
+import org.opensong.web.song.LibrarySong;
+import org.opensong.web.song.SaveChordProRequest;
 import org.opensong.web.song.SaveSongRequest;
 import org.opensong.web.song.SongDocument;
 import org.opensong.web.song.SongLibraryService;
@@ -31,6 +34,38 @@ public class SongController {
     @GetMapping("/songs")
     public List<SongSummary> listSongs() {
         return songLibrary.listSongs();
+    }
+
+    @GetMapping("/library")
+    public List<LibrarySong> listLibrary() {
+        return songLibrary.listLibrary();
+    }
+
+    @GetMapping("/library/chordpro")
+    public ChordProFile getChordPro(@RequestParam String path) {
+        return songLibrary.getChordProFile(path);
+    }
+
+    @PostMapping("/library/chordpro")
+    public ChordProFile saveChordPro(@RequestBody SaveChordProRequest request) {
+        return songLibrary.saveChordProFile(request);
+    }
+
+    @GetMapping("/library/media")
+    public ResponseEntity<byte[]> getMedia(@RequestParam String path) {
+        String extension = path.substring(path.lastIndexOf('.') + 1).toLowerCase(java.util.Locale.ROOT);
+        MediaType mediaType = switch (extension) {
+            case "pdf" -> MediaType.APPLICATION_PDF;
+            case "png" -> MediaType.IMAGE_PNG;
+            case "jpg", "jpeg" -> MediaType.IMAGE_JPEG;
+            case "webp" -> MediaType.parseMediaType("image/webp");
+            default -> MediaType.APPLICATION_OCTET_STREAM;
+        };
+        return ResponseEntity.ok()
+                .contentType(mediaType)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline")
+                .header("X-Content-Type-Options", "nosniff")
+                .body(songLibrary.getMedia(path));
     }
 
     @GetMapping("/song")

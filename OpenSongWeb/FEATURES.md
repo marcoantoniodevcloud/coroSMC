@@ -17,21 +17,20 @@ Crear y organizar canciones desde un computador en una interfaz web sencilla, co
 - **Backend:** Java 21 y Spring Boot; el servidor local sirve la interfaz web y una API REST.
 - **Interfaz:** HTML, CSS y JavaScript nativos para que la primera versión sea fácil de mantener desde Java y no requiera Node.js.
 - **Web y escritorio:** la misma interfaz adaptable funciona en un navegador. En escritorio se inicia el servidor solo en `localhost` y se abre el navegador; la interfaz puede instalarse como PWA desde un navegador compatible. Para publicar la web en una red o en Internet hará falta HTTPS y autenticación.
-- **Persistencia:** directorios y archivos CHORDPRO, sin una segunda SQLite. Se guardan en `~/.opensongweb/Songs` por defecto; `OPENSONGWEB_LIBRARY_PATH` permite cambiar la ubicación.
+- **Persistencia:** directorios y archivos existentes, sin una segunda SQLite. El lanzador `desktopRun` apunta a `app/src/main/assets/DefaultSongs`; `OPENSONGWEB_SONGS_PATH` permite elegir otra carpeta. `bootRun` conserva `~/.opensongweb/Songs` por defecto, configurable con `OPENSONGWEB_LIBRARY_PATH`.
 - **Intercambio:** ZIP descargable cuya raíz es `Songs/` y cuyas entradas conservan las carpetas. Los archivos terminan en `.pro`, extensión que OpenSong Tablet reconoce.
 
 ## MVP de esta primera iteración
 
-- Crear, editar y eliminar canciones.
-- Capturar título, autor, copyright/álbum, carpeta y letra con acordes CHORDPRO.
-- Insertar o actualizar las directivas `{title:}`, `{artist:}` y `{copyright:}` al guardar.
-- Explorar y buscar canciones por título, autor o carpeta.
-- Ver una previsualización sencilla de la letra y los acordes.
-- Guardar cada canción como archivo CHORDPRO en su subcarpeta.
-- Descargar toda la biblioteca como ZIP con las subcarpetas intactas.
+- Explorar y buscar cantos agrupados por carpeta y nombre base, sin distinguir mayúsculas ni acentos.
+- Editar archivos `.cho` y `.pro` directamente, crear un `.cho` si el grupo aún no tiene ChordPro y conservar el texto original sin reescribir sus metadatos.
+- Mostrar PDF e imágenes (`png`, `jpg`, `jpeg`, `webp`) relacionados y permitir elegir entre varias referencias.
+- Detectar cambios externos al actualizar la biblioteca y proteger el guardado mediante una revisión del contenido.
+- Redimensionar los paneles de biblioteca, editor y referencia.
+- Conservar el editor existente para crear, editar y eliminar canciones `.pro`, además de su exportación ZIP.
 - Ejecutar en modo escritorio local o servir la misma interfaz desde Spring Boot.
 
-### Cómo pasar la biblioteca a OpenSong Tablet en este MVP
+### Intercambio con OpenSong Tablet
 
 1. Descargar el ZIP desde OpenSongWeb.
 2. Extraer la carpeta `Songs/` dentro del directorio `OpenSong` que usa la app, conservando las subcarpetas.
@@ -62,11 +61,11 @@ Editor, organización por carpetas, almacenamiento CHORDPRO y descarga ZIP. Es l
 
 ### Antes de exponerlo a Internet
 
-El MVP no incluye cuentas, autenticación, autorización ni transporte seguro para despliegue público. No se debe publicar el servidor de desarrollo en una red accesible sin añadir HTTPS, autenticación, límites de acceso y política de respaldo.
+El servidor se enlaza a `localhost`. El MVP no incluye cuentas, autenticación, autorización ni transporte seguro para despliegue público. No se debe publicar el servidor en una red accesible sin añadir HTTPS, autenticación, límites de acceso y política de respaldo.
 
 ## Fuera del MVP
 
 - Sincronizar o escribir directamente en SQLite de OpenSong Tablet.
-- Editar XML OpenSong, PDF, imágenes, audio, MIDI o listas de sets.
+- Editar XML OpenSong, PDF, imágenes, audio, MIDI o listas de sets (las imágenes y PDF son solo referencias).
 - Edición simultánea de varios usuarios.
 - Importación del ZIP directamente dentro de Android (queda para la Iteración 2).

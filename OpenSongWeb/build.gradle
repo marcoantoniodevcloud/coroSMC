@@ -33,4 +33,6 @@ tasks.register('desktopRun', JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     mainClass = 'org.opensong.web.OpenSongWebApplication'
     args '--opensongweb.desktop=true'
+    environment 'OPENSONGWEB_SONGS_PATH', providers.environmentVariable('OPENSONGWEB_SONGS_PATH')
+            .getOrElse(file('../app/src/main/assets/DefaultSongs').absolutePath)
 }

@@ -9,17 +9,23 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HexFormat;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -43,14 +49,22 @@ public class SongLibraryService {
 
     private final Path songsRoot;
 
-    public SongLibraryService(@Value("${opensongweb.library-path}") String libraryPath) {
-        songsRoot = Path.of(libraryPath).toAbsolutePath().normalize().resolve("Songs").normalize();
+    @Autowired
+    public SongLibraryService(@Value("${opensongweb.library-path}") String libraryPath,
+                              @Value("${opensongweb.songs-path:}") String configuredSongsPath) {
+        songsRoot = configuredSongsPath.isBlank()
+                ? Path.of(libraryPath).toAbsolutePath().normalize().resolve("Songs").normalize()
+                : Path.of(configuredSongsPath).toAbsolutePath().normalize();
         try {
             Files.createDirectories(songsRoot);
         } catch (IOException e) {
             throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
                     "No se pudo crear la carpeta de canciones.", e);
         }
+    }
+
+    public SongLibraryService(String libraryPath) {
+        this(libraryPath, "");
     }
 
     public List<SongSummary> listSongs() {
@@ -67,6 +81,97 @@ public class SongLibraryService {
         } catch (UncheckedIOException e) {
             throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
                     "No se pudo leer uno de los archivos de la biblioteca.", e.getCause());
+        }
+    }
+
+    public List<LibrarySong> listLibrary() {
+        try (var paths = Files.walk(songsRoot)) {
+            Map<String, LibraryGroup> groups = new LinkedHashMap<>();
+            paths.filter(path -> Files.isRegularFile(path, LinkOption.NOFOLLOW_LINKS))
+                    .filter(path -> libraryKind(extension(path)) != null)
+                    .sorted(Comparator.comparing(path -> songsRoot.relativize(path).toString(),
+                            String.CASE_INSENSITIVE_ORDER))
+                    .forEach(path -> {
+                        String relative = songsRoot.relativize(path).toString().replace('\\', '/');
+                        String filename = path.getFileName().toString();
+                        String title = filename.substring(0, filename.lastIndexOf('.'));
+                        String folder = songsRoot.relativize(path.getParent()).toString().replace('\\', '/');
+                        if (folder.equals(".")) {
+                            folder = "";
+                        }
+                        String groupFolder = folder;
+                        String key = normalizeGroupPart(groupFolder) + "/" + normalizeGroupPart(title);
+                        LibraryGroup group = groups.computeIfAbsent(key,
+                                ignored -> new LibraryGroup(title, groupFolder));
+                        String ext = extension(path);
+                        group.files.add(new LibraryFile(relative, filename, ext, libraryKind(ext)));
+                    });
+            return groups.values().stream()
+                    .map(group -> new LibrarySong(group.files.get(0).path(), group.title,
+                            group.folder, List.copyOf(group.files)))
+                    .toList();
+        } catch (IOException e) {
+            throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "No se pudo leer la biblioteca de canciones.", e);
+        } catch (UncheckedIOException e) {
+            throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "No se pudo leer uno de los archivos de la biblioteca.", e.getCause());
+        }
+    }
+
+    public ChordProFile getChordProFile(String id) {
+        Path path = resolveLibraryFile(id, Set.of("cho", "pro"));
+        if (!Files.isRegularFile(path, LinkOption.NOFOLLOW_LINKS)) {
+            throw new SongLibraryException(HttpStatus.NOT_FOUND, "No se encontró el archivo ChordPro.");
+        }
+        try {
+            String content = Files.readString(path, StandardCharsets.UTF_8);
+            return new ChordProFile(id, content, revision(content));
+        } catch (IOException e) {
+            throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "No se pudo leer el archivo ChordPro.", e);
+        }
+    }
+
+    public ChordProFile saveChordProFile(SaveChordProRequest request) {
+        if (request == null || request.content() == null || request.path() == null) {
+            throw badRequest("No se recibieron los datos del archivo ChordPro.");
+        }
+        if (request.content().length() > MAX_CHORDPRO_LENGTH) {
+            throw badRequest("El archivo ChordPro supera el tamaño máximo permitido.");
+        }
+        Path path = resolveLibraryFile(request.path(), Set.of("cho", "pro"));
+        String currentRevision = null;
+        if (Files.exists(path, LinkOption.NOFOLLOW_LINKS)) {
+            if (!Files.isRegularFile(path, LinkOption.NOFOLLOW_LINKS)) {
+                throw new SongLibraryException(HttpStatus.CONFLICT,
+                        "La ruta de destino ya no es un archivo regular.");
+            }
+            try {
+                currentRevision = revision(Files.readString(path, StandardCharsets.UTF_8));
+            } catch (IOException e) {
+                throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
+                        "No se pudo comprobar el archivo ChordPro.", e);
+            }
+        }
+        if (!java.util.Objects.equals(request.revision(), currentRevision)) {
+            throw new SongLibraryException(HttpStatus.CONFLICT,
+                    "El archivo cambió desde que lo abriste. Recarga la canción antes de guardar.");
+        }
+        writeLibraryFileAtomically(path, request.content());
+        return new ChordProFile(request.path(), request.content(), revision(request.content()));
+    }
+
+    public byte[] getMedia(String id) {
+        Path path = resolveLibraryFile(id, Set.of("pdf", "png", "jpg", "jpeg", "webp"));
+        if (!Files.isRegularFile(path, LinkOption.NOFOLLOW_LINKS)) {
+            throw new SongLibraryException(HttpStatus.NOT_FOUND, "No se encontró el archivo de referencia.");
+        }
+        try {
+            return Files.readAllBytes(path);
+        } catch (IOException e) {
+            throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "No se pudo leer el archivo de referencia.", e);
         }
     }
 
@@ -297,6 +402,111 @@ public class SongLibraryService {
                     "No se pudo comprobar la ruta de la canción.", e);
         }
         return path;
+    }
+
+    private Path resolveLibraryFile(String id, Set<String> allowedExtensions) {
+        if (id == null || id.isBlank() || id.startsWith("/") || id.startsWith("\\")
+                || id.matches("^[A-Za-z]:.*")) {
+            throw badRequest("La ruta del archivo no es válida.");
+        }
+        String normalizedId = id.replace('\\', '/');
+        String[] segments = normalizedId.split("/", -1);
+        for (String segment : segments) {
+            if (segment.isBlank() || segment.equals(".") || segment.equals("..")
+                    || segment.endsWith(".") || segment.endsWith(" ")
+                    || segment.matches(".*[<>:\"|?*\\p{Cntrl}].*")) {
+                throw badRequest("La ruta del archivo no es válida.");
+            }
+        }
+        Path path = songsRoot.resolve(normalizedId).normalize();
+        ensureInsideSongsRoot(path);
+        String extension = extension(path);
+        if (!allowedExtensions.contains(extension)) {
+            throw badRequest("El tipo de archivo no está permitido.");
+        }
+        try {
+            Path current = songsRoot;
+            for (String segment : segments) {
+                current = current.resolve(segment);
+                if (Files.isSymbolicLink(current)) {
+                    throw badRequest("No se permiten enlaces simbólicos en la biblioteca.");
+                }
+            }
+            if (Files.exists(path.getParent())
+                    && !path.getParent().toRealPath().startsWith(songsRoot.toRealPath())) {
+                throw badRequest("La ruta del archivo está fuera de la biblioteca.");
+            }
+        } catch (IOException e) {
+            throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "No se pudo comprobar la ruta del archivo.", e);
+        }
+        return path;
+    }
+
+    private void writeLibraryFileAtomically(Path target, String content) {
+        try {
+            if (!Files.isDirectory(target.getParent())) {
+                throw new SongLibraryException(HttpStatus.NOT_FOUND,
+                        "La carpeta de destino ya no existe.");
+            }
+            Path tempFile = Files.createTempFile(target.getParent(), ".opensongweb-", ".tmp");
+            try {
+                Files.writeString(tempFile, content, StandardCharsets.UTF_8);
+                try {
+                    Files.move(tempFile, target, StandardCopyOption.ATOMIC_MOVE,
+                            StandardCopyOption.REPLACE_EXISTING);
+                } catch (AtomicMoveNotSupportedException e) {
+                    Files.move(tempFile, target, StandardCopyOption.REPLACE_EXISTING);
+                }
+            } finally {
+                Files.deleteIfExists(tempFile);
+            }
+        } catch (IOException e) {
+            throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "No se pudo guardar el archivo ChordPro.", e);
+        }
+    }
+
+    private String extension(Path path) {
+        String filename = path.getFileName().toString();
+        int dot = filename.lastIndexOf('.');
+        return dot < 0 ? "" : filename.substring(dot + 1).toLowerCase(Locale.ROOT);
+    }
+
+    private String libraryKind(String extension) {
+        return switch (extension) {
+            case "cho", "pro" -> "chordpro";
+            case "pdf" -> "pdf";
+            case "png", "jpg", "jpeg", "webp" -> "image";
+            default -> null;
+        };
+    }
+
+    private String normalizeGroupPart(String value) {
+        String normalized = Normalizer.normalize(value, Normalizer.Form.NFD)
+                .replaceAll("\\p{M}+", "");
+        return normalized.toLowerCase(Locale.ROOT);
+    }
+
+    private String revision(String content) {
+        try {
+            byte[] digest = MessageDigest.getInstance("SHA-256")
+                    .digest(content.getBytes(StandardCharsets.UTF_8));
+            return HexFormat.of().formatHex(digest);
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalStateException("SHA-256 is not available.", e);
+        }
+    }
+
+    private static final class LibraryGroup {
+        private final String title;
+        private final String folder;
+        private final List<LibraryFile> files = new ArrayList<>();
+
+        private LibraryGroup(String title, String folder) {
+            this.title = title;
+            this.folder = folder;
+        }
     }
 
     private void ensureInsideSongsRoot(Path path) {

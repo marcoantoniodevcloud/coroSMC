@@ -3,87 +3,111 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#1e4c75">
-    <title>OpenSongWeb · Editor de canciones</title>
+    <meta name="theme-color" content="#090909">
+    <title>Cantoral Studio</title>
     <link rel="manifest" href="/manifest.webmanifest">
     <link rel="icon" href="/icons/opensongweb.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 <div class="app-shell">
-    <aside class="sidebar">
+    <header class="topbar">
         <div class="brand">
             <img src="/icons/opensongweb.svg" alt="" class="brand-icon">
             <div>
-                <strong>OpenSongWeb</strong>
-                <span>Editor CHORDPRO</span>
+                <strong>Cantoral Studio</strong>
+                <span id="library-summary">Biblioteca de cantos</span>
             </div>
         </div>
-        <button id="new-song" class="button button-primary new-song" type="button">＋ Nueva canción</button>
-        <label class="search-label" for="search-songs">Biblioteca</label>
-        <input id="search-songs" class="search-input" type="search" placeholder="Buscar canción o carpeta">
-        <div id="song-count" class="song-count">Cargando canciones…</div>
-        <nav id="song-list" class="song-list" aria-label="Canciones"></nav>
-        <a class="button button-secondary export-button" href="/api/export.zip">Descargar biblioteca ZIP</a>
-        <p class="sidebar-hint">El ZIP conserva tus carpetas y contiene archivos CHORDPRO .pro.</p>
-    </aside>
+        <div class="topbar-actions">
+            <button id="new-song" class="icon-button" type="button" aria-label="Nueva canción"
+                    title="Nueva canción">＋</button>
+            <button id="refresh-library" class="icon-button" type="button" aria-label="Actualizar biblioteca"
+                    title="Actualizar biblioteca">↻</button>
+        </div>
+    </header>
 
-    <main class="editor">
-        <header class="editor-header">
-            <div>
-                <p class="eyebrow">BIBLIOTECA LOCAL</p>
-                <h1 id="editor-heading">Nueva canción</h1>
-            </div>
-            <span class="format-pill">CHORDPRO</span>
-        </header>
+    <div id="message" class="message" role="status" aria-live="polite" hidden></div>
 
-        <div id="message" class="message" role="status" aria-live="polite" hidden></div>
-
-        <form id="song-form">
-            <input id="song-id" type="hidden">
-            <div class="metadata-grid">
-                <label class="field field-title">
-                    <span>Título <b aria-hidden="true">*</b></span>
-                    <input id="song-title" name="title" maxlength="160" required placeholder="Nombre de la canción">
-                </label>
-                <label class="field">
-                    <span>Autor</span>
-                    <input id="song-author" name="author" maxlength="160" placeholder="Autor o compositor">
-                </label>
-                <label class="field">
-                    <span>Copyright / álbum</span>
-                    <input id="song-copyright" name="copyright" maxlength="160" placeholder="Opcional">
-                </label>
-                <label class="field">
-                    <span>Carpeta</span>
-                    <input id="song-folder" name="folder" maxlength="240" placeholder="Ej. Litúrgico/Adviento">
-                    <small>Usa / para crear subcarpetas. Déjalo vacío para la raíz.</small>
-                </label>
-            </div>
-
-            <label class="field lyrics-field" for="song-chordpro">
-                <span>Letra con acordes <b aria-hidden="true">*</b></span>
-                <small>Escribe los acordes entre corchetes, por ejemplo [G]Alabemos al Señor.</small>
-                <textarea id="song-chordpro" name="chordPro" required spellcheck="false"
-                          placeholder="[G]Escribe aquí la letra&#10;[C]Los acordes van [D]entre corchetes"></textarea>
-            </label>
-
-            <div class="editor-actions">
-                <button class="button button-primary" type="submit">Guardar canción</button>
-                <button id="delete-song" class="button button-danger" type="button" hidden>Eliminar</button>
-                <button id="reset-song" class="button button-quiet" type="button">Cancelar cambios</button>
-            </div>
-        </form>
-
-        <section class="preview-section" aria-labelledby="preview-heading">
-            <div class="preview-title">
+    <main class="workspace">
+        <aside class="library-panel panel">
+            <div class="panel-heading">
                 <div>
-                    <p class="eyebrow">VISTA PREVIA</p>
-                    <h2 id="preview-heading">Letra y acordes</h2>
+                    <p class="eyebrow">BIBLIOTECA</p>
+                    <h1>Mis cantos</h1>
                 </div>
-                <span>Los acordes se resaltan para facilitar la revisión.</span>
+                <span id="song-count" class="count-badge">…</span>
             </div>
-            <pre id="song-preview" class="song-preview"></pre>
+            <label class="search-box">
+                <span aria-hidden="true">⌕</span>
+                <input id="search-songs" type="search" placeholder="Buscar canto…" autocomplete="off">
+            </label>
+            <nav id="song-list" class="song-list" aria-label="Canciones"></nav>
+            <div class="library-footer">
+                <a class="export-link" href="/api/export.zip">Descargar biblioteca ZIP</a>
+                <span>Los archivos se conservan en sus carpetas originales.</span>
+            </div>
+        </aside>
+
+        <div class="panel-splitter" role="separator" aria-orientation="vertical"
+             aria-label="Redimensionar biblioteca" tabindex="0" data-splitter="library"></div>
+
+        <section class="editor-panel panel" aria-label="Editor ChordPro">
+            <header class="editor-heading">
+                <div class="file-heading">
+                    <span class="file-mark" aria-hidden="true">‹›</span>
+                    <div>
+                        <strong id="editor-filename">Selecciona un canto</strong>
+                        <span id="editor-folder"></span>
+                    </div>
+                </div>
+                <button id="save-song" class="save-button" type="button" disabled>
+                    <span aria-hidden="true">▣</span> Guardar
+                </button>
+            </header>
+            <div id="empty-editor" class="empty-state">
+                <span class="empty-icon" aria-hidden="true">♫</span>
+                <strong>Elige un canto para comenzar</strong>
+                <span>El archivo ChordPro y sus referencias aparecerán aquí.</span>
+            </div>
+            <div id="editor-wrap" class="editor-wrap" hidden>
+                <div id="line-numbers" class="line-numbers" aria-hidden="true"></div>
+                <textarea id="song-chordpro" spellcheck="false" autocapitalize="off"
+                          aria-label="Contenido ChordPro"></textarea>
+            </div>
+            <footer class="editor-footer">
+                <span id="save-status" class="save-status"><i></i> Sin cambios</span>
+                <div class="editor-footer-actions">
+                    <button id="reload-song" class="reload-button" type="button" hidden>Recargar archivo</button>
+                    <span>ChordPro · texto sin formato</span>
+                </div>
+            </footer>
+        </section>
+
+        <div class="panel-splitter" role="separator" aria-orientation="vertical"
+             aria-label="Redimensionar visor" tabindex="0" data-splitter="reference"></div>
+
+        <section class="reference-panel panel" aria-label="Archivo de referencia">
+            <header class="reference-heading">
+                <div>
+                    <p class="eyebrow">REFERENCIA</p>
+                    <strong id="reference-title">Vista del archivo</strong>
+                </div>
+                <select id="reference-select" aria-label="Seleccionar archivo de referencia" disabled>
+                    <option value="">Sin referencias</option>
+                </select>
+            </header>
+            <div id="reference-viewer" class="reference-viewer">
+                <div class="reference-empty">Las imágenes y PDF relacionados se mostrarán aquí.</div>
+            </div>
+            <footer class="reference-footer">
+                <span id="reference-name">Sin archivo seleccionado</span>
+                <div class="zoom-actions">
+                    <button id="zoom-out" type="button" aria-label="Alejar" title="Alejar">−</button>
+                    <button id="zoom-in" type="button" aria-label="Acercar" title="Acercar">＋</button>
+                    <button id="zoom-reset" type="button" aria-label="Restablecer zoom" title="Restablecer">⟳</button>
+                </div>
+            </footer>
         </section>
     </main>
 </div>

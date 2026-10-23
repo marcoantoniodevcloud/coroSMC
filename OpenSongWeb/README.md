@@ -1,6 +1,7 @@
 # OpenSongWeb
 
-Editor web local para crear canciones CHORDPRO, organizarlas en carpetas y exportar una biblioteca ZIP compatible con el flujo de OpenSong Tablet.
+Editor web local para explorar y editar cantos ChordPro junto a sus archivos de referencia.
+La biblioteca muestra una sola entrada por nombre base y permite abrir imágenes y PDF relacionados.
 
 Consulta [FEATURES.md](./FEATURES.md) para la investigación del almacenamiento Android, el alcance del MVP y el plan de integración.
 
@@ -11,13 +12,29 @@ Consulta [FEATURES.md](./FEATURES.md) para la investigación del almacenamiento 
 
 ## Ejecutar en escritorio
 
+`OpenSongWeb` es un proyecto Gradle independiente del proyecto Android y no forma parte de la APK.
+Se prueba en el computador como una aplicación web local, sin instalar dependencias de Node.js.
+
 Desde la raíz del repositorio:
 
 ```powershell
 .\gradlew.bat -p .\OpenSongWeb desktopRun
 ```
 
-Esto inicia Spring Boot en `http://localhost:8080` y abre la interfaz en el navegador predeterminado. La biblioteca se guarda en `%USERPROFILE%\.opensongweb\Songs`.
+Este comando compila e inicia la aplicación web y abre `http://localhost:8080` en el navegador predeterminado.
+La biblioteca aparece con su jerarquía de carpetas; puedes expandir cada carpeta para navegar sus cantos.
+`desktopRun` usa por defecto `app\src\main\assets\DefaultSongs` del repositorio, sin mover ni copiar sus archivos.
+
+Para usar otra carpeta existente, configura su ruta antes de iniciar la aplicación:
+
+```powershell
+$env:OPENSONGWEB_SONGS_PATH = 'D:\MisCantos'
+.\gradlew.bat -p .\OpenSongWeb desktopRun
+```
+
+`OPENSONGWEB_SONGS_PATH` apunta directamente a la carpeta de cantos y tiene prioridad sobre
+`OPENSONGWEB_LIBRARY_PATH`. `bootRun` sin esa variable conserva la biblioteca predeterminada
+`%USERPROFILE%\.opensongweb\Songs`. La aplicación no copia ni mueve los archivos de la carpeta elegida.
 
 Para iniciar el servidor sin abrir automáticamente el navegador:
 
@@ -36,7 +53,7 @@ $env:OPENSONGWEB_LIBRARY_PATH = 'D:\OpenSongWebData'
 
 ## Flujo con OpenSong Tablet
 
-En OpenSongWeb, guarda las canciones y descarga el ZIP. Extrae la carpeta `Songs` del ZIP dentro de la carpeta `OpenSong` que utiliza OpenSong Tablet. Conserva los subdirectorios y solicita un reindexado en la app. OpenSong Tablet reconoce los archivos `.pro`, los convierte a XML y crea/actualiza su propio índice SQLite.
+Los archivos `.cho` y `.pro` se editan en su ubicación original. Antes de guardar se comprueba si otro programa modificó el archivo. Las imágenes y PDF con el mismo nombre base se muestran como referencias del canto. Se conserva el editor de biblioteca `.pro` y la exportación ZIP existente.
 
 La descarga e instalación directa desde Android todavía no está implementada; está descrita como la Iteración 2 en el plan de features.
 

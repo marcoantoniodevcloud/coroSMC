@@ -1,0 +1,18 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Abrir Cantoral Studio en el navegador",
+			"type": "shell",
+			"command": ".\\gradlew.bat",
+			"args": [
+				"-p",
+				".\\OpenSongWeb",
+				"desktopRun"
+			],
+			"isBackground": true,
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}

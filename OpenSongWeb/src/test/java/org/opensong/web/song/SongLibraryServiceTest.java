@@ -84,4 +84,68 @@ class SongLibraryServiceTest {
                 () -> library.saveSong(new SaveSongRequest(null, "Canto\n{artist: atacante}",
                         "", "", "", "[C]Letra"))).getStatus());
     }
+
+    @Test
+    void groupsRelatedFilesWithoutLosingUnmatchedReferences() throws Exception {
+        Path songs = temporaryDirectory.resolve("Songs");
+        Files.writeString(songs.resolve("Gema.cho"), "[Em]Voy caminando");
+        Files.write(songs.resolve("gema.PDF"), new byte[]{1, 2, 3});
+        Files.write(songs.resolve("GÉMA.jpg"), new byte[]{4, 5, 6});
+        Files.write(songs.resolve("Solo imagen.png"), new byte[]{7, 8, 9});
+
+        List<LibrarySong> librarySongs = library.listLibrary();
+
+        assertEquals(2, librarySongs.size());
+        LibrarySong gema = librarySongs.stream()
+                        .filter(song -> song.title().equals("Gema"))
+                        .findFirst().orElseThrow();
+        assertEquals(3, gema.files().size());
+        assertTrue(gema.files().stream().anyMatch(file -> file.kind().equals("chordpro")));
+        assertTrue(gema.files().stream().anyMatch(file -> file.kind().equals("pdf")));
+        assertTrue(gema.files().stream().anyMatch(file -> file.kind().equals("image")));
+        assertEquals("Solo imagen", librarySongs.stream()
+                        .filter(song -> song.title().equals("Solo imagen"))
+                        .findFirst().orElseThrow().title());
+    }
+
+    @Test
+    void savesChordProOnlyWhenItHasNotChangedExternally() throws Exception {
+        Path songPath = temporaryDirectory.resolve("Songs/Ensayo.cho");
+        Files.writeString(songPath, "[C]Versión original");
+        ChordProFile opened = library.getChordProFile("Ensayo.cho");
+
+        ChordProFile saved = library.saveChordProFile(
+                        new SaveChordProRequest(opened.path(), "[G]Versión editada", opened.revision()));
+
+        assertEquals("[G]Versión editada", Files.readString(songPath));
+        assertEquals(saved.revision(), library.getChordProFile("Ensayo.cho").revision());
+        Files.writeString(songPath, "[D]Cambio externo");
+        assertEquals(HttpStatus.CONFLICT, assertThrows(SongLibraryException.class,
+                        () -> library.saveChordProFile(new SaveChordProRequest(opened.path(),
+                                "[A]No sobrescribir", opened.revision()))).getStatus());
+        assertEquals("[D]Cambio externo", Files.readString(songPath));
+    }
+
+    @Test
+    void createsChordProFileAndRejectsPathsOutsideLibrary() {
+        ChordProFile created = library.saveChordProFile(
+                        new SaveChordProRequest("Nueva.cho", "[Am]Canto", null));
+
+        assertEquals("[Am]Canto", library.getChordProFile(created.path()).content());
+        assertEquals(HttpStatus.BAD_REQUEST, assertThrows(SongLibraryException.class,
+                        () -> library.getChordProFile("../fuera.cho")).getStatus());
+    }
+
+    @Test
+    void supportsUsingAnExistingSongsFolderDirectly() throws Exception {
+        Path directFolder = temporaryDirectory.resolve("DefaultSongs");
+        Files.createDirectories(directFolder);
+        Files.writeString(directFolder.resolve("Canto.cho"), "[C]Letra");
+        SongLibraryService directLibrary = new SongLibraryService(
+                        temporaryDirectory.toString(), directFolder.toString());
+
+        assertEquals(1, directLibrary.listLibrary().size());
+        assertEquals("[C]Letra", directLibrary.getChordProFile("Canto.cho").content());
+        assertFalse(Files.exists(directFolder.resolve("Songs")));
+    }
 }
