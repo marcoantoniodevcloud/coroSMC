@@ -1716,7 +1716,7 @@
     "status" : "rojo",
     "needsAttention" : true,
     "notes" : "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 9 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
-    "files" : [ "ofertorio/2e658ebf-b57a-4a97-b931-64c02bd6d631.cho", "ofertorio/2e658ebf-b57a-4a97-b931-64c02bd6d631.jpeg" ],
+    "files" : [ "ofertorio/En torno a tu mesa.cho", "ofertorio/En torno a tu mesa.jpeg" ],
     "originalIndex" : 162,
     "displayTitle" : "2e658ebf-b57a-4a97-b931-64c02bd6d631",
     "contentSha256" : "fd565cd41ce47c873f9d212f070388d05eb0b55d2b9c4fb68d39cf0280eb57c1"
@@ -1756,7 +1756,7 @@
     "status" : "rojo",
     "needsAttention" : true,
     "notes" : "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 18 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
-    "files" : [ "ofertorio/IMG-20250706-WA0006.cho", "ofertorio/IMG-20250706-WA0006.jpg" ],
+    "files" : [ "ofertorio/Hemos entregado.cho", "ofertorio/Hemos entregado.jpg" ],
     "originalIndex" : 166,
     "displayTitle" : "IMG-20250706-WA0006",
     "contentSha256" : "c076f7ed98458bc97abce7b054097650bfdd6a7eaf595158d15d672e21aeffe1"
@@ -2076,7 +2076,7 @@
     "status" : "rojo",
     "needsAttention" : true,
     "notes" : "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 6 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
-    "files" : [ "Piedad/IMG-20260208-WA0004.cho", "Piedad/IMG-20260208-WA0004.jpg" ],
+    "files" : [ "Piedad/Piedad - Alrededor de tu mesa.cho", "Piedad/Piedad - Alrededor de tu mesa.jpg" ],
     "originalIndex" : 190,
     "displayTitle" : "IMG-20260208-WA0004",
     "contentSha256" : "6fb490d2eca8de8b9d62c5fe4abd8637b1b95a149c7b10dc0072aa9fc4f0d891"
@@ -2426,7 +2426,7 @@
     "status" : "rojo",
     "needsAttention" : true,
     "notes" : "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 19 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
-    "files" : [ "Vocacionales/IMG-20260208-WA0005.cho", "Vocacionales/IMG-20260208-WA0005.jpg" ],
+    "files" : [ "Vocacionales/Canto de jeremias.cho", "Vocacionales/Canto de jeremias.jpg" ],
     "originalIndex" : 215,
     "displayTitle" : "IMG-20260208-WA0005",
     "contentSha256" : "8bd2851fd2e4b067985db7409b8bd92153b65d7f19ebc5cdabb7f240bbd26e04"
@@ -2526,7 +2526,7 @@
     "status" : "rojo",
     "needsAttention" : true,
     "notes" : "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 1 tokens dudosos: SIb. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 24 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
-    "files" : [ "Vocacionales/Screenshot 2025-05-17 171957.cho", "Vocacionales/Screenshot 2025-05-17 171957.png" ],
+    "files" : [ "Vocacionales/En tu nombre echare las redes.cho", "Vocacionales/En tu nombre echare las redes.png" ],
     "originalIndex" : 223,
     "displayTitle" : "Screenshot 2025-05-17 171957",
     "contentSha256" : "50efcbf353f82aef749c875501e7f660028b33017c1aeacd25d98e21eb5f4b69"
@@ -2536,7 +2536,7 @@
     "status" : "rojo",
     "needsAttention" : true,
     "notes" : "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 3 tokens dudosos: SI7, TOS, S17. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 15 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
-    "files" : [ "Vocacionales/Screenshot 2025-05-17 172702.cho", "Vocacionales/Screenshot 2025-05-17 172702.png" ],
+    "files" : [ "Vocacionales/Salmo 91.cho", "Vocacionales/Salmo 91.png" ],
     "originalIndex" : 224,
     "displayTitle" : "Screenshot 2025-05-17 172702",
     "contentSha256" : "b4f43aef0671c0b528732e908e40477ff75b3c8d0931998014ff5f19faf7ab94"
