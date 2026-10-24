@@ -1978,4 +1978,18 @@
     <string name="zefania" translatable="false">Zefania</string>
     <string name="zone">Zone</string>
     <string name="zoom_level">Zoom level</string>
+    <string name="correct_song">Correct song</string>
+    <string name="correct_all_songs">Correct all songs</string>
+    <string name="correct_american_chords">Convert chords to American notation (C, D, E…)</string>
+    <string name="correct_all_description">Convert explicit ChordPro chords, OpenSong chord rows and song keys. Lyrics and media are preserved. Modified files are backed up under Backups/Corrections. Save any pending edits before continuing.</string>
+    <string name="stop_correction">Stop after current file</string>
+    <string name="correction_result">Converted: %1$d\nUnchanged: %2$d\nFailed: %3$d</string>
+    <string name="correction_stopped">Stopped before processing all files.</string>
+    <string name="correction_backup_failed">Backup failed; song was not changed</string>
+    <string name="correction_file_changed">File changed during correction; reload it</string>
+    <string name="correction_write_failed">Unable to write corrected song</string>
+    <string name="correction_editor_done">Chords converted. Review and save; Undo is available.</string>
+    <string name="song_review_attention">Needs review</string>
+    <string name="ocr_layout_engine">OCR with chord positions</string>
+    <string name="ocr_no_text">No text could be recognized. The original is preserved.</string>
 </resources>

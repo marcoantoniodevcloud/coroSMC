@@ -162,6 +162,14 @@
                 android:padding="16dp"
                 android:text="@string/batch_ocr"
                 app:mydrawable="@drawable/ocr" />
+            <com.garethevans.church.opensongtablet.customviews.MyMaterialTextView
+                android:id="@+id/correctAll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/correct_all_songs"
+                android:hint="@string/correct_american_chords"
+                app:mydrawable="@drawable/settings_outline" />
             <com.garethevans.church.opensongtablet.customviews.MyDivider
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

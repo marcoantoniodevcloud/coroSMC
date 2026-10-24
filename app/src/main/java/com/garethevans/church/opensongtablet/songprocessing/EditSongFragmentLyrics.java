@@ -172,6 +172,13 @@ public class EditSongFragmentLyrics extends Fragment {
         }
 
         mainActivityInterface.getProcessSong().editBoxToMultiline(myView.lyrics);
+        final String ocrReference = findOcrReference();
+        if (ocrReference != null) mainActivityInterface.getMainHandler().post(() -> {
+            if (myView != null) {
+                myView.ocr.setVisibility(View.VISIBLE);
+                myView.ocr.setContentDescription(getString(R.string.ocr_layout_engine));
+            }
+        });
         editTextSize = mainActivityInterface.getPreferences().getMyPreferenceFloat("editTextSize",14);
         mainActivityInterface.getMainHandler().post(() -> {
             if (myView!=null) {
@@ -302,21 +309,38 @@ public class EditSongFragmentLyrics extends Fragment {
         myView.lyrics.addTextChangedListener(textWatcher);
 
         myView.ocr.setOnClickListener(v -> {
+            if (mainActivityInterface.getOCR().isBusy()) {
+                mainActivityInterface.getShowToast().doIt(getString(R.string.batch_ocr_running));
+                return;
+            }
             if (mainActivityInterface.getSong().getFiletype()==null) {
                 mainActivityInterface.getSong().setFiletype(mainActivityInterface.getStorageAccess().tryToFixFileTypeFromNull(mainActivityInterface.getSong().getFilename()));
             }
 
-            if (mainActivityInterface.getSong().getFiletype().equals("PDF") &&
+            String reference = findOcrReference();
+            if (reference == null) return;
+            if (reference.toLowerCase(java.util.Locale.ROOT).endsWith(".pdf") &&
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 mainActivityInterface.getOCR().getTextFromPDF(
-                        mainActivityInterface.getSong().getFolder(), mainActivityInterface.getSong().getFilename(),false);
-            } else if (mainActivityInterface.getSong().getFiletype().equals("IMG")) {
+                        mainActivityInterface.getSong().getFolder(), reference,false);
+            } else {
                 mainActivityInterface.getOCR().getTextFromImageFile(
                         mainActivityInterface.getSong().getFolder(),
-                        mainActivityInterface.getSong().getFilename());
+                        reference);
             }
             mainActivityInterface.navHome();
         });
+        myView.correctSong.setOnClickListener(v -> new android.app.AlertDialog.Builder(requireContext())
+                .setTitle(R.string.correct_song)
+                .setItems(new String[]{getString(R.string.correct_american_chords)}, (dialog, which) -> {
+                    if (myView.lyrics.getText() == null) return;
+                    String converted = ChordNotationCorrector.convert(myView.lyrics.getText().toString());
+                    myView.lyrics.setText(converted);
+                    mainActivityInterface.getTempSong().setLyrics(converted);
+                    mainActivityInterface.getTempSong().setKey(ChordNotationCorrector.chord(
+                            mainActivityInterface.getTempSong().getKey() == null ? "" : mainActivityInterface.getTempSong().getKey()));
+                    mainActivityInterface.getShowToast().doIt(getString(R.string.correction_editor_done));
+                }).show());
         myView.imageEdit.setOnClickListener(v -> {
             ImageAdjustBottomSheet imageAdjustBottomSheet = new ImageAdjustBottomSheet(this,mainActivityInterface.getTempSong());
             imageAdjustBottomSheet.show(mainActivityInterface.getMyFragmentManager(),"ImageAdjustBottomSheet");
@@ -348,6 +372,19 @@ public class EditSongFragmentLyrics extends Fragment {
 
         // Scroll listener
         myView.lyricsScrollView.setExtendedFabToAnimate(editSongFragmentInterface.getSaveButton());
+    }
+
+    private String findOcrReference() {
+        Song song = mainActivityInterface.getSong();
+        if (song == null || song.getFilename() == null) return null;
+        if ("PDF".equals(song.getFiletype()) || "IMG".equals(song.getFiletype())) return song.getFilename();
+        String base = com.garethevans.church.opensongtablet.songmenu.SongReviewKey.fileBaseName(song.getFilename());
+        for (String extension : new String[]{".pdf", ".png", ".jpg", ".jpeg", ".webp"}) {
+            String candidate = base + extension;
+            if (mainActivityInterface.getStorageAccess().uriExists(mainActivityInterface.getStorageAccess()
+                    .getUriForItem("Songs", song.getFolder(), candidate))) return candidate;
+        }
+        return null;
     }
 
     private void pasteClipboard(boolean replaceAll) {

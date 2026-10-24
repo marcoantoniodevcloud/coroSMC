@@ -191,6 +191,95 @@ public class SongLibraryService {
         writeReviewedSongs(reviewedSongs);
     }
 
+    /** Rename the complete group, keeping references and review metadata together. */
+    public synchronized LibrarySong renameSong(RenameSongRequest request) {
+        if (request == null || request.name() == null) throw badRequest("Escribe el nuevo nombre.");
+        String name = request.name();
+        if (name.isBlank() || name.length() > MAX_TITLE_LENGTH || !name.equals(name.strip())
+                || name.endsWith(".") || name.matches(".*[<>:\"/\\\\|?*\\p{Cntrl}].*")
+                || name.equals(".") || name.equals("..")
+                || WINDOWS_RESERVED_NAMES.contains(name.split("\\.", 2)[0].toUpperCase(Locale.ROOT))
+                || name.matches("(?i)(COM|LPT)[1-9](\\..*)?")) {
+            throw badRequest("Usa un nombre válido, sin extensión ni separadores de carpetas.");
+        }
+        resolveLibraryFile(request.path(), Set.of("cho", "pro", "pdf", "png", "jpg", "jpeg", "webp"));
+        LibrarySong group = listLibrary().stream().filter(song -> song.files().stream()
+                .anyMatch(file -> file.path().equals(request.path()))).findFirst()
+                .orElseThrow(() -> new SongLibraryException(HttpStatus.NOT_FOUND, "No se encontró el canto."));
+        if (group.title().equals(name)) return group;
+        if (normalizeGroupPart(group.title()).equals(normalizeGroupPart(name))) {
+            throw badRequest("El nombre debe distinguirse del actual; para cambiar solo mayúsculas o acentos usa un nombre intermedio.");
+        }
+        if (listLibrary().stream().anyMatch(song -> song.folder().equals(group.folder())
+                && normalizeGroupPart(song.title()).equals(normalizeGroupPart(name)))) {
+            throw new SongLibraryException(HttpStatus.CONFLICT, "Ya existe un canto con ese nombre.");
+        }
+        Map<Path, Path> moves = new LinkedHashMap<>();
+        Map<String, String> paths = new LinkedHashMap<>();
+        for (LibraryFile file : group.files()) {
+            Path source = resolveLibraryFile(file.path(), Set.of("cho", "pro", "pdf", "png", "jpg", "jpeg", "webp"));
+            String original = source.getFileName().toString();
+            Path target = source.resolveSibling(name + original.substring(original.lastIndexOf('.')));
+            if (Files.exists(target, LinkOption.NOFOLLOW_LINKS)) {
+                throw new SongLibraryException(HttpStatus.CONFLICT, "Ya existe un archivo de destino.");
+            }
+            moves.put(source, target);
+            paths.put(file.path(), songsRoot.relativize(target).toString().replace('\\', '/'));
+        }
+        Path report = songsRoot.resolve("revision-cantos.json");
+        String previousReport = null;
+        Set<String> previousReviews = readReviewedSongs();
+        List<Path> moved = new ArrayList<>();
+        boolean reportWritten = false;
+        boolean reviewsWritten = false;
+        try {
+            com.fasterxml.jackson.databind.JsonNode reportTree = null;
+            if (Files.exists(report)) {
+                if (!Files.isRegularFile(report, LinkOption.NOFOLLOW_LINKS)) throw badRequest("El control de revisión no es un archivo válido.");
+                previousReport = Files.readString(report, StandardCharsets.UTF_8);
+                reportTree = new ObjectMapper().readTree(previousReport);
+                for (var song : reportTree.path("songs")) {
+                    if (song.path("files") instanceof com.fasterxml.jackson.databind.node.ArrayNode files) {
+                        for (int i = 0; i < files.size(); i++) {
+                            String replacement = paths.get(files.get(i).asText());
+                            if (replacement != null) files.set(i, com.fasterxml.jackson.databind.node.TextNode.valueOf(replacement));
+                        }
+                    }
+                }
+            }
+            for (var move : moves.entrySet()) {
+                Files.move(move.getKey(), move.getValue());
+                moved.add(move.getKey());
+            }
+            if (reportTree != null) {
+                writeLibraryFileAtomically(report, new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(reportTree));
+                reportWritten = true;
+            }
+            Set<String> updatedReviews = new HashSet<>(previousReviews);
+            if (updatedReviews.remove(reviewKey(group.folder(), group.title()))) {
+                updatedReviews.add(reviewKey(group.folder(), name));
+                writeReviewedSongs(updatedReviews);
+                reviewsWritten = true;
+            }
+        } catch (Exception failure) {
+            try {
+                if (reviewsWritten) writeReviewedSongs(previousReviews);
+                if (reportWritten) writeLibraryFileAtomically(report, previousReport);
+                java.util.Collections.reverse(moved);
+                for (Path source : moved) Files.move(moves.get(source), source);
+            } catch (Exception rollback) {
+                failure.addSuppressed(rollback);
+                throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
+                        "El renombrado quedó incompleto. Revisa los archivos antes de volver a intentar.", failure);
+            }
+            throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "No se pudo renombrar; se restauraron los nombres originales.", failure);
+        }
+        String targetId = paths.get(request.path());
+        return listLibrary().stream().filter(song -> song.files().stream()
+                .anyMatch(file -> file.path().equals(targetId))).findFirst().orElseThrow();
+    }
+
     public ChordProFile getChordProFile(String id) {
         Path path = resolveLibraryFile(id, Set.of("cho", "pro"));
         if (!Files.isRegularFile(path, LinkOption.NOFOLLOW_LINKS)) {
@@ -205,7 +294,7 @@ public class SongLibraryService {
         }
     }
 
-    public ChordProFile runOcr(OcrSongRequest request) {
+    public synchronized ChordProFile runOcr(OcrSongRequest request) {
         if (request == null || request.path() == null || request.path().isBlank()) {
             throw badRequest("Selecciona una imagen o PDF para procesar con OCR_PROJECT.");
         }

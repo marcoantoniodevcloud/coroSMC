@@ -4,6 +4,8 @@ Este documento resume la estructura y los puntos de entrada observados en el rep
 
 ## Resumen
 
+- Correcciones/OCR Android: `songprocessing/ChordNotationCorrector` convierte ChordPro y filas OpenSong; `SongCorrections` ejecuta el lote con respaldos. `pdf/OcrChordLayout` asocia coordenadas ML Kit a ChordPro, utilizado por OCR individual y por lotes. `songmenu/SongReviewStatus` persiste revisado y consulta observaciones de `DefaultSongs/revision-cantos.json`; ese JSON no se instala como canto. Ver `docs/ANDROID_CORRECCIONES_OCR.md` para uso y diferencias con el OCR Python de OpenSongWeb.
+
 - OpenSong es una aplicacion Android para gestionar canciones, letras/acordes y conjuntos (sets), y para usarlos en modos de interpretacion y presentacion.
 - El proyecto Gradle incluye actualmente `:app` y `:wear`, segun [settings.gradle](settings.gradle). La app principal es mayoritariamente Java, con algunos archivos Kotlin; la app Wear OS usa Kotlin, Jetpack Compose y ofrece un metronomo.
 - El paquete Android principal es `com.garethevans.church.opensongtablet`.

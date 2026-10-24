@@ -31,6 +31,59 @@ class SongLibraryServiceTest {
     }
 
     @Test
+    void renamesAllCompanionsAndPreservesReviewNotesAndContent() throws Exception {
+        Path songs = temporaryDirectory.resolve("Songs");
+        Files.createDirectories(songs.resolve("Entrada"));
+        String content = "{title: Título interno}\n[Do]Letra";
+        Files.writeString(songs.resolve("Entrada/Canto.cho"), content);
+        Files.write(songs.resolve("Entrada/Canto.pdf"), new byte[]{0, 1, 2, 3});
+        Files.writeString(songs.resolve("revision-cantos.json"), """
+                {"songs":[{"needsAttention":true,"notes":"Comprobar acordes",
+                  "files":["Entrada/Canto.pdf"]}]}
+                """);
+        library.setSongReviewed(new ReviewSongRequest("Entrada/Canto.cho", true));
+        LibrarySong renamed = library.renameSong(new RenameSongRequest("Entrada/Canto.pdf", "Nuevo nombre"));
+        assertEquals(2, renamed.files().size());
+        assertEquals("Nuevo nombre", renamed.title());
+        assertTrue(renamed.reviewed());
+        assertFalse(Files.exists(songs.resolve("Entrada/Canto.cho")));
+        assertFalse(Files.exists(songs.resolve("Entrada/Canto.pdf")));
+        assertEquals(content, Files.readString(songs.resolve("Entrada/Nuevo nombre.cho")));
+        assertEquals(4, Files.size(songs.resolve("Entrada/Nuevo nombre.pdf")));
+        library.setSongReviewed(new ReviewSongRequest("Entrada/Nuevo nombre.cho", false));
+        LibrarySong pending = library.listLibrary().getFirst();
+        assertTrue(pending.needsAttention());
+        assertEquals("Comprobar acordes", pending.reviewNotes());
+    }
+
+    @Test
+    void rejectsInvalidAndCollidingNamesWithoutChangingFiles() throws Exception {
+        Path songs = temporaryDirectory.resolve("Songs");
+        Files.writeString(songs.resolve("Canto.cho"), "original");
+        Files.writeString(songs.resolve("Otro.pdf"), "reference");
+        for (String name : List.of("../Fuera", "CON", "NUL.txt", "COM1", "a/b", "a\\b", "Final.", " Otro", "", "Canto", "Ótro")) {
+            if (name.equals("Canto")) continue;
+            assertThrows(SongLibraryException.class,
+                    () -> library.renameSong(new RenameSongRequest("Canto.cho", name)), name);
+        }
+        assertThrows(SongLibraryException.class,
+                () -> library.renameSong(new RenameSongRequest("missing.cho", "Nuevo")));
+        assertEquals("original", Files.readString(songs.resolve("Canto.cho")));
+        assertEquals("reference", Files.readString(songs.resolve("Otro.pdf")));
+    }
+
+    @Test
+    void invalidReviewReportPreventsAnyPartialRename() throws Exception {
+        Path songs = temporaryDirectory.resolve("Songs");
+        Files.writeString(songs.resolve("Canto.cho"), "original");
+        Files.writeString(songs.resolve("revision-cantos.json"), "broken json");
+        assertThrows(SongLibraryException.class,
+                () -> library.renameSong(new RenameSongRequest("Canto.cho", "Nuevo")));
+        assertTrue(Files.exists(songs.resolve("Canto.cho")));
+        assertFalse(Files.exists(songs.resolve("Nuevo.cho")));
+    }
+
+    @Test
     void correctsFilesWithRevisionCheckAndBacksUpOnlyModifiedContent() throws Exception {
         Path songs = temporaryDirectory.resolve("Songs");
         Files.createDirectories(songs);

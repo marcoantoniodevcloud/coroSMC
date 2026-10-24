@@ -1575,4 +1575,20 @@
     <string name="worship">Culto</string>
     <string name="zone">Zona</string>
     <string name="zoom_level">Nivel de zoom</string>
+    <string name="correct_song">Corregir canto</string>
+    <string name="correct_all_songs">Corregir todos los cantos</string>
+    <string name="correct_american_chords">Convertir acordes a notación americana (C, D, E…)</string>
+    <string name="correct_all_description">Convierte los acordes explícitos de ChordPro, las líneas de acordes OpenSong y la tonalidad. Conserva letras y referencias. Respalda los archivos modificados en Backups/Corrections. Guarda las ediciones pendientes antes de continuar.</string>
+    <string name="stop_correction">Detener después del archivo actual</string>
+    <string name="correction_result">Convertidos: %1$d\nSin cambios: %2$d\nFallidos: %3$d</string>
+    <string name="correction_stopped">Detenido antes de procesar todos los archivos.</string>
+    <string name="correction_backup_failed">No se pudo respaldar; el canto no se modificó</string>
+    <string name="correction_file_changed">El archivo cambió durante la corrección; recárgalo</string>
+    <string name="correction_write_failed">No se pudo guardar el canto corregido</string>
+    <string name="correction_editor_done">Acordes convertidos. Revisa y guarda; puedes Deshacer.</string>
+    <string name="song_review_attention">Requiere revisión</string>
+    <string name="ocr_layout_engine">OCR con posiciones de acordes</string>
+    <string name="ocr_no_text">No se pudo reconocer texto. El original se conserva.</string>
+    <string name="mark_song_reviewed">Marcar como revisado</string>
+    <string name="mark_song_pending">Marcar como pendiente de revisión</string>
 </resources>

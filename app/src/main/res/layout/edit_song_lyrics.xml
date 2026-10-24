@@ -56,6 +56,16 @@
                     android:layout_weight="1" />
 
                 <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/correctSong"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/correct_song"
+                    android:padding="9dp"
+                    android:src="@drawable/settings_outline"
+                    app:tint="?attr/colorOnSurface" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/ocr"
                     android:layout_width="40dp"
                     android:layout_height="40dp"

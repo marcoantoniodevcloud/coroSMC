@@ -82,7 +82,8 @@ public class PDFExtractBottomSheet extends BottomSheetCommon {
             stringBuilder.append(string).append("\n\n");
         }
 
-        String extractedText = mainActivityInterface.getConvertTextSong().convertText(stringBuilder.toString());
+        String extractedText = mainActivityInterface.getConvertChoPro()
+                .convertChordProLyricsToOpenSong(new Song(), stringBuilder.toString()).getLyrics();
         mainActivityInterface.getProcessSong().editBoxToMultiline(myView.extractedText);
         myView.extractedText.setText(extractedText);
         mainActivityInterface.getProcessSong().stretchEditBoxToLines(myView.extractedText,20);
@@ -122,6 +123,11 @@ public class PDFExtractBottomSheet extends BottomSheetCommon {
         myView.saveSearchable.setOnClickListener(view -> {
             if (myView.createNewSong.isChecked() && myView.filename.getText()!=null &&
             !myView.filename.getText().toString().isEmpty()) {
+                if (!com.garethevans.church.opensongtablet.songprocessing.SongCorrections.backupExisting(
+                        mainActivityInterface, myView.folder.getText().toString(), myView.filename.getText().toString())) {
+                    mainActivityInterface.getShowToast().doIt(getString(R.string.correction_backup_failed));
+                    return;
+                }
                 // Create a new song but update existing metadata with what we have if it exists
                 Song newSong = mainActivityInterface.getTempSong()==null ? new Song() : mainActivityInterface.getTempSong();
                 newSong.setFiletype("XML");
@@ -129,14 +135,17 @@ public class PDFExtractBottomSheet extends BottomSheetCommon {
                 newSong.setFolder(myView.folder.getText().toString());
                 newSong.setTitle(myView.filename.getText().toString());
                 newSong.setLyrics(myView.extractedText.getText().toString());
+                newSong.setEditingAsChoPro(false);
                 mainActivityInterface.setSong(newSong);
                 mainActivityInterface.getSQLiteHelper().createSong(newSong.getFolder(),newSong.getFilename());
                 mainActivityInterface.getSQLiteHelper().updateSong(newSong);
-                mainActivityInterface.getSaveSong().doSave(newSong);
+                if (!mainActivityInterface.getSaveSong().doSave(newSong)) return;
+                com.garethevans.church.opensongtablet.songmenu.SongReviewStatus.setReviewed(requireContext(), newSong, false);
             } else {
                 //Add to the persistent database only
                 mainActivityInterface.getSong().setLyrics(myView.extractedText.getText().toString());
                 mainActivityInterface.getSaveSong().updateSong(mainActivityInterface.getSong(),true);
+                com.garethevans.church.opensongtablet.songmenu.SongReviewStatus.setReviewed(requireContext(), mainActivityInterface.getSong(), false);
             }
             // Open the edit song page so the user can check for updates
             mainActivityInterface.navigateToFragment(deeplink_edit_string,0);

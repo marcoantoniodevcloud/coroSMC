@@ -378,6 +378,7 @@ function setDirty(dirty) {
 
 function updateReviewButton() {
     const song = state.selectedSong;
+    document.querySelector("#rename-song").disabled = state.ocrBusy || !song || song.files.length === 0;
     elements.review.disabled = state.ocrBusy || !song || song.files.length === 0;
     elements.review.classList.toggle("reviewed", Boolean(song?.reviewed));
     elements.review.textContent = song?.reviewed ? "✓ Revisado" : "○ Marcar revisado";
@@ -1181,7 +1182,7 @@ refreshLibrary().catch(error => {
 });
 
 window.setInterval(() => {
-    if (!document.hidden) {
+    if (!document.hidden && !state.ocrBusy) {
         refreshLibrary().catch(error => showMessage(error.message, true));
     }
 }, 12000);
@@ -1189,3 +1190,41 @@ window.setInterval(() => {
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js"));
 }
+
+
+document.querySelector("#rename-song").addEventListener("click", async () => {
+    const song = state.selectedSong;
+    if (!song || state.ocrBusy) return;
+    if (state.dirty) {
+        showMessage("Guarda o descarta los cambios antes de renombrar los archivos.", true);
+        return;
+    }
+    const name = window.prompt(`Nuevo nombre sin extensión. Se renombrarán estos archivos juntos:\n${song.files.map(file => file.name).join("\n")}\n\nEl título dentro de la letra se conserva.`, song.title);
+    if (name === null || name === song.title) return;
+    state.ocrBusy = true;
+    state.selectionVersion++;
+    elements.chordPro.readOnly = true;
+    updateReviewButton();
+    renderSongList();
+    try {
+        const renamed = await request("/api/library/rename", {
+            method: "POST", body: JSON.stringify({ path: song.id, name })
+        });
+        state.selectedId = null;
+        state.selectedSong = null;
+        state.chordProPath = null;
+        state.revision = null;
+        state.songs = await request("/api/library");
+        state.ocrBusy = false;
+        renderSongList();
+        await selectSong(renamed);
+        showMessage("Se renombraron los archivos del canto y se conservaron su revisión y observaciones.");
+    } catch (error) {
+        showMessage(error.message, true);
+    } finally {
+        state.ocrBusy = false;
+        elements.chordPro.readOnly = false;
+        updateReviewButton();
+        renderSongList();
+    }
+});

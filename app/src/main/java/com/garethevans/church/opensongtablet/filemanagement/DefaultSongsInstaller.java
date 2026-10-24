@@ -71,6 +71,8 @@ public class DefaultSongsInstaller {
         }
 
         for (String child : children) {
+            // The audit is metadata, read directly from assets by SongReviewStatus.
+            if ("revision-cantos.json".equals(child)) continue;
             String childAssetPath = assetPath + "/" + child;
             String childDestinationPath = destinationPath.isEmpty()
                     ? child : destinationPath + "/" + child;

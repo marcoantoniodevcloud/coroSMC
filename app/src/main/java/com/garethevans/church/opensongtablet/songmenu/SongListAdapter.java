@@ -345,10 +345,18 @@ public class SongListAdapter extends RecyclerView.Adapter<SongItemViewHolder> {
 
     private void bindReviewedMarker(SongItemViewHolder holder, Song song) {
         boolean reviewed = SongReviewStatus.isReviewed(context, song);
-        holder.itemReviewed.setText(reviewed ? "✓" : "○");
+        String note = SongReviewStatus.attentionNote(context, song);
+        holder.itemReviewed.setText(reviewed ? "✓" : note.isEmpty() ? "○" : "●");
         holder.itemReviewed.setTextColor(reviewed ? Color.rgb(46, 125, 50)
-                : mainActivityInterface.getPalette().hintColor);
-        holder.itemReviewed.setContentDescription(getContextDescription(reviewed));
+                : note.isEmpty() ? mainActivityInterface.getPalette().hintColor : Color.rgb(211, 47, 47));
+        holder.itemReviewed.setContentDescription(note.isEmpty() ? getContextDescription(reviewed)
+                : context.getString(R.string.song_review_attention) + ": " + note);
+        holder.itemReviewed.setOnLongClickListener(v -> {
+            if (note.isEmpty()) return false;
+            new android.app.AlertDialog.Builder(context).setTitle(R.string.song_review_attention)
+                    .setMessage(note).setPositiveButton(android.R.string.ok, null).show();
+            return true;
+        });
         holder.itemReviewed.setOnClickListener(v -> {
             boolean nowReviewed = SongReviewStatus.toggle(context, song);
             holder.itemReviewed.setText(nowReviewed ? "✓" : "○");

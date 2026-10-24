@@ -8,14 +8,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
-import android.util.SparseArray;
-import android.util.SparseIntArray;
 
 import androidx.annotation.RequiresApi;
 
 import com.garethevans.church.opensongtablet.interfaces.MainActivityInterface;
 import com.garethevans.church.opensongtablet.songprocessing.Song;
-import com.google.android.gms.tasks.Task;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.Text;
 import com.google.mlkit.vision.text.TextRecognition;
@@ -37,13 +34,13 @@ public class OCR {
     private String filename = null;
     private String folder = null;
     private final MainActivityInterface mainActivityInterface;
-    private final String TAG = "OCR", blockSplitStart = "__BLOCKSTART_", blockSplitEnd = "_BLOCKEND_",
-            blockSplitStartFinal = "_BLOCKSTARTFINAL__", blockSplitEndFinal = "_BLOCKENDFINAL__";
-    private int pageHeightRunning = 0, maxTop = 0, totalLineHeight = 0, totalLineCount = 0;
+    private final String TAG = "OCR";
     private PdfRenderer pdfRenderer;
     private ParcelFileDescriptor pdfDescriptor;
     private int nextPdfPage;
     private boolean currentFileFailed;
+    private boolean recognitionRunning;
+    public boolean isBusy() { return recognitionRunning || batchOCRListener != null; }
     private BatchOCRListener batchOCRListener;
     private final ArrayList<String> batchFiles = new ArrayList<>();
     private final ArrayList<String> batchErrors = new ArrayList<>();
@@ -54,6 +51,7 @@ public class OCR {
     }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void getTextFromPDF(String folder, String filename, boolean useCropped) {
+        if (recognitionRunning) return;
         resetRecognitionState();
         this.folder = folder;
         this.filename = filename;
@@ -73,6 +71,7 @@ public class OCR {
     }
 
     public void getTextFromImageFile(String folder, String filename) {
+        if (recognitionRunning) return;
         resetRecognitionState();
         this.folder = folder;
         this.filename = filename;
@@ -88,6 +87,7 @@ public class OCR {
     }
 
     public void getTextFromImage(Bitmap bmp) {
+        if (recognitionRunning) return;
         resetRecognitionState();
         pageCount = 1;
         filename = mainActivityInterface.getSong().getFilename();
@@ -101,6 +101,7 @@ public class OCR {
     }
 
     public void getTextFromCamera(Uri uri) {
+        if (recognitionRunning) return;
         resetRecognitionState();
         filename = null;
         folder = null;
@@ -115,11 +116,8 @@ public class OCR {
     }
 
     private void resetRecognitionState() {
+        recognitionRunning = true;
         pdfPages = new ArrayList<>();
-        pageHeightRunning = 0;
-        maxTop = 0;
-        totalLineHeight = 0;
-        totalLineCount = 0;
         currentFileFailed = false;
     }
 
@@ -185,180 +183,40 @@ public class OCR {
     }
 
     private void extractTextFromBitmap(Bitmap bmp, int page, Runnable onPageComplete) {
-        int pageHeightToAdd = (page) * bmp.getHeight();
-        maxTop = pageHeightToAdd; // 0 for first page
-        final int currpage = page;
-        InputImage image = InputImage.fromBitmap(bmp, 0);
-        TextRecognizer textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
-        Task<Text> task = textRecognizer.process(image);
-        task.addOnSuccessListener(text -> {
-            // Use an array where the index is the top position
-            SparseArray<String> stringSparseArray = new SparseArray<>();
-
-            for (Text.TextBlock block : text.getTextBlocks()) {
-                for (Text.Line line : block.getLines()) {
-                    String lineText = line.getText();
-                    Rect lineFrame = line.getBoundingBox();
-                    int top = pageHeightToAdd;
-                    int left = 0;
-                    int right = 0;
-                    if (lineFrame != null) {
-                        int currentTop = lineFrame.top + pageHeightToAdd;
-                        left = lineFrame.left;
-                        right = lineFrame.right;
-
-                        // 1. Determine if THIS block is a chord or lyric before merging
-                        boolean currentIsChord = mainActivityInterface.getConvertTextSong().convertText(lineText).startsWith(".");
-
-                        int targetKey = currentTop;
-                        int fudge = 10;
-
-                        for (int i = 0; i < stringSparseArray.size(); i++) {
-                            int existingTop = stringSparseArray.keyAt(i);
-                            if (Math.abs(existingTop - currentTop) < fudge) {
-
-                                // 2. CHECK: Only merge if the existing line is the same type
-                                // We use the first character of the existing line to check ('.' for chords, ' ' for lyrics)
-                                String existingText = stringSparseArray.get(existingTop);
-                                boolean existingIsChord = existingText.contains(blockSplitEndFinal + ".");
-
-                                if (currentIsChord == existingIsChord) {
-                                    targetKey = existingTop;
-                                    break;
-                                }
-                            }
-                        }
-                        top = targetKey;
-                    }
-
-                    String currLine = stringSparseArray.get(top, "");
-                    String newLine = (currLine+blockSplitStart+left+blockSplitStartFinal+blockSplitEnd+right+blockSplitEndFinal+lineText);
-                    Log.d(TAG,"top:"+top+"  newLine:"+newLine);
-                    stringSparseArray.put(top,newLine);
-                    maxTop = Math.max(maxTop,top);
-                }
-            }
-
-            // Now we have the lines in the correct order (by top position)
-            // Try to merge lines that have similar tops (within fudge)
-            int lastTop = 0;
-            // Work out the fudge factor based on average line height
-            int fudge = 10;
-            if (totalLineCount!=0) {
-                float avHeight = (float)totalLineHeight/(float)totalLineCount;
-                fudge = Math.round((0.5f*avHeight));
-            }
-
-
-            SparseArray<String> tidiedLines = new SparseArray<>();
-            for (int x=0; x<maxTop+1; x++) {
-                if (stringSparseArray.get(x,null)!=null) {
-                    if (x<lastTop+fudge) {
-                        // Merge to lastTop
-                        String prevVal = tidiedLines.get(lastTop,"");
-                        tidiedLines.put(lastTop,(prevVal+" "+stringSparseArray.get(x)).trim());
-                    } else {
-                        // New line
-                        tidiedLines.put(x,stringSparseArray.get(x));
-                        lastTop = x;
-                    }
-                }
-            }
-
-            StringBuilder textFromLinesArray = new StringBuilder();
-            int minHPos = 1000;
-
-            for (int x=0; x<maxTop+1; x++) {
-                StringBuilder thisLine = new StringBuilder();
-                try {
-                    if (tidiedLines.get(x, null) != null) {
-                        // This line has each section with the left position inside
-                        // We need to do this to add them back in the correct order
-                        String[] blocks = tidiedLines.get(x).split(blockSplitStart);
-                        SparseArray<String> horizontalArray = new SparseArray<>();
-                        SparseIntArray horizontalEndPosArray = new SparseIntArray();
-                        int maxHPos = 0;
-                        for (String block : blocks) {
-                            // Get the horizontal pos
-                            if (block.contains(blockSplitEnd)) {
-                                String startHPos_String = block.substring(0, block.indexOf(blockSplitStartFinal)).replace(blockSplitStart, "").replace(blockSplitStartFinal, "").replaceAll("\\D", "");
-                                String endHPos_String = block.substring(block.indexOf(blockSplitEnd), block.indexOf(blockSplitEndFinal)).replace(blockSplitEnd, "").replace(blockSplitEndFinal, "").replaceAll("\\D", "");
-                                int hposStart = 0;
-                                int hposEnd = 0;
-                                if (!startHPos_String.isEmpty()) {
-                                    hposStart = Integer.parseInt(startHPos_String);
-                                    if (hposStart > -1 && hposStart < minHPos) {
-                                        minHPos = hposStart;
-                                    }
-                                }
-                                if (!endHPos_String.isEmpty()) {
-                                    hposEnd = Integer.parseInt(endHPos_String);
-                                }
-
-                                String blockText = block.substring(block.indexOf(blockSplitEndFinal) + blockSplitEndFinal.length());
-
-                                horizontalArray.put(hposStart, blockText);
-                                horizontalEndPosArray.put(hposStart, hposEnd);
-                                maxHPos = Math.max(hposStart, maxHPos);
-
-                            }
-                        }
-
-                        int lastHPosEnd = 0;
-
-                        for (int z = 0; z < maxHPos + 1; z++) {
-                            if (horizontalArray.get(z, null) != null) {
-                                String textBlock = horizontalArray.get(z);
-                                int endPos = horizontalEndPosArray.get(z);
-
-                                if (z < minHPos) {
-                                    minHPos = z;
-                                }
-
-                                int numChars = textBlock.length();
-
-                                float spacePerChar;
-                                if (endPos != 0) {
-                                    spacePerChar = (endPos - z) / (float) numChars;
-                                    // How far away from the last position are we starting?
-                                    // This tries to guess extra spaces needed
-                                    if (z > lastHPosEnd && lastHPosEnd >= minHPos) {
-                                        float extraSpace = z - lastHPosEnd;
-                                        int numberOfSpaces = Math.round(extraSpace / spacePerChar);
-                                        StringBuilder stringBuilder = new StringBuilder();
-                                        for (int y = 0; y < numberOfSpaces; y++) {
-                                            stringBuilder.append(" ");
-                                        }
-                                        textBlock = stringBuilder + textBlock;
-                                    }
-                                }
-
-                                lastHPosEnd = endPos;
-
-                                thisLine.append(textBlock).append(" ");
-                            }
-                        }
-                        Log.d(TAG, "thisLine:" + thisLine);
-                        textFromLinesArray.append(thisLine).append("\n");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+        TextRecognizer recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
+        recognizer.process(InputImage.fromBitmap(bmp, 0)).addOnSuccessListener(text -> {
             try {
-                pdfPages.add(currpage, textFromLinesArray.toString());
+                ArrayList<OcrChordLayout.Token> tokens = new ArrayList<>();
+                for (Text.TextBlock block : text.getTextBlocks()) {
+                    for (Text.Line line : block.getLines()) {
+                        for (Text.Element element : line.getElements()) {
+                            Rect box = element.getBoundingBox();
+                            if (box == null) continue;
+                            String[] words = element.getText().trim().split("\\s+");
+                            int total = Math.max(1, element.getText().length()), offset = 0;
+                            for (String word : words) {
+                                float left = box.left + (float) offset / total * box.width();
+                                offset += word.length();
+                                float right = box.left + (float) offset / total * box.width();
+                                tokens.add(new OcrChordLayout.Token(word, left, box.top, right, box.bottom));
+                                offset++;
+                            }
+                        }
+                    }
+                }
+                String result = OcrChordLayout.toChordPro(tokens, bmp.getWidth());
+                if (result.trim().isEmpty()) currentFileFailed = true;
+                pdfPages.add(result);
             } catch (Exception e) {
-                Log.e(TAG, "Unable to store OCR output for page " + currpage, e);
                 currentFileFailed = true;
+                Log.e(TAG, "Unable to align OCR chords on page " + page, e);
+            } finally {
+                finishBitmapRecognition(bmp, recognizer, onPageComplete);
             }
-            pageHeightRunning = maxTop;
-            finishBitmapRecognition(bmp, textRecognizer, onPageComplete);
-        });
-        task.addOnFailureListener(e -> {
-            pdfPages.add(currpage,"");
+        }).addOnFailureListener(e -> {
             currentFileFailed = true;
-            Log.e(TAG, "OCR failed on page " + currpage, e);
-            finishBitmapRecognition(bmp, textRecognizer, onPageComplete);
+            Log.e(TAG, "OCR recognition failed on page " + page, e);
+            finishBitmapRecognition(bmp, recognizer, onPageComplete);
         });
     }
 
@@ -375,11 +233,18 @@ public class OCR {
     }
 
     private void runCompleteTask() {
+        recognitionRunning = false;
         if (filename==null) {
             filename = mainActivityInterface.getSong().getFilename();
         }
         if (batchOCRListener != null) {
             finishBatchFile();
+            return;
+        }
+        if (currentFileFailed) {
+            mainActivityInterface.getShowToast().doIt(((Context) mainActivityInterface).getString(
+                    com.garethevans.church.opensongtablet.R.string.ocr_no_text));
+            filename = null;
             return;
         }
         PDFExtractBottomSheet pdfExtractBottomSheet = new PDFExtractBottomSheet(pdfPages,filename);
@@ -388,7 +253,7 @@ public class OCR {
     }
 
     public void startBatchOCR(List<String> songIds, BatchOCRListener listener) {
-        if (batchOCRListener != null) {
+        if (isBusy()) {
             throw new IllegalStateException("A batch OCR operation is already running");
         }
         batchOCRListener = listener;
@@ -469,8 +334,8 @@ public class OCR {
         recognizedSong.setFilename(baseName);
         recognizedSong.setTitle(baseName);
         recognizedSong.setFiletype("XML");
-        recognizedSong.setLyrics(mainActivityInterface.getConvertTextSong()
-                .convertText(recognizedText.toString()));
+        recognizedSong = mainActivityInterface.getConvertChoPro()
+                .convertChordProLyricsToOpenSong(recognizedSong, recognizedText.toString());
         String xml = mainActivityInterface.getProcessSong().getXML(recognizedSong);
         if (xml == null || xml.trim().isEmpty() ||
                 !mainActivityInterface.getStorageAccess().writeFileFromString(
@@ -488,6 +353,8 @@ public class OCR {
         mainActivityInterface.getSQLiteHelper().updateSong(mediaSong);
         mainActivityInterface.getNonOpenSongSQLiteHelper().updateSong(mediaSong);
 
+        com.garethevans.church.opensongtablet.songmenu.SongReviewStatus.setReviewed(
+                (Context) mainActivityInterface, mediaSong, false);
         batchSucceeded++;
         advanceBatch();
     }

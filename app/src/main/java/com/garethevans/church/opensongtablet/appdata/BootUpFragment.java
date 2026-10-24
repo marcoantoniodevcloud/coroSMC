@@ -44,6 +44,7 @@ public class BootUpFragment extends Fragment {
     private final String TAG = "BootUpFragment";
     private String message, uriTreeString;
     private Uri uriTree;
+    private boolean bootStarted, setupQueued;
 
     private BootupLogoBinding myView;
     private MainActivityInterface mainActivityInterface;
@@ -111,9 +112,13 @@ public class BootUpFragment extends Fragment {
 
     // Checks made before starting the app
     public void startOrSetUp() {
+        if (!isAdded() || bootStarted || setupQueued) return;
+        setupQueued = true;
         Log.d(TAG,"about to run startOrSetup(), but pausing");
         // Put a slight delay on calling this to make sure the preference has been fully saved
         mainActivityInterface.getMainHandler().postDelayed(() -> {
+            setupQueued = false;
+            if (!isAdded() || bootStarted) return;
             Log.d(TAG,"now runningStartOrSetup()");
 
             if (storageIsCorrectlySet()) {
@@ -159,15 +164,19 @@ public class BootUpFragment extends Fragment {
     }
 
     public void startBootProcess(boolean needIndex, boolean fullIndexRequired) {
+        Context context = getContext();
+        if (context == null || !isAdded() || bootStarted) return;
+        bootStarted = true;
         final boolean[] indexing = {needIndex, fullIndexRequired};
         mainActivityInterface.getSongListBuildIndex().setIndexRequired(needIndex);
         mainActivityInterface.getSongListBuildIndex().setFullIndexRequired(fullIndexRequired);
         mainActivityInterface.getSongListBuildIndex().setCurrentlyIndexing(false);
-        Context appContext = requireContext().getApplicationContext();
+        Context appContext = context.getApplicationContext();
 
         // Start the boot process
         if (getContext() != null) {
             mainActivityInterface.getThreadPoolExecutor().execute(() -> {
+                if (!isAdded()) return;
                 // Tell the user we're initialising app
                 if (getContext() != null) {
                     message = initialising;
@@ -194,16 +203,18 @@ public class BootUpFragment extends Fragment {
                 boolean foldersok = !progress.contains("Error");
 
                 if (foldersok) {
-                    message = getString(R.string.default_songs_installing);
+                    if (!isAdded()) return;
+                    message = appContext.getString(R.string.default_songs_installing);
                     updateMessage();
                     DefaultSongsInstaller defaultSongsInstaller =
                             new DefaultSongsInstaller(appContext, mainActivityInterface);
                     String defaultSongsError = defaultSongsInstaller.installIfNeeded();
+                    if (!isAdded()) return;
                     if (defaultSongsError != null) {
                         Log.e(TAG, "Bundled song library installation failed: " + defaultSongsError);
                         mainActivityInterface.getMainHandler().post(() ->
                                 mainActivityInterface.getShowToast().doIt(
-                                        getString(R.string.default_songs_install_failed) + ": " + defaultSongsError));
+                                        appContext.getString(R.string.default_songs_install_failed) + ": " + defaultSongsError));
                         return;
                     }
                     if (defaultSongsInstaller.wasInstalled()) {
@@ -279,6 +290,7 @@ public class BootUpFragment extends Fragment {
 
                     // Set up the rest of the main activity (on the main thread)
                     mainActivityInterface.getMainHandler().post(() -> {
+                        if (!isAdded()) return;
                         mainActivityInterface.navHome();
                         mainActivityInterface.showActionBar();
                         mainActivityInterface.updateMargins();
@@ -286,7 +298,7 @@ public class BootUpFragment extends Fragment {
 
                 } else {
                     // There was a problem with the folders, so restart the app!
-                    requireActivity().recreate();
+                    if (getActivity() != null) getActivity().recreate();
                 }
             });
         }

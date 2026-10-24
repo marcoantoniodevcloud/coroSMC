@@ -186,9 +186,15 @@ public class SongMenuBottomSheet extends BottomSheetCommon {
             dismiss();
         });
         myView.batchOCR.setOnClickListener(v -> confirmBatchOCR());
+        myView.correctAll.setOnClickListener(v ->
+                com.garethevans.church.opensongtablet.songprocessing.SongCorrections.show(requireContext(), mainActivityInterface));
     }
 
     private void confirmBatchOCR() {
+        if (mainActivityInterface.getOCR().isBusy()) {
+            mainActivityInterface.getShowToast().doIt(getString(R.string.batch_ocr_running));
+            return;
+        }
         ArrayList<String> mediaFiles = new ArrayList<>();
         for (String songId : mainActivityInterface.getStorageAccess().listSongs(false)) {
             if (songId != null && !songId.endsWith("/") &&

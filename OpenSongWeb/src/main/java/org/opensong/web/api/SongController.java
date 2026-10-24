@@ -70,6 +70,11 @@ public class SongController {
         return songLibrary.saveChordProFile(request);
     }
 
+    @PostMapping("/library/rename")
+    public LibrarySong renameSong(@RequestBody org.opensong.web.song.RenameSongRequest request) {
+        return songLibrary.renameSong(request);
+    }
+
     @GetMapping("/library/media")
     public ResponseEntity<byte[]> getMedia(@RequestParam String path) {
         String extension = path.substring(path.lastIndexOf('.') + 1).toLowerCase(java.util.Locale.ROOT);

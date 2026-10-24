@@ -18,7 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * Instrumented test, which will execute on an Android device.
+ * Device-only test: belongs in androidTest, not the host JVM source set.
  */
 @RunWith(AndroidJUnit4.class)
 public class JavaInstrumentedTest {

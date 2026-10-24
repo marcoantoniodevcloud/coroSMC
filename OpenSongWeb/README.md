@@ -102,3 +102,9 @@ Desde la raíz del repositorio:
 ```powershell
 .\gradlew.bat -p .\OpenSongWeb test
 ```
+
+### Renombrar archivos de un canto
+
+Selecciona un canto y pulsa **Renombrar archivos…**. Escribe el nombre sin extensión; se renombran juntos todos los archivos de ese canto en su carpeta (letra, PDF e imágenes), conservando las extensiones, el contenido, el estado de revisión y los enlaces del control de observaciones. El título interno de la letra no se modifica. Primero guarda o descarta los cambios del editor. Se rechazan nombres inválidos y colisiones con otro canto; si una operación falla se intenta restaurar los nombres y metadatos originales.
+
+Android ya tiene un campo de nombre de archivo en el editor. Ese flujo no ofrece las mismas garantías para los archivos asociados, las anotaciones y el estado de revisión, por lo que esta acción conjunta se implementa por ahora solo en web.
