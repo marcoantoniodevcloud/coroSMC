@@ -535,6 +535,33 @@ h1 {
     box-shadow: 0 0 6px #50bd7255;
 }
 
+.song-status-dot.attention, .folder-status-dot.attention {
+    border-color: #ef7474;
+    background: #e94f4f;
+    box-shadow: 0 0 6px #e94f4f55;
+}
+
+.review-notes {
+    margin: 0;
+    padding: 10px 16px;
+    color: #ffd0d0;
+    background: #632a2a;
+    border-bottom: 1px solid #a84a4a;
+    font-size: 13px;
+    line-height: 1.5;
+    max-height: 130px;
+    overflow-y: auto;
+}
+
+.correction-dialog { max-width: 570px; width: calc(100% - 40px); padding: 24px; color: #e7ebef; background: #202326; border: 1px solid #58626a; border-radius: 12px; }
+.correction-dialog::backdrop { background: #000a; }
+.correction-dialog select { display: block; width: 100%; margin-top: 8px; padding: 10px; background: #151719; color: #eee; }
+.correction-actions { display: flex; justify-content: flex-end; gap: 12px; }
+.correction-actions button { padding: 9px 16px; cursor: pointer; }
+.library-ocr-tools { flex-wrap: wrap; }
+.song-correct { align-self: center; white-space: nowrap; color: #d6e5dc; background: #1e2923; border: 1px solid #405f4b; border-radius: 4px; font-size: 11px; padding: 4px; cursor: pointer; }
+.song-correct:disabled { opacity: .4; cursor: default; }
+
 .folder-status-dot.pending {
     border-color: #dbb65e;
     background: #e3c15f;

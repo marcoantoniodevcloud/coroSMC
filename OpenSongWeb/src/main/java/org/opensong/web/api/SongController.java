@@ -3,6 +3,7 @@ package org.opensong.web.api;
 import java.util.List;
 
 import org.opensong.web.song.ChordProFile;
+import org.opensong.web.song.CorrectSongRequest;
 import org.opensong.web.song.LibrarySong;
 import org.opensong.web.song.OcrSongRequest;
 import org.opensong.web.song.ReviewSongRequest;
@@ -52,6 +53,11 @@ public class SongController {
     @PostMapping("/library/ocr")
     public ChordProFile runOcr(@RequestBody OcrSongRequest request) {
         return songLibrary.runOcr(request);
+    }
+
+    @PostMapping("/library/correct")
+    public ChordProFile correctSong(@RequestBody CorrectSongRequest request) {
+        return songLibrary.correctSong(request);
     }
 
     @GetMapping("/library/chordpro")

@@ -31,6 +31,54 @@ class SongLibraryServiceTest {
     }
 
     @Test
+    void correctsFilesWithRevisionCheckAndBacksUpOnlyModifiedContent() throws Exception {
+        Path songs = temporaryDirectory.resolve("Songs");
+        Files.createDirectories(songs);
+        String original = "{title: Mi canto}\n[Do]Mi alma [Re/Fa#]canta";
+        Files.writeString(songs.resolve("Canto.cho"), original);
+        ChordProFile current = library.getChordProFile("Canto.cho");
+        assertThrows(SongLibraryException.class, () -> library.correctSong(
+                new CorrectSongRequest("american-chords", null, "Canto.cho", "stale")));
+        ChordProFile saved = library.correctSong(new CorrectSongRequest(
+                "american-chords", null, "Canto.cho", current.revision()));
+        assertEquals("{title: Mi canto}\n[C]Mi alma [D/F#]canta", saved.content());
+        Path backups = temporaryDirectory.resolve("correction-backups");
+        try (var files = Files.walk(backups)) {
+            List<Path> copies = files.filter(Files::isRegularFile).toList();
+            assertEquals(1, copies.size());
+            assertEquals(original, Files.readString(copies.getFirst()));
+        }
+        library.correctSong(new CorrectSongRequest("american-chords", null, "Canto.cho", saved.revision()));
+        try (var files = Files.walk(backups)) {
+            assertEquals(1, files.filter(Files::isRegularFile).count());
+        }
+        assertEquals("[C]Texto sin guardar", library.correctSong(
+                new CorrectSongRequest("american-chords", "[Do]Texto sin guardar", null, null)).content());
+        assertThrows(SongLibraryException.class, () -> library.correctSong(
+                new CorrectSongRequest("unknown", "[Do]Texto", null, null)));
+    }
+
+    @Test
+    void showsAttentionNotesForRelatedFilesUntilManuallyReviewed() throws Exception {
+        Path songs = temporaryDirectory.resolve("Songs");
+        Files.createDirectories(songs.resolve("Entrada"));
+        Files.writeString(songs.resolve("Entrada/Canto.cho"), "{title: Canto}\n[C]Letra");
+        Files.writeString(songs.resolve("Entrada/Canto.png"), "reference");
+        Files.writeString(songs.resolve("revision-cantos.json"), """
+                {"songs":[{"needsAttention":true,"notes":"Revisar manuscrito <original>",
+                  "files":["Entrada/Canto.png"]}]}
+                """);
+        LibrarySong pending = library.listLibrary().getFirst();
+        assertTrue(pending.needsAttention());
+        assertEquals("Revisar manuscrito <original>", pending.reviewNotes());
+        assertEquals(1, library.listLibrary().size());
+        library.setSongReviewed(new ReviewSongRequest("Entrada/Canto.cho", true));
+        assertFalse(library.listLibrary().getFirst().needsAttention());
+        library.setSongReviewed(new ReviewSongRequest("Entrada/Canto.cho", false));
+        assertTrue(library.listLibrary().getFirst().needsAttention());
+    }
+
+    @Test
     void savesChordProWithMetadataAndKeepsNestedFoldersInExport() throws Exception {
         SongDocument saved = library.saveSong(new SaveSongRequest(null, "Luz del Camino",
                 "Ana Pérez", "Álbum parroquial", "Litúrgico/Adviento",

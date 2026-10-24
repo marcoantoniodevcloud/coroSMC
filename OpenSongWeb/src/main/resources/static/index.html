@@ -80,6 +80,7 @@
             </label>
             <div class="library-ocr-tools">
                 <button id="ocr-pending" class="ocr-button" type="button" disabled>OCR pendientes</button>
+                <button id="correct-all" class="ocr-button" type="button">Corregir todos…</button>
                 <span id="ocr-pending-count">0 pendientes</span>
             </div>
             <nav id="song-list" class="song-list" aria-label="Canciones"></nav>
@@ -104,6 +105,7 @@
                 <div class="editor-heading-actions">
                     <button id="ocr-current" class="ocr-button" type="button" disabled
                             title="Reemplazar la letra con OCR de la referencia seleccionada">Procesar OCR</button>
+                    <button id="correct-current" class="ocr-button" type="button" disabled>Corregir…</button>
                     <button id="review-song" class="review-button" type="button" disabled>
                         ○ Marcar revisado
                     </button>
@@ -112,6 +114,7 @@
                     </button>
                 </div>
             </header>
+            <p id="review-notes" class="review-notes" hidden></p>
             <div id="empty-editor" class="empty-state">
                 <span class="empty-icon" aria-hidden="true">♫</span>
                 <strong>Elige un canto para comenzar</strong>
@@ -174,6 +177,23 @@
         </section>
     </main>
 </div>
+<dialog id="correction-dialog" class="correction-dialog">
+    <form method="dialog">
+        <h2 id="correction-title">Corregir canto</h2>
+        <label for="correction-action">Acción</label>
+        <select id="correction-action">
+            <option value="american-chords">Convertir acordes a notación americana</option>
+        </select>
+        <p>Do → C · Re → D · Mi → E · Fa → F · Sol → G · La → A · Si → B.</p>
+        <p>Conserva menores, séptimas, alteraciones y bajos: Sol#m7 → G#m7, Re/Fa# → D/F#.</p>
+        <p id="correction-scope"></p>
+        <p>Convierte los acordes entre corchetes y las directivas de tonalidad o definición de acordes. La letra y las referencias PDF/imagen se conservan.</p>
+        <div class="correction-actions">
+            <button value="cancel" type="submit">Cancelar</button>
+            <button id="apply-correction" type="button">Aplicar al editor</button>
+        </div>
+    </form>
+</dialog>
 <script src="/app.js" defer></script>
 </body>
 </html>

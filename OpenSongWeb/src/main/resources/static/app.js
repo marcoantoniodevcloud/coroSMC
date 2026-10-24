@@ -27,6 +27,7 @@ const elements = {
     lineNumbers: document.querySelector("#line-numbers"),
     save: document.querySelector("#save-song"),
     review: document.querySelector("#review-song"),
+    reviewNotes: document.querySelector("#review-notes"),
     ocrCurrent: document.querySelector("#ocr-current"),
     ocrPending: document.querySelector("#ocr-pending"),
     ocrPendingCount: document.querySelector("#ocr-pending-count"),
@@ -53,6 +54,93 @@ const elements = {
     deleteSongTitle: document.querySelector("#delete-song-title"),
     deleteSongFiles: document.querySelector("#delete-song-files")
 };
+
+let correctionBatch = false;
+let stopCorrection = false;
+let correctionScopeAll = false;
+
+function openCorrection(all) {
+    if (state.ocrBusy) return;
+    if (all && state.dirty) {
+        showMessage("Guarda o descarta los cambios del editor antes de corregir toda la biblioteca.", true);
+        return;
+    }
+    correctionScopeAll = all;
+    const files = state.songs.flatMap(song => song.files).filter(file => ["cho", "pro"].includes(file.extension));
+    if (all && !files.length) {
+        showMessage("No hay archivos ChordPro para corregir.");
+        return;
+    }
+    document.querySelector("#correction-title").textContent = all ? "Corregir toda la biblioteca" : `Corregir: ${state.selectedSong?.title || "canto"}`;
+    document.querySelector("#correction-scope").textContent = all
+        ? `Se revisarán ${files.length} archivos de toda la biblioteca, incluidos los cantos ya revisados. Los cambios se guardan con una copia de respaldo por archivo modificado.`
+        : "Se aplicará al texto actual del editor, incluidos tus cambios sin guardar. Revisa el resultado y pulsa Guardar para conservarlo.";
+    document.querySelector("#apply-correction").textContent = all ? "Corregir y guardar todos" : "Aplicar al editor";
+    document.querySelector("#correction-dialog").showModal();
+}
+
+async function applyCorrection() {
+    const action = document.querySelector("#correction-action").value;
+    document.querySelector("#correction-dialog").close();
+    if (state.ocrBusy) return;
+    if (correctionScopeAll && state.dirty) {
+        showMessage("Guarda los cambios del editor antes de corregir todos los cantos.", true);
+        return;
+    }
+    const content = elements.chordPro.value;
+    const all = correctionScopeAll;
+    state.ocrBusy = true;
+    correctionBatch = all;
+    stopCorrection = false;
+    elements.chordPro.readOnly = true;
+    elements.save.disabled = true;
+    updateReviewButton();
+    renderSongList();
+    try {
+        if (!all) {
+            const result = await request("/api/library/correct", { method: "POST", body: JSON.stringify({ action, content }) });
+            elements.chordPro.value = result.content;
+            renderLineNumbers();
+            renderChordProPreview(result.content);
+            setDirty(result.content !== state.savedContent);
+            showMessage(result.content === content ? "Los acordes ya están en notación americana o no hay acordes reconocibles."
+                : "Acordes convertidos a notación americana. Revisa el resultado y pulsa Guardar.");
+        } else {
+            const paths = [...new Set(state.songs.flatMap(song => song.files)
+                .filter(file => ["cho", "pro"].includes(file.extension)).map(file => file.path))];
+            let changed = 0, unchanged = 0, processed = 0;
+            const failures = [];
+            for (const path of paths) {
+                if (stopCorrection) break;
+                showMessage(`Corrigiendo ${processed + 1}/${paths.length}: ${path}`);
+                try {
+                    const current = await request(`/api/library/chordpro?path=${encodeURIComponent(path)}`);
+                    const saved = await request("/api/library/correct", { method: "POST",
+                        body: JSON.stringify({ action, path, revision: current.revision }) });
+                    if (saved.content === current.content) unchanged++; else changed++;
+                } catch (error) { failures.push(`${path}: ${error.message}`); }
+                processed++;
+            }
+            await refreshLibrary();
+            showMessage(`${stopCorrection ? "Corrección detenida" : "Corrección terminada"}: ${changed} archivo(s) convertido(s), ${unchanged} sin cambios, ${failures.length} con error. ${paths.length - processed} sin procesar.${failures.length ? " Errores: " + failures.join("; ") : ""}`, failures.length > 0);
+        }
+    } catch (error) { showMessage(error.message, true); }
+    finally {
+        state.ocrBusy = false;
+        correctionBatch = false;
+        elements.chordPro.readOnly = false;
+        setDirty(state.dirty);
+        updateReviewButton();
+        renderSongList();
+    }
+}
+
+document.querySelector("#correct-all").addEventListener("click", () => {
+    if (correctionBatch) { stopCorrection = true; showMessage("Deteniendo después del archivo actual…"); }
+    else openCorrection(true);
+});
+document.querySelector("#correct-current").addEventListener("click", () => openCorrection(false));
+document.querySelector("#apply-correction").addEventListener("click", applyCorrection);
 
 async function request(url, options = {}) {
     const response = await fetch(url, {
@@ -110,6 +198,9 @@ function renderSongList() {
     elements.summary.textContent = `Biblioteca de cantos · ${state.songs.length} títulos`;
     const pendingWithMedia = state.songs.filter(song => !song.reviewed && relatedMedia(song).length > 0).length;
     const pendingWithoutMedia = state.songs.filter(song => !song.reviewed && relatedMedia(song).length === 0).length;
+    document.querySelector("#correct-all").disabled = state.ocrBusy && !correctionBatch;
+    document.querySelector("#correct-all").textContent = correctionBatch ? "Detener corrección" : "Corregir todos…";
+    document.querySelector("#correct-current").disabled = state.ocrBusy || !state.selectedSong || !state.chordProPath;
     elements.ocrPendingCount.textContent = pendingWithoutMedia
         ? `${pendingWithMedia} con referencia · ${pendingWithoutMedia} sin imagen/PDF`
         : `${pendingWithMedia} pendientes`;
@@ -128,7 +219,7 @@ function renderSongList() {
     }
 
     const root = {
-        name: "", path: "", songs: [], folders: new Map(), count: 0, reviewedCount: 0, visibleCount: 0
+        name: "", path: "", songs: [], folders: new Map(), count: 0, reviewedCount: 0, attentionCount: 0, visibleCount: 0
     };
     for (const song of state.songs) {
         const isVisible = matchesQuery(song);
@@ -136,6 +227,7 @@ function renderSongList() {
         let folder = root;
         folder.count += 1;
         folder.reviewedCount += song.reviewed ? 1 : 0;
+        folder.attentionCount += song.needsAttention && !song.reviewed ? 1 : 0;
         folder.visibleCount += isVisible ? 1 : 0;
         for (const segment of segments) {
             const key = segment.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase();
@@ -148,12 +240,14 @@ function renderSongList() {
                     folders: new Map(),
                     count: 0,
                     reviewedCount: 0,
+                    attentionCount: 0,
                     visibleCount: 0
                 });
             }
             folder = folder.folders.get(key);
             folder.count += 1;
             folder.reviewedCount += song.reviewed ? 1 : 0;
+            folder.attentionCount += song.needsAttention && !song.reviewed ? 1 : 0;
             folder.visibleCount += isVisible ? 1 : 0;
         }
         if (isVisible) {
@@ -171,8 +265,9 @@ function renderSongList() {
         const titleLine = document.createElement("span");
         titleLine.className = "song-title-line";
         const status = document.createElement("span");
-        status.className = `song-status-dot${song.reviewed ? " reviewed" : ""}`;
-        const reviewLabel = song.reviewed ? "Revisado" : "Borrador o pendiente";
+        status.className = `song-status-dot${song.reviewed ? " reviewed" : song.needsAttention ? " attention" : ""}`;
+        const reviewLabel = song.reviewed ? "Revisado" : song.needsAttention
+            ? `Requiere revisión: ${song.reviewNotes}` : "Borrador o pendiente";
         status.setAttribute("aria-label", reviewLabel);
         status.title = reviewLabel;
         const title = document.createElement("strong");
@@ -201,7 +296,17 @@ function renderSongList() {
         ocr.setAttribute("aria-label", `Procesar ${song.title} con OCR`);
         ocr.disabled = state.ocrBusy || relatedMedia(song).length === 0;
         ocr.addEventListener("click", () => runSingleOcr(song));
-        row.append(button, ocr, remove);
+        const correct = document.createElement("button");
+        correct.type = "button";
+        correct.className = "song-correct";
+        correct.textContent = "Corregir";
+        correct.title = `Corregir acordes de ${song.title}`;
+        correct.disabled = state.ocrBusy || !fileForGroup(song);
+        correct.addEventListener("click", async () => {
+            if (state.selectedSong?.id !== song.id) await selectSong(song);
+            if (state.selectedSong?.id === song.id) openCorrection(false);
+        });
+        row.append(button, correct, ocr, remove);
         container.append(row);
     };
 
@@ -217,8 +322,12 @@ function renderSongList() {
         const complete = folder.count > 0 && folder.reviewedCount === folder.count;
         details.classList.add(complete ? "reviewed" : "pending");
         const folderStatus = document.createElement("span");
-        folderStatus.className = `folder-status-dot ${complete ? "reviewed" : "pending"}`;
-        folderStatus.setAttribute("aria-label", complete ? "Todos los cantos revisados" : "Hay cantos pendientes");
+        folderStatus.className = `folder-status-dot ${complete ? "reviewed" : folder.attentionCount ? "attention" : "pending"}`;
+        const folderLabel = complete ? "Todos los cantos revisados" : folder.attentionCount
+            ? `${folder.attentionCount} cantos requieren revisión; consulta el punto rojo de cada canto`
+            : "Hay cantos pendientes";
+        folderStatus.setAttribute("aria-label", folderLabel);
+        folderStatus.title = folderLabel;
         const name = document.createElement("span");
         name.className = "folder-name";
         name.textContent = folder.name;
@@ -275,6 +384,8 @@ function updateReviewButton() {
     elements.review.title = song?.reviewed
         ? "Quitar el estado de revisado"
         : "Marcar el canto como completo o revisado";
+    elements.reviewNotes.hidden = !song?.needsAttention || Boolean(song?.reviewed);
+    elements.reviewNotes.textContent = song?.needsAttention ? `🔴 ${song.reviewNotes}` : "";
     updateOcrButton();
 }
 

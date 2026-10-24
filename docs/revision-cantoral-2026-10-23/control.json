@@ -1,0 +1,3856 @@
+{
+  "date": "2026-10-23",
+  "scope": "207 cantos pendientes iniciales; 20 revisados previamente preservados.",
+  "backup": "C:\\Users\\degel\\.opensongweb\\manual-review\\2026-10-23\\originals",
+  "songs": [
+    {
+      "folder": "1-cantorales",
+      "title": "Acordes de Rondalla - Aquí estoy señor, disco 1, SIN FONDO",
+      "status": "previo",
+      "needsAttention": false,
+      "notes": "Ya estaba marcado revisado antes de esta auditoría; no se modificó ni se volvió a certificar.",
+      "files": [
+        "1-cantorales/Acordes de Rondalla - Aquí estoy señor, disco 1, SIN FONDO.pdf"
+      ],
+      "originalIndex": 0,
+      "displayTitle": "Acordes de Rondalla - Aquí estoy señor, disco 1, SIN FONDO"
+    },
+    {
+      "folder": "1-cantorales",
+      "title": "Acordes de Rondalla - La Llamada, SIN FONDO",
+      "status": "previo",
+      "needsAttention": false,
+      "notes": "Ya estaba marcado revisado antes de esta auditoría; no se modificó ni se volvió a certificar.",
+      "files": [
+        "1-cantorales/Acordes de Rondalla - La Llamada, SIN FONDO.pdf"
+      ],
+      "originalIndex": 1,
+      "displayTitle": "Acordes de Rondalla - La Llamada, SIN FONDO"
+    },
+    {
+      "folder": "1-cantorales",
+      "title": "ALREDEDOR DE TU MESA - Partitura completa",
+      "status": "previo",
+      "needsAttention": false,
+      "notes": "Ya estaba marcado revisado antes de esta auditoría; no se modificó ni se volvió a certificar.",
+      "files": [
+        "1-cantorales/ALREDEDOR DE TU MESA - Partitura completa.pdf"
+      ],
+      "originalIndex": 2,
+      "displayTitle": "ALREDEDOR DE TU MESA - Partitura completa"
+    },
+    {
+      "folder": "1-cantorales",
+      "title": "Cancionero-Canto-Católico",
+      "status": "previo",
+      "needsAttention": false,
+      "notes": "Ya estaba marcado revisado antes de esta auditoría; no se modificó ni se volvió a certificar.",
+      "files": [
+        "1-cantorales/Cancionero-Canto-Católico.pdf"
+      ],
+      "originalIndex": 3,
+      "displayTitle": "Cancionero-Canto-Católico"
+    },
+    {
+      "folder": "1-cantorales",
+      "title": "Cancionero-Trabajo-Pais-2014",
+      "status": "previo",
+      "needsAttention": false,
+      "notes": "Ya estaba marcado revisado antes de esta auditoría; no se modificó ni se volvió a certificar.",
+      "files": [
+        "1-cantorales/Cancionero-Trabajo-Pais-2014.pdf"
+      ],
+      "originalIndex": 4,
+      "displayTitle": "Cancionero-Trabajo-Pais-2014"
+    },
+    {
+      "folder": "1-cantorales",
+      "title": "CANTOS PARA CUARESMA2",
+      "status": "previo",
+      "needsAttention": false,
+      "notes": "Ya estaba marcado revisado antes de esta auditoría; no se modificó ni se volvió a certificar.",
+      "files": [
+        "1-cantorales/CANTOS PARA CUARESMA2.pdf"
+      ],
+      "originalIndex": 5,
+      "displayTitle": "CANTOS PARA CUARESMA2"
+    },
+    {
+      "folder": "1-cantorales",
+      "title": "Maria -2025",
+      "status": "previo",
+      "needsAttention": false,
+      "notes": "Ya estaba marcado revisado antes de esta auditoría; no se modificó ni se volvió a certificar.",
+      "files": [
+        "1-cantorales/Maria -2025.pdf"
+      ],
+      "originalIndex": 6,
+      "displayTitle": "Maria -2025"
+    },
+    {
+      "folder": "1-cantorales",
+      "title": "Misa guelaguetza",
+      "status": "previo",
+      "needsAttention": false,
+      "notes": "Ya estaba marcado revisado antes de esta auditoría; no se modificó ni se volvió a certificar.",
+      "files": [
+        "1-cantorales/Misa guelaguetza.pdf"
+      ],
+      "originalIndex": 7,
+      "displayTitle": "Misa guelaguetza"
+    },
+    {
+      "folder": "1-cantorales",
+      "title": "yucatan rondalla",
+      "status": "previo",
+      "needsAttention": false,
+      "notes": "Ya estaba marcado revisado antes de esta auditoría; no se modificó ni se volvió a certificar.",
+      "files": [
+        "1-cantorales/yucatan rondalla.pdf"
+      ],
+      "originalIndex": 8,
+      "displayTitle": "yucatan rondalla"
+    },
+    {
+      "folder": "adoracion",
+      "title": "Adoro te devote - Musica catolica- arreglos latin",
+      "status": "previo",
+      "needsAttention": false,
+      "notes": "Ya estaba marcado revisado antes de esta auditoría; no se modificó ni se volvió a certificar.",
+      "files": [
+        "adoracion/Adoro te devote - Musica catolica- arreglos latin.pdf"
+      ],
+      "originalIndex": 9,
+      "displayTitle": "Adoro te devote - Musica catolica- arreglos latin"
+    },
+    {
+      "folder": "adoracion",
+      "title": "adoro te devote latin",
+      "status": "previo",
+      "needsAttention": false,
+      "notes": "Ya estaba marcado revisado antes de esta auditoría; no se modificó ni se volvió a certificar.",
+      "files": [
+        "adoracion/adoro te devote latin.jpg"
+      ],
+      "originalIndex": 10,
+      "displayTitle": "adoro te devote latin"
+    },
+    {
+      "folder": "adoracion",
+      "title": "Adoro te devote- Seminario- Espaniol",
+      "status": "previo",
+      "needsAttention": false,
+      "notes": "Ya estaba marcado revisado antes de esta auditoría; no se modificó ni se volvió a certificar.",
+      "files": [
+        "adoracion/Adoro te devote- Seminario- Espaniol.pdf"
+      ],
+      "originalIndex": 11,
+      "displayTitle": "Adoro te devote- Seminario- Espaniol"
+    },
+    {
+      "folder": "adoracion",
+      "title": "Alabado sea el santisimo sacramento",
+      "status": "previo",
+      "needsAttention": false,
+      "notes": "Ya estaba marcado revisado antes de esta auditoría; no se modificó ni se volvió a certificar.",
+      "files": [
+        "adoracion/Alabado sea el santisimo sacramento.cho",
+        "adoracion/Alabado sea el santisimo sacramento.png"
+      ],
+      "originalIndex": 12,
+      "displayTitle": "Alabado sea el Santísimo",
+      "contentSha256": "53d83ea96b2998950bbf607d4f3db1a16fb1b50eaba47e709d5b46f2df57aa90"
+    },
+    {
+      "folder": "adoracion",
+      "title": "Altisimo señor",
+      "status": "previo",
+      "needsAttention": false,
+      "notes": "Ya estaba marcado revisado antes de esta auditoría; no se modificó ni se volvió a certificar.",
+      "files": [
+        "adoracion/Altisimo señor.cho",
+        "adoracion/Altisimo señor.png"
+      ],
+      "originalIndex": 13,
+      "displayTitle": "Altisimo señor",
+      "contentSha256": "b178dc32c465f8506d6756a585c8af4ce5d07229caef1cc8465f9b83c28f1e6e"
+    },
+    {
+      "folder": "adoracion",
+      "title": "Ante ti me Postro- Simiplificado Espaniol",
+      "status": "previo",
+      "needsAttention": false,
+      "notes": "Ya estaba marcado revisado antes de esta auditoría; no se modificó ni se volvió a certificar.",
+      "files": [
+        "adoracion/Ante ti me Postro- Simiplificado Espaniol.cho",
+        "adoracion/Ante ti me Postro- Simiplificado Espaniol.pdf"
+      ],
+      "originalIndex": 14,
+      "displayTitle": "Ante ti me Postro- Simiplificado Espaniol",
+      "contentSha256": "c7df965fd2013557fda5932d838718a7983a7b6ac99c5cec434e987bf47c7e1c"
+    },
+    {
+      "folder": "adoracion",
+      "title": "Bendigamos al señor",
+      "status": "previo",
+      "needsAttention": false,
+      "notes": "Ya estaba marcado revisado antes de esta auditoría; no se modificó ni se volvió a certificar.",
+      "files": [
+        "adoracion/Bendigamos al señor.cho",
+        "adoracion/Bendigamos al señor.png"
+      ],
+      "originalIndex": 15,
+      "displayTitle": "Bendigamos al Señor",
+      "contentSha256": "89a2acccd6daf1ba159e1fcfebb27f6ab1d3be1a4ffa1bdb13926b1cda394092"
+    },
+    {
+      "folder": "adoracion",
+      "title": "Bendito bendito",
+      "status": "previo",
+      "needsAttention": false,
+      "notes": "Ya estaba marcado revisado antes de esta auditoría; no se modificó ni se volvió a certificar.",
+      "files": [
+        "adoracion/Bendito bendito.cho",
+        "adoracion/Bendito bendito.png"
+      ],
+      "originalIndex": 16,
+      "displayTitle": "Bendito Bendito",
+      "contentSha256": "fe923d754f22db1688b3ed9230924ae000d809a6e8ab0131f31ae46d19ed29a1"
+    },
+    {
+      "folder": "adoracion",
+      "title": "Cantar de los cantares",
+      "status": "previo",
+      "needsAttention": false,
+      "notes": "Ya estaba marcado revisado antes de esta auditoría; no se modificó ni se volvió a certificar.",
+      "files": [
+        "adoracion/Cantar de los cantares.cho",
+        "adoracion/Cantar de los cantares.png"
+      ],
+      "originalIndex": 17,
+      "displayTitle": "Cantar de los cantares",
+      "contentSha256": "d7e4860b69de5969dc70e32407760fb281af0f42205f0e2c9fca310873bc7f13"
+    },
+    {
+      "folder": "adoracion",
+      "title": "Cantemos al amor de los amores",
+      "status": "previo",
+      "needsAttention": false,
+      "notes": "Ya estaba marcado revisado antes de esta auditoría; no se modificó ni se volvió a certificar.",
+      "files": [
+        "adoracion/Cantemos al amor de los amores.cho",
+        "adoracion/Cantemos al amor de los amores.png"
+      ],
+      "originalIndex": 18,
+      "displayTitle": "Cantemos al amor de los amores",
+      "contentSha256": "ea8f5c9bef6000028f2b72bc96990c9805159d13701f4e157e24f93adf7ed1c2"
+    },
+    {
+      "folder": "adoracion",
+      "title": "Corpus Christi-El pan de vida-Jesed",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Columnas del mismo canto ordenadas de izquierda a derecha. Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "adoracion/Corpus Christi-El pan de vida-Jesed.cho",
+        "adoracion/Corpus Christi-El pan de vida-Jesed.pdf"
+      ],
+      "originalIndex": 19,
+      "displayTitle": "Corpus Christi-El pan de vida-Jesed",
+      "contentSha256": "1d483b35c1049880f827ae4f29aba82057f8523961e7b72aaa6d7816d662523e"
+    },
+    {
+      "folder": "adoracion",
+      "title": "Es mi padre",
+      "status": "previo",
+      "needsAttention": false,
+      "notes": "Ya estaba marcado revisado antes de esta auditoría; no se modificó ni se volvió a certificar.",
+      "files": [
+        "adoracion/Es mi padre.cho",
+        "adoracion/Es mi padre.png"
+      ],
+      "originalIndex": 20,
+      "displayTitle": "Es mi padre",
+      "contentSha256": "04193b445de4327222449af496ba3803db496fac40aaa1048ab23ee556990ec2"
+    },
+    {
+      "folder": "adoracion",
+      "title": "Estas aqui",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Transcripción cotejada manualmente con la imagen; se corrigieron las falsas lecturas «70S»/«Mlm» y se recuperaron los acordes y la letra completa.",
+      "files": [
+        "adoracion/Estas aqui.cho",
+        "adoracion/Estas aqui.png"
+      ],
+      "originalIndex": 21,
+      "displayTitle": "Estás aquí",
+      "contentSha256": "f2018d34ae307cf3fa7f81a0416fecd73e45c4be60bf0366b9acd07a8dbfd1c4"
+    },
+    {
+      "folder": "adoracion",
+      "title": "In persona christi",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 2 tokens dudosos: MIm. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 14 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "adoracion/In persona christi.cho",
+        "adoracion/In persona christi.png"
+      ],
+      "originalIndex": 22,
+      "displayTitle": "In persona christi",
+      "contentSha256": "b176c797ab3b1c311cb9c02e83645f1822bd2e800b5544349e6bed9788356052"
+    },
+    {
+      "folder": "adoracion",
+      "title": "Oh victima inmolada",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 19 tokens dudosos: Mlm, MIm, SIm, M, lm, Ml, m, 10S, T0S. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 8 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "adoracion/Oh victima inmolada.cho",
+        "adoracion/Oh victima inmolada.png"
+      ],
+      "originalIndex": 23,
+      "displayTitle": "Oh victima inmolada",
+      "contentSha256": "a762902d84c1ec15ba7b751d94dcb6fc9d2967cbebb3f4bcee09d2718d03785c"
+    },
+    {
+      "folder": "adoracion",
+      "title": "Te adoramos hostia divina",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 6 tokens dudosos: S, 1, S1, SI. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 14 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "adoracion/Te adoramos hostia divina.cho",
+        "adoracion/Te adoramos hostia divina.png"
+      ],
+      "originalIndex": 24,
+      "displayTitle": "Te adoramos hostia divina",
+      "contentSha256": "8e2683bb0bffb43fdbfa02177a40a415b2920fbee48e03bf4ef08c686c3fdf82"
+    },
+    {
+      "folder": "adoracion",
+      "title": "Tu señor",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 55 de 138 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "adoracion/Tu señor.cho",
+        "adoracion/Tu señor.pdf"
+      ],
+      "originalIndex": 25,
+      "displayTitle": "Tu señor",
+      "contentSha256": "c1c1122653873451f5debb3e4f31dbe8fa22863d6eb3131d229e0878e8ff7a1d"
+    },
+    {
+      "folder": "adoracion",
+      "title": "vayamos a la mesa - osvaldo catena",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "adoracion/vayamos a la mesa - osvaldo catena.cho",
+        "adoracion/vayamos a la mesa - osvaldo catena.pdf"
+      ],
+      "originalIndex": 26,
+      "displayTitle": "vayamos a la mesa - osvaldo catena",
+      "contentSha256": "7873e09855bb962ee684848d2096c599c9712de6aab0e24af19435677cdfc1bd"
+    },
+    {
+      "folder": "adoracion",
+      "title": "Ven y adora ",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 24 de 43 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "adoracion/Ven y adora .cho",
+        "adoracion/Ven y adora .pdf"
+      ],
+      "originalIndex": 27,
+      "displayTitle": "Ven y adora",
+      "contentSha256": "6397b82f7f06bfd39f31d425d5908b838d834cdd00b3c56f796e41153daad33f"
+    },
+    {
+      "folder": "adoracion",
+      "title": "Vive jesus el señor",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 29 de 34 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "adoracion/Vive jesus el señor.cho",
+        "adoracion/Vive jesus el señor.pdf"
+      ],
+      "originalIndex": 28,
+      "displayTitle": "Vive jesus el señor",
+      "contentSha256": "0aa8531d6737415a92d642c43e5ad5745246331a151af6702c022abd143e8f19"
+    },
+    {
+      "folder": "adoracion",
+      "title": "Vive Jesus",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Transcripción corregida manualmente contra la imagen: se recuperaron versos omitidos y se corrigieron caracteres/acordes falsos del OCR. No se añadieron acordes a estrofas que no los tenían en la fuente.",
+      "files": [
+        "adoracion/Vive Jesus.cho",
+        "adoracion/Vive Jesus.png"
+      ],
+      "originalIndex": 29,
+      "displayTitle": "Vive Jesus",
+      "contentSha256": "fff9c505ecec78380d2e37eed3e7192e78704fae7afaff28b133f70dd54540ab"
+    },
+    {
+      "folder": "adoracionCruz",
+      "title": "Dios Mio por Qué Me Has Abandonado",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 4 tokens dudosos: Em, C, c. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 14 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "adoracionCruz/Dios Mio por Qué Me Has Abandonado.cho",
+        "adoracionCruz/Dios Mio por Qué Me Has Abandonado.png"
+      ],
+      "originalIndex": 30,
+      "displayTitle": "Dios Mio por Qué Me Has Abandonado",
+      "contentSha256": "520ed2b763a67ee3a192da67c5417c259b5974f8103ebc79b3dd9ab3c0a85878"
+    },
+    {
+      "folder": "adoracionCruz",
+      "title": "Postrado ante la cruz",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 1 tokens dudosos: D. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 21 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "adoracionCruz/Postrado ante la cruz.cho",
+        "adoracionCruz/Postrado ante la cruz.png"
+      ],
+      "originalIndex": 31,
+      "displayTitle": "Postrado ante la cruz",
+      "contentSha256": "796893fc6c41123599af63c4c2e155d3c67068e66716ea0c4705518222330962"
+    },
+    {
+      "folder": "adoracionCruz",
+      "title": "Pueblo mio francizco palazon",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 8 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "adoracionCruz/Pueblo mio francizco palazon.cho",
+        "adoracionCruz/Pueblo mio francizco palazon.png"
+      ],
+      "originalIndex": 32,
+      "displayTitle": "Pueblo mio francizco palazon",
+      "contentSha256": "44f785bb8c51fe3c43a1942818ef82769edad09dd228c979f99d61870bb564b7"
+    },
+    {
+      "folder": "adoracionCruz",
+      "title": "Stabat Mater",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Transcripción corregida manualmente contra la imagen: se recuperaron versos omitidos y se corrigieron caracteres/acordes falsos del OCR. No se añadieron acordes a estrofas que no los tenían en la fuente.",
+      "files": [
+        "adoracionCruz/Stabat Mater.cho",
+        "adoracionCruz/Stabat Mater.png"
+      ],
+      "originalIndex": 33,
+      "displayTitle": "Stabat Mater",
+      "contentSha256": "4eb38d9dfe6b85a9f6a3924de33cd1416eab06aaeada0b70f142c8855d7ea21a"
+    },
+    {
+      "folder": "adoracionCruz",
+      "title": "Tarde de viernes santo",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 1 tokens dudosos: El. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 17 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "adoracionCruz/Tarde de viernes santo.cho",
+        "adoracionCruz/Tarde de viernes santo.png"
+      ],
+      "originalIndex": 34,
+      "displayTitle": "Tarde de viernes santo",
+      "contentSha256": "546f10ec33526b930950f49a192a67bbb5d584fbce4ca1cf7eeed4226ceceb90"
+    },
+    {
+      "folder": "adoracionCruz",
+      "title": "Tu cruz adoramos",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Transcripción corregida manualmente contra la imagen: se recuperaron versos omitidos y se corrigieron caracteres/acordes falsos del OCR. No se añadieron acordes a estrofas que no los tenían en la fuente.",
+      "files": [
+        "adoracionCruz/Tu cruz adoramos.cho",
+        "adoracionCruz/Tu cruz adoramos.png"
+      ],
+      "originalIndex": 35,
+      "displayTitle": "Tu cruz adoramos",
+      "contentSha256": "a143efd138ebbfd16de0249a63da503304839fae75b63d836e645d04ba0a0356"
+    },
+    {
+      "folder": "adoracionCruz",
+      "title": "Venid oh cristianos",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Partitura: el OCR mezcla sílabas/notación musical; requiere transcripción musical.  5 de 108 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "adoracionCruz/Venid oh cristianos.cho",
+        "adoracionCruz/Venid oh cristianos.jpg"
+      ],
+      "originalIndex": 36,
+      "displayTitle": "Venid oh cristianos",
+      "contentSha256": "60d7d19fb4b38cd225a1c43219f6b5c3da80889dbe6577b3168fb6ea44a44956"
+    },
+    {
+      "folder": "adoracionCruz",
+      "title": "Victoria tu reinaras",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. La propia imagen tiene caracteres dañados (tildes sustituidas); se necesita una fuente legible para confirmar el texto.",
+      "files": [
+        "adoracionCruz/Victoria tu reinaras.cho",
+        "adoracionCruz/Victoria tu reinaras.png"
+      ],
+      "originalIndex": 37,
+      "displayTitle": "Victoria tu reinaras",
+      "contentSha256": "4be8f81d2abea0e292fee3906c0f67159d940feaff9fcc17c90278409ece5e6b"
+    },
+    {
+      "folder": "Aleluya",
+      "title": "Aleluyas",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Hoja con cinco aleluyas manuscritos. Se requiere confirmar títulos y acordes antes de separarlos; no se descartó ninguno. 43 de 132 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "Aleluya/Aleluyas.cho",
+        "Aleluya/Aleluyas.pdf"
+      ],
+      "originalIndex": 38,
+      "displayTitle": "Aleluyas",
+      "contentSha256": "3e501cfaa7ce18f27a3ee6533fb334f07bb49eb85eae0b173b1eabe05164d1fc"
+    },
+    {
+      "folder": "Aleluya",
+      "title": "IMG_20251226_112302",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Transcripción corregida manualmente contra la imagen: se recuperaron versos omitidos y se corrigieron caracteres/acordes falsos del OCR. No se añadieron acordes a estrofas que no los tenían en la fuente.",
+      "files": [
+        "Aleluya/IMG_20251226_112302.cho",
+        "Aleluya/IMG_20251226_112302.jpg"
+      ],
+      "originalIndex": 39,
+      "displayTitle": "Aleluya - misa melódica",
+      "contentSha256": "d726235d3cb322776fa7253f546385cbe976a25346e743d65380459023c55044"
+    },
+    {
+      "folder": "aspersion",
+      "title": "Fuente bautizmal pbro. carmelo erdozain - aspersion",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Transcripción corregida manualmente contra la imagen: se recuperaron versos omitidos y se corrigieron caracteres/acordes falsos del OCR. No se añadieron acordes a estrofas que no los tenían en la fuente.",
+      "files": [
+        "aspersion/Fuente bautizmal pbro. carmelo erdozain - aspersion.cho",
+        "aspersion/Fuente bautizmal pbro. carmelo erdozain - aspersion.pdf"
+      ],
+      "originalIndex": 40,
+      "displayTitle": "Fuente bautismal",
+      "contentSha256": "24984f1f50e3a1824732de8cf3c2ac06d2a089a5fa925ab2cb71a4706910a250"
+    },
+    {
+      "folder": "Comunion",
+      "title": "3d49694e-16db-4256-b3c7-b879b5d34a10",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 15 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Comunion/3d49694e-16db-4256-b3c7-b879b5d34a10.cho",
+        "Comunion/3d49694e-16db-4256-b3c7-b879b5d34a10.jpeg"
+      ],
+      "originalIndex": 41,
+      "displayTitle": "3d49694e-16db-4256-b3c7-b879b5d34a10",
+      "contentSha256": "8b300fda8964d4d03314570a9b36b374ea52db1c718b230f1ecd1713f7a7b1b7"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Aqui hay un muchacho",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 14 tokens dudosos: Sl, m, MIm, Ml, Slm, Mlm, 70S. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 17 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Comunion/Aqui hay un muchacho.cho",
+        "Comunion/Aqui hay un muchacho.png"
+      ],
+      "originalIndex": 42,
+      "displayTitle": "Aqui hay un muchacho",
+      "contentSha256": "b9ecc154a89b49ba54a4c5714dd58fafb1922fac77067af488b9a06fff2dfd78"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Divino manjar",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 65 de 201 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "Comunion/Divino manjar.cho",
+        "Comunion/Divino manjar.pdf"
+      ],
+      "originalIndex": 43,
+      "displayTitle": "Divino manjar",
+      "contentSha256": "3b50b81b2334a3bc803caec03556f19faf967bd2f5d4b5d280f780b1e04ce0dc"
+    },
+    {
+      "folder": "Comunion",
+      "title": "El señor en el desierto(misa oaxaqueña)",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 28 de 195 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "Comunion/El señor en el desierto(misa oaxaqueña).cho",
+        "Comunion/El señor en el desierto(misa oaxaqueña).pdf"
+      ],
+      "originalIndex": 44,
+      "displayTitle": "El señor en el desierto(misa oaxaqueña)",
+      "contentSha256": "86fe7aa17d395d068c58044cc9a40e6ff0fddc5d16dd7c00efb459bfcc05aaf6"
+    },
+    {
+      "folder": "Comunion",
+      "title": "IMG-20250706-WA0005",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 12 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Comunion/IMG-20250706-WA0005.cho",
+        "Comunion/IMG-20250706-WA0005.jpg"
+      ],
+      "originalIndex": 45,
+      "displayTitle": "IMG-20250706-WA0005",
+      "contentSha256": "11e10a685b189d024ba65f74096fb6149d25cc3f263b92134eeb6e4221645b9d"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Jesus Amigo",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 16 tokens dudosos: C, D. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 21 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Comunion/Jesus Amigo.cho",
+        "Comunion/Jesus Amigo.png"
+      ],
+      "originalIndex": 46,
+      "displayTitle": "Jesus Amigo",
+      "contentSha256": "18eb4a39821cf8faf31b9c116265a59f151ccf5ec1b0c55d082a98e6f7a3f4ba"
+    },
+    {
+      "folder": "Comunion",
+      "title": "levántate acordes y letra canto para adviento",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "Comunion/levántate acordes y letra canto para adviento.cho",
+        "Comunion/levántate acordes y letra canto para adviento.pdf"
+      ],
+      "originalIndex": 47,
+      "displayTitle": "levántate acordes y letra canto para adviento",
+      "contentSha256": "fef4c0c34b3d6380a6410cd23d655a1d2f8bd76e2c2f53b489e041516c3c4237"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Me has seducido señor -  Aqui hay un muchacho",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de Me has seducido señor -  Aqui hay un muchacho, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Comunion/Me has seducido señor -  Aqui hay un muchacho.cho",
+        "Comunion/Me has seducido señor -  Aqui hay un muchacho.pdf"
+      ],
+      "originalIndex": 48,
+      "displayTitle": "Me has seducido Señor",
+      "contentSha256": "835a372c191e560dc6de4079ccb31b91984aeca8378948fcbf3a09983d62a46a"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Aquí hay un muchacho",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de Me has seducido señor -  Aqui hay un muchacho, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Comunion/Aquí hay un muchacho - separado.cho",
+        "Comunion/Aquí hay un muchacho - separado.pdf"
+      ],
+      "originalIndex": 48,
+      "displayTitle": "Aquí hay un muchacho",
+      "contentSha256": "1d52ba2bea0f2d442170e06f1fea0c1e1a578e859579a7a450c9e4c76056ecf5"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Oh buen Jesus",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 6 tokens dudosos: C, c. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 6 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Comunion/Oh buen Jesus.cho",
+        "Comunion/Oh buen Jesus.png"
+      ],
+      "originalIndex": 49,
+      "displayTitle": "Oh buen Jesus",
+      "contentSha256": "fc2e191c1ab0ff80d955e302ea79cddb6eafb134df1c65165a1595928543da20"
+    },
+    {
+      "folder": "Comunion",
+      "title": "oh-buen-Jesus-letra-y-acordes",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "Comunion/oh-buen-Jesus-letra-y-acordes.cho",
+        "Comunion/oh-buen-Jesus-letra-y-acordes.pdf"
+      ],
+      "originalIndex": 50,
+      "displayTitle": "oh-buen-Jesus-letra-y-acordes",
+      "contentSha256": "5bd63d4670b0861bd3d20547809b96aa9e245e1b5681f762e5fcbc12e7c95f85"
+    },
+    {
+      "folder": "Comunion",
+      "title": "PASE LO QUE PASE",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "Comunion/PASE LO QUE PASE.cho",
+        "Comunion/PASE LO QUE PASE.pdf",
+        "Comunion/Pase lo que pase.png"
+      ],
+      "originalIndex": 51,
+      "displayTitle": "PASE LO QUE PASE",
+      "contentSha256": "5755fc6ed9ef91076f4ca547f4a1d9867c92a442c65ba3eb08023a3fe09fa7be"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Quiero señor",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 51 de 157 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "Comunion/Quiero señor.cho",
+        "Comunion/Quiero señor.pdf"
+      ],
+      "originalIndex": 52,
+      "displayTitle": "Quiero señor",
+      "contentSha256": "55e4513fc4c7798da1f522f9b22abad3f70699037cafaca547143434a47bbed6"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Sacerdote para siempre - Verbum Panis",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de Sacerdote para siempre - Verbum Panis, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Comunion/Sacerdote para siempre - Verbum Panis.cho",
+        "Comunion/Sacerdote para siempre - Verbum Panis.pdf"
+      ],
+      "originalIndex": 53,
+      "displayTitle": "Sacerdote para siempre",
+      "contentSha256": "5b3f55d06a25f244a4e47cf7b8ed885134466f23de97755e4f22e3dd89d7fcbb"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Verbum Panis",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de Sacerdote para siempre - Verbum Panis, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Comunion/Verbum Panis - separado.cho",
+        "Comunion/Verbum Panis - separado.pdf"
+      ],
+      "originalIndex": 53,
+      "displayTitle": "Verbum Panis",
+      "contentSha256": "070f4e82415a7c76ed4254a4d9849b2a1f5de0197bfaa0dda56e05681dcb5bf8"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Señor a quien iremos",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Señor a quien iremos, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "Comunion/Señor a quien iremos.cho",
+        "Comunion/Señor a quien iremos.pdf"
+      ],
+      "originalIndex": 54,
+      "displayTitle": "Señor a quién iremos",
+      "contentSha256": "72ac3e837da45676e942536000b562bbd640ed11769f4adbb2a77daee8b1e1fc"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Cordero de Dios - disco Aquí estoy Señor",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Señor a quien iremos, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Se conservaron acordes aislados; confirmar su uso: Em A C D Em. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "Comunion/Cordero de Dios - disco Aquí estoy Señor - separado.cho",
+        "Comunion/Cordero de Dios - disco Aquí estoy Señor - separado.pdf"
+      ],
+      "originalIndex": 54,
+      "displayTitle": "Cordero de Dios - disco Aquí estoy Señor",
+      "contentSha256": "cf8bef7e6ffb56971ca18f419b3ea272ad8d45b4c2af77276d53a514555857ee"
+    },
+    {
+      "folder": "Comunion",
+      "title": "symbolum 77",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 28 tokens dudosos: Em, C, E3, Arn, E, g, B7, D, Ern, c. Revisar secuencias sin verso asociado: Em C D E3, C, D G B7, a G Em. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 13 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Comunion/symbolum 77.cho",
+        "Comunion/symbolum 77.jpg"
+      ],
+      "originalIndex": 55,
+      "displayTitle": "symbolum 77",
+      "contentSha256": "e6d27e4f06a229fd1a407c51e6061392ae0dfefec5879af86a2792a5ec57a151"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Temblando de amor-Santa clara",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 10 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Comunion/Temblando de amor-Santa clara.cho",
+        "Comunion/Temblando de amor-Santa clara.png"
+      ],
+      "originalIndex": 56,
+      "displayTitle": "Temblando de amor-Santa clara",
+      "contentSha256": "08b6afe451f9af30b33361ab1b99912bab6e75940c4df371743b3514c8cc6df0"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Todo te pertenece - Comulgar es un acto sublime",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Todo te pertenece - Comulgar es un acto sublime, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "Comunion/Todo te pertenece - Comulgar es un acto sublime.cho",
+        "Comunion/Todo te pertenece - Comulgar es un acto sublime.pdf"
+      ],
+      "originalIndex": 57,
+      "displayTitle": "Todo te pertenece",
+      "contentSha256": "26b1c7d8f30c871a4a12bc81db6127f844b40dcb87c42edc6222d9e96676249d"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Vino y pan",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Todo te pertenece - Comulgar es un acto sublime, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "Comunion/Vino y pan - separado.cho",
+        "Comunion/Vino y pan - separado.pdf"
+      ],
+      "originalIndex": 57,
+      "displayTitle": "Vino y pan",
+      "contentSha256": "68483698b20b2b4acc956b444b48c065065404b179e84b9dda4c760f98acd40a"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Comulgar es un acto sublime",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Todo te pertenece - Comulgar es un acto sublime, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Se conservaron acordes aislados; confirmar su uso: D Em A A7 D. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "Comunion/Comulgar es un acto sublime - separado.cho",
+        "Comunion/Comulgar es un acto sublime - separado.pdf"
+      ],
+      "originalIndex": 57,
+      "displayTitle": "Comulgar es un acto sublime",
+      "contentSha256": "24d6997a2b8975f5a78eb1a153d4f954a8b9a7c7b37edebf1289e89e5d2e2bb3"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Tomame señor - jesed",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 22 tokens dudosos: C, c. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 18 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Comunion/Tomame señor - jesed.cho",
+        "Comunion/Tomame señor - jesed.pdf"
+      ],
+      "originalIndex": 58,
+      "displayTitle": "Tomame señor - jesed",
+      "contentSha256": "b8b9f0c02dbee9b4dfc25aec0f0ca145a405ea62ff4182094d8002e68255e480"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Tomame Señor",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 9 tokens dudosos: MIm, Sl, m, M, l, Mlm. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 17 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Comunion/Tomame Señor.cho",
+        "Comunion/Tomame Señor.png"
+      ],
+      "originalIndex": 59,
+      "displayTitle": "Tomame Señor",
+      "contentSha256": "665f2fc7e5a6a72ecf3a48af49affbebca67d2ecddcd7e26e50a29780117e610"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Tu Cuerpo y Sangre, Señor",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Transcripción corregida manualmente contra la imagen: se recuperaron versos omitidos y se corrigieron caracteres/acordes falsos del OCR. No se añadieron acordes a estrofas que no los tenían en la fuente.",
+      "files": [
+        "Comunion/Tu Cuerpo y Sangre, Señor.cho",
+        "Comunion/Tu Cuerpo y Sangre, Señor.png"
+      ],
+      "originalIndex": 60,
+      "displayTitle": "Tu Cuerpo y Sangre, Señor",
+      "contentSha256": "8409e94e00104777f00137a389a62ad23239076a5d2f4ab523b398bd39d46ace"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Una espigaa",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 8 tokens dudosos: C, G, 5, c. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 14 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Comunion/Una espigaa.cho",
+        "Comunion/Una espigaa.pdf"
+      ],
+      "originalIndex": 61,
+      "displayTitle": "Una espigaa",
+      "contentSha256": "93c9056663b20b0c4c2cab16b518b567d724a36d7967c74164d51f500e7aa3f5"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Vamos cantando a comulgar",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 10 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Comunion/Vamos cantando a comulgar.cho",
+        "Comunion/Vamos cantando a comulgar.pdf"
+      ],
+      "originalIndex": 62,
+      "displayTitle": "Vamos cantando a comulgar",
+      "contentSha256": "7ca19c593222d8e666df4a339280e0c10d1d878f47f727946add9e3804f080be"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Ven a mi dulce pan de la vida",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 8 tokens dudosos: Sol, 5i7, 5ol, 5o1, 517. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 10 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Comunion/Ven a mi dulce pan de la vida.cho",
+        "Comunion/Ven a mi dulce pan de la vida.png"
+      ],
+      "originalIndex": 63,
+      "displayTitle": "Ven a mi dulce pan de la vida",
+      "contentSha256": "d34588043cb9a25163de6022ff392c59f96a4a0d7a56fdcb35985a1e3171746a"
+    },
+    {
+      "folder": "Comunion",
+      "title": "ven a mi dulce pan letra",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Columnas del mismo canto ordenadas de izquierda a derecha. Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "Comunion/ven a mi dulce pan letra.cho",
+        "Comunion/ven a mi dulce pan letra.pdf"
+      ],
+      "originalIndex": 64,
+      "displayTitle": "ven a mi dulce pan letra",
+      "contentSha256": "fa6af0a91a67029ee98b83822caf82947be5d88dc0ab80d604f3303fc07068da"
+    },
+    {
+      "folder": "Comunion",
+      "title": "verbum panis",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 15 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Comunion/verbum panis.cho",
+        "Comunion/verbum panis.png"
+      ],
+      "originalIndex": 65,
+      "displayTitle": "verbum panis",
+      "contentSha256": "ddd2831e4449cdc5c72755068b4f142cc10409da1159f6b2d3e7e76a2a8996be"
+    },
+    {
+      "folder": "Comunion",
+      "title": "Yo soy el camino firme- Lorenzo González",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Transcripción corregida manualmente contra la imagen: se recuperaron versos omitidos y se corrigieron caracteres/acordes falsos del OCR. No se añadieron acordes a estrofas que no los tenían en la fuente.",
+      "files": [
+        "Comunion/Yo soy el camino firme- Lorenzo González.cho",
+        "Comunion/Yo soy el camino firme- Lorenzo González.png"
+      ],
+      "originalIndex": 66,
+      "displayTitle": "Yo soy el camino firme",
+      "contentSha256": "288717b3840eaa44c3241b1fcde8eb5f5187f23c38fca40e662d7c5090a18ec4"
+    },
+    {
+      "folder": "Comunion",
+      "title": "yo soy el pan de vida- yo lo resucitare-  Hna. Suzanne Toolan",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "Comunion/yo soy el pan de vida- yo lo resucitare-  Hna. Suzanne Toolan.cho",
+        "Comunion/yo soy el pan de vida- yo lo resucitare-  Hna. Suzanne Toolan.pdf"
+      ],
+      "originalIndex": 67,
+      "displayTitle": "yo soy el pan de vida- yo lo resucitare-  Hna. Suzanne Toolan",
+      "contentSha256": "051e9f143ded70285474167c530b1aa00093b7b3197001c2a7e7a6993d5cd3b8"
+    },
+    {
+      "folder": "cordero",
+      "title": "Cordero chiapas, cordero y santo avedillo",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Cordero chiapas, cordero y santo avedillo, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "cordero/Cordero chiapas, cordero y santo avedillo.cho",
+        "cordero/Cordero chiapas, cordero y santo avedillo.pdf"
+      ],
+      "originalIndex": 68,
+      "displayTitle": "Cordero de Dios - misa de Chiapas",
+      "contentSha256": "0de7c1c8eb20ec9d406b9bdff6a3cee3d4f92370b633e5bb3ceb35962714ca49"
+    },
+    {
+      "folder": "cordero",
+      "title": "Cordero de Dios - misa de Avedillo",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Cordero chiapas, cordero y santo avedillo, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "cordero/Cordero de Dios - misa de Avedillo - separado.cho",
+        "cordero/Cordero de Dios - misa de Avedillo - separado.pdf"
+      ],
+      "originalIndex": 68,
+      "displayTitle": "Cordero de Dios - misa de Avedillo",
+      "contentSha256": "2812d7a62a6f5cbb69b164746282e974f70580302be723555878b34c008675ca"
+    },
+    {
+      "folder": "cordero",
+      "title": "Santo - misa de Avedillo",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Cordero chiapas, cordero y santo avedillo, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "cordero/Santo - misa de Avedillo - separado.cho",
+        "cordero/Santo - misa de Avedillo - separado.pdf"
+      ],
+      "originalIndex": 68,
+      "displayTitle": "Santo - misa de Avedillo",
+      "contentSha256": "d09b7e21c22efa36ae6d4a0d3bd1f73246f8d543558b57fa0b9853755ae49e26"
+    },
+    {
+      "folder": "cordero",
+      "title": "Cordero misa alegre",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 19 de 56 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "cordero/Cordero misa alegre.cho",
+        "cordero/Cordero misa alegre.pdf"
+      ],
+      "originalIndex": 69,
+      "displayTitle": "Cordero misa alegre",
+      "contentSha256": "b12c4364467f9bbdcaeb9c7cf9b84f6bba0ef458612ba803eb9fd343f3e2b73e"
+    },
+    {
+      "folder": "cordero",
+      "title": "Cordero misa de cristo",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 11 de 41 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "cordero/Cordero misa de cristo.cho",
+        "cordero/Cordero misa de cristo.pdf"
+      ],
+      "originalIndex": 70,
+      "displayTitle": "Cordero misa de cristo",
+      "contentSha256": "29c5c7c820d649eb6186aad76a60e72c750ac135ad875a51ca8b85e70e0e57e8"
+    },
+    {
+      "folder": "cordero",
+      "title": "Cordero-mejia-melodica",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 3 tokens dudosos: C. Revisar secuencias sin verso asociado: Em A C D Em. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 6 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "cordero/Cordero-mejia-melodica.cho",
+        "cordero/Cordero-mejia-melodica.png"
+      ],
+      "originalIndex": 71,
+      "displayTitle": "Cordero-mejia-melodica",
+      "contentSha256": "ccd702ea0c2c461fbe0c0cf25493c1ad29f3497f4752ce518aa33b80b4561e95"
+    },
+    {
+      "folder": "cordero",
+      "title": "Cordero",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 3 tokens dudosos: WI, S, WIW. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 5 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "cordero/Cordero.cho",
+        "cordero/Cordero.pdf"
+      ],
+      "originalIndex": 72,
+      "displayTitle": "Cordero",
+      "contentSha256": "d89108b71bbd2beceef83272b2b6e8b1c858780ec8732f6df21bc28eae24cfdc"
+    },
+    {
+      "folder": "Cristo Rey",
+      "title": "Viva cristo rey",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 1 tokens dudosos: MIm. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 12 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Cristo Rey/Viva cristo rey.cho",
+        "Cristo Rey/Viva cristo rey.png"
+      ],
+      "originalIndex": 73,
+      "displayTitle": "Viva cristo rey",
+      "contentSha256": "27890e0fbed23ef7d876166f81ad49e75b53d8ed8adb12d722b529504006ad7a"
+    },
+    {
+      "folder": "cuaresma",
+      "title": "a ti levanto mis ojos",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "cuaresma/a ti levanto mis ojos.cho",
+        "cuaresma/a ti levanto mis ojos.pdf"
+      ],
+      "originalIndex": 74,
+      "displayTitle": "a ti levanto mis ojos",
+      "contentSha256": "43080000865081b18c8a27c09697ae58d07e0649648681778f43773f92df08be"
+    },
+    {
+      "folder": "cuaresma",
+      "title": "Alma mia",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "cuaresma/Alma mia.cho",
+        "cuaresma/Alma mia.pdf"
+      ],
+      "originalIndex": 75,
+      "displayTitle": "Alma mia",
+      "contentSha256": "286476b49cd4f6d99c74ae815962e50405541570cf74ee97f9b8a36ae2b416ac"
+    },
+    {
+      "folder": "cuaresma",
+      "title": "Caminare",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 37 de 118 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "cuaresma/Caminare.cho",
+        "cuaresma/Caminare.pdf"
+      ],
+      "originalIndex": 76,
+      "displayTitle": "Caminare",
+      "contentSha256": "6c33d0c8415b619805ab9a6f04b352e01ae19b16c87f9dc2fe9184c63e710306"
+    },
+    {
+      "folder": "cuaresma",
+      "title": "Cuaresma, Canto de entrada -Cesareo gabarain- Cantos de entrada y comunion 1989, Cuaresma Cumunion.",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 2 tokens dudosos: ET, MT. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 11 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "cuaresma/Cuaresma, Canto de entrada -Cesareo gabarain- Cantos de entrada y comunion 1989, Cuaresma Cumunion..cho",
+        "cuaresma/Cuaresma, Canto de entrada -Cesareo gabarain- Cantos de entrada y comunion 1989, Cuaresma Cumunion..pdf"
+      ],
+      "originalIndex": 77,
+      "displayTitle": "Cuaresma, Canto de entrada -Cesareo gabarain- Cantos de entrada y comunion 1989, Cuaresma Cumunion.",
+      "contentSha256": "d50270cbf3d22086d52feb561846fc4b733d210404024b4cac799ff601d2a4c0"
+    },
+    {
+      "folder": "cuaresma",
+      "title": "Entre tus manos",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "cuaresma/Entre tus manos.cho",
+        "cuaresma/Entre tus manos.pdf"
+      ],
+      "originalIndex": 78,
+      "displayTitle": "Entre tus manos",
+      "contentSha256": "cd19b059986c27570bab6e6b2c07d81609bcf75e3a0ad320bf7ec9a771c1d162"
+    },
+    {
+      "folder": "cuaresma",
+      "title": "Getsemani",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 1 tokens dudosos: sim. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 9 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "cuaresma/Getsemani.cho",
+        "cuaresma/Getsemani.png"
+      ],
+      "originalIndex": 79,
+      "displayTitle": "Getsemani",
+      "contentSha256": "53547916ea2942b909695ceefe29eb9429975f7464ffbae3b1ac3f4a09ed1ac6"
+    },
+    {
+      "folder": "cuaresma",
+      "title": "Lava mis pies",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 24 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "cuaresma/Lava mis pies.cho",
+        "cuaresma/Lava mis pies.png"
+      ],
+      "originalIndex": 80,
+      "displayTitle": "Lava mis pies",
+      "contentSha256": "5df20d1ddb4ee8769075cdc4c9bc12e25ebdb5c65021b13e35f26d8641b3afb8"
+    },
+    {
+      "folder": "cuaresma",
+      "title": "Me levantare-Jesed",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja.",
+      "files": [
+        "cuaresma/Me levantare-Jesed.cho",
+        "cuaresma/Me levantare-Jesed.png"
+      ],
+      "originalIndex": 81,
+      "displayTitle": "Me levantare-Jesed",
+      "contentSha256": "234e72607ce450aa4a5e15440787414ce3f2881071d6ce0e282a5b652bd3adae"
+    },
+    {
+      "folder": "cuaresma",
+      "title": "Perdona a tu pueblo",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Perdona a tu pueblo, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Se ordenaron las columnas/continuaciones del mismo canto. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "cuaresma/Perdona a tu pueblo.cho",
+        "cuaresma/Perdona a tu pueblo.pdf"
+      ],
+      "originalIndex": 82,
+      "displayTitle": "Perdona a tu pueblo",
+      "contentSha256": "af04e386f782e0c5c760f126d0aea614909d11b222a8c242044ce9fd46d8c67a"
+    },
+    {
+      "folder": "cuaresma",
+      "title": "Perdón, oh Dios mío",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Perdona a tu pueblo, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "cuaresma/Perdón, oh Dios mío - separado.cho",
+        "cuaresma/Perdón, oh Dios mío - separado.pdf"
+      ],
+      "originalIndex": 82,
+      "displayTitle": "Perdón, oh Dios mío",
+      "contentSha256": "ef60bb0d7a2ed87b85a99dd7bbd9d660208e3e0c02b26cf7dc3457126ffbd7de"
+    },
+    {
+      "folder": "cuaresma",
+      "title": "A ti levanto mis ojos",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Perdona a tu pueblo, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Se ordenaron las columnas/continuaciones del mismo canto. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "cuaresma/A ti levanto mis ojos - separado.cho",
+        "cuaresma/A ti levanto mis ojos - separado.pdf"
+      ],
+      "originalIndex": 82,
+      "displayTitle": "A ti levanto mis ojos",
+      "contentSha256": "5f756a0679268dce43682fa75be3b9eefb9c8c7dc5b43ba813a0ecf306cae70a"
+    },
+    {
+      "folder": "cuaresma",
+      "title": "Un Mandamiento nuevo",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 9 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "cuaresma/Un Mandamiento nuevo.cho",
+        "cuaresma/Un Mandamiento nuevo.png"
+      ],
+      "originalIndex": 83,
+      "displayTitle": "Un Mandamiento nuevo",
+      "contentSha256": "72ec7d46fa55ced8b181c231d330d6580a370788e7b44770dc971df229facb9c"
+    },
+    {
+      "folder": "entrada",
+      "title": "a ti levanto mi alma PDF letra",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "entrada/a ti levanto mi alma PDF letra.cho",
+        "entrada/a ti levanto mi alma PDF letra.pdf"
+      ],
+      "originalIndex": 84,
+      "displayTitle": "a ti levanto mi alma PDF letra",
+      "contentSha256": "62ba278ca26276f1bdc8b216fa9cb9ea102cb35bf1468ab838bcced75439c110"
+    },
+    {
+      "folder": "entrada",
+      "title": "A tu presencia",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 44 de 97 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "entrada/A tu presencia.cho",
+        "entrada/A tu presencia.pdf"
+      ],
+      "originalIndex": 85,
+      "displayTitle": "A tu presencia",
+      "contentSha256": "6beef1bd3cba7965ca6495e47b143b959f819ad69946740dbfb128dff9341a97"
+    },
+    {
+      "folder": "entrada",
+      "title": "Adviento, Canto de Entrada, Pbro. Cesareo Gabaraín",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 14 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "entrada/Adviento, Canto de Entrada, Pbro. Cesareo Gabaraín.cho",
+        "entrada/Adviento, Canto de Entrada, Pbro. Cesareo Gabaraín.png"
+      ],
+      "originalIndex": 86,
+      "displayTitle": "Adviento, Canto de Entrada, Pbro. Cesareo Gabaraín",
+      "contentSha256": "f26dd7791f95520cea2d5f2a00c1c4bd8f98971ab2221db72111456d713d89ec"
+    },
+    {
+      "folder": "entrada",
+      "title": "Alrededor de tu mesa, francisco palazon",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 14 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "entrada/Alrededor de tu mesa, francisco palazon.cho",
+        "entrada/Alrededor de tu mesa, francisco palazon.pdf"
+      ],
+      "originalIndex": 87,
+      "displayTitle": "Alrededor de tu mesa, francisco palazon",
+      "contentSha256": "37258993648275c82c50c91ea055ff93616529510b17397714ac27195730f093"
+    },
+    {
+      "folder": "entrada",
+      "title": "Celebramos la fe - Misa guelaguetza-entrada",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 8 tokens dudosos: aJ, op, (ios), losT, ., f, a, #. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 9 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "entrada/Celebramos la fe - Misa guelaguetza-entrada.cho",
+        "entrada/Celebramos la fe - Misa guelaguetza-entrada.pdf"
+      ],
+      "originalIndex": 88,
+      "displayTitle": "Celebramos la fe - Misa guelaguetza-entrada",
+      "contentSha256": "9a8b89a60a63c26c8312e7ba216c8c01cf3ccec9c1f27c882f8fbe5a83338f9d"
+    },
+    {
+      "folder": "entrada",
+      "title": "Como ciervo al agua va",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 10 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "entrada/Como ciervo al agua va.cho",
+        "entrada/Como ciervo al agua va.png"
+      ],
+      "originalIndex": 89,
+      "displayTitle": "Como ciervo al agua va",
+      "contentSha256": "25b26c19f61f119ad35538cc30b2c5ec304a085b374b336f4468cf5e510db976"
+    },
+    {
+      "folder": "entrada",
+      "title": "El señor es mi luz - Jesus amigo",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de El señor es mi luz - Jesus amigo, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "entrada/El señor es mi luz - Jesus amigo.cho",
+        "entrada/El señor es mi luz - Jesus amigo.pdf"
+      ],
+      "originalIndex": 90,
+      "displayTitle": "El Señor es mi luz",
+      "contentSha256": "369d3e03f878e53073a549117b4531fa9ac94d3f19fb438325d5c7bfa24970e4"
+    },
+    {
+      "folder": "entrada",
+      "title": "Jesús amigo",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de El señor es mi luz - Jesus amigo, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF. Se conservaron acordes aislados; confirmar su uso: Dm C A# C Dm C A# C.",
+      "files": [
+        "entrada/Jesús amigo - separado.cho",
+        "entrada/Jesús amigo - separado.pdf"
+      ],
+      "originalIndex": 90,
+      "displayTitle": "Jesús amigo",
+      "contentSha256": "986313499ca8e607441ec52dcf8099e41f09979cab2f18c346333ecba230d64f"
+    },
+    {
+      "folder": "entrada",
+      "title": "IMG-20250706-WA0004",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 11 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "entrada/IMG-20250706-WA0004.cho",
+        "entrada/IMG-20250706-WA0004.jpg"
+      ],
+      "originalIndex": 91,
+      "displayTitle": "IMG-20250706-WA0004",
+      "contentSha256": "7e4b914d8a00ae73d499e4162bd74deab31aff2842defcea2bf3de4eb6577b6a"
+    },
+    {
+      "folder": "entrada",
+      "title": "IMG_20251226_112139",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 3 tokens dudosos: 1, 0, s. Revisar secuencias sin verso asociado: Mim Lam Re7, Sol Do Sol Re7 Sol. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 10 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "entrada/IMG_20251226_112139.cho",
+        "entrada/IMG_20251226_112139.jpg"
+      ],
+      "originalIndex": 92,
+      "displayTitle": "IMG_20251226_112139",
+      "contentSha256": "c0590b3504f466c2d3550905c4045118df90ecf4523806ddf6fb8142187e6d06"
+    },
+    {
+      "folder": "entrada",
+      "title": "Jerusalen ciudad santaa",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 17 tokens dudosos: C, c, 0, 6. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 18 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "entrada/Jerusalen ciudad santaa.cho",
+        "entrada/Jerusalen ciudad santaa.pdf"
+      ],
+      "originalIndex": 93,
+      "displayTitle": "Jerusalen ciudad santaa",
+      "contentSha256": "93c8d1810c18754c6628a032ee87c0cc490ce8641eb9bf8a243fd7c926ca5f0a"
+    },
+    {
+      "folder": "entrada",
+      "title": "nos-has-llamado-al-desierto-letra-PDF",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Columnas del mismo canto ordenadas de izquierda a derecha. Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "entrada/nos-has-llamado-al-desierto-letra-PDF.cho",
+        "entrada/nos-has-llamado-al-desierto-letra-PDF.pdf"
+      ],
+      "originalIndex": 94,
+      "displayTitle": "nos-has-llamado-al-desierto-letra-PDF",
+      "contentSha256": "922300fd052656c3f3c0feffb6c0ced27f4073dbd8b413c21f9564b805f33d1b"
+    },
+    {
+      "folder": "entrada",
+      "title": "Nosotros Hemos de Gloriarnos - Antonio Alcalde",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "entrada/Nosotros Hemos de Gloriarnos - Antonio Alcalde.cho",
+        "entrada/Nosotros Hemos de Gloriarnos - Antonio Alcalde.pdf"
+      ],
+      "originalIndex": 95,
+      "displayTitle": "Nosotros Hemos de Gloriarnos - Antonio Alcalde",
+      "contentSha256": "2d5a537bcbbd47b36c7cd5db76197c1e60101581f2a1dbfc35a5facbbeaca17d"
+    },
+    {
+      "folder": "entrada",
+      "title": "nosotros hemos de gloriarnos",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 12 tokens dudosos: C, c, w, a, F. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 11 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "entrada/nosotros hemos de gloriarnos.cho",
+        "entrada/nosotros hemos de gloriarnos.jpg",
+        "entrada/nosotros hemos de gloriarnos.png"
+      ],
+      "originalIndex": 96,
+      "displayTitle": "nosotros hemos de gloriarnos",
+      "contentSha256": "413a1d0d37f057a07394944ea9535af01aa6cb38a7d44a1f243d7c609ca256e9"
+    },
+    {
+      "folder": "entrada",
+      "title": "portones alzad los dinteles",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Revisar secuencias sin verso asociado: Re Lam Re Lam. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 12 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "entrada/portones alzad los dinteles.cho",
+        "entrada/portones alzad los dinteles.png"
+      ],
+      "originalIndex": 97,
+      "displayTitle": "portones alzad los dinteles",
+      "contentSha256": "9515787ba2bf0b1f0f82f0670c400d5938600de829306ebbd95b7af63acf066f"
+    },
+    {
+      "folder": "entrada",
+      "title": "Que alegria cuando me dijeron",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 2 tokens dudosos: 10, S. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 12 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "entrada/Que alegria cuando me dijeron.cho",
+        "entrada/Que alegria cuando me dijeron.pdf"
+      ],
+      "originalIndex": 98,
+      "displayTitle": "Que alegria cuando me dijeron",
+      "contentSha256": "a9f0f7ec133e70531f5dd41efc68d90d431b0736a15e489240bc783fb2fe0fcb"
+    },
+    {
+      "folder": "entrada",
+      "title": "Recibeme",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 13 tokens dudosos: C, G, c, D, 6. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 17 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "entrada/Recibeme.cho",
+        "entrada/Recibeme.pdf"
+      ],
+      "originalIndex": 99,
+      "displayTitle": "Recibeme",
+      "contentSha256": "3af855cb5c02533d3e48e88abcb02fe98608ee9faa847f5f7cd246d08cc27c41"
+    },
+    {
+      "folder": "entrada",
+      "title": "Venimos hoy a tu altar letra PDF",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Columnas del mismo canto ordenadas de izquierda a derecha. Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "entrada/Venimos hoy a tu altar letra PDF.cho",
+        "entrada/Venimos hoy a tu altar letra PDF.pdf"
+      ],
+      "originalIndex": 100,
+      "displayTitle": "Venimos hoy a tu altar letra PDF",
+      "contentSha256": "3b1622477b9669a1ae03417bea1ff479437187d242fd9dff1827438b9d3ff19d"
+    },
+    {
+      "folder": "entrada",
+      "title": "Vienen con alegria",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 16 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "entrada/Vienen con alegria.cho",
+        "entrada/Vienen con alegria.pdf"
+      ],
+      "originalIndex": 101,
+      "displayTitle": "Vienen con alegria",
+      "contentSha256": "6622d9a98f4105f72919fdf7f65e5d12fa3b520b45bfa000e1a861178827af55"
+    },
+    {
+      "folder": "Gloria",
+      "title": "Gloria Neocatecumenal",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Columnas del mismo canto ordenadas de izquierda a derecha. Se recuperaron versos y acordes de OCR existente; se excluyeron cabeceras, publicidad y pies de página de la letra. Persiste reconocimiento dudoso; necesita comprobación manual.",
+      "files": [
+        "Gloria/Gloria Neocatecumenal.cho",
+        "Gloria/Gloria Neocatecumenal.png"
+      ],
+      "originalIndex": 102,
+      "displayTitle": "Gloria Neocatecumenal",
+      "contentSha256": "01cbe1318e12cdd1b60d8623778c85363c6b9c82cbff5466c29a5b466cf4c058"
+    },
+    {
+      "folder": "Gloria",
+      "title": "Gloria-melodica-mejia",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 21 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Gloria/Gloria-melodica-mejia.cho",
+        "Gloria/Gloria-melodica-mejia.png"
+      ],
+      "originalIndex": 103,
+      "displayTitle": "Gloria-melodica-mejia",
+      "contentSha256": "8ac69e00e7480aef9e0b81ad6a492da05a6525f9cbe3c4f44646733572625775"
+    },
+    {
+      "folder": "Gloria",
+      "title": "IMG-20250706-WA0007",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 3 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Gloria/IMG-20250706-WA0007.cho",
+        "Gloria/IMG-20250706-WA0007.jpg"
+      ],
+      "originalIndex": 104,
+      "displayTitle": "IMG-20250706-WA0007",
+      "contentSha256": "58ed897463a735cf2596c5c7cf28819d8cfffdbd60ef4f8bb7e7f2cef6d1b908"
+    },
+    {
+      "folder": "Honor y gloria",
+      "title": "Honor y Gloria",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Transcripción corregida manualmente contra la imagen: se recuperaron versos omitidos y se corrigieron caracteres/acordes falsos del OCR. No se añadieron acordes a estrofas que no los tenían en la fuente.",
+      "files": [
+        "Honor y gloria/Honor y Gloria.cho",
+        "Honor y gloria/Honor y Gloria.jpg"
+      ],
+      "originalIndex": 105,
+      "displayTitle": "Honor y gloria",
+      "contentSha256": "6978243820452b3ebcd86ec700ecd9b023ec4bd5901109cff6cc5f7762af198b"
+    },
+    {
+      "folder": "JuevesSanto/Entrada",
+      "title": "Cordero-mejia-melodica",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 3 tokens dudosos: C. Revisar secuencias sin verso asociado: Em A C D Em. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 6 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "JuevesSanto/Entrada/Cordero-mejia-melodica.cho",
+        "JuevesSanto/Entrada/Cordero-mejia-melodica.png"
+      ],
+      "originalIndex": 106,
+      "displayTitle": "Cordero-mejia-melodica",
+      "contentSha256": "ccd702ea0c2c461fbe0c0cf25493c1ad29f3497f4752ce518aa33b80b4561e95"
+    },
+    {
+      "folder": "JuevesSanto/Entrada",
+      "title": "Jesus Amigo",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 16 tokens dudosos: C, D. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 21 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "JuevesSanto/Entrada/Jesus Amigo.cho",
+        "JuevesSanto/Entrada/Jesus Amigo.png"
+      ],
+      "originalIndex": 107,
+      "displayTitle": "Jesus Amigo",
+      "contentSha256": "18eb4a39821cf8faf31b9c116265a59f151ccf5ec1b0c55d082a98e6f7a3f4ba"
+    },
+    {
+      "folder": "JuevesSanto/Entrada",
+      "title": "nosotros hemos de gloriarnos",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 6 tokens dudosos: C, F. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 11 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "JuevesSanto/Entrada/nosotros hemos de gloriarnos.cho",
+        "JuevesSanto/Entrada/nosotros hemos de gloriarnos.png"
+      ],
+      "originalIndex": 108,
+      "displayTitle": "nosotros hemos de gloriarnos",
+      "contentSha256": "d5c28f735dd73945f65b69bdc08465b5bfa0177ca81cdb8713d3f042d07f0189"
+    },
+    {
+      "folder": "JuevesSanto/Entrada",
+      "title": "Tomame Señor",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 9 tokens dudosos: MIm, Sl, m, M, l, Mlm. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 18 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "JuevesSanto/Entrada/Tomame Señor.cho",
+        "JuevesSanto/Entrada/Tomame Señor.png"
+      ],
+      "originalIndex": 109,
+      "displayTitle": "Tomame Señor",
+      "contentSha256": "2285fa50966dbc722d2091ca9d2d00c65e70a55c7e3c44f3a67aa70735f192ea"
+    },
+    {
+      "folder": "Laicos/CantosDiaMadres",
+      "title": "En tu dia",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 4 tokens dudosos: c, C, 7. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 12 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Laicos/CantosDiaMadres/En tu dia.cho",
+        "Laicos/CantosDiaMadres/En tu dia.png"
+      ],
+      "originalIndex": 110,
+      "displayTitle": "En tu dia",
+      "contentSha256": "cb09a18a5224292ece8dcaff64b8fd8468a15de14a9c029fb1f34472ca99b731"
+    },
+    {
+      "folder": "Laicos/CantosDiaMadres",
+      "title": "Hoy que soy mayor1",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. El nombre identifica una parte/versión; conservar por separado hasta confirmar continuidad y tonalidad. 1 de 151 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "Laicos/CantosDiaMadres/Hoy que soy mayor1.cho",
+        "Laicos/CantosDiaMadres/Hoy que soy mayor1.png"
+      ],
+      "originalIndex": 111,
+      "displayTitle": "Hoy que soy mayor1",
+      "contentSha256": "640b4fbcd0be0584e6a2a64973409285c3600076f5d3a591d927252825b614cf"
+    },
+    {
+      "folder": "Laicos/CantosDiaMadres",
+      "title": "Hoy que soy mayor2",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. El nombre identifica una parte/versión; conservar por separado hasta confirmar continuidad y tonalidad. 1 de 59 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "Laicos/CantosDiaMadres/Hoy que soy mayor2.cho",
+        "Laicos/CantosDiaMadres/Hoy que soy mayor2.png"
+      ],
+      "originalIndex": 112,
+      "displayTitle": "Hoy que soy mayor2",
+      "contentSha256": "414341be3c02ed6d10fe7ec9740f569c8556ba7441f0ecdc96a78b8d033dca37"
+    },
+    {
+      "folder": "Laicos/CantosDiaMadres",
+      "title": "Mañanitas tapatias",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 5 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Laicos/CantosDiaMadres/Mañanitas tapatias.cho",
+        "Laicos/CantosDiaMadres/Mañanitas tapatias.png"
+      ],
+      "originalIndex": 113,
+      "displayTitle": "Mañanitas tapatias",
+      "contentSha256": "be4ccf696cc5a588c7f37aa35e665feacbe86569a0af8bc72788f2a0c63bc486"
+    },
+    {
+      "folder": "Laicos/CantosDiaMadres",
+      "title": "Señora Señora1",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. El nombre identifica una parte/versión; conservar por separado hasta confirmar continuidad y tonalidad.",
+      "files": [
+        "Laicos/CantosDiaMadres/Señora Señora1.cho",
+        "Laicos/CantosDiaMadres/Señora Señora1.png"
+      ],
+      "originalIndex": 114,
+      "displayTitle": "Señora Señora1",
+      "contentSha256": "0f6944486255aab8b96b1c5eed3383f8f844b8d7dd7761813504ea70e1432c9a"
+    },
+    {
+      "folder": "Laicos/CantosDiaMadres",
+      "title": "Señora Señora2",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. El nombre identifica una parte/versión; conservar por separado hasta confirmar continuidad y tonalidad. 1 de 124 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "Laicos/CantosDiaMadres/Señora Señora2.cho",
+        "Laicos/CantosDiaMadres/Señora Señora2.png"
+      ],
+      "originalIndex": 115,
+      "displayTitle": "Señora Señora2",
+      "contentSha256": "89a8c20ee566b47992110fd4f678c7c59847a26832406793acb19d5b370c5d49"
+    },
+    {
+      "folder": "Laicos",
+      "title": "Mañanitas",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Columnas del mismo canto ordenadas de izquierda a derecha. Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra. Comprobar secuencias de acordes aisladas: A7 G D A7 D, A7 G D A7 D, A7 G D A7 D.",
+      "files": [
+        "Laicos/Mañanitas.cho",
+        "Laicos/Mañanitas.pdf"
+      ],
+      "originalIndex": 116,
+      "displayTitle": "Mañanitas",
+      "contentSha256": "c4f5ca8cd4a24c4c63484414c630070b96df4a079e706827d3e58a08d58f39ab"
+    },
+    {
+      "folder": "Laicos",
+      "title": "Pregon Neocatecumenal1",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Columnas del mismo canto ordenadas de izquierda a derecha. Se recuperaron versos y acordes de OCR existente; se excluyeron cabeceras, publicidad y pies de página de la letra. Persiste reconocimiento dudoso; necesita comprobación manual.",
+      "files": [
+        "Laicos/Pregon Neocatecumenal1.cho",
+        "Laicos/Pregon Neocatecumenal1.png"
+      ],
+      "originalIndex": 117,
+      "displayTitle": "Pregon Neocatecumenal1",
+      "contentSha256": "7ad3284da7c68cee23bdffe5eeaca3b07ff6d0cd0aa3cfa779b281be98096d41"
+    },
+    {
+      "folder": "Laicos",
+      "title": "Pregon Neocatecumenal2",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Columnas del mismo canto ordenadas de izquierda a derecha. Se recuperaron versos y acordes de OCR existente; se excluyeron cabeceras, publicidad y pies de página de la letra. Persiste reconocimiento dudoso; necesita comprobación manual.",
+      "files": [
+        "Laicos/Pregon Neocatecumenal2.cho",
+        "Laicos/Pregon Neocatecumenal2.png"
+      ],
+      "originalIndex": 118,
+      "displayTitle": "Pregon Neocatecumenal2",
+      "contentSha256": "3de9f21726f6740b2c25485ddbd522006d4a668e6951a2eae9e25be258ffb009"
+    },
+    {
+      "folder": "Maria",
+      "title": "A ti madre de esperanza",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "Maria/A ti madre de esperanza.cho",
+        "Maria/A ti madre de esperanza.pdf"
+      ],
+      "originalIndex": 119,
+      "displayTitle": "A ti madre de esperanza",
+      "contentSha256": "c8626193a55ca1326a9de2911b67298363c093b038e0b394d775f845cad7d91e"
+    },
+    {
+      "folder": "Maria",
+      "title": "Ave maria",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "Maria/Ave maria.cho",
+        "Maria/Ave maria.pdf"
+      ],
+      "originalIndex": 120,
+      "displayTitle": "Ave maria",
+      "contentSha256": "02bb266dba380cd19b82afee45162f94cbcf5bdcb8e8afe6a7e7b82314455c02"
+    },
+    {
+      "folder": "Maria",
+      "title": "Buenos dias paloma blanca",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra. Comprobar secuencias de acordes aisladas: G D A7 D.",
+      "files": [
+        "Maria/Buenos dias paloma blanca.cho",
+        "Maria/Buenos dias paloma blanca.pdf"
+      ],
+      "originalIndex": 121,
+      "displayTitle": "Buenos dias paloma blanca",
+      "contentSha256": "afd5cd60f6c7c9eb481c2664c87b22ff081ce12e8c2bc3557554e55f5129c0e8"
+    },
+    {
+      "folder": "Maria",
+      "title": "Contigo Maria",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 30 de 145 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "Maria/Contigo Maria.cho",
+        "Maria/Contigo Maria.pdf"
+      ],
+      "originalIndex": 122,
+      "displayTitle": "Contigo Maria",
+      "contentSha256": "fe228ee679cea271116cfe0e7f6e4f04f6df98be47abba17a827f2f68f5b827c"
+    },
+    {
+      "folder": "Maria",
+      "title": "Dios te salve maria",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "Maria/Dios te salve maria.cho",
+        "Maria/Dios te salve maria.pdf"
+      ],
+      "originalIndex": 123,
+      "displayTitle": "Dios te salve maria",
+      "contentSha256": "e62a26297adb076607fadb9e0fcc8f675454a561a2b34e2e7b9ca65c7c3b7575"
+    },
+    {
+      "folder": "Maria/DolorosaPesame",
+      "title": "Al pie de la cruz",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 8 tokens dudosos: C. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 14 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Maria/DolorosaPesame/Al pie de la cruz.cho",
+        "Maria/DolorosaPesame/Al pie de la cruz.png"
+      ],
+      "originalIndex": 124,
+      "displayTitle": "Al pie de la cruz",
+      "contentSha256": "dfa86d831825d6cbb0831a903004f8a6713e0f07c3f8a3e9cb55a7e08565bf78"
+    },
+    {
+      "folder": "Maria/DolorosaPesame",
+      "title": "Dolorosa",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 10 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Maria/DolorosaPesame/Dolorosa.cho",
+        "Maria/DolorosaPesame/Dolorosa.png"
+      ],
+      "originalIndex": 125,
+      "displayTitle": "Dolorosa",
+      "contentSha256": "3613f2c4ab938bcd99bce37a57d844dda79cb3d93ea2182aaf682c26afc44026"
+    },
+    {
+      "folder": "Maria/DolorosaPesame",
+      "title": "Eres la madre dolorosa",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 4 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Maria/DolorosaPesame/Eres la madre dolorosa.cho",
+        "Maria/DolorosaPesame/Eres la madre dolorosa.png"
+      ],
+      "originalIndex": 126,
+      "displayTitle": "Eres la madre dolorosa",
+      "contentSha256": "a1beff81763a93edc435380e1187998c619d5bb3f939d7c3daec9e63ad23c6c2"
+    },
+    {
+      "folder": "Maria/DolorosaPesame",
+      "title": "Estaba al pie de la cruz",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Transcripción corregida manualmente contra la imagen: se recuperaron versos omitidos y se corrigieron caracteres/acordes falsos del OCR. No se añadieron acordes a estrofas que no los tenían en la fuente.",
+      "files": [
+        "Maria/DolorosaPesame/Estaba al pie de la cruz.cho",
+        "Maria/DolorosaPesame/Estaba al pie de la cruz.png"
+      ],
+      "originalIndex": 127,
+      "displayTitle": "Estaba al pie de la cruz",
+      "contentSha256": "6376f38e92c73a2ebaee0364d51fce7ce02ef07c79a9a89093f4509b076b8ce9"
+    },
+    {
+      "folder": "Maria/DolorosaPesame",
+      "title": "Junto a la cruz",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 9 tokens dudosos: H, C, 2., 5.. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 12 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Maria/DolorosaPesame/Junto a la cruz.cho",
+        "Maria/DolorosaPesame/Junto a la cruz.png"
+      ],
+      "originalIndex": 128,
+      "displayTitle": "Junto a la cruz",
+      "contentSha256": "75a7420cdbb01ce4617af91c16aeb20918be8230e044abb88751c1f885dff3a3"
+    },
+    {
+      "folder": "Maria/DolorosaPesame",
+      "title": "Llora la virgen",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 17 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Maria/DolorosaPesame/Llora la virgen.cho",
+        "Maria/DolorosaPesame/Llora la virgen.png"
+      ],
+      "originalIndex": 129,
+      "displayTitle": "Llora la virgen",
+      "contentSha256": "23491ebf529d2e85524647749324c19d66c614c6bf4f5f3d4dcc3c75ad13654f"
+    },
+    {
+      "folder": "Maria/DolorosaPesame",
+      "title": "No fue facil maria",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja.",
+      "files": [
+        "Maria/DolorosaPesame/No fue facil maria.cho",
+        "Maria/DolorosaPesame/No fue facil maria.png"
+      ],
+      "originalIndex": 130,
+      "displayTitle": "No fue facil maria",
+      "contentSha256": "6730c260815712d10e65d37203936d65b867c8d969ddd1ef1507256660dad1a0"
+    },
+    {
+      "folder": "Maria/DolorosaPesame",
+      "title": "Pero tu junto  a la cruz",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Partitura: el OCR mezcla sílabas/notación musical; requiere transcripción musical.  9 de 338 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "Maria/DolorosaPesame/Pero tu junto  a la cruz.cho",
+        "Maria/DolorosaPesame/Pero tu junto  a la cruz.pdf"
+      ],
+      "originalIndex": 131,
+      "displayTitle": "Pero tu junto  a la cruz",
+      "contentSha256": "131c48247108558bdf447739829e227338b1e2dd9d1dc745d632629b3b20bc81"
+    },
+    {
+      "folder": "Maria/DolorosaPesame",
+      "title": "Sola con tu soledad",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Transcripción corregida manualmente contra la imagen: se recuperaron versos omitidos y se corrigieron caracteres/acordes falsos del OCR. No se añadieron acordes a estrofas que no los tenían en la fuente.",
+      "files": [
+        "Maria/DolorosaPesame/Sola con tu soledad.cho",
+        "Maria/DolorosaPesame/Sola con tu soledad.png"
+      ],
+      "originalIndex": 132,
+      "displayTitle": "Sola con tu soledad",
+      "contentSha256": "5541a7ff058abd4e76792a1a0113fc3a2b724877548054879dfeda76b8cac108"
+    },
+    {
+      "folder": "Maria/DolorosaPesame",
+      "title": "Virgen dolorosa",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 2 tokens dudosos: C. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 7 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Maria/DolorosaPesame/Virgen dolorosa.cho",
+        "Maria/DolorosaPesame/Virgen dolorosa.png"
+      ],
+      "originalIndex": 133,
+      "displayTitle": "Virgen dolorosa",
+      "contentSha256": "0def53a40594ffd13922eaad679237b315966b4edce17c7b4a86723b209cc615"
+    },
+    {
+      "folder": "Maria",
+      "title": "Eres pastora divina",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Columnas del mismo canto ordenadas de izquierda a derecha. Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "Maria/Eres pastora divina.cho",
+        "Maria/Eres pastora divina.pdf"
+      ],
+      "originalIndex": 134,
+      "displayTitle": "Eres pastora divina",
+      "contentSha256": "881143fe480b24266d00bcd9bb6fc1b910734321d61cb2f57720fae4fe879ae8"
+    },
+    {
+      "folder": "Maria",
+      "title": "Himno a nuestra Guadalupe, Como a belen llegaste - Alejandro mejia",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 1 tokens dudosos: An. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 17 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Maria/Himno a nuestra Guadalupe, Como a belen llegaste - Alejandro mejia.cho",
+        "Maria/Himno a nuestra Guadalupe, Como a belen llegaste - Alejandro mejia.pdf"
+      ],
+      "originalIndex": 135,
+      "displayTitle": "Himno a nuestra Guadalupe, Como a belen llegaste - Alejandro mejia",
+      "contentSha256": "ef84eb330aed1977d9c7dd15d13b232a225c3b608522efc96beecdc4b025e507"
+    },
+    {
+      "folder": "Maria",
+      "title": "Junto a ti maria",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Columnas del mismo canto ordenadas de izquierda a derecha. Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra. Comprobar secuencias de acordes aisladas: D A Bm F#m, G D Em A A7.",
+      "files": [
+        "Maria/Junto a ti maria.cho",
+        "Maria/Junto a ti maria.pdf"
+      ],
+      "originalIndex": 136,
+      "displayTitle": "Junto a ti maria",
+      "contentSha256": "e9bf08fc9fd01f595fe74821fa32a30180e9b63e99ce4747f964494aef27639a"
+    },
+    {
+      "folder": "Maria",
+      "title": "La guadalupana",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "Maria/La guadalupana.cho",
+        "Maria/La guadalupana.pdf"
+      ],
+      "originalIndex": 137,
+      "displayTitle": "La guadalupana",
+      "contentSha256": "c1780e18006ea8dd0f5fe93352b47874cf3a02057237324ab8fca642e2edad26"
+    },
+    {
+      "folder": "Maria",
+      "title": "Madre eres ternura",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "Maria/Madre eres ternura.cho",
+        "Maria/Madre eres ternura.pdf"
+      ],
+      "originalIndex": 138,
+      "displayTitle": "Madre eres ternura",
+      "contentSha256": "2f80513f404328d23bdb2c66df2193d929e5032656e3339b7f53beb586aac5d0"
+    },
+    {
+      "folder": "Maria",
+      "title": "Madre oyeme",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "Maria/Madre oyeme.cho",
+        "Maria/Madre oyeme.pdf"
+      ],
+      "originalIndex": 139,
+      "displayTitle": "Madre oyeme",
+      "contentSha256": "d1b81ace69d0772e41505d07ad106cfc4e3273bec6290670d5b5754daaea0722"
+    },
+    {
+      "folder": "Maria",
+      "title": "Maria madre del silencio",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Los acordes están a la derecha de cada verso; el OCR no los coloca correctamente. Requiere alineación musical manual.",
+      "files": [
+        "Maria/Maria madre del silencio.cho",
+        "Maria/Maria madre del silencio.png"
+      ],
+      "originalIndex": 140,
+      "displayTitle": "Maria madre del silencio",
+      "contentSha256": "594c06d8ea805852863fc5a114f79e1a4bc672b238365490f1d90642196233fb"
+    },
+    {
+      "folder": "Maria",
+      "title": "Maria tu que velas junto a mi",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Columnas del mismo canto ordenadas de izquierda a derecha. Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra. Comprobar secuencias de acordes aisladas: G7 C C7 F.",
+      "files": [
+        "Maria/Maria tu que velas junto a mi.cho",
+        "Maria/Maria tu que velas junto a mi.pdf"
+      ],
+      "originalIndex": 141,
+      "displayTitle": "Maria tu que velas junto a mi",
+      "contentSha256": "39d7261b549e05a6bd9c166e576f8ed111ae9eda19eb256953d81a3aed30189d"
+    },
+    {
+      "folder": "Maria",
+      "title": "Mas blanca que la nieve",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 36 de 88 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "Maria/Mas blanca que la nieve.cho",
+        "Maria/Mas blanca que la nieve.pdf"
+      ],
+      "originalIndex": 142,
+      "displayTitle": "Mas blanca que la nieve",
+      "contentSha256": "345a3df440eaea6b3d2d7a6a1f80e4e6488119b249c9f72b199187ccaf2cd78d"
+    },
+    {
+      "folder": "Maria",
+      "title": "Mientras recorres la vida",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra. Comprobar secuencias de acordes aisladas: Rem sol7 Do Do7.",
+      "files": [
+        "Maria/Mientras recorres la vida.cho",
+        "Maria/Mientras recorres la vida.pdf"
+      ],
+      "originalIndex": 143,
+      "displayTitle": "Mientras recorres la vida",
+      "contentSha256": "56e50f010495c2d4a7cf71c1405af50ba38d1418d166fe6788d2437e679d0814"
+    },
+    {
+      "folder": "Maria",
+      "title": "Oh maria madre mia",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "Maria/Oh maria madre mia.cho",
+        "Maria/Oh maria madre mia.pdf"
+      ],
+      "originalIndex": 144,
+      "displayTitle": "Oh maria madre mia",
+      "contentSha256": "aa9259d872573904c08fdb159768d9a913cea5a7fa129886c18d32da91aa6ab5"
+    },
+    {
+      "folder": "Maria",
+      "title": "Quien sera la mujer",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "Maria/Quien sera la mujer.cho",
+        "Maria/Quien sera la mujer.pdf"
+      ],
+      "originalIndex": 145,
+      "displayTitle": "Quien sera la mujer",
+      "contentSha256": "583b8a78246af58546b4692584b25a4326addac99f675d43eac0b3a58756eb19"
+    },
+    {
+      "folder": "Maria",
+      "title": "Salve regina",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 16 de 89 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "Maria/Salve regina.cho",
+        "Maria/Salve regina.pdf"
+      ],
+      "originalIndex": 146,
+      "displayTitle": "Salve regina",
+      "contentSha256": "f090d807d16612a5a67131af09a888cfb7b29bb18164ab3351cedc33aec39e0d"
+    },
+    {
+      "folder": "Maria",
+      "title": "Santa maria de la esperanza",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "Maria/Santa maria de la esperanza.cho",
+        "Maria/Santa maria de la esperanza.pdf"
+      ],
+      "originalIndex": 147,
+      "displayTitle": "Santa maria de la esperanza",
+      "contentSha256": "8afd95be157554280e1c0897d310730029cc9e5eb06d6602db3759af870a4464"
+    },
+    {
+      "folder": "Maria",
+      "title": "Silenciosa Mensajera",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "Maria/Silenciosa Mensajera.cho",
+        "Maria/Silenciosa Mensajera.pdf",
+        "Maria/Silenciosa mensajera.png"
+      ],
+      "originalIndex": 148,
+      "displayTitle": "Silenciosa Mensajera",
+      "contentSha256": "f3006f8c107f90be893ada9d938ff1beb6dda0c8d1e350880ad6176bf6e725bf"
+    },
+    {
+      "folder": "MeditacionOracionHoraSanta",
+      "title": "Dios esta aqui",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 26 de 66 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "MeditacionOracionHoraSanta/Dios esta aqui.cho",
+        "MeditacionOracionHoraSanta/Dios esta aqui.pdf"
+      ],
+      "originalIndex": 149,
+      "displayTitle": "Dios esta aqui",
+      "contentSha256": "959dd22aab48d6db053f6e4fbc8d301f59d5eac38d31a24d03b95d4dbf1a4cdc"
+    },
+    {
+      "folder": "MeditacionOracionHoraSanta",
+      "title": "el rey del universo",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 53 de 135 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "MeditacionOracionHoraSanta/el rey del universo.cho",
+        "MeditacionOracionHoraSanta/el rey del universo.pdf"
+      ],
+      "originalIndex": 150,
+      "displayTitle": "el rey del universo",
+      "contentSha256": "d7e24c67fa224f2226319ae17f4fbf3ca39036bad94beb500aac5e673afcce10"
+    },
+    {
+      "folder": "MeditacionOracionHoraSanta",
+      "title": "Guíame Señor",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 41 de 100 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "MeditacionOracionHoraSanta/Guíame Señor.cho",
+        "MeditacionOracionHoraSanta/Guíame Señor.pdf"
+      ],
+      "originalIndex": 151,
+      "displayTitle": "Guíame Señor",
+      "contentSha256": "85144ebf83e308bc9e372c83afa6df1b6391d7e886921934ab6ce8a84068cd5b"
+    },
+    {
+      "folder": "MeditacionOracionHoraSanta",
+      "title": "Hay momentos",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 43 de 91 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "MeditacionOracionHoraSanta/Hay momentos.cho",
+        "MeditacionOracionHoraSanta/Hay momentos.pdf"
+      ],
+      "originalIndex": 152,
+      "displayTitle": "Hay momentos",
+      "contentSha256": "347542ee6d737acc671aea188d7cbbb45eb2fd7f73900aa9608dba1e889ee8f3"
+    },
+    {
+      "folder": "MeditacionOracionHoraSanta",
+      "title": "Hoy en oracion",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 43 de 142 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "MeditacionOracionHoraSanta/Hoy en oracion.cho",
+        "MeditacionOracionHoraSanta/Hoy en oracion.pdf"
+      ],
+      "originalIndex": 153,
+      "displayTitle": "Hoy en oracion",
+      "contentSha256": "8b11225cc3dcac09bb03796e33cffbc799eeb3ebabb7d6bfabe52c8f942876ff"
+    },
+    {
+      "folder": "MeditacionOracionHoraSanta",
+      "title": "Hoy te quiero alabar",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 55 de 156 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "MeditacionOracionHoraSanta/Hoy te quiero alabar.cho",
+        "MeditacionOracionHoraSanta/Hoy te quiero alabar.pdf"
+      ],
+      "originalIndex": 154,
+      "displayTitle": "Hoy te quiero alabar",
+      "contentSha256": "bb942abc8d0889915a05012ce6857bd90342feb0cfbb4f9c98cd75045846fa11"
+    },
+    {
+      "folder": "MeditacionOracionHoraSanta",
+      "title": "Me enamore de jesus",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 39 de 136 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "MeditacionOracionHoraSanta/Me enamore de jesus.cho",
+        "MeditacionOracionHoraSanta/Me enamore de jesus.pdf"
+      ],
+      "originalIndex": 155,
+      "displayTitle": "Me enamore de jesus",
+      "contentSha256": "51ba285de94a13e6be0387676e2807da49ee4fffcd4e63924d7b0ac528888d94"
+    },
+    {
+      "folder": "MeditacionOracionHoraSanta",
+      "title": "Saname señor",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 11 de 63 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "MeditacionOracionHoraSanta/Saname señor.cho",
+        "MeditacionOracionHoraSanta/Saname señor.pdf"
+      ],
+      "originalIndex": 156,
+      "displayTitle": "Saname señor",
+      "contentSha256": "565a84ee320da1d4a8c77ad28e4b2a5676c1a76ba572889800f3f4a06aaf7f60"
+    },
+    {
+      "folder": "MeditacionOracionHoraSanta",
+      "title": "Un dia caminaba",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 31 de 81 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "MeditacionOracionHoraSanta/Un dia caminaba.cho",
+        "MeditacionOracionHoraSanta/Un dia caminaba.pdf"
+      ],
+      "originalIndex": 157,
+      "displayTitle": "Un dia caminaba",
+      "contentSha256": "9b6a4a9ab954f2a225002a9a743003966708a9f2aed301e3ec8683a6b589ac6d"
+    },
+    {
+      "folder": "navidad",
+      "title": "A la roro ninio",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 3 tokens dudosos: 10S, RE, .. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 10 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "navidad/A la roro ninio.cho",
+        "navidad/A la roro ninio.pdf"
+      ],
+      "originalIndex": 158,
+      "displayTitle": "A la roro ninio",
+      "contentSha256": "874f4a26763ca25ef5d5f0a8ddf0291692262333b5d1e58978ec62aa48d96acb"
+    },
+    {
+      "folder": "navidad",
+      "title": "el tamborilero",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 3 tokens dudosos: SOL, 50L. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 17 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "navidad/el tamborilero.cho",
+        "navidad/el tamborilero.pdf"
+      ],
+      "originalIndex": 159,
+      "displayTitle": "el tamborilero",
+      "contentSha256": "1bd10272ec9a3e0e99b153aa5f9748cc2912921a91da1f7332daf57184d24e81"
+    },
+    {
+      "folder": "navidad",
+      "title": "los peces en el rio",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 19 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "navidad/los peces en el rio.cho",
+        "navidad/los peces en el rio.pdf"
+      ],
+      "originalIndex": 160,
+      "displayTitle": "los peces en el rio",
+      "contentSha256": "9d614cc4c9a9bec1189473a27871e46f78c10c15b83e485ace2a1343d562c7c0"
+    },
+    {
+      "folder": "navidad",
+      "title": "vamos pastores vamos",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 9 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "navidad/vamos pastores vamos.cho",
+        "navidad/vamos pastores vamos.pdf"
+      ],
+      "originalIndex": 161,
+      "displayTitle": "vamos pastores vamos",
+      "contentSha256": "6d3e893a5a9fa7330e253a3bfb40df08026f56a4650554a2e15c8912c08ca2cb"
+    },
+    {
+      "folder": "ofertorio",
+      "title": "2e658ebf-b57a-4a97-b931-64c02bd6d631",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 9 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "ofertorio/2e658ebf-b57a-4a97-b931-64c02bd6d631.cho",
+        "ofertorio/2e658ebf-b57a-4a97-b931-64c02bd6d631.jpeg"
+      ],
+      "originalIndex": 162,
+      "displayTitle": "2e658ebf-b57a-4a97-b931-64c02bd6d631",
+      "contentSha256": "fd565cd41ce47c873f9d212f070388d05eb0b55d2b9c4fb68d39cf0280eb57c1"
+    },
+    {
+      "folder": "ofertorio",
+      "title": "Bendito Seas Señor, Francisco Palazón",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 3 tokens dudosos: lOS, Mio, si-. Revisar secuencias sin verso asociado: Lasus4 La. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 7 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "ofertorio/Bendito Seas Señor, Francisco Palazón.cho",
+        "ofertorio/Bendito Seas Señor, Francisco Palazón.pdf"
+      ],
+      "originalIndex": 163,
+      "displayTitle": "Bendito Seas Señor, Francisco Palazón",
+      "contentSha256": "707263e42a1e9c51b386ef73e8f1da20137d15a9dc3d181cf6687a3eb1f21193"
+    },
+    {
+      "folder": "ofertorio",
+      "title": "bendito seas señor",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 2 tokens dudosos: C. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 10 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "ofertorio/bendito seas señor.cho",
+        "ofertorio/bendito seas señor.jpg"
+      ],
+      "originalIndex": 164,
+      "displayTitle": "bendito seas señor",
+      "contentSha256": "b7e6a573c825c0994aeb870ee8a45fd4c7eafe70f04bfa19d963e04cadd97a7a"
+    },
+    {
+      "folder": "ofertorio",
+      "title": "Con estas ofrendas",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 40 de 144 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "ofertorio/Con estas ofrendas.cho",
+        "ofertorio/Con estas ofrendas.pdf"
+      ],
+      "originalIndex": 165,
+      "displayTitle": "Con estas ofrendas",
+      "contentSha256": "e4a4c65adf0c29cbed4e9d44982a8fe2948cd278f385f6cd6803cece61fca349"
+    },
+    {
+      "folder": "ofertorio",
+      "title": "IMG-20250706-WA0006",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 18 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "ofertorio/IMG-20250706-WA0006.cho",
+        "ofertorio/IMG-20250706-WA0006.jpg"
+      ],
+      "originalIndex": 166,
+      "displayTitle": "IMG-20250706-WA0006",
+      "contentSha256": "c076f7ed98458bc97abce7b054097650bfdd6a7eaf595158d15d672e21aeffe1"
+    },
+    {
+      "folder": "ofertorio",
+      "title": "llevemos-al-senor-acordes-y-letra",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "ofertorio/llevemos-al-senor-acordes-y-letra.cho",
+        "ofertorio/llevemos-al-senor-acordes-y-letra.pdf"
+      ],
+      "originalIndex": 167,
+      "displayTitle": "llevemos-al-senor-acordes-y-letra",
+      "contentSha256": "2d04da40fe40fd89cd43b770c649c08bed1e28fa0df6cc5541f61d420c6f111b"
+    },
+    {
+      "folder": "ofertorio",
+      "title": "Padre de bondad",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 16 de 110 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "ofertorio/Padre de bondad.cho",
+        "ofertorio/Padre de bondad.pdf"
+      ],
+      "originalIndex": 168,
+      "displayTitle": "Padre de bondad",
+      "contentSha256": "02369c6e614e2a51d5eb36b527b725eae93a3e08e84afcd899af1f4ba1cd1a0f"
+    },
+    {
+      "folder": "ofertorio",
+      "title": "Ven al Altar, Maité Sánchez",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 2 tokens dudosos: lO, S. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 15 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "ofertorio/Ven al Altar, Maité Sánchez.cho",
+        "ofertorio/Ven al Altar, Maité Sánchez.png"
+      ],
+      "originalIndex": 169,
+      "displayTitle": "Ven al Altar, Maité Sánchez",
+      "contentSha256": "662392233633669470de0a9551f5d43d4bc8c6ca5a8228420bbdf31bbafb8996"
+    },
+    {
+      "folder": "ofertorio",
+      "title": "Vino y pan",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 11 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "ofertorio/Vino y pan.cho",
+        "ofertorio/Vino y pan.png"
+      ],
+      "originalIndex": 170,
+      "displayTitle": "Vino y pan",
+      "contentSha256": "e50242fe37beeca8b4601993297471e9001bfd71455179bc1450e8a17d2350db"
+    },
+    {
+      "folder": "Oracion",
+      "title": "Alma de Cristo acordes Jésed canto eucarístico",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "Oracion/Alma de Cristo acordes Jésed canto eucarístico.cho",
+        "Oracion/Alma de Cristo acordes Jésed canto eucarístico.pdf"
+      ],
+      "originalIndex": 171,
+      "displayTitle": "Alma de Cristo acordes Jésed canto eucarístico",
+      "contentSha256": "2df146b904a80e5e7362c1eb8007731c6f05a734f7f2353c315046c616beb15c"
+    },
+    {
+      "folder": "Oracion",
+      "title": "PadreNuestro-misa melodica",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 12 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Oracion/PadreNuestro-misa melodica.cho",
+        "Oracion/PadreNuestro-misa melodica.png"
+      ],
+      "originalIndex": 172,
+      "displayTitle": "PadreNuestro-misa melodica",
+      "contentSha256": "b5e656532aaeb6ba8fbb5c810290beb6733c95fdd76a274f9a514420e0c95907"
+    },
+    {
+      "folder": "Pascua",
+      "title": "A vencido el cordero",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 8 tokens dudosos: Mlm, Sl, m, 70S, MIm. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 5 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Pascua/A vencido el cordero.cho",
+        "Pascua/A vencido el cordero.png"
+      ],
+      "originalIndex": 173,
+      "displayTitle": "A vencido el cordero",
+      "contentSha256": "639bd5f796ae06a41bb84238fc33c642e090763f7a5cd1ef2c3349c862ae80d3"
+    },
+    {
+      "folder": "Pascua",
+      "title": "El peregrino de emaus",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 3 tokens dudosos: La7, So, i. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 8 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Pascua/El peregrino de emaus.cho",
+        "Pascua/El peregrino de emaus.pdf"
+      ],
+      "originalIndex": 174,
+      "displayTitle": "El peregrino de emaus",
+      "contentSha256": "750b9f1fc540a9cba9d58898e9ff0c39f4855907bc81b069e22be0f7cbbfef4f"
+    },
+    {
+      "folder": "Pascua",
+      "title": "este es el dia en que actuo el señor - pascua, entrada",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 6 tokens dudosos: SOL, 5OL. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 21 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Pascua/este es el dia en que actuo el señor - pascua, entrada.cho",
+        "Pascua/este es el dia en que actuo el señor - pascua, entrada.pdf"
+      ],
+      "originalIndex": 175,
+      "displayTitle": "este es el dia en que actuo el señor - pascua, entrada",
+      "contentSha256": "9737540b92743735784059fddd75ecdc415e41dcbe2f5d1b09aa6d97f6343a18"
+    },
+    {
+      "folder": "Pascua",
+      "title": "Himno pascual",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 16 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Pascua/Himno pascual.cho",
+        "Pascua/Himno pascual.png"
+      ],
+      "originalIndex": 176,
+      "displayTitle": "Himno pascual",
+      "contentSha256": "1fd098d71d0b65d42d0c08c3c16a9756cc14b92c8778945037e3c6d4e6b97c45"
+    },
+    {
+      "folder": "Pascua",
+      "title": "Jesus el buen pastor - Himno pascual",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Jesus el buen pastor - Himno pascual, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "Pascua/Jesus el buen pastor - Himno pascual.cho",
+        "Pascua/Jesus el buen pastor - Himno pascual.pdf"
+      ],
+      "originalIndex": 177,
+      "displayTitle": "Jesús el buen pastor",
+      "contentSha256": "0e8403217a4719cec8e8decec4922533293bbebf1f0fe13eb5a4f98248964974"
+    },
+    {
+      "folder": "Pascua",
+      "title": "Himno pascual",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Jesus el buen pastor - Himno pascual, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "Pascua/Himno pascual - separado.cho",
+        "Pascua/Himno pascual - separado.pdf"
+      ],
+      "originalIndex": 177,
+      "displayTitle": "Himno pascual",
+      "contentSha256": "e27c4a8fbc60d3b6f83e4c26ec63004233a3b93924c1807a37552a54b59c6295"
+    },
+    {
+      "folder": "Pascua",
+      "title": "Jesus el buen pastor",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 14 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Pascua/Jesus el buen pastor.cho",
+        "Pascua/Jesus el buen pastor.png"
+      ],
+      "originalIndex": 178,
+      "displayTitle": "Jesus el buen pastor",
+      "contentSha256": "5a40de5b3df7076a106bc519148e56546567c92c53197b3c0928413fbe2ebb91"
+    },
+    {
+      "folder": "Pascua",
+      "title": "nuestra-pascua-inmolada-lucien dies",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Partitura: el OCR mezcla sílabas/notación musical; requiere transcripción musical.  31 de 402 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "Pascua/nuestra-pascua-inmolada-lucien dies.cho",
+        "Pascua/nuestra-pascua-inmolada-lucien dies.pdf"
+      ],
+      "originalIndex": 179,
+      "displayTitle": "nuestra-pascua-inmolada-lucien dies",
+      "contentSha256": "a306d63cba5c802b8c105f4597e82be555634d6a9d933a8b8d31ad38c545eac6"
+    },
+    {
+      "folder": "Pascua",
+      "title": "resucito- kiko arguello",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "Pascua/resucito- kiko arguello.cho",
+        "Pascua/resucito- kiko arguello.pdf"
+      ],
+      "originalIndex": 180,
+      "displayTitle": "resucito- kiko arguello",
+      "contentSha256": "6dc2ec287d4b4cbaaab26d90868c784870376a13265bd9d3865621017890d485"
+    },
+    {
+      "folder": "Pascua",
+      "title": "Resucito",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 13 de 64 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "Pascua/Resucito.cho",
+        "Pascua/Resucito.pdf"
+      ],
+      "originalIndex": 181,
+      "displayTitle": "Resucito",
+      "contentSha256": "8db14e83a82819dca5be7ef606c9b68bb25fc77ad50ccfa30cf5374570763c1c"
+    },
+    {
+      "folder": "Pascua",
+      "title": "Resucitó el Señor · Seminario Pontificio Mayor de Santiago -TE llamare por tu nombre",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 10 tokens dudosos: 5I, b, SIb, sIb, SIm, SOL, SOLm. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 20 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Pascua/Resucitó el Señor · Seminario Pontificio Mayor de Santiago -TE llamare por tu nombre.cho",
+        "Pascua/Resucitó el Señor · Seminario Pontificio Mayor de Santiago -TE llamare por tu nombre.pdf"
+      ],
+      "originalIndex": 182,
+      "displayTitle": "Resucitó el Señor · Seminario Pontificio Mayor de Santiago -TE llamare por tu nombre",
+      "contentSha256": "96f46032ff87de9e4d75a632366efa72b4399b9e512ba6c04abc6dcf61c8e506"
+    },
+    {
+      "folder": "Pascua",
+      "title": "Venid a celebrar",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 24 de 72 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "Pascua/Venid a celebrar.cho",
+        "Pascua/Venid a celebrar.pdf"
+      ],
+      "originalIndex": 183,
+      "displayTitle": "Venid a celebrar",
+      "contentSha256": "2c835e1dfd62ec5fa83469120ba776e5ba92a9eb4f1a3811cd7076bfc6bfb45a"
+    },
+    {
+      "folder": "Pentecostes-espiritu",
+      "title": "El espiritu del señor",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 1 tokens dudosos: tavra. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 9 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Pentecostes-espiritu/El espiritu del señor.cho",
+        "Pentecostes-espiritu/El espiritu del señor.png"
+      ],
+      "originalIndex": 184,
+      "displayTitle": "El espiritu del señor",
+      "contentSha256": "2d645c9f36e2b599556fed64f9a4e468d8ba34ffc2a88ef3e58883f6f5914517"
+    },
+    {
+      "folder": "Pentecostes-espiritu",
+      "title": "El-Espíritu-del-Señor",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "Pentecostes-espiritu/El-Espíritu-del-Señor.cho",
+        "Pentecostes-espiritu/El-Espíritu-del-Señor.pdf"
+      ],
+      "originalIndex": 185,
+      "displayTitle": "El-Espíritu-del-Señor",
+      "contentSha256": "543d20458fe87df075faa4fd487afd23801b56a0b73a825fe5287f52879a960f"
+    },
+    {
+      "folder": "Pentecostes-espiritu",
+      "title": "Entrada-secuencia pentecostes-Lourdes",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de Entrada-secuencia pentecostes-Lourdes, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF. Se ordenaron las columnas/continuaciones del mismo canto.",
+      "files": [
+        "Pentecostes-espiritu/Entrada-secuencia pentecostes-Lourdes.cho",
+        "Pentecostes-espiritu/Entrada-secuencia pentecostes-Lourdes.pdf"
+      ],
+      "originalIndex": 186,
+      "displayTitle": "Secuencia de Pentecostés - Lourdes",
+      "contentSha256": "b23ea8fd6c1819daa3865fb07395c8cf60e545dc010e9a9e59d18fc1a364d657"
+    },
+    {
+      "folder": "Pentecostes-espiritu",
+      "title": "Señor ten piedad - misa melódica",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Entrada-secuencia pentecostes-Lourdes, página 2; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Se conservaron acordes aislados; confirmar su uso: Em E7 Am D7 G C Am6 Edim B7, E7 Am D7 G C Am6 Edim B7. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "Pentecostes-espiritu/Señor ten piedad - misa melódica - separado.cho",
+        "Pentecostes-espiritu/Señor ten piedad - misa melódica - separado.pdf"
+      ],
+      "originalIndex": 186,
+      "displayTitle": "Señor ten piedad - misa melódica",
+      "contentSha256": "9f53f972ef02fd5aa5061d6e25eae8ffd5626e726b375f3c40e4ec7ed3f19708"
+    },
+    {
+      "folder": "Pentecostes-espiritu",
+      "title": "Gloria - himno litúrgico",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Entrada-secuencia pentecostes-Lourdes, página 3; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Se ordenaron las columnas/continuaciones del mismo canto. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "Pentecostes-espiritu/Gloria - himno litúrgico - separado.cho",
+        "Pentecostes-espiritu/Gloria - himno litúrgico - separado.pdf"
+      ],
+      "originalIndex": 186,
+      "displayTitle": "Gloria - himno litúrgico",
+      "contentSha256": "2d187c6a1f2686c3a4cb6ca81b5e513c8e7d72f582be640a38fbb561ac5caf71"
+    },
+    {
+      "folder": "Pentecostes-espiritu",
+      "title": "Aleluya - Alejandro Mejía",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Entrada-secuencia pentecostes-Lourdes, página 4; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "Pentecostes-espiritu/Aleluya - Alejandro Mejía - separado.cho",
+        "Pentecostes-espiritu/Aleluya - Alejandro Mejía - separado.pdf"
+      ],
+      "originalIndex": 186,
+      "displayTitle": "Aleluya - Alejandro Mejía",
+      "contentSha256": "8e99edab3f2226b8149c51316abfe4c4412e7837d7e59e4d3a4fa608d6a2d3f8"
+    },
+    {
+      "folder": "Pentecostes-espiritu",
+      "title": "Todo te pertenece - Pentecostés",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Entrada-secuencia pentecostes-Lourdes, página 5; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "Pentecostes-espiritu/Todo te pertenece - Pentecostés - separado.cho",
+        "Pentecostes-espiritu/Todo te pertenece - Pentecostés - separado.pdf"
+      ],
+      "originalIndex": 186,
+      "displayTitle": "Todo te pertenece - Pentecostés",
+      "contentSha256": "f89a63f5b4b0306bbec83ba37476119f5680ca74b8f03a0862ba1b199075cc32"
+    },
+    {
+      "folder": "Pentecostes-espiritu",
+      "title": "Himno pascual - Pentecostés",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Entrada-secuencia pentecostes-Lourdes, página 6; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "Pentecostes-espiritu/Himno pascual - Pentecostés - separado.cho",
+        "Pentecostes-espiritu/Himno pascual - Pentecostés - separado.pdf"
+      ],
+      "originalIndex": 186,
+      "displayTitle": "Himno pascual - Pentecostés",
+      "contentSha256": "fa06ce5091bf72816c73d8c446e6aa412fb92bec62a4ad52e67ba1424a55714c"
+    },
+    {
+      "folder": "Pentecostes-espiritu",
+      "title": "Siempre es Pentecostés - Lourdes",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Entrada-secuencia pentecostes-Lourdes, página 7; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "Pentecostes-espiritu/Siempre es Pentecostés - Lourdes - separado.cho",
+        "Pentecostes-espiritu/Siempre es Pentecostés - Lourdes - separado.pdf"
+      ],
+      "originalIndex": 186,
+      "displayTitle": "Siempre es Pentecostés - Lourdes",
+      "contentSha256": "a0bc3ec0ee8f4632c6db9f2ef4d56962bbffc61839779f9c5982724a67f6575f"
+    },
+    {
+      "folder": "Pentecostes-espiritu",
+      "title": "Espiritu santo ven ven",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 19 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Pentecostes-espiritu/Espiritu santo ven ven.cho",
+        "Pentecostes-espiritu/Espiritu santo ven ven.png"
+      ],
+      "originalIndex": 187,
+      "displayTitle": "Espiritu santo ven ven",
+      "contentSha256": "c81dd38b61c5e0c0370c095a330d4817152361873db5292173ceeef7a0e34ae7"
+    },
+    {
+      "folder": "Pentecostes-espiritu",
+      "title": "Secuencia pentecostes",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Columnas del mismo canto ordenadas de izquierda a derecha. Se recuperaron versos y acordes de OCR existente; se excluyeron cabeceras, publicidad y pies de página de la letra. Persiste reconocimiento dudoso; necesita comprobación manual.",
+      "files": [
+        "Pentecostes-espiritu/Secuencia pentecostes.cho",
+        "Pentecostes-espiritu/Secuencia pentecostes.png"
+      ],
+      "originalIndex": 188,
+      "displayTitle": "Secuencia pentecostes",
+      "contentSha256": "e00ab759f6ea800399c1f65858ff855a877e6295ed06326a2639241f4d7dc671"
+    },
+    {
+      "folder": "Pentecostes-espiritu",
+      "title": "siempre-es-pentecostes_compress",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de siempre-es-pentecostes_compress, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Pentecostes-espiritu/siempre-es-pentecostes_compress.cho",
+        "Pentecostes-espiritu/siempre-es-pentecostes_compress.pdf"
+      ],
+      "originalIndex": 189,
+      "displayTitle": "Siempre es Pentecostés",
+      "contentSha256": "9d593d7914d8d370ebf7be1baaae91bb680f54040945ba03531fc272846577e4"
+    },
+    {
+      "folder": "Pentecostes-espiritu",
+      "title": "Danos, Señor, tu Espíritu",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de siempre-es-pentecostes_compress, página 2; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Pentecostes-espiritu/Danos, Señor, tu Espíritu - separado.cho",
+        "Pentecostes-espiritu/Danos, Señor, tu Espíritu - separado.pdf"
+      ],
+      "originalIndex": 189,
+      "displayTitle": "Danos, Señor, tu Espíritu",
+      "contentSha256": "64ece54e644e1b71a3d129cd377a7f4c1a251c0d923e5440618beb4caf1e52eb"
+    },
+    {
+      "folder": "Piedad",
+      "title": "IMG-20260208-WA0004",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 6 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Piedad/IMG-20260208-WA0004.cho",
+        "Piedad/IMG-20260208-WA0004.jpg"
+      ],
+      "originalIndex": 190,
+      "displayTitle": "IMG-20260208-WA0004",
+      "contentSha256": "6fb490d2eca8de8b9d62c5fe4abd8637b1b95a149c7b10dc0072aa9fc4f0d891"
+    },
+    {
+      "folder": "Piedad",
+      "title": "Senor-ten-piedad-con-acordes-de-la-misa-al-rededor-de-tu-mesa",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "Piedad/Senor-ten-piedad-con-acordes-de-la-misa-al-rededor-de-tu-mesa.cho",
+        "Piedad/Senor-ten-piedad-con-acordes-de-la-misa-al-rededor-de-tu-mesa.pdf"
+      ],
+      "originalIndex": 191,
+      "displayTitle": "Senor-ten-piedad-con-acordes-de-la-misa-al-rededor-de-tu-mesa",
+      "contentSha256": "dbb81f22802acfbee4885047ca03a49669c7fdab49fe5f57a6b322ef8759b9ee"
+    },
+    {
+      "folder": "Piedad",
+      "title": "Señor ten Piedad-Melodica-mejia",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 1 tokens dudosos: C. Revisar secuencias sin verso asociado: Em E7 Am D7 G C Am6 Edim B7, E7 Am D7 G C Am6 Edim B7. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 12 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Piedad/Señor ten Piedad-Melodica-mejia.cho",
+        "Piedad/Señor ten Piedad-Melodica-mejia.png"
+      ],
+      "originalIndex": 192,
+      "displayTitle": "Señor ten Piedad-Melodica-mejia",
+      "contentSha256": "509b0707938194267cccbfcef676461efef211cbb8afed93fd69750eee1dfcc1"
+    },
+    {
+      "folder": "salida",
+      "title": "Estoy cantando alegre",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 36 de 124 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "salida/Estoy cantando alegre.cho",
+        "salida/Estoy cantando alegre.pdf"
+      ],
+      "originalIndex": 193,
+      "displayTitle": "Estoy cantando alegre",
+      "contentSha256": "f4abec016df069c0b17d846e7d416fae87f4514c7ae75c0b5217b7442df589e4"
+    },
+    {
+      "folder": "salida",
+      "title": "Gracias te damos a ti",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 38 de 200 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "salida/Gracias te damos a ti.cho",
+        "salida/Gracias te damos a ti.pdf"
+      ],
+      "originalIndex": 194,
+      "displayTitle": "Gracias te damos a ti",
+      "contentSha256": "b538fe1a211dca661cfe7d8ed1a72c1f913c0ce92cc5c51504d715cbe66ee1d3"
+    },
+    {
+      "folder": "salida",
+      "title": "Señor tu siempre vas conmigo",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 27 de 96 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "salida/Señor tu siempre vas conmigo.cho",
+        "salida/Señor tu siempre vas conmigo.pdf"
+      ],
+      "originalIndex": 195,
+      "displayTitle": "Señor tu siempre vas conmigo",
+      "contentSha256": "94a71ff7fe86538d3b27795e1a6bb6df471baa929787511230616386d214aef2"
+    },
+    {
+      "folder": "salida",
+      "title": "yo tengo un amigo que me ama-popurri",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja.",
+      "files": [
+        "salida/yo tengo un amigo que me ama-popurri.cho",
+        "salida/yo tengo un amigo que me ama-popurri.pdf"
+      ],
+      "originalIndex": 196,
+      "displayTitle": "yo tengo un amigo que me ama-popurri",
+      "contentSha256": "e4d94056aab9d5f35444353eeff9620b6e1d98531b28270cc70f60f4503bf9af"
+    },
+    {
+      "folder": "Salmo",
+      "title": "Salmo91-tu que habitas",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 3 tokens dudosos: SOL. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 15 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Salmo/Salmo91-tu que habitas.cho",
+        "Salmo/Salmo91-tu que habitas.png"
+      ],
+      "originalIndex": 197,
+      "displayTitle": "Salmo91-tu que habitas",
+      "contentSha256": "529df5b00c753497234fcafcdecb13330b6db3f5c07d1cdfb0160e2942725233"
+    },
+    {
+      "folder": "santo",
+      "title": "Santo - Alfonso luna - Tengo un amigo 2001",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "santo/Santo - Alfonso luna - Tengo un amigo 2001.cho",
+        "santo/Santo - Alfonso luna - Tengo un amigo 2001.pdf"
+      ],
+      "originalIndex": 198,
+      "displayTitle": "Santo - Alfonso luna - Tengo un amigo 2001",
+      "contentSha256": "fdbae46171db366da91982a428ee24d58042261d678546a682321afb4977bc74"
+    },
+    {
+      "folder": "santo",
+      "title": "Santo - cordero san bernardino",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Santo - cordero san bernardino, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "santo/Santo - cordero san bernardino.cho",
+        "santo/Santo - cordero san bernardino.pdf"
+      ],
+      "originalIndex": 199,
+      "displayTitle": "Santo - San Bernardino",
+      "contentSha256": "4731c9aa9e442483811a9d3a20ad13b236a3f8e6a693909cda755c7abcdce85c"
+    },
+    {
+      "folder": "santo",
+      "title": "Cordero - San Bernardino",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Santo - cordero san bernardino, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "santo/Cordero - San Bernardino - separado.cho",
+        "santo/Cordero - San Bernardino - separado.pdf"
+      ],
+      "originalIndex": 199,
+      "displayTitle": "Cordero - San Bernardino",
+      "contentSha256": "d440e196b192ba3da8b2ec1fa6ad03090b204066c66d60d2bef94fadc2843a54"
+    },
+    {
+      "folder": "santo",
+      "title": "Santo Alto",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Transcripción corregida manualmente contra la imagen: se recuperaron versos omitidos y se corrigieron caracteres/acordes falsos del OCR. No se añadieron acordes a estrofas que no los tenían en la fuente.",
+      "files": [
+        "santo/Santo Alto.cho",
+        "santo/Santo Alto.png"
+      ],
+      "originalIndex": 200,
+      "displayTitle": "Santo Alto",
+      "contentSha256": "7a6634d2b23469330f1ee1c3f91d7451be3b81b4c5ccdc6677dbc90139d64051"
+    },
+    {
+      "folder": "santo",
+      "title": "Santo cordero ora pro nobis",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Santo cordero ora pro nobis, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "santo/Santo cordero ora pro nobis.cho",
+        "santo/Santo cordero ora pro nobis.pdf"
+      ],
+      "originalIndex": 201,
+      "displayTitle": "Santo - Ora pro nobis",
+      "contentSha256": "f48058176bce232853604af8f56d99f2bcae8fa03b5f349c7ec065797f648bac"
+    },
+    {
+      "folder": "santo",
+      "title": "Cordero - Ora pro nobis",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Santo cordero ora pro nobis, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "santo/Cordero - Ora pro nobis - separado.cho",
+        "santo/Cordero - Ora pro nobis - separado.pdf"
+      ],
+      "originalIndex": 201,
+      "displayTitle": "Cordero - Ora pro nobis",
+      "contentSha256": "72793cfb6e6ab4fb9ba9f3c40b127f66b215a06db2aefc2edbab4cbfa281e299"
+    },
+    {
+      "folder": "santo",
+      "title": "Santo misa del divino corazon",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 29 de 75 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "santo/Santo misa del divino corazon.cho",
+        "santo/Santo misa del divino corazon.pdf"
+      ],
+      "originalIndex": 202,
+      "displayTitle": "Santo misa del divino corazon",
+      "contentSha256": "aacc293be30f32206acc7389991313c0c1fe9c079233ec2c08d94a38dc6bf4c9"
+    },
+    {
+      "folder": "santo",
+      "title": "Santo misa pascual",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 53 de 87 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "santo/Santo misa pascual.cho",
+        "santo/Santo misa pascual.pdf"
+      ],
+      "originalIndex": 203,
+      "displayTitle": "Santo misa pascual",
+      "contentSha256": "78afa17b9b707b32e5403b4804ca0ed740678e079f997346c76d127ef7f6b967"
+    },
+    {
+      "folder": "santo",
+      "title": "Santo misa ritmica",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "No tiene imagen/PDF de referencia. No se puede comprobar letra y acordes.",
+      "files": [
+        "santo/Santo misa ritmica.cho",
+        "santo/Santo misa ritmica.PDF"
+      ],
+      "originalIndex": 204,
+      "displayTitle": "Santo misa ritmica",
+      "contentSha256": "7881e78c7da317c185a773795764eca4af0728d9cf99634bec2a19acdfaca22b"
+    },
+    {
+      "folder": "santo",
+      "title": "Santo tradicional",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se cotejó la hoja y el borrador OCR. Manuscrito: el OCR confunde letras y acordes; requiere transcripción comprobada con el original. 38 de 57 tokens con confianza menor a 0.85 (indicio, no verificación musical).",
+      "files": [
+        "santo/Santo tradicional.cho",
+        "santo/Santo tradicional.pdf"
+      ],
+      "originalIndex": 205,
+      "displayTitle": "Santo tradicional",
+      "contentSha256": "f98b763482d21c1d0f0ea3e3179e04e94e842254afe7f75946bd911941995138"
+    },
+    {
+      "folder": "santo",
+      "title": "Santo-cordero misa facil",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Santo-cordero misa facil, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "santo/Santo-cordero misa facil.cho",
+        "santo/Santo-cordero misa facil.pdf"
+      ],
+      "originalIndex": 206,
+      "displayTitle": "Santo - misa fácil",
+      "contentSha256": "98864de2e892ac8d87921e043081579d0e04752b83dac75dd9280329501745af"
+    },
+    {
+      "folder": "santo",
+      "title": "Cordero - misa fácil",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Santo-cordero misa facil, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "santo/Cordero - misa fácil - separado.cho",
+        "santo/Cordero - misa fácil - separado.pdf"
+      ],
+      "originalIndex": 206,
+      "displayTitle": "Cordero - misa fácil",
+      "contentSha256": "0ded5cf861722bd76980b0072122a1c6aef8658c884c9f9e3bf5a5cf9bcf9aab"
+    },
+    {
+      "folder": "santo",
+      "title": "Santo-melodica-mejia",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 1 tokens dudosos: (2). Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 10 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "santo/Santo-melodica-mejia.cho",
+        "santo/Santo-melodica-mejia.png"
+      ],
+      "originalIndex": 207,
+      "displayTitle": "Santo-melodica-mejia",
+      "contentSha256": "fc9c767ff3df6b128b0dc60f37736a45896797d943efea4aa4d8cec903da7215"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Amor verdadero - Ven espiritu",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de Amor verdadero - Ven espiritu, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Vocacionales/Amor verdadero - Ven espiritu.cho",
+        "Vocacionales/Amor verdadero - Ven espiritu.pdf"
+      ],
+      "originalIndex": 208,
+      "displayTitle": "Amor verdadero",
+      "contentSha256": "c1f1a2ac1c9e53dc54518c551b76598ee577b38d5c4372fd240d2e9b496450b4"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Ven Espíritu",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de Amor verdadero - Ven espiritu, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Vocacionales/Ven Espíritu - separado.cho",
+        "Vocacionales/Ven Espíritu - separado.pdf"
+      ],
+      "originalIndex": 208,
+      "displayTitle": "Ven Espíritu",
+      "contentSha256": "6e5bebd2663b052c58840ec0fd356839df26ad994fddf796355b2614b870ea58"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Aqui estoy señor - Testigo",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de Aqui estoy señor - Testigo, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Vocacionales/Aqui estoy señor - Testigo.cho",
+        "Vocacionales/Aqui estoy señor - Testigo.pdf"
+      ],
+      "originalIndex": 209,
+      "displayTitle": "Aquí estoy Señor",
+      "contentSha256": "91ac0828ac51aed1887bfbd7c394a16e9fc4e23baebcf1329689466fd06e2574"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Testigo",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de Aqui estoy señor - Testigo, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Vocacionales/Testigo - separado.cho",
+        "Vocacionales/Testigo - separado.pdf"
+      ],
+      "originalIndex": 209,
+      "displayTitle": "Testigo",
+      "contentSha256": "750259619bc640d8fcdc76ecb608ccefd102ae8e93f36713885650aaa0101aa3"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Cantando la alegria - Me acercare al altar",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Cantando la alegria - Me acercare al altar, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "Vocacionales/Cantando la alegria - Me acercare al altar.cho",
+        "Vocacionales/Cantando la alegria - Me acercare al altar.pdf"
+      ],
+      "originalIndex": 210,
+      "displayTitle": "Cantando la alegría",
+      "contentSha256": "ee267208299bd63b4bfe750720e6425716b82e50974edfffdd15716809dfb00a"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Me acercaré al altar",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de Cantando la alegria - Me acercare al altar, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde OCR existente. Se conservaron acordes aislados; confirmar su uso: Mi Sol La Re, Mi Sol La Re Mi, Mi Sol La Re. Sigue en rojo por dudas de reconocimiento/alineación; la separación del archivo sí está hecha.",
+      "files": [
+        "Vocacionales/Me acercaré al altar - separado.cho",
+        "Vocacionales/Me acercaré al altar - separado.pdf"
+      ],
+      "originalIndex": 210,
+      "displayTitle": "Me acercaré al altar",
+      "contentSha256": "89555eb620f7a8b6ca88e086234c8f2d3c764d0a0ef0efc0a54a75c6f267072d"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Consolad - Grita mi nombre",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de Consolad - Grita mi nombre, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Vocacionales/Consolad - Grita mi nombre.cho",
+        "Vocacionales/Consolad - Grita mi nombre.pdf"
+      ],
+      "originalIndex": 211,
+      "displayTitle": "Consolad",
+      "contentSha256": "1944ecb47b62580b6f59fcf527e9d3a8e1163394f2c9b90c719e033d3cbbb658"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Grita mi nombre",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de Consolad - Grita mi nombre, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Vocacionales/Grita mi nombre - separado.cho",
+        "Vocacionales/Grita mi nombre - separado.pdf"
+      ],
+      "originalIndex": 211,
+      "displayTitle": "Grita mi nombre",
+      "contentSha256": "4be601fa3a023403e76708b257356efc7b0ace5c49c06a7e34a81c3d2f427868"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Descansa en dios - tu eres mi señor",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de Descansa en dios - tu eres mi señor, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Vocacionales/Descansa en dios - tu eres mi señor.cho",
+        "Vocacionales/Descansa en dios - tu eres mi señor.pdf"
+      ],
+      "originalIndex": 212,
+      "displayTitle": "Descansa en Dios",
+      "contentSha256": "8a9b2b7dbe02e50e3ef59280bec79a96f9814ff00638018d42054542672baac5"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Tú eres mi Señor",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de Descansa en dios - tu eres mi señor, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Vocacionales/Tú eres mi Señor - separado.cho",
+        "Vocacionales/Tú eres mi Señor - separado.pdf"
+      ],
+      "originalIndex": 212,
+      "displayTitle": "Tú eres mi Señor",
+      "contentSha256": "fc3199f8e5137d882e9e165e7f5b1aafb45783db03ac21297f0c3424838ee137"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "En ti señor - Portones alzad los dinteles",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de En ti señor - Portones alzad los dinteles, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF. Se conservaron acordes aislados; confirmar su uso: La Lamaj7 La Lamaj7.",
+      "files": [
+        "Vocacionales/En ti señor - Portones alzad los dinteles.cho",
+        "Vocacionales/En ti señor - Portones alzad los dinteles.pdf"
+      ],
+      "originalIndex": 213,
+      "displayTitle": "En ti Señor",
+      "contentSha256": "8e667a9955a3af470bc452ab6775ccdd9aeca8555c1605b60bcd93af47e8c838"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Portones alzad los dinteles",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Separado de En ti señor - Portones alzad los dinteles, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF. Se conservaron acordes aislados; confirmar su uso: Re Lam Re Lam.",
+      "files": [
+        "Vocacionales/Portones alzad los dinteles - separado.cho",
+        "Vocacionales/Portones alzad los dinteles - separado.pdf"
+      ],
+      "originalIndex": 213,
+      "displayTitle": "Portones alzad los dinteles",
+      "contentSha256": "0292e0ac73c703dae1c4dc8ce0e6c52a028f72b3466390885f3b58fe751d4c74"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Getsemani - Sigue la luz",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de Getsemani - Sigue la luz, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Vocacionales/Getsemani - Sigue la luz.cho",
+        "Vocacionales/Getsemani - Sigue la luz.pdf"
+      ],
+      "originalIndex": 214,
+      "displayTitle": "Getsemaní",
+      "contentSha256": "bff81a63acc82af0b8141c397a3d484773ff1e04e344d22d00e86d4d94961ab7"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Sigue la luz",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de Getsemani - Sigue la luz, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Vocacionales/Sigue la luz - separado.cho",
+        "Vocacionales/Sigue la luz - separado.pdf"
+      ],
+      "originalIndex": 214,
+      "displayTitle": "Sigue la luz",
+      "contentSha256": "249207163118874ef5d117c5bb7fc527b9f9846e9d6127fe624d49c9c96bdab4"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "IMG-20260208-WA0005",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 19 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Vocacionales/IMG-20260208-WA0005.cho",
+        "Vocacionales/IMG-20260208-WA0005.jpg"
+      ],
+      "originalIndex": 215,
+      "displayTitle": "IMG-20260208-WA0005",
+      "contentSha256": "8bd2851fd2e4b067985db7409b8bd92153b65d7f19ebc5cdabb7f240bbd26e04"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "La llamada - tocaste mis manos",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de La llamada - tocaste mis manos, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Vocacionales/La llamada - tocaste mis manos.cho",
+        "Vocacionales/La llamada - tocaste mis manos.pdf"
+      ],
+      "originalIndex": 216,
+      "displayTitle": "La llamada",
+      "contentSha256": "781ca21abbb84d3f201ba2303c3a6ffcce42edaa6f8c8bcc1f11f12fac8da532"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Tocaste mis manos",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de La llamada - tocaste mis manos, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Vocacionales/Tocaste mis manos - separado.cho",
+        "Vocacionales/Tocaste mis manos - separado.pdf"
+      ],
+      "originalIndex": 216,
+      "displayTitle": "Tocaste mis manos",
+      "contentSha256": "f5f134b58fcd35302038d7f10d2990c88c4ae81e10b5090d0005a1590457e23a"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "LAVA MIS PIES SEÑOR -Marcelo cid-onePage",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se preservó una edición local anterior a esta tarea. Comparar manualmente con el PDF antes de dar por terminada la revisión.",
+      "files": [
+        "Vocacionales/LAVA MIS PIES SEÑOR -Marcelo cid-onePage.cho",
+        "Vocacionales/LAVA MIS PIES SEÑOR -Marcelo cid-onePage.pdf"
+      ],
+      "originalIndex": 217,
+      "displayTitle": "LAVA MIS PIES SEÑOR -Marcelo cid-onePage",
+      "contentSha256": "4fa5d2c207ecb7f1a2ecabf85c3c01156150d3d7d8df2d2a8d18521ecc8a0be0"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Lavatorio LAVA MIS PIES SEÑOR- Marcelo Cid",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Se recuperaron versos y acordes de texto PDF; se excluyeron cabeceras, publicidad y pies de página de la letra.",
+      "files": [
+        "Vocacionales/Lavatorio LAVA MIS PIES SEÑOR- Marcelo Cid.cho",
+        "Vocacionales/Lavatorio LAVA MIS PIES SEÑOR- Marcelo Cid.pdf"
+      ],
+      "originalIndex": 218,
+      "displayTitle": "Lavatorio LAVA MIS PIES SEÑOR- Marcelo Cid",
+      "contentSha256": "f6d2313b9f6c831e18ccd07861e862b0ee4df6c1dc130f1634c9df8971119ded"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Maestro Bueno · Seminario Pontificio Mayor de Santiago- Te llmare por tu nombre",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 5 tokens dudosos: SOLm, SOL, 5OL, m. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 23 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Vocacionales/Maestro Bueno · Seminario Pontificio Mayor de Santiago- Te llmare por tu nombre.cho",
+        "Vocacionales/Maestro Bueno · Seminario Pontificio Mayor de Santiago- Te llmare por tu nombre.pdf"
+      ],
+      "originalIndex": 219,
+      "displayTitle": "Maestro Bueno · Seminario Pontificio Mayor de Santiago- Te llmare por tu nombre",
+      "contentSha256": "a0dbda59f08236aed6f75bc042abbfe20446fca2a36c907730494641b22a722a"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Me has seducido",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 5 tokens dudosos: wa, C, c. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 23 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Vocacionales/Me has seducido.cho",
+        "Vocacionales/Me has seducido.pdf"
+      ],
+      "originalIndex": 220,
+      "displayTitle": "Me has seducido",
+      "contentSha256": "59ba5e786f92c1de9eeb5d1e98d1798589aa738bc25ff920c432df72e39cfbd9"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Quisiera ser tu cruz - padre me pongo en tus manos",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de Quisiera ser tu cruz - padre me pongo en tus manos, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Vocacionales/Quisiera ser tu cruz - padre me pongo en tus manos.cho",
+        "Vocacionales/Quisiera ser tu cruz - padre me pongo en tus manos.pdf"
+      ],
+      "originalIndex": 221,
+      "displayTitle": "Quisiera ser tu cruz",
+      "contentSha256": "5512f5444541569c575aaa6050c15b98e1f28f19331c5f3cefd07d0740003431"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Padre, me pongo en tus manos",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de Quisiera ser tu cruz - padre me pongo en tus manos, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Vocacionales/Padre, me pongo en tus manos - separado.cho",
+        "Vocacionales/Padre, me pongo en tus manos - separado.pdf"
+      ],
+      "originalIndex": 221,
+      "displayTitle": "Padre, me pongo en tus manos",
+      "contentSha256": "a8f276573e49a3fb8f5eda5d83e03f20440551400687ddcf5bd87cf6fd3cda15"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Quisiera ser tu cruz",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 14 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Vocacionales/Quisiera ser tu cruz.cho",
+        "Vocacionales/Quisiera ser tu cruz.png"
+      ],
+      "originalIndex": 222,
+      "displayTitle": "Quisiera ser tu cruz",
+      "contentSha256": "2db227430d8c1176516189773e7576a174f3d3e2a604c34101a4291c0c7d71c0"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Screenshot 2025-05-17 171957",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 1 tokens dudosos: SIb. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 24 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Vocacionales/Screenshot 2025-05-17 171957.cho",
+        "Vocacionales/Screenshot 2025-05-17 171957.png"
+      ],
+      "originalIndex": 223,
+      "displayTitle": "Screenshot 2025-05-17 171957",
+      "contentSha256": "50efcbf353f82aef749c875501e7f660028b33017c1aeacd25d98e21eb5f4b69"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Screenshot 2025-05-17 172702",
+      "status": "rojo",
+      "needsAttention": true,
+      "notes": "Se reconstruyó el borrador conservando los versos cortos que el OCR confundía con acordes (La/Mi/A) y las secuencias de acordes aisladas. Quedan 3 tokens dudosos: SI7, TOS, S17. Punto rojo: falta confirmar lectura y posición musical de los acordes frente a la hoja. Se preservaron los acordes del borrador anterior en 15 versos coincidentes para evitar degradarlos con detecciones OCR dudosas.",
+      "files": [
+        "Vocacionales/Screenshot 2025-05-17 172702.cho",
+        "Vocacionales/Screenshot 2025-05-17 172702.png"
+      ],
+      "originalIndex": 224,
+      "displayTitle": "Screenshot 2025-05-17 172702",
+      "contentSha256": "b4f43aef0671c0b528732e908e40477ff75b3c8d0931998014ff5f19faf7ab94"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Servirte para siempre - alza tus ojos",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de Servirte para siempre - alza tus ojos, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Vocacionales/Servirte para siempre - alza tus ojos.cho",
+        "Vocacionales/Servirte para siempre - alza tus ojos.pdf"
+      ],
+      "originalIndex": 225,
+      "displayTitle": "Servirte para siempre",
+      "contentSha256": "26d17f0deaad16b460acd38fe4173795b4e87ea460eaa7f8ecf4dcb4241b384e"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Alza tus ojos",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Separado de Servirte para siempre - alza tus ojos, página 1; PDF recortado y comprobado visualmente. Letra reconstruida desde texto PDF.",
+      "files": [
+        "Vocacionales/Alza tus ojos - separado.cho",
+        "Vocacionales/Alza tus ojos - separado.pdf"
+      ],
+      "originalIndex": 225,
+      "displayTitle": "Alza tus ojos",
+      "contentSha256": "50df38e63f6c4331d2523bfbbe34dbde9694dfb8389e8af7f82e48d40ece28fd"
+    },
+    {
+      "folder": "Vocacionales",
+      "title": "Yo soy el camino firme- Lorenzo González",
+      "status": "corregido",
+      "needsAttention": false,
+      "notes": "Misma hoja impresa que Comunion/Yo soy el camino firme: se aplicó la transcripción comprobada, incluida la cuarta estrofa omitida por OCR.",
+      "files": [
+        "Vocacionales/Yo soy el camino firme- Lorenzo González.cho",
+        "Vocacionales/Yo soy el camino firme- Lorenzo González.png"
+      ],
+      "originalIndex": 226,
+      "displayTitle": "Yo soy el camino firme",
+      "contentSha256": "288717b3840eaa44c3241b1fcde8eb5f5187f23c38fca40e662d7c5090a18ec4"
+    }
+  ],
+  "changedFiles": [
+    "Aleluya/IMG_20251226_112302.cho",
+    "Comunion/3d49694e-16db-4256-b3c7-b879b5d34a10.cho",
+    "Comunion/Aqui hay un muchacho.cho",
+    "Comunion/Aquí hay un muchacho - separado.cho",
+    "Comunion/Aquí hay un muchacho - separado.pdf",
+    "Comunion/Comulgar es un acto sublime - separado.cho",
+    "Comunion/Comulgar es un acto sublime - separado.pdf",
+    "Comunion/Cordero de Dios - disco Aquí estoy Señor - separado.cho",
+    "Comunion/Cordero de Dios - disco Aquí estoy Señor - separado.pdf",
+    "Comunion/IMG-20250706-WA0005.cho",
+    "Comunion/Jesus Amigo.cho",
+    "Comunion/Me has seducido señor -  Aqui hay un muchacho.cho",
+    "Comunion/Me has seducido señor -  Aqui hay un muchacho.pdf",
+    "Comunion/Oh buen Jesus.cho",
+    "Comunion/PASE LO QUE PASE.cho",
+    "Comunion/Sacerdote para siempre - Verbum Panis.cho",
+    "Comunion/Sacerdote para siempre - Verbum Panis.pdf",
+    "Comunion/Señor a quien iremos.cho",
+    "Comunion/Señor a quien iremos.pdf",
+    "Comunion/Temblando de amor-Santa clara.cho",
+    "Comunion/Todo te pertenece - Comulgar es un acto sublime.cho",
+    "Comunion/Todo te pertenece - Comulgar es un acto sublime.pdf",
+    "Comunion/Tomame Señor.cho",
+    "Comunion/Tomame señor - jesed.cho",
+    "Comunion/Tu Cuerpo y Sangre, Señor.cho",
+    "Comunion/Una espigaa.cho",
+    "Comunion/Vamos cantando a comulgar.cho",
+    "Comunion/Ven a mi dulce pan de la vida.cho",
+    "Comunion/Verbum Panis - separado.cho",
+    "Comunion/Verbum Panis - separado.pdf",
+    "Comunion/Vino y pan - separado.cho",
+    "Comunion/Vino y pan - separado.pdf",
+    "Comunion/Yo soy el camino firme- Lorenzo González.cho",
+    "Comunion/levántate acordes y letra canto para adviento.cho",
+    "Comunion/oh-buen-Jesus-letra-y-acordes.cho",
+    "Comunion/symbolum 77.cho",
+    "Comunion/ven a mi dulce pan letra.cho",
+    "Comunion/verbum panis.cho",
+    "Comunion/yo soy el pan de vida- yo lo resucitare-  Hna. Suzanne Toolan.cho",
+    "Cristo Rey/Viva cristo rey.cho",
+    "Gloria/Gloria Neocatecumenal.cho",
+    "Gloria/Gloria-melodica-mejia.cho",
+    "Gloria/IMG-20250706-WA0007.cho",
+    "Honor y gloria/Honor y Gloria.cho",
+    "JuevesSanto/Entrada/Cordero-mejia-melodica.cho",
+    "JuevesSanto/Entrada/Jesus Amigo.cho",
+    "JuevesSanto/Entrada/Tomame Señor.cho",
+    "JuevesSanto/Entrada/nosotros hemos de gloriarnos.cho",
+    "Laicos/CantosDiaMadres/En tu dia.cho",
+    "Laicos/CantosDiaMadres/Mañanitas tapatias.cho",
+    "Laicos/Mañanitas.cho",
+    "Laicos/Pregon Neocatecumenal1.cho",
+    "Laicos/Pregon Neocatecumenal2.cho",
+    "Maria/A ti madre de esperanza.cho",
+    "Maria/Ave maria.cho",
+    "Maria/Buenos dias paloma blanca.cho",
+    "Maria/Dios te salve maria.cho",
+    "Maria/DolorosaPesame/Al pie de la cruz.cho",
+    "Maria/DolorosaPesame/Dolorosa.cho",
+    "Maria/DolorosaPesame/Eres la madre dolorosa.cho",
+    "Maria/DolorosaPesame/Estaba al pie de la cruz.cho",
+    "Maria/DolorosaPesame/Junto a la cruz.cho",
+    "Maria/DolorosaPesame/Llora la virgen.cho",
+    "Maria/DolorosaPesame/Sola con tu soledad.cho",
+    "Maria/DolorosaPesame/Virgen dolorosa.cho",
+    "Maria/Eres pastora divina.cho",
+    "Maria/Himno a nuestra Guadalupe, Como a belen llegaste - Alejandro mejia.cho",
+    "Maria/Junto a ti maria.cho",
+    "Maria/La guadalupana.cho",
+    "Maria/Madre eres ternura.cho",
+    "Maria/Madre oyeme.cho",
+    "Maria/Maria tu que velas junto a mi.cho",
+    "Maria/Mientras recorres la vida.cho",
+    "Maria/Oh maria madre mia.cho",
+    "Maria/Quien sera la mujer.cho",
+    "Maria/Santa maria de la esperanza.cho",
+    "Maria/Silenciosa Mensajera.cho",
+    "Oracion/Alma de Cristo acordes Jésed canto eucarístico.cho",
+    "Oracion/PadreNuestro-misa melodica.cho",
+    "Pascua/A vencido el cordero.cho",
+    "Pascua/El peregrino de emaus.cho",
+    "Pascua/Himno pascual - separado.cho",
+    "Pascua/Himno pascual - separado.pdf",
+    "Pascua/Himno pascual.cho",
+    "Pascua/Jesus el buen pastor - Himno pascual.cho",
+    "Pascua/Jesus el buen pastor - Himno pascual.pdf",
+    "Pascua/Jesus el buen pastor.cho",
+    "Pascua/Resucitó el Señor · Seminario Pontificio Mayor de Santiago -TE llamare por tu nombre.cho",
+    "Pascua/este es el dia en que actuo el señor - pascua, entrada.cho",
+    "Pascua/resucito- kiko arguello.cho",
+    "Pentecostes-espiritu/Aleluya - Alejandro Mejía - separado.cho",
+    "Pentecostes-espiritu/Aleluya - Alejandro Mejía - separado.pdf",
+    "Pentecostes-espiritu/Danos, Señor, tu Espíritu - separado.cho",
+    "Pentecostes-espiritu/Danos, Señor, tu Espíritu - separado.pdf",
+    "Pentecostes-espiritu/El espiritu del señor.cho",
+    "Pentecostes-espiritu/El-Espíritu-del-Señor.cho",
+    "Pentecostes-espiritu/Entrada-secuencia pentecostes-Lourdes.cho",
+    "Pentecostes-espiritu/Entrada-secuencia pentecostes-Lourdes.pdf",
+    "Pentecostes-espiritu/Espiritu santo ven ven.cho",
+    "Pentecostes-espiritu/Gloria - himno litúrgico - separado.cho",
+    "Pentecostes-espiritu/Gloria - himno litúrgico - separado.pdf",
+    "Pentecostes-espiritu/Himno pascual - Pentecostés - separado.cho",
+    "Pentecostes-espiritu/Himno pascual - Pentecostés - separado.pdf",
+    "Pentecostes-espiritu/Secuencia pentecostes.cho",
+    "Pentecostes-espiritu/Señor ten piedad - misa melódica - separado.cho",
+    "Pentecostes-espiritu/Señor ten piedad - misa melódica - separado.pdf",
+    "Pentecostes-espiritu/Siempre es Pentecostés - Lourdes - separado.cho",
+    "Pentecostes-espiritu/Siempre es Pentecostés - Lourdes - separado.pdf",
+    "Pentecostes-espiritu/Todo te pertenece - Pentecostés - separado.cho",
+    "Pentecostes-espiritu/Todo te pertenece - Pentecostés - separado.pdf",
+    "Pentecostes-espiritu/siempre-es-pentecostes_compress.cho",
+    "Pentecostes-espiritu/siempre-es-pentecostes_compress.pdf",
+    "Piedad/IMG-20260208-WA0004.cho",
+    "Piedad/Senor-ten-piedad-con-acordes-de-la-misa-al-rededor-de-tu-mesa.cho",
+    "Piedad/Señor ten Piedad-Melodica-mejia.cho",
+    "Salmo/Salmo91-tu que habitas.cho",
+    "Vocacionales/Alza tus ojos - separado.cho",
+    "Vocacionales/Alza tus ojos - separado.pdf",
+    "Vocacionales/Amor verdadero - Ven espiritu.cho",
+    "Vocacionales/Amor verdadero - Ven espiritu.pdf",
+    "Vocacionales/Aqui estoy señor - Testigo.cho",
+    "Vocacionales/Aqui estoy señor - Testigo.pdf",
+    "Vocacionales/Cantando la alegria - Me acercare al altar.cho",
+    "Vocacionales/Cantando la alegria - Me acercare al altar.pdf",
+    "Vocacionales/Consolad - Grita mi nombre.cho",
+    "Vocacionales/Consolad - Grita mi nombre.pdf",
+    "Vocacionales/Descansa en dios - tu eres mi señor.cho",
+    "Vocacionales/Descansa en dios - tu eres mi señor.pdf",
+    "Vocacionales/En ti señor - Portones alzad los dinteles.cho",
+    "Vocacionales/En ti señor - Portones alzad los dinteles.pdf",
+    "Vocacionales/Getsemani - Sigue la luz.cho",
+    "Vocacionales/Getsemani - Sigue la luz.pdf",
+    "Vocacionales/Grita mi nombre - separado.cho",
+    "Vocacionales/Grita mi nombre - separado.pdf",
+    "Vocacionales/IMG-20260208-WA0005.cho",
+    "Vocacionales/La llamada - tocaste mis manos.cho",
+    "Vocacionales/La llamada - tocaste mis manos.pdf",
+    "Vocacionales/Lavatorio LAVA MIS PIES SEÑOR- Marcelo Cid.cho",
+    "Vocacionales/Maestro Bueno · Seminario Pontificio Mayor de Santiago- Te llmare por tu nombre.cho",
+    "Vocacionales/Me acercaré al altar - separado.cho",
+    "Vocacionales/Me acercaré al altar - separado.pdf",
+    "Vocacionales/Me has seducido.cho",
+    "Vocacionales/Padre, me pongo en tus manos - separado.cho",
+    "Vocacionales/Padre, me pongo en tus manos - separado.pdf",
+    "Vocacionales/Portones alzad los dinteles - separado.cho",
+    "Vocacionales/Portones alzad los dinteles - separado.pdf",
+    "Vocacionales/Quisiera ser tu cruz - padre me pongo en tus manos.cho",
+    "Vocacionales/Quisiera ser tu cruz - padre me pongo en tus manos.pdf",
+    "Vocacionales/Quisiera ser tu cruz.cho",
+    "Vocacionales/Screenshot 2025-05-17 171957.cho",
+    "Vocacionales/Screenshot 2025-05-17 172702.cho",
+    "Vocacionales/Servirte para siempre - alza tus ojos.cho",
+    "Vocacionales/Servirte para siempre - alza tus ojos.pdf",
+    "Vocacionales/Sigue la luz - separado.cho",
+    "Vocacionales/Sigue la luz - separado.pdf",
+    "Vocacionales/Testigo - separado.cho",
+    "Vocacionales/Testigo - separado.pdf",
+    "Vocacionales/Tocaste mis manos - separado.cho",
+    "Vocacionales/Tocaste mis manos - separado.pdf",
+    "Vocacionales/Tú eres mi Señor - separado.cho",
+    "Vocacionales/Tú eres mi Señor - separado.pdf",
+    "Vocacionales/Ven Espíritu - separado.cho",
+    "Vocacionales/Ven Espíritu - separado.pdf",
+    "Vocacionales/Yo soy el camino firme- Lorenzo González.cho",
+    "adoracion/Corpus Christi-El pan de vida-Jesed.cho",
+    "adoracion/Estas aqui.cho",
+    "adoracion/In persona christi.cho",
+    "adoracion/Oh victima inmolada.cho",
+    "adoracion/Te adoramos hostia divina.cho",
+    "adoracion/Vive Jesus.cho",
+    "adoracion/vayamos a la mesa - osvaldo catena.cho",
+    "adoracionCruz/Dios Mio por Qué Me Has Abandonado.cho",
+    "adoracionCruz/Postrado ante la cruz.cho",
+    "adoracionCruz/Pueblo mio francizco palazon.cho",
+    "adoracionCruz/Stabat Mater.cho",
+    "adoracionCruz/Tarde de viernes santo.cho",
+    "adoracionCruz/Tu cruz adoramos.cho",
+    "aspersion/Fuente bautizmal pbro. carmelo erdozain - aspersion.cho",
+    "cordero/Cordero chiapas, cordero y santo avedillo.cho",
+    "cordero/Cordero chiapas, cordero y santo avedillo.pdf",
+    "cordero/Cordero de Dios - misa de Avedillo - separado.cho",
+    "cordero/Cordero de Dios - misa de Avedillo - separado.pdf",
+    "cordero/Cordero-mejia-melodica.cho",
+    "cordero/Cordero.cho",
+    "cordero/Santo - misa de Avedillo - separado.cho",
+    "cordero/Santo - misa de Avedillo - separado.pdf",
+    "cuaresma/A ti levanto mis ojos - separado.cho",
+    "cuaresma/A ti levanto mis ojos - separado.pdf",
+    "cuaresma/Alma mia.cho",
+    "cuaresma/Cuaresma, Canto de entrada -Cesareo gabarain- Cantos de entrada y comunion 1989, Cuaresma Cumunion..cho",
+    "cuaresma/Entre tus manos.cho",
+    "cuaresma/Getsemani.cho",
+    "cuaresma/Lava mis pies.cho",
+    "cuaresma/Perdona a tu pueblo.cho",
+    "cuaresma/Perdona a tu pueblo.pdf",
+    "cuaresma/Perdón, oh Dios mío - separado.cho",
+    "cuaresma/Perdón, oh Dios mío - separado.pdf",
+    "cuaresma/Un Mandamiento nuevo.cho",
+    "cuaresma/a ti levanto mis ojos.cho",
+    "entrada/Adviento, Canto de Entrada, Pbro. Cesareo Gabaraín.cho",
+    "entrada/Alrededor de tu mesa, francisco palazon.cho",
+    "entrada/Celebramos la fe - Misa guelaguetza-entrada.cho",
+    "entrada/Como ciervo al agua va.cho",
+    "entrada/El señor es mi luz - Jesus amigo.cho",
+    "entrada/El señor es mi luz - Jesus amigo.pdf",
+    "entrada/IMG-20250706-WA0004.cho",
+    "entrada/IMG_20251226_112139.cho",
+    "entrada/Jerusalen ciudad santaa.cho",
+    "entrada/Jesús amigo - separado.cho",
+    "entrada/Jesús amigo - separado.pdf",
+    "entrada/Nosotros Hemos de Gloriarnos - Antonio Alcalde.cho",
+    "entrada/Que alegria cuando me dijeron.cho",
+    "entrada/Recibeme.cho",
+    "entrada/Venimos hoy a tu altar letra PDF.cho",
+    "entrada/Vienen con alegria.cho",
+    "entrada/a ti levanto mi alma PDF letra.cho",
+    "entrada/nos-has-llamado-al-desierto-letra-PDF.cho",
+    "entrada/nosotros hemos de gloriarnos.cho",
+    "entrada/portones alzad los dinteles.cho",
+    "navidad/A la roro ninio.cho",
+    "navidad/el tamborilero.cho",
+    "navidad/los peces en el rio.cho",
+    "navidad/vamos pastores vamos.cho",
+    "ofertorio/2e658ebf-b57a-4a97-b931-64c02bd6d631.cho",
+    "ofertorio/Bendito Seas Señor, Francisco Palazón.cho",
+    "ofertorio/IMG-20250706-WA0006.cho",
+    "ofertorio/Ven al Altar, Maité Sánchez.cho",
+    "ofertorio/Vino y pan.cho",
+    "ofertorio/bendito seas señor.cho",
+    "ofertorio/llevemos-al-senor-acordes-y-letra.cho",
+    "salida/yo tengo un amigo que me ama-popurri.cho",
+    "santo/Cordero - Ora pro nobis - separado.cho",
+    "santo/Cordero - Ora pro nobis - separado.pdf",
+    "santo/Cordero - San Bernardino - separado.cho",
+    "santo/Cordero - San Bernardino - separado.pdf",
+    "santo/Cordero - misa fácil - separado.cho",
+    "santo/Cordero - misa fácil - separado.pdf",
+    "santo/Santo - Alfonso luna - Tengo un amigo 2001.cho",
+    "santo/Santo - cordero san bernardino.cho",
+    "santo/Santo - cordero san bernardino.pdf",
+    "santo/Santo Alto.cho",
+    "santo/Santo cordero ora pro nobis.cho",
+    "santo/Santo cordero ora pro nobis.pdf",
+    "santo/Santo-cordero misa facil.cho",
+    "santo/Santo-cordero misa facil.pdf",
+    "santo/Santo-melodica-mejia.cho"
+  ],
+  "summary": {
+    "originalTitles": 227,
+    "originalPending": 207,
+    "previouslyReviewedPreserved": 20,
+    "splitReferences": 23,
+    "additionalTitles": 31,
+    "corrected": 69,
+    "needsAttention": 169
+  },
+  "limitations": "Revisión de estructura, lectura y recuperación de versos; no es una certificación de ejecución musical. Rojo incluye archivos ya separados cuyo texto o alineación aún no se pudo confirmar. No se implementaron conversión a notación inglesa, copia de acordes entre estrofas ni subida/reemplazo de referencias."
+}

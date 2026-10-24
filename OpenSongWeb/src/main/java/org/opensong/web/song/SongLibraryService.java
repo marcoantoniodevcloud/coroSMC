@@ -28,6 +28,8 @@ import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -98,6 +100,7 @@ public class SongLibraryService {
 
     public List<LibrarySong> listLibrary() {
         Set<String> reviewedSongs = readReviewedSongs();
+        Map<String, String> attentionNotes = readAttentionNotes();
         try (var paths = Files.walk(songsRoot)) {
             Map<String, LibraryGroup> groups = new LinkedHashMap<>();
             paths.filter(path -> Files.isRegularFile(path, LinkOption.NOFOLLOW_LINKS))
@@ -121,8 +124,13 @@ public class SongLibraryService {
                         group.files.add(new LibraryFile(relative, filename, ext, libraryKind(ext)));
                     });
             return groups.values().stream()
-                    .map(group -> new LibrarySong(group.files.get(0).path(), group.title,
-                            group.folder, List.copyOf(group.files), group.reviewed))
+                    .map(group -> {
+                        String notes = group.files.stream().map(file -> attentionNotes.get(file.path()))
+                                .filter(java.util.Objects::nonNull).findFirst().orElse("");
+                        return new LibrarySong(group.files.get(0).path(), group.title,
+                                group.folder, List.copyOf(group.files), group.reviewed,
+                                !group.reviewed && !notes.isBlank(), notes);
+                    })
                     .toList();
         } catch (IOException e) {
             throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
@@ -130,6 +138,30 @@ public class SongLibraryService {
         } catch (UncheckedIOException e) {
             throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
                     "No se pudo leer uno de los archivos de la biblioteca.", e.getCause());
+        }
+    }
+
+    private Map<String, String> readAttentionNotes() {
+        Path report = songsRoot.resolve("revision-cantos.json");
+        if (!Files.isRegularFile(report, LinkOption.NOFOLLOW_LINKS)) {
+            return Map.of();
+        }
+        try {
+            Map<String, String> notes = new LinkedHashMap<>();
+            var songs = new ObjectMapper().readTree(Files.readString(report, StandardCharsets.UTF_8))
+                    .path("songs");
+            for (var song : songs) {
+                if (song.path("needsAttention").asBoolean(false)) {
+                    String note = song.path("notes").asText("Requiere revisión manual.");
+                    for (var file : song.path("files")) {
+                        notes.put(file.asText(), note);
+                    }
+                }
+            }
+            return notes;
+        } catch (IOException e) {
+            throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "No se pudo leer el control revision-cantos.json.", e);
         }
     }
 
@@ -225,6 +257,43 @@ public class SongLibraryService {
         ChordProFile saved = saveChordProFile(new SaveChordProRequest(targetId, replacement, previousRevision));
         setSongReviewed(new ReviewSongRequest(request.path(), false));
         return saved;
+    }
+
+    public synchronized ChordProFile correctSong(CorrectSongRequest request) {
+        if (request == null || !"american-chords".equals(request.action())) {
+            throw badRequest("Selecciona una corrección válida.");
+        }
+        // Content-only requests preview unsaved editor text; path requests save one file.
+        if (request.path() == null) {
+            if (request.content() == null || request.content().length() > MAX_CHORDPRO_LENGTH) {
+                throw badRequest("No se recibió un contenido válido para corregir.");
+            }
+            String converted = ChordNotationCorrector.convert(request.content());
+            return new ChordProFile(null, converted, null);
+        }
+        ChordProFile current = getChordProFile(request.path());
+        if (!java.util.Objects.equals(current.revision(), request.revision())) {
+            throw new SongLibraryException(HttpStatus.CONFLICT,
+                    "El archivo cambió. Recarga el canto antes de corregir.");
+        }
+        String converted = ChordNotationCorrector.convert(current.content());
+        if (converted.equals(current.content())) return current;
+        Path path = resolveLibraryFile(request.path(), Set.of("cho", "pro"));
+        backupBeforeCorrection(path, request.path());
+        return saveChordProFile(new SaveChordProRequest(request.path(), converted, current.revision()));
+    }
+
+    private void backupBeforeCorrection(Path source, String relativePath) {
+        Path root = reviewStatusFile.getParent().resolve("correction-backups");
+        Path backup = root.resolve(relativePath + "." + java.util.UUID.randomUUID() + ".bak").normalize();
+        if (!backup.startsWith(root)) throw badRequest("No se pudo crear un respaldo seguro.");
+        try {
+            Files.createDirectories(backup.getParent());
+            Files.copy(source, backup);
+        } catch (IOException e) {
+            throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "No se pudo respaldar el canto; no se aplicó la corrección.", e);
+        }
     }
 
     public synchronized ChordProFile saveChordProFile(SaveChordProRequest request) {

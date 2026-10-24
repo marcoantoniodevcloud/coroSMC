@@ -32,7 +32,28 @@ Cada canto inicia pendiente y puede marcarse como revisado desde el editor, incl
 PDF o imagen. El estado se guarda en `review-status.txt`, junto a los datos locales de OpenSongWeb,
 sin modificar los archivos del cantoral. Las carpetas con cantos pendientes aparecen en amarillo;
 cuando todos los cantos de una carpeta están revisados, el indicador cambia a verde.
+Si la carpeta de cantos contiene `revision-cantos.json`, los casos con `needsAttention: true`
+aparecen con punto rojo y muestran la observación en el editor. Las carpetas también señalan
+si contienen casos rojos. Marcar un canto como revisado oculta el aviso; quitar ese estado
+vuelve a mostrarlo. El informe es un control de la auditoría, no una validación musical automática.
 `desktopRun` usa por defecto `app\src\main\assets\DefaultSongs` del repositorio, sin mover ni copiar sus archivos.
+
+## Correcciones
+
+**Corregir…**, en el editor o en cada canto, abre una lista de acciones ampliable.
+La primera acción convierte acordes a notación americana: Do/Re/Mi/Fa/Sol/La/Si →
+C/D/E/F/G/A/B, conservando variantes y bajos (por ejemplo, `Sol#m7` → `G#m7`,
+`Re/Fa#` → `D/F#`). Se convierten etiquetas entre corchetes y las directivas
+`key`, `define` y `chord`; la letra, los comentarios y otros metadatos se conservan.
+El resultado individual queda en el editor hasta pulsar **Guardar**.
+
+**Corregir todos…** procesa todos los archivos `.cho`/`.pro`, incluidos los ya
+revisados y los que no coincidan con la búsqueda actual. Guarda los cambios y
+respalda cada archivo modificado en `correction-backups`, en la carpeta de datos
+de OpenSongWeb. El lote comprueba la revisión de cada archivo antes de guardarlo,
+permite detenerse después del archivo actual e informa los errores por archivo.
+Los estados de revisión no cambian. Primero guarda o descarta cualquier edición
+pendiente para iniciar el lote.
 
 ## OCR_PROJECT
 
