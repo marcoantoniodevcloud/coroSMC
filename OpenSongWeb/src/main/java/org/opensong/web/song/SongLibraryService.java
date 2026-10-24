@@ -414,6 +414,93 @@ public class SongLibraryService {
         return new ChordProFile(request.path(), request.content(), revision(request.content()));
     }
 
+    public synchronized LibraryFile uploadMedia(String songId, String replacePath, String filename, byte[] content) {
+        if (content == null || content.length == 0 || content.length > 30 * 1024 * 1024) {
+            throw badRequest("Selecciona un archivo de hasta 30 MB.");
+        }
+        if (filename == null || filename.contains("/") || filename.contains("\\")) throw badRequest("Nombre de archivo inválido.");
+        String ext = extension(Path.of(filename));
+        Set<String> supported = Set.of("pdf", "png", "jpg", "jpeg", "webp");
+        if (!supported.contains(ext)) throw badRequest("Usa PDF, PNG, JPG o WebP.");
+        boolean valid = switch (ext) {
+            case "pdf" -> content.length >= 5 && new String(content, 0, 5, StandardCharsets.US_ASCII).equals("%PDF-");
+            case "png" -> content.length >= 8 && java.util.Arrays.equals(java.util.Arrays.copyOf(content, 8),
+                    new byte[]{(byte)137, 80, 78, 71, 13, 10, 26, 10});
+            case "jpg", "jpeg" -> content.length >= 3 && content[0] == (byte)255 && content[1] == (byte)216 && content[2] == (byte)255;
+            case "webp" -> content.length >= 12 && new String(content, 0, 4, StandardCharsets.US_ASCII).equals("RIFF")
+                    && new String(content, 8, 4, StandardCharsets.US_ASCII).equals("WEBP");
+            default -> false;
+        };
+        if (!valid) throw badRequest("El contenido no coincide con el formato del archivo.");
+        Path anchor = resolveLibraryFile(songId, Set.of("cho", "pro", "pdf", "png", "jpg", "jpeg", "webp"));
+        LibrarySong group = listLibrary().stream().filter(song -> song.files().stream()
+                .anyMatch(file -> file.path().equals(songId))).findFirst()
+                .orElseThrow(() -> new SongLibraryException(HttpStatus.NOT_FOUND, "Guarda primero el canto para adjuntar una referencia."));
+        Path target;
+        boolean replace = replacePath != null && !replacePath.isBlank();
+        if (replace) {
+            if (group.files().stream().noneMatch(file -> file.path().equals(replacePath))) {
+                throw badRequest("La referencia no pertenece a este canto.");
+            }
+            target = resolveLibraryFile(replacePath, supported);
+            String oldExt = extension(target);
+            if (!oldExt.equals(ext) && !(Set.of("jpg", "jpeg").contains(oldExt) && Set.of("jpg", "jpeg").contains(ext))) {
+                throw badRequest("Para reemplazar usa el mismo formato del archivo actual. Puedes subir otro formato como nueva referencia.");
+            }
+        } else {
+            target = anchor.resolveSibling(group.title() + "." + ext);
+            if (group.files().stream().anyMatch(file -> file.extension().equalsIgnoreCase(ext))
+                    || Files.exists(target, LinkOption.NOFOLLOW_LINKS)) {
+                throw new SongLibraryException(HttpStatus.CONFLICT, "Ya existe una referencia de este formato. Selecciónala y usa Reemplazar.");
+            }
+        }
+        String id = songsRoot.relativize(target).toString().replace('\\', '/');
+        // Validate the generated path and reject symbolic links before writing.
+        target = resolveLibraryFile(id, supported);
+        Set<String> previousReviews = readReviewedSongs();
+        Set<String> pendingReviews = new HashSet<>(previousReviews);
+        pendingReviews.remove(reviewKey(group.folder(), group.title()));
+        Path backup = null;
+        Path temp = null;
+        boolean written = false;
+        try {
+            if (replace) {
+                if (!Files.isRegularFile(target, LinkOption.NOFOLLOW_LINKS)) throw new IOException("Missing reference");
+                Path backupRoot = reviewStatusFile.getParent().resolve("media-backups");
+                backup = backupRoot.resolve(id + "." + java.util.UUID.randomUUID() + ".bak");
+                Files.createDirectories(backup.getParent());
+                Files.copy(target, backup);
+            }
+            temp = Files.createTempFile(target.getParent(), ".opensongweb-media-", ".tmp");
+            Files.write(temp, content);
+            if (replace) {
+                try {
+                    Files.move(temp, target, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+                } catch (AtomicMoveNotSupportedException ignored) {
+                    Files.move(temp, target, StandardCopyOption.REPLACE_EXISTING);
+                }
+            } else {
+                Files.move(temp, target);
+            }
+            written = true;
+            writeReviewedSongs(pendingReviews);
+        } catch (Exception failure) {
+            try {
+                if (written) {
+                    if (backup != null) Files.copy(backup, target, StandardCopyOption.REPLACE_EXISTING);
+                    else Files.deleteIfExists(target);
+                }
+            } catch (IOException rollback) {
+                failure.addSuppressed(rollback);
+                throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR, "No se completó la carga. Revisa el archivo; el respaldo está en media-backups.", failure);
+            }
+            throw new SongLibraryException(HttpStatus.INTERNAL_SERVER_ERROR, "No se pudo guardar la referencia. El archivo anterior se conserva.", failure);
+        } finally {
+            if (temp != null) try { Files.deleteIfExists(temp); } catch (IOException ignored) { }
+        }
+        return new LibraryFile(id, target.getFileName().toString(), extension(target), libraryKind(extension(target)));
+    }
+
     public byte[] getMedia(String id) {
         Path path = resolveLibraryFile(id, Set.of("pdf", "png", "jpg", "jpeg", "webp"));
         if (!Files.isRegularFile(path, LinkOption.NOFOLLOW_LINKS)) {

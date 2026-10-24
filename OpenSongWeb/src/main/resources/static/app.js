@@ -379,6 +379,8 @@ function setDirty(dirty) {
 function updateReviewButton() {
     const song = state.selectedSong;
     document.querySelector("#rename-song").disabled = state.ocrBusy || !song || song.files.length === 0;
+    document.querySelector("#upload-reference").disabled = state.ocrBusy || !song || song.files.length === 0;
+    document.querySelector("#replace-reference").disabled = state.ocrBusy || !song || !elements.referenceSelect.value;
     elements.review.disabled = state.ocrBusy || !song || song.files.length === 0;
     elements.review.classList.toggle("reviewed", Boolean(song?.reviewed));
     elements.review.textContent = song?.reviewed ? "✓ Revisado" : "○ Marcar revisado";
@@ -766,6 +768,7 @@ function renderReferenceOptions(song) {
         elements.referenceSelect.add(new Option("Sin referencias", ""));
         elements.referenceSelect.disabled = true;
         renderReference(null);
+        updateReviewButton();
         return;
     }
     for (const file of media) {
@@ -774,6 +777,7 @@ function renderReferenceOptions(song) {
     elements.referenceSelect.disabled = false;
     elements.referenceSelect.value = media[0].path;
     renderReference(media[0]);
+    updateReviewButton();
     updateOcrButton();
 }
 
@@ -863,7 +867,7 @@ function renderReference(file) {
         return;
     }
 
-    const source = `/api/library/media?path=${encodeURIComponent(file.path)}`;
+    const source = `/api/library/media?path=${encodeURIComponent(file.path)}&v=${Date.now()}`;
     if (file.kind === "image") {
         const image = document.createElement("img");
         image.className = "reference-image";
@@ -1228,3 +1232,74 @@ document.querySelector("#rename-song").addEventListener("click", async () => {
         renderSongList();
     }
 });
+
+
+let replacingReference = false;
+const referenceUploadInput = document.querySelector("#reference-upload-file");
+document.querySelector("#upload-reference").addEventListener("click", () => {
+    replacingReference = false;
+    referenceUploadInput.accept = ".pdf,.png,.jpg,.jpeg,.webp";
+    referenceUploadInput.click();
+});
+document.querySelector("#replace-reference").addEventListener("click", () => {
+    replacingReference = true;
+    const reference = state.selectedSong?.files.find(file => file.path === elements.referenceSelect.value);
+    referenceUploadInput.accept = reference ? (reference.extension === "jpg" || reference.extension === "jpeg" ? ".jpg,.jpeg" : `.${reference.extension}`) : ".pdf,.png,.jpg,.jpeg,.webp";
+    referenceUploadInput.click();
+});
+referenceUploadInput.addEventListener("change", () => {
+    const file = referenceUploadInput.files[0];
+    referenceUploadInput.value = "";
+    if (file) uploadReference(file, replacingReference);
+});
+elements.referenceSelect.addEventListener("change", updateReviewButton);
+const referencePanel = document.querySelector(".reference-panel");
+referencePanel.addEventListener("dragover", event => {
+    if (event.dataTransfer.types.includes("Files")) { event.preventDefault(); referencePanel.classList.add("upload-hover"); }
+});
+referencePanel.addEventListener("dragleave", event => {
+    if (!referencePanel.contains(event.relatedTarget)) referencePanel.classList.remove("upload-hover");
+});
+referencePanel.addEventListener("drop", event => {
+    event.preventDefault();
+    referencePanel.classList.remove("upload-hover");
+    if (event.dataTransfer.files.length !== 1) { showMessage("Arrastra un solo archivo a la vez.", true); return; }
+    uploadReference(event.dataTransfer.files[0], false);
+});
+async function uploadReference(file, replace) {
+    const song = state.selectedSong;
+    if (state.ocrBusy) return;
+    if (!song?.files.length) { showMessage("Crea y guarda primero el canto; después podrás adjuntar su referencia.", true); return; }
+    if (file.size === 0 || file.size > 30 * 1024 * 1024) { showMessage("Selecciona un archivo de hasta 30 MB.", true); return; }
+    const target = replace ? elements.referenceSelect.value : "";
+    if (replace && !target) return;
+    if (replace && !window.confirm(`¿Reemplazar ${target.split("/").pop()} por ${file.name}? Se conservará un respaldo y el canto quedará pendiente de revisión. La letra no se modifica.`)) return;
+    state.ocrBusy = true;
+    state.selectionVersion++;
+    updateReviewButton();
+    renderSongList();
+    showMessage("Subiendo referencia…");
+    try {
+        const params = new URLSearchParams({path: song.id, filename: file.name});
+        if (target) params.set("replace", target);
+        const uploaded = await request(`/api/library/media?${params}`, {
+            method: "POST", headers: {"Content-Type": "application/octet-stream"}, body: file
+        });
+        await refreshLibrary();
+        const current = state.songs.find(item => item.files.some(entry => entry.path === uploaded.path));
+        if (current) {
+            state.selectedSong = current;
+            state.selectedId = current.id;
+            renderReferenceOptions(current);
+            elements.referenceSelect.value = uploaded.path;
+            renderReference(uploaded);
+        }
+        showMessage(replace ? "Referencia reemplazada; respaldo guardado. La letra se conserva y el canto queda pendiente de revisión." : "Referencia añadida. El canto queda pendiente de revisión; puedes aplicar OCR cuando quieras.");
+    } catch (error) {
+        showMessage(error.message, true);
+    } finally {
+        state.ocrBusy = false;
+        updateReviewButton();
+        renderSongList();
+    }
+}

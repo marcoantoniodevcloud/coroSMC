@@ -108,3 +108,9 @@ Desde la raíz del repositorio:
 Selecciona un canto y pulsa **Renombrar archivos…**. Escribe el nombre sin extensión; se renombran juntos todos los archivos de ese canto en su carpeta (letra, PDF e imágenes), conservando las extensiones, el contenido, el estado de revisión y los enlaces del control de observaciones. El título interno de la letra no se modifica. Primero guarda o descarta los cambios del editor. Se rechazan nombres inválidos y colisiones con otro canto; si una operación falla se intenta restaurar los nombres y metadatos originales.
 
 Android ya tiene un campo de nombre de archivo en el editor. Ese flujo no ofrece las mismas garantías para los archivos asociados, las anotaciones y el estado de revisión, por lo que esta acción conjunta se implementa por ahora solo en web.
+
+### Subir o reemplazar referencias
+
+En el panel **Referencia**, usa **Subir imagen o PDF…** o arrastra un archivo para añadirlo al canto seleccionado. Para un canto nuevo, primero pulsa Guardar. Se admiten PDF, PNG, JPG/JPEG y WebP, hasta 30 MB. El archivo adopta el nombre del canto y conserva su formato.
+
+Selecciona una referencia y pulsa **Reemplazar seleccionado…** para sustituirla por un archivo del mismo formato (JPG/JPEG son intercambiables). El original se respalda en `media-backups` dentro del directorio de datos de OpenSongWeb. Para otro formato, usa Subir como referencia adicional. No se sobrescribe una referencia existente mediante Subir. Las letras no cambian ni se ejecuta OCR automáticamente; el canto queda pendiente de revisión.

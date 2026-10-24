@@ -31,6 +31,84 @@ class SongLibraryServiceTest {
     }
 
     @Test
+    void uploadsAndReplacesBinaryReferencesThroughHttpController() throws Exception {
+        Files.writeString(temporaryDirectory.resolve("Songs/Canto.cho"), "Letra");
+        var http = org.springframework.test.web.servlet.setup.MockMvcBuilders
+                .standaloneSetup(new org.opensong.web.api.SongController(library))
+                .setControllerAdvice(new org.opensong.web.api.ApiExceptionHandler()).build();
+        byte[] original = "%PDF-1.4 original".getBytes(StandardCharsets.US_ASCII);
+        http.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post("/api/library/media")
+                .param("path", "Canto.cho").param("filename", "scan.pdf")
+                .contentType("application/octet-stream").content(original))
+                .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.status().isOk())
+                .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath("$.path").value("Canto.pdf"));
+        byte[] replacement = "%PDF-1.7 replacement".getBytes(StandardCharsets.US_ASCII);
+        http.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post("/api/library/media")
+                .param("path", "Canto.cho").param("filename", "crop.pdf").param("replace", "Canto.pdf")
+                .contentType("application/octet-stream").content(replacement))
+                .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.status().isOk());
+        http.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/api/library/media").param("path", "Canto.pdf"))
+                .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.content().bytes(replacement));
+        http.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post("/api/library/media")
+                .param("path", "Canto.cho").param("filename", "fake.png")
+                .contentType("application/octet-stream").content(original))
+                .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    @Test
+    void uploadsReferenceAndReplacesWithBackupWithoutChangingLyrics() throws Exception {
+        Path songs = temporaryDirectory.resolve("Songs");
+        Files.writeString(songs.resolve("Canto.cho"), "[C]Letra original");
+        library.setSongReviewed(new ReviewSongRequest("Canto.cho", true));
+        byte[] original = "%PDF-1.4 original".getBytes(StandardCharsets.US_ASCII);
+        LibraryFile file = library.uploadMedia("Canto.cho", null, "mi documento.pdf", original);
+        assertEquals("Canto.pdf", file.path());
+        assertEquals(2, library.listLibrary().getFirst().files().size());
+        assertFalse(library.listLibrary().getFirst().reviewed());
+        assertThrows(SongLibraryException.class,
+                () -> library.uploadMedia("Canto.cho", null, "otra.pdf", original));
+        byte[] replacement = "%PDF-1.7 replacement".getBytes(StandardCharsets.US_ASCII);
+        library.uploadMedia("Canto.cho", "Canto.pdf", "recortado.pdf", replacement);
+        assertEquals("%PDF-1.7 replacement", Files.readString(songs.resolve("Canto.pdf")));
+        assertEquals("[C]Letra original", Files.readString(songs.resolve("Canto.cho")));
+        try (var paths = Files.walk(temporaryDirectory.resolve("media-backups"))) {
+            List<Path> backups = paths.filter(Files::isRegularFile).toList();
+            assertEquals(1, backups.size());
+            assertEquals("%PDF-1.4 original", Files.readString(backups.getFirst()));
+        }
+    }
+
+    @Test
+    void rejectsInvalidMediaAndReplacementOfAnotherSong() throws Exception {
+        Path songs = temporaryDirectory.resolve("Songs");
+        Files.writeString(songs.resolve("Canto.cho"), "Letra");
+        Files.writeString(songs.resolve("Otro.pdf"), "%PDF-1.4 original");
+        byte[] pdf = "%PDF-1.7 test".getBytes(StandardCharsets.US_ASCII);
+        assertThrows(SongLibraryException.class, () -> library.uploadMedia("Canto.cho", null, "fake.png", pdf));
+        assertThrows(SongLibraryException.class, () -> library.uploadMedia("Canto.cho", null, "../test.pdf", pdf));
+        assertThrows(SongLibraryException.class, () -> library.uploadMedia("Canto.cho", "Otro.pdf", "test.pdf", pdf));
+        assertThrows(SongLibraryException.class, () -> library.uploadMedia("Canto.cho", null, "test.pdf", new byte[0]));
+        assertThrows(SongLibraryException.class, () -> library.uploadMedia("missing.cho", null, "test.pdf", pdf));
+        assertEquals("%PDF-1.4 original", Files.readString(songs.resolve("Otro.pdf")));
+        assertFalse(Files.exists(songs.resolve("Canto.pdf")));
+    }
+
+    @Test
+    void acceptsSupportedImageSignaturesAndRejectsWrongReplacementFormat() throws Exception {
+        Path songs = temporaryDirectory.resolve("Songs");
+        Files.writeString(songs.resolve("Canto.cho"), "Letra");
+        byte[] png = new byte[]{(byte)137, 80, 78, 71, 13, 10, 26, 10, 0};
+        library.uploadMedia("Canto.cho", null, "scan.png", png);
+        library.uploadMedia("Canto.cho", "Canto.png", "crop.png", png);
+        byte[] jpg = new byte[]{(byte)255, (byte)216, (byte)255, 0};
+        assertThrows(SongLibraryException.class, () -> library.uploadMedia("Canto.cho", "Canto.png", "crop.jpg", jpg));
+        library.uploadMedia("Canto.cho", null, "scan.jpg", jpg);
+        library.uploadMedia("Canto.cho", "Canto.jpg", "scan.jpeg", jpg);
+        library.uploadMedia("Canto.cho", null, "scan.webp", "RIFF0000WEBPtest".getBytes(StandardCharsets.US_ASCII));
+        assertEquals(4, library.listLibrary().getFirst().files().size());
+    }
+
+    @Test
     void renamesAllCompanionsAndPreservesReviewNotesAndContent() throws Exception {
         Path songs = temporaryDirectory.resolve("Songs");
         Files.createDirectories(songs.resolve("Entrada"));

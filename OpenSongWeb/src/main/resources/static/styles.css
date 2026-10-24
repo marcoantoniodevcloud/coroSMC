@@ -1196,3 +1196,7 @@ h1 {
         min-height: 0;
     }
 }
+
+.reference-upload-actions { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px; }
+.reference-upload-actions small { width: 100%; }
+.reference-panel.upload-hover { outline: 3px solid var(--accent, #39856c); outline-offset: -3px; }

@@ -164,6 +164,12 @@
                     <option value="">Sin referencias</option>
                 </select>
             </header>
+            <div class="reference-upload-actions">
+                <button id="upload-reference" type="button" disabled>Subir imagen o PDF…</button>
+                <button id="replace-reference" type="button" disabled>Reemplazar seleccionado…</button>
+                <input id="reference-upload-file" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp" hidden>
+                <small>Hasta 30 MB. También puedes arrastrar un archivo aquí para añadirlo.</small>
+            </div>
             <div id="reference-viewer" class="reference-viewer">
                 <div class="reference-empty">Las imágenes y PDF relacionados se mostrarán aquí.</div>
             </div>

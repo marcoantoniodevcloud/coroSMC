@@ -75,6 +75,13 @@ public class SongController {
         return songLibrary.renameSong(request);
     }
 
+    @PostMapping(value = "/library/media", consumes = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public org.opensong.web.song.LibraryFile uploadMedia(@RequestParam String path,
+            @RequestParam String filename, @RequestParam(required = false) String replace,
+            @RequestBody byte[] content) {
+        return songLibrary.uploadMedia(path, replace, filename, content);
+    }
+
     @GetMapping("/library/media")
     public ResponseEntity<byte[]> getMedia(@RequestParam String path) {
         String extension = path.substring(path.lastIndexOf('.') + 1).toLowerCase(java.util.Locale.ROOT);
