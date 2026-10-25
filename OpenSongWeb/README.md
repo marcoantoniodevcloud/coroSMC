@@ -114,3 +114,9 @@ Android ya tiene un campo de nombre de archivo en el editor. Ese flujo no ofrece
 En el panel **Referencia**, usa **Subir imagen o PDF…** o arrastra un archivo para añadirlo al canto seleccionado. Para un canto nuevo, primero pulsa Guardar. Se admiten PDF, PNG, JPG/JPEG y WebP, hasta 30 MB. El archivo adopta el nombre del canto y conserva su formato.
 
 Selecciona una referencia y pulsa **Reemplazar seleccionado…** para sustituirla por un archivo del mismo formato (JPG/JPEG son intercambiables). El original se respalda en `media-backups` dentro del directorio de datos de OpenSongWeb. Para otro formato, usa Subir como referencia adicional. No se sobrescribe una referencia existente mediante Subir. Las letras no cambian ni se ejecuta OCR automáticamente; el canto queda pendiente de revisión.
+
+### Prueba de melodía en ChordPro
+
+En Vista previa, **Probar ejemplo de melodía** abre Entrada de Misa Guelaguetza como borrador. Los comentarios `melodia:` inmediatamente posteriores al verso incluyen notas ancladas mediante `<nota>`. El selector permite verlas debajo de la letra, ocultarlas o mostrarlas en un panel separado; Acordes controla la otra capa. Es una extensión propia dentro de comentarios ChordPro. La transcripción y la alineación del ejemplo son aproximadas. Véase `../docs/pruebas-melodia/README.md` para la convención y las limitaciones.
+
+La vista de cantos comparte ahora el motor y CSS con Android en `../shared/song-view`; la descripción de alcance y diferencias está en `../docs/HOMOLOGACION_WEB_ANDROID.md`. Las pruebas JavaScript se ejecutan con `node --test src/test/js/melody.test.cjs` desde OpenSongWeb.

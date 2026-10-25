@@ -11,6 +11,7 @@ if (localPropsFile.exists()) {
 }
 
 android {
+    sourceSets.main.assets.srcDir("../shared")
     namespace = "com.garethevans.church.opensongtablet"
     compileSdk = 36
 

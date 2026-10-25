@@ -490,17 +490,25 @@ public class ProcessSong {
     }
 
     public String fixLineBreaksAndSlashes(String s) {
-        return s.replace("\r\n", "\n").
+        String normalized = s.replace("\r\n", "\n").
                 replace("\r", "\n").
                 replace("\n\n\n", "\n\n").
                 replace("&quot;", "\"").
                 replace("\\'", "'").
                 replace("&quot;", "\"").
-                replace("<", "(").
-                replace(">", ")").
+
                 replace("&#39;", "'").
                 replace("\t", "    ").
                 replace("\\'", "'");
+        StringBuilder output = new StringBuilder();
+        String[] normalizedLines = normalized.split("\\n", -1);
+        for (int index = 0; index < normalizedLines.length; index++) {
+            String line = normalizedLines[index];
+            if (index > 0) output.append("\n");
+            boolean melody = line.trim().matches("(?i)(?:\\{(?:comment|comments|c):\\s*|;)melodia:.*");
+            output.append(melody ? line : line.replace("<", "(").replace(">", ")"));
+        }
+        return output.toString();
     }
 
     private String fixWordStretch(String s) {

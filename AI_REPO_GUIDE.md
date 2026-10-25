@@ -4,6 +4,9 @@ Este documento resume la estructura y los puntos de entrada observados en el rep
 
 ## Resumen
 
+- Vista de letra/acordes/melodía: `shared/song-view` contiene JS/CSS empaquetados por Android y web. Android accede desde `UnifiedSongView` en interpretación; web llama `Melody.renderSong`. Ver `docs/HOMOLOGACION_WEB_ANDROID.md` para alcance, validación y diferencias restantes.
+
+
 - Correcciones/OCR Android: `songprocessing/ChordNotationCorrector` convierte ChordPro y filas OpenSong; `SongCorrections` ejecuta el lote con respaldos. `pdf/OcrChordLayout` asocia coordenadas ML Kit a ChordPro, utilizado por OCR individual y por lotes. `songmenu/SongReviewStatus` persiste revisado y consulta observaciones de `DefaultSongs/revision-cantos.json`; ese JSON no se instala como canto. Ver `docs/ANDROID_CORRECCIONES_OCR.md` para uso y diferencias con el OCR Python de OpenSongWeb.
 
 - OpenSong es una aplicacion Android para gestionar canciones, letras/acordes y conjuntos (sets), y para usarlos en modos de interpretacion y presentacion.

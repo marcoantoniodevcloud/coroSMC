@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="song-view.css">
+<style>
+*{box-sizing:border-box}body{margin:0;padding:12px;background:var(--song-background,#faf8f5);color:var(--song-text,#222);font-family:monospace;font-size:18px;line-height:1.55}
+header{position:sticky;top:0;z-index:2;background:var(--song-background,#faf8f5);padding:8px 0;border-bottom:1px solid #8885}
+h1{font:600 20px system-ui;margin:4px 0}.melody-controls{font-family:system-ui}select,button{padding:8px;border-radius:8px;background:var(--song-background,#fff);color:inherit;border:1px solid #8888}
+#preview{overflow-x:auto}.separate-melody{max-height:none;margin-top:12px} .song-sheet{margin-top:12px}.preview-lyrics{color:var(--song-text)}
+</style></head><body>
+<header><h1 id="title"></h1><div class="melody-controls">
+<label><input id="chords" type="checkbox" checked> <span id="chords-label">Acordes</span></label>
+<label><span id="melody-label">Melodía</span> <select id="mode"><option value="inline">Debajo de la letra</option><option value="off">Oculta</option><option value="separate">Panel separado</option></select></label>
+<label><span id="size-label">Tamaño</span> <select id="size"><option value="0.85">85%</option><option value="1" selected>100%</option><option value="1.2">120%</option><option value="1.5">150%</option></select></label>
+</div></header>
+<main id="sheet" class="song-sheet"><div id="preview"></div><aside id="separate" class="separate-melody" hidden></aside></main>
+<script src="melody.js"></script><script src="view.js"></script></body></html>

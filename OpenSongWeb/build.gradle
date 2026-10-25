@@ -73,3 +73,11 @@ tasks.register('desktopRun', JavaExec) {
 tasks.named('bootRun') {
     dependsOn tasks.named('installOcrRequirements')
 }
+
+// Both clients package exactly the same ChordPro view engine.
+tasks.named("processResources") {
+    from("../shared/song-view") {
+        include "melody.js", "song-view.css"
+        into "static"
+    }
+}

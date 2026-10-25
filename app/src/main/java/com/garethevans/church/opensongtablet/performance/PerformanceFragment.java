@@ -92,6 +92,7 @@ public class PerformanceFragment extends Fragment {
     private final Runnable dealWithExtraStuffOnceSettledRunnable = this::dealWithExtraStuffOnceSettled;
     private String mainfoldername="", mode_performance="", mode_presenter="", mode_stage="", mode_hybrid="",
             not_allowed="", image_string="", nearby_large_file_string="";
+    private android.app.Dialog unifiedSongDialog;
     private int sendSongDelay = 0;
     @SuppressWarnings("FieldCanBeLocal")
     // GE - hidden this option, but reserving the right to reinstate even just for me
@@ -180,6 +181,7 @@ public class PerformanceFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if (unifiedSongDialog != null) { unifiedSongDialog.dismiss(); unifiedSongDialog = null; }
         myView = null;
         stickyPopUp = null;
         nearbyAlertPopUp = null;
@@ -194,6 +196,10 @@ public class PerformanceFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         myView = ModePerformanceBinding.inflate(inflater, container, false);
+        myView.unifiedSongView.setOnClickListener(view -> {
+            if (getContext() != null) unifiedSongDialog =
+                    com.garethevans.church.opensongtablet.songprocessing.UnifiedSongView.show(getContext(), mainActivityInterface);
+        });
         prepareStrings();
 
         mainActivityInterface.updateFragment("updateSongMenuSortTitles",this,null);

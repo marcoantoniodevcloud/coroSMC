@@ -1,5 +1,5 @@
-const CACHE_NAME = "opensongweb-shell-v6";
-const APP_SHELL = ["/", "/styles.css", "/app.js", "/manifest.webmanifest", "/icons/opensongweb.svg"];
+const CACHE_NAME = "opensongweb-shell-v8";
+const APP_SHELL = ["/", "/styles.css", "/app.js", "/melody.js", "/song-view.css", "/manifest.webmanifest", "/icons/opensongweb.svg"];
 
 self.addEventListener("install", event => {
     event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)));

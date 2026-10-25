@@ -564,99 +564,7 @@ async function runBatchOcr() {
 }
 
 function renderChordProPreview(content) {
-    elements.preview.replaceChildren();
-    if (!content.trim()) {
-        const empty = document.createElement("div");
-        empty.className = "preview-empty";
-        empty.textContent = "Escribe la letra y agrega acordes entre corchetes, por ejemplo [G].";
-        elements.preview.append(empty);
-        return;
-    }
-
-    const metadata = new Set([
-        "title", "t", "subtitle", "artist", "author", "composer", "lyricist",
-        "copyright", "album", "year", "key", "time", "tempo", "capo", "duration",
-        "ccli", "language", "meta"
-    ]);
-    const sections = new Map([
-        ["start_of_chorus", "CORO"], ["soc", "CORO"],
-        ["start_of_verse", "ESTROFA"], ["sov", "ESTROFA"],
-        ["start_of_bridge", "PUENTE"], ["sob", "PUENTE"],
-        ["start_of_tab", "TAB"], ["sot", "TAB"],
-        ["start_of_grid", "ACORDES"], ["sog", "ACORDES"]
-    ]);
-
-    const addTextLine = (className, text) => {
-        const line = document.createElement("div");
-        line.className = className;
-        line.textContent = text;
-        elements.preview.append(line);
-    };
-
-    for (const rawLine of content.replace(/\r\n?/g, "\n").split("\n")) {
-        const trimmedLine = rawLine.trim();
-        if (!trimmedLine) {
-            const blank = document.createElement("div");
-            blank.className = "preview-blank";
-            blank.setAttribute("aria-hidden", "true");
-            elements.preview.append(blank);
-            continue;
-        }
-
-        const directive = trimmedLine.match(/^\{([a-z_]+)(?::\s*([^}]*))?\}$/i);
-        if (directive) {
-            const name = directive[1].toLowerCase();
-            const value = directive[2]?.trim() || "";
-            if (metadata.has(name) || name.startsWith("end_of_")
-                || ["eoc", "eov", "eob", "eot", "eog", "new_page", "np"].includes(name)) {
-                continue;
-            }
-            const section = sections.get(name);
-            if (section) {
-                addTextLine("preview-section", section);
-            } else if (name === "comment" || name === "c") {
-                if (value) {
-                    addTextLine("preview-comment", value);
-                }
-            } else {
-                addTextLine("preview-comment", value || name.replaceAll("_", " "));
-            }
-            continue;
-        }
-
-        const lyric = [];
-        const chords = [];
-        const chordPattern = /\[([^\]]+)]/g;
-        let lastIndex = 0;
-        let lyricLength = 0;
-        let match;
-        while ((match = chordPattern.exec(rawLine)) !== null) {
-            const text = rawLine.slice(lastIndex, match.index);
-            lyric.push(text);
-            lyricLength += text.length;
-            chords.push({ position: lyricLength, label: match[1].trim() });
-            lastIndex = match.index + match[0].length;
-        }
-        lyric.push(rawLine.slice(lastIndex));
-        const lyricText = lyric.join("");
-
-        const line = document.createElement("div");
-        line.className = "preview-line";
-        const chordRow = document.createElement("div");
-        chordRow.className = "preview-chords";
-        for (const chord of chords) {
-            const label = document.createElement("span");
-            label.className = "preview-chord";
-            label.style.left = `${chord.position}ch`;
-            label.textContent = chord.label;
-            chordRow.append(label);
-        }
-        const lyricRow = document.createElement("div");
-        lyricRow.className = "preview-lyrics";
-        lyricRow.textContent = lyricText || "\u00a0";
-        line.append(chordRow, lyricRow);
-        elements.preview.append(line);
-    }
+    Melody.renderSong(document, content, elements.preview, document.querySelector("#separate-melody"));
 }
 
 async function reloadCurrentFile() {
@@ -1075,6 +983,7 @@ function createSong() {
     elements.editorFolder.textContent = folder || "Biblioteca principal";
     elements.chordPro.value = "";
     elements.previewTitle.textContent = title;
+    elements.referenceTitle.textContent = title;
     renderChordProPreview("");
     elements.editorWrap.hidden = false;
     elements.emptyEditor.hidden = true;
@@ -1303,3 +1212,56 @@ async function uploadReference(file, replace) {
         renderSongList();
     }
 }
+
+
+function updateMelodyView() {
+    const panel = document.querySelector(".preview-panel");
+    const mode = document.querySelector("#melody-view").value;
+    const chords = document.querySelector("#show-chords").checked;
+    const size = document.querySelector("#song-view-size").value;
+    const theme = document.querySelector("#song-view-theme").value;
+    panel.classList.toggle("hide-chords", !chords);
+    panel.classList.toggle("hide-melody", mode !== "inline");
+    document.querySelector("#separate-melody").hidden = mode !== "separate";
+    elements.preview.classList.add("song-sheet");
+    const colors = theme === "dark" ? ["#191919", "#f0f0f0", "#f3c979", "#98d8f0"]
+        : ["#fffdf8", "#202a35", "#245c76", "#795434"];
+    for (const [index, name] of ["background", "text", "chord", "melody"].entries()) panel.style.setProperty(`--song-${name}`, colors[index]);
+    elements.preview.style.fontSize = `${size}px`;
+    document.querySelector("#separate-melody").style.fontSize = `${size}px`;
+    try { localStorage.setItem("song-view-web", JSON.stringify({ mode, chords, size, theme })); } catch (_) {}
+}
+try {
+    const prefs = JSON.parse(localStorage.getItem("song-view-web") || "null");
+    if (prefs) {
+        if (["inline","off","separate"].includes(prefs.mode)) document.querySelector("#melody-view").value = prefs.mode;
+        document.querySelector("#show-chords").checked = prefs.chords !== false;
+        if (["14","18","20","24"].includes(prefs.size)) document.querySelector("#song-view-size").value = prefs.size;
+        if (["mobile","dark"].includes(prefs.theme)) document.querySelector("#song-view-theme").value = prefs.theme;
+    }
+} catch (_) {}
+for (const selector of ["#melody-view", "#show-chords", "#song-view-size", "#song-view-theme"]) document.querySelector(selector).addEventListener("change", updateMelodyView);
+updateMelodyView();
+
+
+document.querySelector("#load-melody-example").addEventListener("click", async () => {
+    if (state.ocrBusy || !hasUnsavedChanges()) return;
+    try {
+        const response = await fetch("/examples/misa-guelaguetza-entrada.cho");
+        if (!response.ok) throw new Error("No se pudo cargar el ejemplo de melodía.");
+        const content = await response.text();
+        elements.newSongTitle.value = "Entrada - Misa Guelaguetza (prueba)";
+        if (![...elements.newSongFolder.options].some(option => option.value === "")) {
+            elements.newSongFolder.add(new Option("Biblioteca principal", ""));
+        }
+        elements.newSongFolder.value = "";
+        createSong();
+        elements.chordPro.value = content;
+        renderChordProPreview(content);
+        renderLineNumbers();
+        setDirty(true);
+        showMessage("Ejemplo abierto sin guardar. Las notas se transcribieron de la imagen; su alineación es aproximada y debe revisarse. La estrofa 3 no incluye melodía en el original.");
+    } catch (error) {
+        showMessage(error.message, true);
+    }
+});

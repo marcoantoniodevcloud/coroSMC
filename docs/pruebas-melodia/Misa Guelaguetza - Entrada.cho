@@ -1,0 +1,43 @@
+{title: Entrada}
+{subtitle: Misa Guelaguetza}
+{key: G}
+{comment: Prueba de melodía textual. Anclajes aproximados según la imagen; no es una partitura ni indica ritmo u octavas.}
+{start_of_chorus}
+[G]CELEBRAMOS LA FE EN EL SEÑOR
+{comment: melodia: <si>CE<do>LE<re>BRA<mi>MOS <fa#>LA <sol>FE <fa#>EN <mi>EL <re>SEÑOR}
+SIEMPRE [D7]UNIDOS EN COMUNI[G]DAD
+{comment: melodia: <la>SIEMPRE <si>UNI<do>DO<do>S <re>EN <mi>COMU<re>NI<do#>DA<re>D}
+SOMOS HIJOS DE UN [C]PADRE CO[G]MÚN
+{comment: melodia: <si>SO<si>MOS <si>HIJOS <sol>DE <re>UN <do>PA<si>DRE <la>CO<si>MÚN}
+TESTI[D7]MONIO DE FRATERNI[G]DAD.
+{comment: melodia: <la>TES<si>TI<do>MO<do>NIO <re>DE <mi>FRA<re>TER<do#>NI<re>DAD.}
+{end_of_chorus}
+
+{start_of_verse: 1}
+[G]1.- En esta fiesta pascual
+{comment: melodia: 1.- En <sol>es<sol>ta <sol>fies<sol>ta <fa#>pas<mi>cu<sol>al}
+Quiero sentir tu [D7]presencia Se[G]ñor
+{comment: melodia: <sol>Quie<sol>ro <sol>sen<sol>tir <la>tu <si>pre<re>sen<si>cia <la>Se<sol>ñor}
+[Em]Quiero escuchar tu palabra y ver[Am]dad
+{comment: melodia: <sol>Quie<fa#>ro <mi>escuchar <sol>tu <fa#>pa<mi>la<sol>bra <fa#>y <mi>ver<do>dad}
+[D7]Abro mi ser a tu gracia y a[G]mor.
+{comment: melodia: <do>A<do>bro <re>mi <fa#>ser <mi>a <re>tu <do>gra<si>cia <do>y <re>amor.}
+{end_of_verse}
+
+{start_of_verse: 2}
+[G]2.- Todo este pueblo de paz
+{comment: melodia: 2.- <sol ···>Todo este pueblo <fa#>de <mi>pa<sol>z}
+Es peregrino e i[D7]glesia de [G]fe
+{comment: melodia: <sol>Es <sol>pe<sol>re<sol>grino <la>e <si>i<re>gle<si>sia <la>de <sol>fe}
+[Em]Es caminante y vive tu a[Am]mor
+{comment: melodia: <sol>Es <fa#>cami<mi>nante <sol>y <fa#>vi<mi>ve <sol>tu <fa#>a<mi>mo<do>r}
+Se a[D7]cerca a ti, nuestra fuente de [G]vida.
+{comment: melodia: <do>Se <do>a<re>cerca <sol>a <mi>ti, <re>nuestra <do>fuen<si>te <do>de <re>vida.}
+{end_of_verse}
+
+{start_of_verse: 3}
+[G]3.- Esta es la puerta del Padre
+Que lleva a la [D7]felici[G]dad
+[Em]Eucaristía es dar gracias a [Am]Dios
+[D7]Compartir el amor al herma[G]no.
+{end_of_verse}

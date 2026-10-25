@@ -1,0 +1,20 @@
+{title: Aleluya}
+{subtitle: Misa Guelaguetza}
+{key: G}
+{comment: Melodía transcrita de la imagen. Alineación aproximada pendiente de revisión.}
+
+{comment: Intro. Se conservan los superíndices 3 de la fuente sin asignarles otra octava.}
+[G]Intro 1
+{comment: melodia: <re si sol³ re si sol³>Intro 1}
+[C]Intro 2
+{comment: melodia: <sol mi do sol mi do>Intro 2}
+[D7]Intro [G]3
+{comment: melodia: <re la fa#³ re la fa#³ sol³>Intro 3}
+
+[G]ALELUYA [Em]ALELUYA, [D7]ALE[G]LUYA (2)
+{comment: melodia: <sol>A<sol>LE<la>LU<si>YA <si>ALE<la>LU<sol>YA, <la>ALE<sol>LU<fa#>YA <sol>(2)}
+
+[G]Cristo sube a las al[Em]turas
+{comment: melodia: <re>Cris<re>to <re>sube <re>a <mi>las <fa#>al<sol>tu<mi>ras}
+[Am]Cristo reina en no[D7]sotros.
+{comment: melodia: <la>Cris<la>to <la>rei<la>na <la>en <sol>no<si>so<la>tros.}

@@ -8,6 +8,7 @@
     <link rel="manifest" href="/manifest.webmanifest">
     <link rel="icon" href="/icons/opensongweb.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/song-view.css">
 </head>
 <body>
 <div class="app-shell">
@@ -146,9 +147,21 @@
                 </div>
                 <span class="preview-live"><i></i> En vivo</span>
             </header>
+            <div class="melody-controls">
+                <button id="load-melody-example" type="button">Probar ejemplo de melodía</button>
+                <label><input id="show-chords" type="checkbox" checked> Acordes</label>
+                <label>Melodía <select id="melody-view">
+                    <option value="inline">Debajo de la letra</option>
+                    <option value="off">Oculta</option>
+                    <option value="separate">Panel separado</option>
+                </select></label>
+                <label>Tamaño <select id="song-view-size"><option value="14">14</option><option value="18" selected>18</option><option value="20">20</option><option value="24">24</option></select></label>
+                <label>Hoja <select id="song-view-theme"><option value="mobile">Clara</option><option value="dark">Oscura</option></select></label>
+            </div>
             <div id="chordpro-preview" class="chordpro-preview" aria-label="Renderizado de acordes y letra">
                 <div class="preview-empty">La letra con los acordes aparecerá aquí mientras editas.</div>
             </div>
+            <aside id="separate-melody" class="separate-melody" aria-label="Melodía por verso" hidden></aside>
         </section>
 
         <div class="panel-splitter" role="separator" aria-orientation="vertical"
@@ -201,6 +214,7 @@
         </div>
     </form>
 </dialog>
+<script src="/melody.js" defer></script>
 <script src="/app.js" defer></script>
 </body>
 </html>

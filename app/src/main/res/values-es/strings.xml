@@ -1591,4 +1591,10 @@
     <string name="ocr_no_text">No se pudo reconocer texto. El original se conserva.</string>
     <string name="mark_song_reviewed">Marcar como revisado</string>
     <string name="mark_song_pending">Marcar como pendiente de revisión</string>
+    <string name="song_view_title">Letra / acordes / melodía</string>
+    <string name="song_view_melody">Melodía</string>
+    <string name="song_view_size">Tamaño</string>
+    <string name="song_view_inline">Debajo de la letra</string>
+    <string name="song_view_hidden">Oculta</string>
+    <string name="song_view_separate">Panel separado</string>
 </resources>

@@ -1992,4 +1992,10 @@
     <string name="song_review_attention">Needs review</string>
     <string name="ocr_layout_engine">OCR with chord positions</string>
     <string name="ocr_no_text">No text could be recognized. The original is preserved.</string>
+    <string name="song_view_title">Lyrics / chords / melody</string>
+    <string name="song_view_melody">Melody</string>
+    <string name="song_view_size">Size</string>
+    <string name="song_view_inline">Below lyrics</string>
+    <string name="song_view_hidden">Hidden</string>
+    <string name="song_view_separate">Separate panel</string>
 </resources>
