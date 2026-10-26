@@ -52,7 +52,8 @@
     }
     function render(document, model) {
         const line = document.createElement("div");
-        line.className = "melody-aligned-line";
+        const instrumental = /^intro\s*\d+$/i.test(model.text.trim());
+        line.className = "melody-aligned-line" + (instrumental ? " melody-instrumental" : "");
         let word = null;
         let startsWord = true;
         for (const cell of model.cells) {
@@ -64,6 +65,7 @@
             const block = document.createElement("span");
             block.className = "melody-cell";
             for (const [className, text] of [["melody-chord", cell.chord], ["melody-lyric", cell.text], ["melody-note", cell.note]]) {
+                if (instrumental && className === "melody-lyric") continue;
                 const span = document.createElement("span");
                 span.className = className;
                 span.textContent = text || "\u00a0";
@@ -120,7 +122,8 @@
                 lyric.textContent = model.text;
                 const notes = document.createElement("span");
                 notes.textContent = model.notes.map(note => note.label).join(" · ");
-                verse.append(lyric, document.createElement("br"), notes);
+                if (!/^intro\s*\d+$/i.test(model.text.trim())) verse.append(lyric, document.createElement("br"));
+                verse.append(notes);
                 separateMelody.append(verse);
                 lineIndex++;
                 continue;
@@ -172,22 +175,24 @@
         }
         lyric.push(rawLine.slice(lastIndex));
         const lyricText = lyric.join("");
+        const chordsOnly = chords.length > 0 && !lyricText.trim();
 
         const line = document.createElement("div");
         line.className = "preview-line";
         const chordRow = document.createElement("div");
-        chordRow.className = "preview-chords";
+        chordRow.className = "preview-chords" + (chordsOnly ? " preview-chords-only" : "");
         for (const chord of chords) {
             const label = document.createElement("span");
             label.className = "preview-chord";
-            label.style.left = `${chord.position}ch`;
+            if (!chordsOnly) label.style.left = `${chord.position}ch`;
             label.textContent = chord.label;
             chordRow.append(label);
         }
         const lyricRow = document.createElement("div");
         lyricRow.className = "preview-lyrics";
         lyricRow.textContent = lyricText || "\u00a0";
-        line.append(chordRow, lyricRow);
+        line.append(chordRow);
+        if (!chordsOnly) line.append(lyricRow);
         preview.append(line);
     }
 

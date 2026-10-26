@@ -92,7 +92,7 @@ public class PerformanceFragment extends Fragment {
     private final Runnable dealWithExtraStuffOnceSettledRunnable = this::dealWithExtraStuffOnceSettled;
     private String mainfoldername="", mode_performance="", mode_presenter="", mode_stage="", mode_hybrid="",
             not_allowed="", image_string="", nearby_large_file_string="";
-    private android.app.Dialog unifiedSongDialog;
+    private android.webkit.WebView unifiedSongWeb;
     private int sendSongDelay = 0;
     @SuppressWarnings("FieldCanBeLocal")
     // GE - hidden this option, but reserving the right to reinstate even just for me
@@ -181,7 +181,7 @@ public class PerformanceFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (unifiedSongDialog != null) { unifiedSongDialog.dismiss(); unifiedSongDialog = null; }
+        clearUnifiedSongView();
         myView = null;
         stickyPopUp = null;
         nearbyAlertPopUp = null;
@@ -196,10 +196,6 @@ public class PerformanceFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         myView = ModePerformanceBinding.inflate(inflater, container, false);
-        myView.unifiedSongView.setOnClickListener(view -> {
-            if (getContext() != null) unifiedSongDialog =
-                    com.garethevans.church.opensongtablet.songprocessing.UnifiedSongView.show(getContext(), mainActivityInterface);
-        });
         prepareStrings();
 
         mainActivityInterface.updateFragment("updateSongMenuSortTitles",this,null);
@@ -809,6 +805,7 @@ public class PerformanceFragment extends Fragment {
     private void prepareSongViews() {
         if (myView!=null) {
             // This is called on the UI thread above via the handler from mainLooper()
+            clearUnifiedSongView();
             // Reset the song views
             mainActivityInterface.setSectionViews(null);
             removeViews();
@@ -1069,7 +1066,26 @@ public class PerformanceFragment extends Fragment {
         myView.recyclerView.setAdapter(imageSlideAdapter);
 
     }
+    private void clearUnifiedSongView() {
+        if (unifiedSongWeb != null) {
+            if (myView != null) myView.unifiedSongHost.removeView(unifiedSongWeb);
+            unifiedSongWeb.destroy();
+            unifiedSongWeb = null;
+        }
+        if (myView != null) myView.unifiedSongHost.setVisibility(View.GONE);
+    }
+
     private void prepareXMLView() {
+        if (getContext() != null && !mainActivityInterface.getSong().shouldShowMediaReference()) {
+            mainActivityInterface.setSectionViews(mainActivityInterface.getProcessSong().setSongInLayout(mainActivityInterface.getSong(), false, false));
+            myView.zoomLayout.setVisibility(View.GONE);
+            myView.recyclerView.setVisibility(View.GONE);
+            myView.unifiedSongHost.setVisibility(View.VISIBLE);
+            unifiedSongWeb = com.garethevans.church.opensongtablet.songprocessing.UnifiedSongView.create(getContext(), mainActivityInterface);
+            myView.unifiedSongHost.addView(unifiedSongWeb, new android.widget.FrameLayout.LayoutParams(-1, -1));
+            dealWithStuffAfterReady(true);
+            return;
+        }
         float density = getResources().getDisplayMetrics().density;
         int contentInset = Math.round(10 * density);
         pageContentInset = contentInset;
@@ -1542,9 +1558,9 @@ public class PerformanceFragment extends Fragment {
             displayInterface.updateDisplay("setSongContent");
         }
 
-        // Now deal with the highlighter file
-        if (mainActivityInterface.getMode().equals(mode_performance) ||
-                mainActivityInterface.getMode().equals(mode_hybrid)) {
+        // Native highlighter coordinates do not apply to the shared text view.
+        if (unifiedSongWeb == null && (mainActivityInterface.getMode().equals(mode_performance) ||
+                mainActivityInterface.getMode().equals(mode_hybrid))) {
             // The highlighter is already part of the scaling if it isn't an xml
             if (mainActivityInterface.getSong().shouldShowLyrics()) {
                 if (myView.inlineSetList!=null && myView.inlineSetList.getWidth()>0) {

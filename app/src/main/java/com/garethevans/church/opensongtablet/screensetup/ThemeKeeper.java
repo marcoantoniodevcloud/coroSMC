@@ -9,7 +9,7 @@ public final class ThemeKeeper {
     private static final String PREFS = "theme_prefs";
     private static final String KEY_MODE = "night_mode";
 
-    private static int lastMode = AppCompatDelegate.MODE_NIGHT_YES;
+    private static int lastMode = AppCompatDelegate.MODE_NIGHT_UNSPECIFIED;
 
     private ThemeKeeper() {}
 
@@ -25,9 +25,9 @@ public final class ThemeKeeper {
     }
 
     public static int load(Context context) {
-        if (lastMode == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
+        if (lastMode == AppCompatDelegate.MODE_NIGHT_UNSPECIFIED) {
             lastMode = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
-                    .getInt(KEY_MODE, AppCompatDelegate.MODE_NIGHT_YES);
+                    .getInt(KEY_MODE, AppCompatDelegate.MODE_NIGHT_NO);
         }
         return lastMode;
     }

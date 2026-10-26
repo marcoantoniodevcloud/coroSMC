@@ -183,7 +183,7 @@ public class ChooseColorBottomSheet extends BottomSheetCommon {
     }
 
     private void setupOriginalColor() {
-        themePrefix = mainActivityInterface.getPreferences().getMyPreferenceString("appTheme", "dark");
+        themePrefix = mainActivityInterface.getPreferences().getMyPreferenceString("appTheme", "light");
 
         // Load the chosen colours up
         mainActivityInterface.getMyThemeColors().getDefaultColors();

@@ -148,12 +148,10 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:id="@+id/unifiedSongView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/song_view_title"
-        android:textSize="12sp" />
+    <FrameLayout
+        android:id="@+id/unifiedSongHost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@id/inlineSetList"
+        android:visibility="gone" />
 </RelativeLayout>

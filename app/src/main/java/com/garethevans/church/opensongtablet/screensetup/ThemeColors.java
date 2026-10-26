@@ -2,7 +2,6 @@ package com.garethevans.church.opensongtablet.screensetup;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -72,7 +71,7 @@ public class ThemeColors {
         this.themeName = themeName;
     }
     public void setInvertPDF(boolean invertPDF) {
-        String theme = mainActivityInterface.getPreferences().getMyPreferenceString("appTheme","dark");
+        String theme = mainActivityInterface.getPreferences().getMyPreferenceString("appTheme","light");
         theme = theme + "_";
         mainActivityInterface.getPreferences().setMyPreferenceBoolean(theme+"invertPDF", invertPDF);
         this.invertPDF = invertPDF;
@@ -255,23 +254,7 @@ public class ThemeColors {
     }
 
     public void getDefaultTheme() {
-        int nightModeFlags = c.getApplicationContext().getResources().getConfiguration().uiMode
-                & Configuration.UI_MODE_NIGHT_MASK;
-
-        String fallback = "dark";
-        switch (nightModeFlags) {
-            case Configuration.UI_MODE_NIGHT_YES:
-                // Dark mode is active
-                fallback = "dark";
-                break;
-            case Configuration.UI_MODE_NIGHT_NO:
-                // Light mode is active
-                fallback = "light";
-                break;
-            case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                // Mode is unknown (very rare)
-                fallback = "dark";
-        }
+        String fallback = "light";
         themeName = mainActivityInterface.getPreferences().getMyPreferenceString("appTheme","");
         // If there wasn't a value set, set it now
         if (themeName.isEmpty()) {
@@ -338,7 +321,7 @@ public class ThemeColors {
     }
 
     public void resetTheme() {
-        String theme = mainActivityInterface.getPreferences().getMyPreferenceString("appTheme","dark");
+        String theme = mainActivityInterface.getPreferences().getMyPreferenceString("appTheme","light");
 
         // Some colours are the same regardless of mode
         theme = theme + "_";

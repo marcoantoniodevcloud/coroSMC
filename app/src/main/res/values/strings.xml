@@ -1998,4 +1998,6 @@
     <string name="song_view_inline">Below lyrics</string>
     <string name="song_view_hidden">Hidden</string>
     <string name="song_view_separate">Separate panel</string>
+    <string name="song_view_options">View options</string>
+    <string name="song_view_done">Done</string>
 </resources>

@@ -81,3 +81,7 @@ tasks.named("processResources") {
         into "static"
     }
 }
+
+tasks.named("processResources") {
+    from("../shared/song-view") { into "static/song-view" }
+}

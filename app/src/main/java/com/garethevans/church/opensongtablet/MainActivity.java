@@ -1200,7 +1200,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     @Override
     public void initialiseStartVariables() {
-        getMyThemeColors().setThemeName(getPreferences().getMyPreferenceString("appTheme", "dark"));
+        getMyThemeColors().setThemeName(getPreferences().getMyPreferenceString("appTheme", "light"));
         whichMode = getPreferences().getMyPreferenceString("whichMode", mode_performance);
         // Fix old mode from old profile
         if (whichMode.equals("Presentation")) {

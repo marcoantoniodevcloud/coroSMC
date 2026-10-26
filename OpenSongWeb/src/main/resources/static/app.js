@@ -564,7 +564,17 @@ async function runBatchOcr() {
 }
 
 function renderChordProPreview(content) {
-    Melody.renderSong(document, content, elements.preview, document.querySelector("#separate-melody"));
+    state.songViewContent = content;
+    if (!document.querySelector("#shared-song-frame")) {
+        const frame = document.createElement("iframe");
+        frame.id = "shared-song-frame";
+        frame.title = "Letra, acordes y melodía";
+        frame.src = "/song-view/index.html";
+        frame.style.cssText = "width:100%;height:100%;min-height:400px;border:0;display:block";
+        frame.addEventListener("load", refreshSharedSongView);
+        elements.preview.replaceChildren(frame);
+    }
+    refreshSharedSongView();
 }
 
 async function reloadCurrentFile() {
@@ -1214,23 +1224,22 @@ async function uploadReference(file, replace) {
 }
 
 
+function refreshSharedSongView() {
+    const frame = document.querySelector("#shared-song-frame");
+    if (!frame?.contentWindow?.SongView) return;
+    frame.contentWindow.SongView.load({content:state.songViewContent || ""});
+}
 function updateMelodyView() {
-    const panel = document.querySelector(".preview-panel");
     const mode = document.querySelector("#melody-view").value;
     const chords = document.querySelector("#show-chords").checked;
     const size = document.querySelector("#song-view-size").value;
     const theme = document.querySelector("#song-view-theme").value;
-    panel.classList.toggle("hide-chords", !chords);
-    panel.classList.toggle("hide-melody", mode !== "inline");
-    document.querySelector("#separate-melody").hidden = mode !== "separate";
-    elements.preview.classList.add("song-sheet");
-    const colors = theme === "dark" ? ["#191919", "#f0f0f0", "#f3c979", "#98d8f0"]
-        : ["#fffdf8", "#202a35", "#245c76", "#795434"];
-    for (const [index, name] of ["background", "text", "chord", "melody"].entries()) panel.style.setProperty(`--song-${name}`, colors[index]);
-    elements.preview.style.fontSize = `${size}px`;
-    document.querySelector("#separate-melody").style.fontSize = `${size}px`;
-    try { localStorage.setItem("song-view-web", JSON.stringify({ mode, chords, size, theme })); } catch (_) {}
+    document.querySelector("#separate-melody").hidden = true;
+    elements.preview.style.cssText = "padding:0;overflow:hidden;background:#fffdf8";
+    refreshSharedSongView();
+    try { localStorage.setItem("song-view-web", JSON.stringify({mode,chords,size,theme})); } catch (_) {}
 }
+
 try {
     const prefs = JSON.parse(localStorage.getItem("song-view-web") || "null");
     if (prefs) {

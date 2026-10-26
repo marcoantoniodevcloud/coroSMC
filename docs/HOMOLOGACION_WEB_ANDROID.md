@@ -14,13 +14,13 @@ El motor `shared/song-view/melody.js` y la hoja `shared/song-view/song-view.css`
 
 ## Android
 
-En la pantalla de interpretación, el botón **Letra / acordes / melodía** abre la vista compartida. Usa los colores de fondo, texto, acordes y comentarios, y el tamaño configurado en la app móvil. Es una vista de lectura: cerrar devuelve a la hoja nativa existente y sus herramientas. No sustituye los modos de presentación, las anotaciones, el autoscroll ni la pantalla secundaria. No integra esas herramientas dentro de la vista compartida.
+La pantalla de interpretación muestra directamente la vista compartida para los cantos de texto. Se eliminó el botón y la ventana aparte. La página incluye el título completo, autor/tono y controles de acordes, melodía, tamaño y tema claro/oscuro. Web carga exactamente la misma página dentro de su vista previa. Ambos empaquetan RobotoMono.ttf y usan una base de 20 px. Las preferencias se recuerdan localmente, sin sincronización. PDF e imágenes conservan su visor nativo. Presentación y pantalla secundaria conservan su implementación anterior. Los gestos, autoscroll y anotaciones del visor nativo no están integrados en la nueva vista de texto; las anotaciones nativas no se superponen porque sus coordenadas no corresponden a esta hoja.
 
 Los cantos nativos se convierten en memoria a ChordPro para mostrarlos; abrir la vista no escribe archivos. El conversor ahora conserva las marcas de melodía en los comentarios, mientras que mantiene el saneamiento previo de los ángulos en el resto del texto. La WebView solo carga assets locales, bloquea la red y no expone interfaces Java a JavaScript.
 
 ## Web
 
-La vista previa usa el mismo motor y añade selección de hoja clara u oscura y tamaño. Conserva las funciones de edición, corrección, OCR y archivos existentes. La apariencia de la hoja comparte estructura y roles de color con móvil; los valores personalizados de Android no se sincronizan al navegador.
+La vista previa carga `/song-view/index.html`, la misma página empaquetada en Android. El CSS de la aplicación web queda fuera de la página de lectura, evitando que colores de tema oscuro sobrescriban el texto del tema claro. Conserva las funciones de edición, corrección, OCR y archivos existentes. Con el mismo contenido, ancho de hoja y preferencias, ambos usan la misma composición; distintos anchos cambian los saltos. Los colores nativos personalizados no se aplican a esta vista; sus temas son compartidos.
 
 ## Límites y diferencias que siguen presentes
 
@@ -40,3 +40,11 @@ node --test OpenSongWeb/src/test/js/melody.test.cjs
 .\gradlew.bat -p OpenSongWeb test bootJar
 .\gradlew.bat :app:assembleDebug :app:testDebugUnitTest :app:connectedDebugAndroidTest
 ```
+
+## Verificación de la vista principal (25 de octubre de 2026)
+
+- 9 pruebas del motor JavaScript, 10 pruebas JVM Android y 22 pruebas Java web aprobadas.
+- APK debug y JAR generados.
+- Prueba instrumentada `UnifiedSongViewInstrumentedTest` aprobada en Android 17/API 37: conversión de melodía, título, contraste claro/oscuro y los tres modos de melodía.
+- Navegador Edge: carga de la página compartida y del iframe dentro de la web en puerto 8081, sin errores JavaScript; ejemplo Entrada con 113 marcas de nota y fuente incluida cargada. Capturas en `docs/pruebas-melodia/vista-compartida-clara.png` y `web-vista-principal.png`.
+- La prueba instrumentada monta el componente compartido; no automatiza la navegación completa entre cantos, presentación ni herramientas nativas.

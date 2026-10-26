@@ -1597,4 +1597,6 @@
     <string name="song_view_inline">Debajo de la letra</string>
     <string name="song_view_hidden">Oculta</string>
     <string name="song_view_separate">Panel separado</string>
+    <string name="song_view_options">Opciones de vista</string>
+    <string name="song_view_done">Listo</string>
 </resources>

@@ -101,7 +101,7 @@ public class ThemeSetupFragment extends Fragment {
         if (getContext() != null) {
             arrayAdapter = new ExposedDropDownArrayAdapter(getContext(), myView.themeName, R.layout.view_exposed_dropdown_item, themes);
         }
-        // myTheme defaults to the current light/dark mode on the device if not set
+        // New installations default to the light theme
         myTheme = mainActivityInterface.getMyThemeColors().getThemeName();
         switch (myTheme) {
             case "light":
@@ -260,7 +260,7 @@ public class ThemeSetupFragment extends Fragment {
         // Compare the initial theme with the new one
         // dark and custom1 are dark based, light and custom2 are light based
         boolean refreshActivity = false;
-        String currentTheme = mainActivityInterface.getPreferences().getMyPreferenceString("appTheme","dark");
+        String currentTheme = mainActivityInterface.getPreferences().getMyPreferenceString("appTheme","light");
         Log.d(TAG,"currentTheme:"+currentTheme+"  initialTheme:"+initialTheme);
         if (currentTheme.equals("dark") || currentTheme.equals("custom1")) {
             refreshActivity = initialTheme.equals("light") || initialTheme.equals("custom2") || initialTheme.isEmpty();
