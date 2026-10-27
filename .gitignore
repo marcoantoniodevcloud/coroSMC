@@ -54,3 +54,7 @@ app/.cxx/
 # Baseline profiles
 *.dm
 /gradle/gradle-daemon-jvm.properties
+
+# Local QR synchronization fixtures and browser captures
+/tmp/sync-fixture/
+/tmp/sync-web-*.png

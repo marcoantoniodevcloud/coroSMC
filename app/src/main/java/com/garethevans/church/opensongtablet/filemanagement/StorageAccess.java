@@ -1140,13 +1140,13 @@ public class StorageAccess {
         switch (whichType.toLowerCase()) {
             case "image":
             case "img":
-                toCheck = ".jpg.jpeg.gif.bmp.png";
+                toCheck = ".jpg.jpeg.gif.bmp.png.webp";
                 break;
             case "pdf":
                 toCheck = ".pdf";
                 break;
             case "imageorpdf":
-                toCheck = ".jpg.jpeg.gif.bmp.pdf.png";
+                toCheck = ".jpg.jpeg.gif.bmp.pdf.png.webp";
                 break;
             case "chordpro":
                 toCheck = ".cho.crd.chopro.pro.chordpro";
@@ -2325,7 +2325,10 @@ public class StorageAccess {
 
     public boolean badFileExtension(String filename) {
         String originalFilename = filename;
-        filename = filename.toLowerCase();
+        filename = filename.toLowerCase(Locale.ROOT);
+        // Sidecars and web documents are ignored in place, never treated as broken songs.
+        if (filename.matches(".*\\.(html?|web|url|webloc|json|js|css|svg)$")) return true;
+        if (isSpecificFileExtension("text", filename) || isSpecificFileExtension("onsong", filename)) return false;
         // Check for ".xxx" or ".xxxx" extension that isn't wanted
         if (filename.contains(".") &&
                 !filename.startsWith(".") &&

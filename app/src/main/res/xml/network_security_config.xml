@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
+    <!-- QR synchronization connects to the paired computer on the local Wi-Fi. -->
+    <base-config cleartextTrafficPermitted="true" />
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">ultimate-guitar.com</domain>
         <domain includeSubdomains="true">chordie.com</domain>

@@ -102,7 +102,7 @@ public class SongListBuildIndex {
     // This is only called when we are full indexing
     public void buildBasicFromFiles() {
         mainActivityInterface.getShowToast().doIt(c.getString(R.string.index_songs_start));
-        if (mainActivityInterface.getSongMenuFragment()==null) {
+        if (mainActivityInterface.getSongMenuFragment()!=null) {
             progressText = mainActivityInterface.getSongMenuFragment().getProgressText();
         }
 
@@ -219,8 +219,8 @@ public class SongListBuildIndex {
                                     // Assume XML for now!
                                     mainActivityInterface.getIndexingSong().setFiletype("XML");
 
-                                    mainActivityInterface.getLoadSong().readFileAsXML(mainActivityInterface.getIndexingSong(), "Songs",
-                                            uri, utf);
+                                    mainActivityInterface.setIndexingSong(mainActivityInterface.getLoadSong()
+                                            .doLoadSongFile(mainActivityInterface.getIndexingSong(), true));
                                     songinfo = songinfo + "XML file read correctly";
 
                                 } catch (Exception e) {
@@ -270,7 +270,7 @@ public class SongListBuildIndex {
 
                                     // Only update the files if we have specificically asked to do so
                                     if (needToSaveAgain && checkForUUIDLastMod && (newUUID || newLastModified)) {
-                                        mainActivityInterface.getSaveSong().updateSong(mainActivityInterface.getIndexingSong(), false);
+                                        // UUID/date enrichment belongs only to the index, never the source file.
                                     }
                                 }
 
@@ -378,7 +378,7 @@ public class SongListBuildIndex {
         f = f.toLowerCase(Locale.ROOT);
         if (f.contains(".")) {
             f = f.substring(f.lastIndexOf("."));
-            String badendings = ".pdf.png.jpg.jpeg.gif.jpeg.doc.docx.sqlite.db";
+            String badendings = ".pdf.png.jpg.jpeg.gif.bmp.webp.doc.docx.sqlite.db.html.htm.web.url.webloc.json.js.css.svg";
             return !badendings.contains(f);
         }
         return true;
@@ -404,7 +404,7 @@ public class SongListBuildIndex {
                 try {
                     String filecontents = mainActivityInterface.getStorageAccess().readTextFileToString(inputStream);
                     thisSong.setLyrics(filecontents);
-                    thisSong = mainActivityInterface.getConvertChoPro().convertTextToTags(uri, thisSong);
+                    thisSong = mainActivityInterface.getLoadSong().convertTextInMemory(thisSong);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -414,7 +414,7 @@ public class SongListBuildIndex {
                     thisSong.setFiletype("iOS");
                     String filecontents = mainActivityInterface.getStorageAccess().readTextFileToString(inputStream);
                     thisSong.setLyrics(filecontents);
-                    thisSong = mainActivityInterface.getConvertOnSong().convertTextToTags(uri, thisSong);
+                    thisSong = mainActivityInterface.getLoadSong().convertTextInMemory(thisSong);
 
                 } catch (Exception e) {
                     e.printStackTrace();

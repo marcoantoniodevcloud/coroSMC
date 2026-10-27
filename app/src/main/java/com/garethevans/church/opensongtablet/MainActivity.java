@@ -304,6 +304,16 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     private SongListBuildIndex songListBuildIndex;
     private SongSheetHeaders songSheetHeaders;
     private SQLiteHelper sqLiteHelper;
+    private final ActivityResultLauncher<Intent> libraryQrLauncher = registerForActivityResult(
+            new androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null)
+                    new com.garethevans.church.opensongtablet.librarysync.LibrarySyncDialog(this)
+                            .show(result.getData().getStringExtra("qr"));
+            });
+    public void startLibraryQrScan() {
+        libraryQrLauncher.launch(new Intent(this,
+                com.garethevans.church.opensongtablet.librarysync.LibraryQrScannerActivity.class));
+    }
     private StorageAccess storageAccess;
     private Swipes swipes;
     private ThemeColors themeColors;
@@ -2285,7 +2295,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         // GE had to add onResume string update otherwise this call failed if user changed languages
-        if (item.getItemId() == R.id.settings_menu_item) {
+        if (item.getItemId() == R.id.library_sync_menu_item) {
+            new com.garethevans.church.opensongtablet.librarysync.LibrarySyncDialog(this).show();
+            return true;
+        } else if (item.getItemId() == R.id.settings_menu_item) {
             // Either open or close the settings menu
             if (settingsOpen) {
                 navHome();

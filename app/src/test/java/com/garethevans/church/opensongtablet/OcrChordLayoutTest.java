@@ -28,4 +28,13 @@ public class OcrChordLayoutTest {
         assertEquals("[E7]\n[Am]", OcrChordLayout.toChordPro(Arrays.asList(token("E7",0,0), token("Am",0,30)),200));
         assertEquals("",OcrChordLayout.toChordPro(Collections.emptyList(),200));
     }
+    @Test public void recognizesProgressionsEvenWhenDashHasItsOwnBox() {
+        String result = OcrChordLayout.toChordPro(Arrays.asList(
+                token("Rem",0,0),token("-",30,0),token("Lam",60,0),
+                token("Vino",0,25),token("y",40,25),token("pan",70,25)),200);
+        assertTrue(result, result.contains("[Rem-Lam]"));
+        assertEquals("Vino y pan",result.replaceAll("\\[[^]]*]", ""));
+        assertTrue(com.garethevans.church.opensongtablet.songprocessing.ChordNotationCorrector.isChord("La#-Sol#-Sol"));
+        assertFalse(com.garethevans.church.opensongtablet.songprocessing.ChordNotationCorrector.isChord("La#-texto"));
+    }
 }

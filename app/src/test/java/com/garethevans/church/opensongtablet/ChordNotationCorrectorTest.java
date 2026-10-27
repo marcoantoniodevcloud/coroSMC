@@ -30,4 +30,9 @@ public class ChordNotationCorrectorTest {
         assertEquals("[Bb] [Eb/Gb]",ChordNotationCorrector.convert("[SIB] [MIB/SOLB]"));
         assertEquals("\uFEFF<song><key>Dm</key></song>",ChordNotationCorrector.correctFile("song.xml","\uFEFF<song><key>Rem</key></song>"));
     }
+    @Test public void preservesAndConvertsCompleteChordSequences() {
+        assertEquals("[Dm-Am] [A#-G#-G] [C/G–Dm/F] [C-7] [G7(b9)] [C-texto]",
+                ChordNotationCorrector.convert("[Rem-Lam] [La#-Sol#-Sol] [Do/Sol–Rem/Fa] [C-7] [G7(b9)] [C-texto]"));
+        assertEquals("[Dm — Am]", ChordNotationCorrector.convert("[Rem — Lam]"));
+    }
 }

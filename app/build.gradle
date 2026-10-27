@@ -11,7 +11,7 @@ if (localPropsFile.exists()) {
 }
 
 android {
-    sourceSets.main.assets.srcDir("../shared")
+    sourceSets.main.assets.srcDir("../../Cantoral/shared")
     namespace = "com.garethevans.church.opensongtablet"
     compileSdk = 36
 
@@ -248,4 +248,14 @@ dependencies {
 
 kotlin {
     jvmToolchain(17)
+}
+// DefaultSongs now belongs to Cantoral. This compatibility task keeps the legacy APK buildable.
+def cantoralLibraryAssets = tasks.register("prepareCantoralLibraryAssets", Sync) {
+    from(rootProject.file("../Cantoral/DefaultSongs")) { into "DefaultSongs" }
+    into(layout.buildDirectory.dir("generated/cantoralLibraryAssets"))
+}
+androidComponents {
+    onVariants(selector().all()) { variant ->
+        variant.sources.assets.addGeneratedSourceDirectory(cantoralLibraryAssets, { task -> task.destinationDir })
+    }
 }

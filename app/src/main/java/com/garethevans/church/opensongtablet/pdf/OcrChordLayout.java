@@ -54,7 +54,8 @@ public final class OcrChordLayout {
         rows.sort(Comparator.comparingDouble(r -> r.get(0).cy()));
         for (List<Token> row : rows) row.sort(Comparator.comparingDouble(t -> t.left));
         StringBuilder out = new StringBuilder(); List<Token> pending = new ArrayList<>(); float lastY = -1;
-        for (List<Token> row : rows) {
+        for (List<Token> sourceRow : rows) {
+            List<Token> row = mergeSequences(sourceRow);
             boolean chords = true;
             for (Token t : row) if (!ChordNotationCorrector.isChord(t.text)) { chords = false; break; }
             if (chords) {
@@ -69,6 +70,23 @@ public final class OcrChordLayout {
         }
         if (!pending.isEmpty()) appendIsolated(out, pending);
         return out.toString().trim();
+    }
+
+    private static List<Token> mergeSequences(List<Token> row) {
+        List<Token> out = new ArrayList<>();
+        for (int i = 0; i < row.size();) {
+            Token first = row.get(i);
+            int best = i;
+            String text = first.text, bestText = text;
+            for (int j = i + 1; j < Math.min(row.size(), i + 9); j++) {
+                text += row.get(j).text;
+                if (ChordNotationCorrector.sequence(text).length > 1) { best = j; bestText = text; }
+            }
+            out.add(best == i ? first : new Token(bestText, first.left, first.top,
+                    row.get(best).right, first.bottom));
+            i = best + 1;
+        }
+        return out;
     }
 
     private static void appendIsolated(StringBuilder out, List<Token> tokens) {

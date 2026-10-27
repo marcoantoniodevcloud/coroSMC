@@ -236,7 +236,7 @@ public class BootUpFragment extends Fragment {
                         mainActivityInterface.getSongListBuildIndex().buildBasicFromFiles();
                     }
 
-                    mainActivityInterface.getStorageAccess().fixBadSongs();
+                    // Startup must never move, rename or convert source files.
 
                     // Load in the setCurrent
                     message = set_string;

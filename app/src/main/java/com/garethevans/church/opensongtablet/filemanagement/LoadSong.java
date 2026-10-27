@@ -116,7 +116,6 @@ public class LoadSong {
         // Stop any pointless calls to update set highlighting while processing
         mainActivityInterface.setHighlightChangeAllowed(false);
 
-        ArrayList<String> fileExtensionsToRemove = new ArrayList<>();
 
         // This extracts what it can from the song, and returning an updated song object.
         // Once indexing has finished, we load from the database instead
@@ -198,37 +197,8 @@ public class LoadSong {
                     }
                 }
 
-                if (thisSong.getFiletype().equals("iOS")) {
-                    // 3.  Run the OnSongConvert script (which converts then resaves)
-                    mainActivityInterface.getConvertOnSong().convertTextToTags(uri, thisSong);
-
-                    // Now read in the proper OpenSong xml file
-                    try {
-                        readFileAsXML(thisSong, where, uri, "UTF-8");
-                    } catch (Exception e) {
-                        Log.d(TAG, "Error performing grabOpenSongXML()");
-                    }
-                } else if (thisSong.getFiletype().equals("CHO") || lyricsHaveChoProTags(thisSong.getLyrics())) {
-                    // 4.  Run the ChordProConvert script (which converts then resaves)
-                    thisSong = mainActivityInterface.getConvertChoPro().convertTextToTags(uri, thisSong);
-
-                    // Now read in the proper OpenSong xml file
-                    try {
-                        readFileAsXML(thisSong, where, uri, "UTF-8");
-                    } catch (Exception e) {
-                        Log.d(TAG, "Error performing grabOpenSongXML()");
-                    }
-                } else if (thisSong.getFiletype().equals("TXT")) {
-                    // 5.  Run the text convert script
-                    thisSong.setLyrics(mainActivityInterface.getConvertTextSong().convertText(thisSong.getLyrics()));
-
-                    // Identify the potential file extensions to remove
-                    fileExtensionsToRemove.add(".txt");
-                    fileExtensionsToRemove.add(".TXT");
-
-                    // Now try to put the content into an opensong file
-                    thisSong = changeTextBasedSongFile(thisSong,where,fileExtensionsToRemove);
-                }
+                // Opening/indexing a source is read-only. Convert only the working Song.
+                thisSong = convertTextInMemory(thisSong);
 
                 // Fix all the rogue code
                 if (thisSong.getLyrics()==null || thisSong.getLyrics().isEmpty()) {
@@ -266,6 +236,24 @@ public class LoadSong {
 
         // Send the song back with all of its children populated!
         return thisSong;
+    }
+
+    public Song convertTextInMemory(Song song) {
+        String filename = song.getFilename();
+        String folder = song.getFolder();
+        String type = song.getFiletype();
+        if ("iOS".equals(type)) {
+            song = mainActivityInterface.getConvertOnSong().convertOnSongToOpenSong(song, song.getLyrics());
+        } else if ("CHO".equals(type) || lyricsHaveChoProTags(song.getLyrics())) {
+            song = mainActivityInterface.getConvertChoPro().convertChordProLyricsToOpenSong(song, song.getLyrics());
+        } else if ("TXT".equals(type)) {
+            song.setLyrics(mainActivityInterface.getConvertTextSong().convertText(song.getLyrics()));
+        }
+        // Converters may suggest a title as a filename. The original identity never changes on read.
+        song.setFilename(filename);
+        song.setFolder(folder);
+        song.setFiletype(type);
+        return song;
     }
 
     private Song loadLyricsCompanion(Song mediaSong) {
@@ -461,12 +449,12 @@ public class LoadSong {
                 filename.endsWith(".jpeg") ||
                 filename.endsWith(".png") ||
                 filename.endsWith(".gif") ||
-                filename.endsWith(".bmp")) {
+                filename.endsWith(".bmp") || filename.endsWith(".webp")) {
             return "IMG";
         } else if (filename.endsWith(".cho") ||
                 filename.endsWith(".crd") ||
                 filename.endsWith(".chopro") ||
-                filename.contains(".pro")) {
+                filename.endsWith(".pro") || filename.endsWith(".chordpro")) {
             return "CHO";
         } else if (filename.endsWith(".onsong")) {
             return "iOS";
@@ -760,9 +748,8 @@ public class LoadSong {
     }
 
     public void promptToFixSongs() {
-        if (songsToFix!=null && !songsToFix.isEmpty()) {
-            mainActivityInterface.showRepairSongs();
-        }
+        // Repair is an explicit maintenance action, never a startup dialog.
+        if (songsToFix != null) Log.d(TAG, "Source issues retained for manual review: " + songsToFix.size());
     }
     public ArrayList<Song> getSongsToFix() {
         return songsToFix;
@@ -933,11 +920,8 @@ public class LoadSong {
     }
 
     private String fixXML(Song thisSong, String section, String where) {
-        // Error in the xml as this is run from a catch block - tell the user we're trying to fix it!
-        mainActivityInterface.getShowToast().doIt(c.getString(R.string.fix));
+        // Recover a display value in memory without repairing the source file.
         String toFix;
-
-        Uri fixUri = mainActivityInterface.getStorageAccess().getUriForItem(where,thisSong.getFolder(),thisSong.getFilename());
 
         // Try to get this section
         toFix = getSongAsText(where,thisSong.getFolder(),thisSong.getFilename());
@@ -952,8 +936,7 @@ public class LoadSong {
                 newExtracted = newExtracted.replace(">","&gt;");
                 toFix = toFix.replace(origExtracted,newExtracted).replace("<>","");
 
-                mainActivityInterface.getStorageAccess().updateFileActivityLog(TAG+" fixXML writeFileFromString "+fixUri+" with: "+toFix);
-                mainActivityInterface.getStorageAccess().writeFileFromString(where,thisSong.getFolder(),thisSong.getFilename(),toFix,false);
+                // The recovered value is for this Song only; the original bytes are untouched.
                 Log.d(TAG,"fixed "+section+" :"+newExtracted);
                 return newExtracted;
             } else {

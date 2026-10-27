@@ -1,3 +1,5 @@
+> Actualización de arquitectura: la fuente canónica se trasladó a `../../Cantoral/shared/song-view` (ruta relativa a este documento). Android legado y web la empaquetan desde esa ubicación; Cantoral la integra con controles Compose nativos. Los nombres `shared/song-view` usados abajo describen el componente, no una copia en esta carpeta.
+
 # Vista de cantos compartida: web y Android
 
 ## Implementado

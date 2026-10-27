@@ -56,9 +56,8 @@ public class AlertChecks {
     }
 
     public boolean showUpdateInfo() {
-        // Decide if the current app version is newer than the previous version.
-        // If so, we want the user to be notified of changed.  The prefs are updated when the button is clicked
-        return !alreadySeen && appHasUpdated();
+        // Release information remains available in About; do not interrupt startup.
+        return false;
     }
 
     public boolean appHasUpdated() {

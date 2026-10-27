@@ -42,3 +42,30 @@ Con un dispositivo o emulador conectado:
 ```
 
 APK de desarrollo: `app/build/outputs/apk/debug/app-debug.apk`.
+
+
+## Secuencias de acordes con guiones
+
+Se admiten grupos ChordPro como `[Rem-Lam]`, `[La#-Sol#-Sol]` y
+`[Do/Sol–Rem/Fa]`. Los guiones `-`, `–` y `—` separan acordes únicamente
+cuando todos los miembros son acordes válidos; se mantienen los modificadores
+como `C-7`, las alteraciones y los bajos con `/`. Web y Android conservan el
+grupo en la vista compartida. Android identifica sus miembros individualmente
+para los diagramas y transpone cada raíz/bajo mediante el motor existente.
+El OCR de ambos clientes también reúne grupos cuando el guion tiene su propia
+caja. Los archivos ya guardados sin guiones necesitan revisión o reprocesamiento:
+no se deducen secuencias nuevas a partir de acordes independientes.
+
+
+## Lectura sin modificar los originales en Android
+
+Abrir o indexar canciones convierte ChordPro/OnSong/TXT solo en el objeto Song
+en memoria, conservando nombre, carpeta y tipo de archivo. La recuperación de
+campos XML tampoco escribe el archivo. La indexación mantiene UUID/fechas en
+la base de datos y no los inserta en los originales. El arranque no mueve
+archivos a Import, no abre reparación automática ni muestra el aviso de versión.
+Los documentos web y metadatos de la carpeta se ignoran; WebP se reconoce como
+imagen. La biblioteca incluida se instala solo sobre una biblioteca vacía y
+nunca sustituye ni borra archivos existentes durante una actualización.
+Las operaciones explícitas de edición, importación y mantenimiento siguen siendo
+acciones de escritura; la lectura no las invoca.

@@ -2000,4 +2000,5 @@
     <string name="song_view_separate">Separate panel</string>
     <string name="song_view_options">View options</string>
     <string name="song_view_done">Done</string>
+    <string name="library_sync">Sync library</string>
 </resources>

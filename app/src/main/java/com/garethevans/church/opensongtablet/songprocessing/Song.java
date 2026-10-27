@@ -201,7 +201,8 @@ public class Song implements Serializable {
                 lyrics != null && !lyrics.trim().isEmpty();
     }
     public boolean shouldShowLyrics() {
-        return "XML".equals(filetype) || (hasMediaReference() && !showMediaReference);
+        return "XML".equals(filetype) || "CHO".equals(filetype) || "TXT".equals(filetype)
+                || "iOS".equals(filetype) || (hasMediaReference() && !showMediaReference);
     }
     public boolean shouldShowMediaReference() {
         return ("PDF".equals(filetype) || "IMG".equals(filetype)) &&

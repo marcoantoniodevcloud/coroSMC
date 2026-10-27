@@ -1,10 +1,12 @@
+> Proyecto activo: `../Cantoral`. Web y DefaultSongs ya se trasladaron allí; iniciar ambos con `../Cantoral/run.ps1`. Leer `../Cantoral/docs/CONTEXT.md`. El contenido siguiente describe principalmente el legado y contiene rutas históricas.
+
 # OpenSongTablet: guia rapida para analisis con IA
 
 Este documento resume la estructura y los puntos de entrada observados en el repositorio para evitar repetir una exploracion amplia al comenzar una tarea. Es una guia de orientacion, no una especificacion completa: confirma siempre el comportamiento en el codigo actual y actualiza este archivo cuando cambie la arquitectura.
 
 ## Resumen
 
-- Vista de letra/acordes/melodía: `shared/song-view` contiene JS/CSS empaquetados por Android y web. Android accede desde `UnifiedSongView` en interpretación; web carga la misma página `shared/song-view/index.html` en un iframe; Android la integra como vista principal para texto. Ver `docs/HOMOLOGACION_WEB_ANDROID.md` para alcance, validación y diferencias restantes.
+- Vista de letra/acordes/melodía: `../Cantoral/shared/song-view` contiene el motor canónico JS/CSS empaquetados por Android y web. Android accede desde `UnifiedSongView` en interpretación; web empaqueta la misma página `../Cantoral/shared/song-view/index.html` en un iframe; Android la integra como vista principal para texto. Ver `docs/HOMOLOGACION_WEB_ANDROID.md` para alcance, validación y diferencias restantes.
 
 
 - Correcciones/OCR Android: `songprocessing/ChordNotationCorrector` convierte ChordPro y filas OpenSong; `SongCorrections` ejecuta el lote con respaldos. `pdf/OcrChordLayout` asocia coordenadas ML Kit a ChordPro, utilizado por OCR individual y por lotes. `songmenu/SongReviewStatus` persiste revisado y consulta observaciones de `DefaultSongs/revision-cantos.json`; ese JSON no se instala como canto. Ver `docs/ANDROID_CORRECCIONES_OCR.md` para uso y diferencias con el OCR Python de OpenSongWeb.
@@ -14,6 +16,10 @@ Este documento resume la estructura y los puntos de entrada observados en el rep
 - El paquete Android principal es `com.garethevans.church.opensongtablet`.
 - La UI movil usa Android Views, Activities/Fragments, View Binding y Navigation Component; no asumir que sigue MVVM de forma uniforme. La actividad principal implementa coordinacion transversal y muchas funciones.
 - Directorios `core`, `shared` y `web` pueden aparecer con salidas o restos de builds en el workspace, pero no estan incluidos como proyectos en `settings.gradle`. No tratarlos como modulos activos sin verificar cambios recientes.
+
+- Sincronización QR por Wi-Fi: Android `librarysync/LibrarySyncDialog` edita copias ChordPro y `LibrarySyncClient` conserva base/borrador y espejo `Songs/WebSync`; `LibraryQrScannerActivity` usa ZXing y la cámara. Web `sync/` aporta vinculación temporal, credenciales por dispositivo, manifiesto, propuestas y aprobación explícita con control de revisión; `sync.js` es la bandeja de revisión. La administración queda limitada a localhost mientras la API de dispositivos permite LAN autenticada. Ver `docs/SINCRONIZACION_QR.md` para uso, persistencia, límites y validación.
+
+- Nueva app independiente: `../Cantoral` tiene su propio repositorio, Gradle y paquete `app.cantoral.android`; Kotlin + Compose, módulos core/features y renderizador compartido. Abrir esa carpeta para cambios en la app nueva. Esta carpeta mantiene OpenSongTablet y OpenSongWeb mientras se migra. No duplicar el motor ni reintroducir convertidores XML en Cantoral. Ver `../Cantoral/README.md`.
 
 ## Mapa del repositorio
 

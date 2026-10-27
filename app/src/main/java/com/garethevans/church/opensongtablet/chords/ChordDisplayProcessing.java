@@ -216,7 +216,16 @@ public class ChordDisplayProcessing {
         // Now split the chords individually and add unique ones to an array
         // Encode them for fixing later $..$
         chordsInSong = new ArrayList<>();
-        String[] allChords = everyChord.split(" ");
+        // Split validated progressions for individual chord diagrams and identification.
+        java.util.regex.Matcher groups = java.util.regex.Pattern.compile("\\S+(?:\\s*[-–—]\\s*\\S+)+").matcher(everyChord);
+        StringBuffer individual = new StringBuffer();
+        while (groups.find()) {
+            String[] sequence = com.garethevans.church.opensongtablet.songprocessing.ChordNotationCorrector.sequence(groups.group());
+            groups.appendReplacement(individual, java.util.regex.Matcher.quoteReplacement(
+                    sequence.length > 1 ? String.join(" ", sequence) : groups.group()));
+        }
+        groups.appendTail(individual);
+        String[] allChords = individual.toString().split(" ");
         for (String chord:allChords) {
             if (!chord.trim().isEmpty() && !chordsInSong.contains("$"+chord+"$")) {
                 chordsInSong.add("$"+chord+"$");

@@ -43,6 +43,9 @@ public class SongsDatabase extends SQLiteOpenHelper {
 
                 // 3. Clear from system database directory as well
                 context.deleteDatabase(SQLite.DATABASE_NAME);
+                // Acknowledge after migration; this cannot depend on a version popup being shown.
+                mainActivityInterface.getPreferences().setMyPreferenceInt("lastUsedVersion",
+                        mainActivityInterface.getVersionNumber().getVersionCode());
 
             } catch (Exception e) {
                 Log.e(TAG, "Error during database reset", e);

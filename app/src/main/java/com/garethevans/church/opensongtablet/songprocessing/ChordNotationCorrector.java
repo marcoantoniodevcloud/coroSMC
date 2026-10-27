@@ -11,9 +11,29 @@ public final class ChordNotationCorrector {
     private static final Pattern DIRECTIVE = Pattern.compile("(?i)(\\{(?:key|define|chord):[ \\t]*)([^}\\s]+)");
     private ChordNotationCorrector() { }
 
-    public static boolean isChord(String text) { return CHORD.matcher(text.trim()).matches(); }
+    private static final Pattern SEPARATOR = Pattern.compile("(?i)\\s*[-–—]\\s*(?=Do|Re|Mi|Fa|Sol|La|Si|[A-G])");
+
+    /** A separator is structural only if every member is a complete chord. */
+    public static String[] sequence(String text) {
+        String[] parts = SEPARATOR.split(text.trim(), -1);
+        if (parts.length < 2) return new String[0];
+        for (String part : parts) if (!CHORD.matcher(part.trim()).matches()) return new String[0];
+        return parts;
+    }
+
+    public static boolean isChord(String text) {
+        return CHORD.matcher(text.trim()).matches() || sequence(text).length > 1;
+    }
 
     public static String chord(String text) {
+        String[] parts = sequence(text);
+        if (parts.length > 1) {
+            Matcher separators = SEPARATOR.matcher(text.trim());
+            StringBuilder out = new StringBuilder(chord(parts[0]));
+            int i = 1;
+            while (separators.find()) out.append(separators.group()).append(chord(parts[i++]));
+            return out.toString();
+        }
         Matcher m = CHORD.matcher(text.trim());
         if (!m.matches()) return text;
         return root(m.group(1)) + accidental(m.group(2)) + m.group(3)

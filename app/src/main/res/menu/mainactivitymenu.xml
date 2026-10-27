@@ -28,4 +28,6 @@
         android:icon="@drawable/settings_outline"
         app:showAsAction="always"
         android:orderInCategory="4"/>
+    <item android:id="@+id/library_sync_menu_item" android:title="@string/library_sync"
+        android:orderInCategory="5" app:showAsAction="never" />
 </menu>

@@ -28,26 +28,19 @@ public class DefaultSongsInstaller {
     public String installIfNeeded() {
         int installedVersion = mainActivityInterface.getPreferences()
                 .getMyPreferenceInt("defaultSongsVersionCode", 0);
-        if (installedVersion >= BuildConfig.VERSION_CODE) {
+        // Bundled songs seed an empty library once. App upgrades never synchronize
+        // or remove the user's source files.
+        if (installedVersion > 0) {
             return null;
         }
 
         try {
+            if (!mainActivityInterface.getStorageAccess().listSongs(true).isEmpty()) {
+                mainActivityInterface.getPreferences().setMyPreferenceInt(
+                        "defaultSongsVersionCode", BuildConfig.VERSION_CODE);
+                return null;
+            }
             copyDirectory(ASSET_ROOT, "");
-            Uri oldBenditoLyrics = mainActivityInterface.getStorageAccess()
-                    .getUriForItem("Songs", "adoracion", "Bendito bendito.xml");
-            if (mainActivityInterface.getStorageAccess().uriExists(oldBenditoLyrics) &&
-                    !mainActivityInterface.getStorageAccess().deleteFile(oldBenditoLyrics)) {
-                throw new IOException("Unable to replace the old Bendito bendito XML companion");
-            }
-            if (!mainActivityInterface.getStorageAccess().deleteFolder("Songs", "OpenSongLibrary")) {
-                throw new IOException("Unable to remove old Songs/OpenSongLibrary folder");
-            }
-            String currentFolder = mainActivityInterface.getSong().getFolder();
-            if (currentFolder != null && (currentFolder.equals("OpenSongLibrary") ||
-                    currentFolder.startsWith("OpenSongLibrary/"))) {
-                mainActivityInterface.getPreferences().setMyPreferenceBoolean("songLoadSuccess", false);
-            }
             mainActivityInterface.getPreferences().setMyPreferenceInt(
                     "defaultSongsVersionCode", BuildConfig.VERSION_CODE);
             installed = true;
@@ -84,6 +77,8 @@ public class DefaultSongsInstaller {
         int separator = destinationPath.lastIndexOf('/');
         String folder = separator < 0 ? "" : destinationPath.substring(0, separator);
         String filename = separator < 0 ? destinationPath : destinationPath.substring(separator + 1);
+        Uri existing = mainActivityInterface.getStorageAccess().getUriForItem("Songs", folder, filename);
+        if (mainActivityInterface.getStorageAccess().uriExists(existing)) return;
         Uri destination = mainActivityInterface.getStorageAccess()
                 .makeSureFileIsRegistered("Songs", folder, filename, true);
         if (destination == null) {

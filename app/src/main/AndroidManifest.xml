@@ -160,6 +160,7 @@
             android:stateNotNeeded="true"
         -->
 
+        <activity android:name=".librarysync.LibraryQrScannerActivity" android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

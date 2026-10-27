@@ -356,6 +356,20 @@ public class Transpose {
                 sb.append("\n");
                 if (line.startsWith(".")) {
                     line = line.replaceFirst("."," ");
+                    // Standard songs may contain imported solfege progressions.
+                    // Normalize only complete groups; the existing engine shifts every root/bass.
+                    if (oldChordFormat == 1) {
+                        java.util.regex.Matcher groups = java.util.regex.Pattern.compile("\\S+(?:\\s*[-–—]\\s*\\S+)+").matcher(line);
+                        StringBuffer normalized = new StringBuffer();
+                        while (groups.find()) {
+                            String value = groups.group();
+                            if (com.garethevans.church.opensongtablet.songprocessing.ChordNotationCorrector.sequence(value).length > 1)
+                                value = com.garethevans.church.opensongtablet.songprocessing.ChordNotationCorrector.chord(value);
+                            groups.appendReplacement(normalized, java.util.regex.Matcher.quoteReplacement(value));
+                        }
+                        groups.appendTail(normalized);
+                        line = normalized.toString();
+                    }
                     switch (oldChordFormat) {
                         case 2:
                             for (int z = 0; z < fromChords2.length; z++) {
